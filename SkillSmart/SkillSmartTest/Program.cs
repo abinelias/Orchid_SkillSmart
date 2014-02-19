@@ -17,7 +17,7 @@ namespace SkillSmartTest
             if (jobSeekerList.Count >= 0)
             {
 
-                if (jobSeekerList.Count > 1)
+                if (jobSeekerList.Count > 0)
                 {
                     var jobSeeker = controller.Get(jobSeekerList[0].Id.ToString());
 
@@ -28,9 +28,9 @@ namespace SkillSmartTest
                     }
                 }
                 JobSeeker jobSeekerNew = new JobSeeker();
-                jobSeekerNew.FirstName = "Regi";
-                jobSeekerNew.LastName = "Mani";
-                jobSeekerNew.Email = "regi.mani@informais.com";
+                jobSeekerNew.FirstName = "Test";
+                jobSeekerNew.LastName = "User";
+                jobSeekerNew.Email = "test@orchid-software.com";
                 jobSeekerNew.Birthday = DateTime.Now.ToString();
                 jobSeekerNew.UserName = "Test";
                 jobSeekerNew.Password = "Test";
