@@ -1,0 +1,10 @@
+D:\Projects\SkillSmart\SkillSmart\SkillSmartDA\bin\Debug\SkillSmartMongoDA.dll
+D:\Projects\SkillSmart\SkillSmart\SkillSmartDA\bin\Debug\SkillSmartMongoDA.pdb
+D:\Projects\SkillSmart\SkillSmart\SkillSmartDA\bin\Debug\AutoMapper.dll
+D:\Projects\SkillSmart\SkillSmart\SkillSmartDA\bin\Debug\MongoDB.Bson.dll
+D:\Projects\SkillSmart\SkillSmart\SkillSmartDA\bin\Debug\MongoDB.Driver.dll
+D:\Projects\SkillSmart\SkillSmart\SkillSmartDA\bin\Debug\SkillSmart.dll
+D:\Projects\SkillSmart\SkillSmart\SkillSmartDA\bin\Debug\SkillSmart.pdb
+D:\Projects\SkillSmart\SkillSmart\SkillSmartDA\obj\Debug\SkillSmartMongoDA.csprojResolveAssemblyReference.cache
+D:\Projects\SkillSmart\SkillSmart\SkillSmartDA\obj\Debug\SkillSmartMongoDA.dll
+D:\Projects\SkillSmart\SkillSmart\SkillSmartDA\obj\Debug\SkillSmartMongoDA.pdb

@@ -1,0 +1,8 @@
+D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\SkillSmartSqlDA.dll
+D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\SkillSmartSqlDA.pdb
+D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\SkillSmart.dll
+D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\AutoMapper.dll
+D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\SkillSmart.pdb
+D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\obj\Debug\SkillSmartSqlDA.csprojResolveAssemblyReference.cache
+D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\obj\Debug\SkillSmartSqlDA.dll
+D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\obj\Debug\SkillSmartSqlDA.pdb
