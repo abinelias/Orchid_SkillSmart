@@ -17,7 +17,7 @@ namespace SkillSmartTest
             if (jobSeekerList.Count >= 0)
             {
 
-                if (jobSeekerList.Count > 0)
+                if (jobSeekerList.Count > 1)
                 {
                     var jobSeeker = controller.Get(jobSeekerList[0].Id.ToString());
 
