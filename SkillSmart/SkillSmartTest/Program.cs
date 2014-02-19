@@ -32,7 +32,7 @@ namespace SkillSmartTest
                 jobSeekerNew.LastName = "User";
                 jobSeekerNew.Email = "test@orchid-software.com";
                 jobSeekerNew.Birthday = DateTime.Now.ToString();
-                jobSeekerNew.UserName = "Test";
+                jobSeekerNew.UserName = "test";
                 jobSeekerNew.Password = "user";
 
                 controller.Post(jobSeekerNew);
