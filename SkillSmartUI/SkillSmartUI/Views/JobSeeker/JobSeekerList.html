@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>JobSeeker List</title>
+    <link rel="stylesheet" href="../../Content/common.css" />
+    <script src="../../Scripts/jquery-1.6.2.min.js"></script>
+    <script src="../../Scripts/knockout-3.0.0.js"></script>
+    <script src="../../Scripts/JobSeekerList.js?a=1"></script>
+    <script src="../../Scripts/knockout.validation.js"></script>
+    <script src="../../Scripts/knockout.mapping-latest.js"></script>
+</head>
+<body>
+     <div id="outer_container" >       
+        <div id="banner_container"><h2>SkillSmart</h2>
+            <div><a href="JobSeekerRegistration.html"><font color="white">JobSeeker Registration</font></a>    <a href="JobSeekerList.html"><font color="white">JobSeeker List</font></a></div>
+        </div>           
+        <div id="form_div" >
+
+            <ul>
+                <li style="width:830px;float:left;">
+                    <ul style="width:830px;float:left;">
+                        <li style="width:120px;float:left;"><b>FirstName</b></li>
+                        <li style="width:130px;float:left;"><b>LastName</b></li>
+                        <li style="width:180px;float:left;"><b>Email</b></li>
+                        <li style="width:150px;float:left;"><b>Birthday</b></li>                        
+                        <li style="width:150px;float:left;"><b>Action</b></li>
+                    </ul>
+                </li>
+                <li class="li_style">
+                    <ul style="width:830px;float:left;"  data-bind="foreach: persons">
+                        <li style="width:120px;float:left;" data-bind="text: FirstName"></li>
+                        <li style="width:130px;float:left;" data-bind="text: LastName"></li>
+                        <li style="width:180px;float:left;" data-bind="text: Email"></li>
+                        <li style="width:150px;float:left;" data-bind="text: Birthday"></li>
+                        <li style="width:150px;float:left;"><div class="test">Edit</div></li>
+                    </ul>
+                </li>
+            </ul>                       
+        </div>
+    </div>
+</body>
+</html>

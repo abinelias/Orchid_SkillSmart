@@ -1,0 +1,5 @@
+C:\Users\Reji\Documents\Visual Studio 2012\Projects\SkillSmartUI\SkillSmartUI\bin\SkillSmartUI.dll
+C:\Users\Reji\Documents\Visual Studio 2012\Projects\SkillSmartUI\SkillSmartUI\bin\SkillSmartUI.pdb
+C:\Users\Reji\Documents\Visual Studio 2012\Projects\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.dll
+C:\Users\Reji\Documents\Visual Studio 2012\Projects\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.pdb
+C:\Users\Reji\Documents\Visual Studio 2012\Projects\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.csprojResolveAssemblyReference.cache
