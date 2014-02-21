@@ -23,7 +23,8 @@
                         <li style="width:130px;float:left;"><b>LastName</b></li>
                         <li style="width:180px;float:left;"><b>Email</b></li>
                         <li style="width:150px;float:left;"><b>Birthday</b></li>                        
-                        <li style="width:150px;float:left;"><b>Action</b></li>
+                        <li style="width:75px;float:left;"><b>Edit</b></li>
+                        <li style="width:75px;float:left;"><b>Delete</b></li>
                     </ul>
                 </li>
                 <li class="li_style">
@@ -32,7 +33,8 @@
                         <li style="width:130px;float:left;" data-bind="text: LastName"></li>
                         <li style="width:180px;float:left;" data-bind="text: Email"></li>
                         <li style="width:150px;float:left;" data-bind="text: Birthday"></li>
-                        <li style="width:150px;float:left;"><div class="test">Edit</div></li>
+                        <li style="width:75px;float:left;"><a data-bind="attr: { href: EditUrl }">Edit</a></li>
+                        <li style="width:75px;float:left;"><a data-bind="attr: { href: DeleteUrl }">Delete</a></li>
                     </ul>
                 </li>
             </ul>                       

@@ -6,3 +6,11 @@ D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\SkillSmart.pdb
 D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\obj\Debug\SkillSmartSqlDA.csprojResolveAssemblyReference.cache
 D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\obj\Debug\SkillSmartSqlDA.dll
 D:\Projects\SkillSmart\SkillSmart\SkillSmartSqlDA\obj\Debug\SkillSmartSqlDA.pdb
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\SkillSmartSqlDA.dll
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\SkillSmartSqlDA.pdb
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\SkillSmart.dll
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\AutoMapper.dll
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartSqlDA\bin\Debug\SkillSmart.pdb
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartSqlDA\obj\Debug\SkillSmartSqlDA.csprojResolveAssemblyReference.cache
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartSqlDA\obj\Debug\SkillSmartSqlDA.dll
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartSqlDA\obj\Debug\SkillSmartSqlDA.pdb

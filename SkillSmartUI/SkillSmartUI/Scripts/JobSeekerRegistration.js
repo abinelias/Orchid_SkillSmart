@@ -52,9 +52,38 @@
         {
             if (that.employee.validationModel.isValid())
             {
-                var jsonobject = ko.toJSON(that.employee);
-                alert(jsonobject.length);
-                window.location = "JobSeekerList.html"
+                var jsonObject = ko.toJS(that.employee);
+                var dataObj;
+
+                var jobSeekerObj = {}
+                jobSeekerObj.FirstName = jsonObject.firstname;
+                jobSeekerObj.LastName = jsonObject.lastname;
+                jobSeekerObj.Email = jsonObject.email;
+                jobSeekerObj.BirthDay = jsonObject.birthday;
+                jobSeekerObj.UserName = jsonObject.username;
+                jobSeekerObj.Password = jsonObject.password;
+
+                dataObj = JSON.stringify(jsonObject);
+
+                var rootUrl = 'http://localhost:2043';
+                var apiUrl = '/api/JobSeeker/';
+
+                alert(dataObj);
+
+                $.ajax({
+                    url: rootUrl + apiUrl,
+                    type: "POST",
+                    data: dataObj,
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    success: function (data) {
+                        alert('Job Seeker has been added.');
+                        window.location = "JobSeekerList.html"
+                    },
+                    error: function (xhr, error) {
+                        alert('Error :' + error);
+                    }
+                });
             }
             else
             {

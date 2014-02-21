@@ -34,6 +34,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                jobSeekerObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeeker().Update(jobSeekerObj);
             }
             catch (Exception exp){}

@@ -3,3 +3,8 @@ C:\Users\Reji\Documents\Visual Studio 2012\Projects\SkillSmartUI\SkillSmartUI\bi
 C:\Users\Reji\Documents\Visual Studio 2012\Projects\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.dll
 C:\Users\Reji\Documents\Visual Studio 2012\Projects\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.pdb
 C:\Users\Reji\Documents\Visual Studio 2012\Projects\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.csprojResolveAssemblyReference.cache
+D:\Projects\Orchid_SkillSmart\SkillSmartUI\SkillSmartUI\bin\SkillSmartUI.dll
+D:\Projects\Orchid_SkillSmart\SkillSmartUI\SkillSmartUI\bin\SkillSmartUI.pdb
+D:\Projects\Orchid_SkillSmart\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.csprojResolveAssemblyReference.cache
+D:\Projects\Orchid_SkillSmart\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.dll
+D:\Projects\Orchid_SkillSmart\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.pdb
