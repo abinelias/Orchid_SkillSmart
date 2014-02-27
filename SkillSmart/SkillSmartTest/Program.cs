@@ -11,39 +11,44 @@ namespace SkillSmartTest
     {
         public static void Main(string[] args)
         {
-            JobSeekerController controller = new JobSeekerController();
+            ScholarshipController controller = new ScholarshipController();
 
-           List<JobSeeker> jobSeekerList = controller.GetAll().ToList<JobSeeker>();
-            if (jobSeekerList.Count >= 0)
-            {
+            //List<Education> jobSeekerList = controller.GetAllEducationById().ToList<Education>();
+            /*  if (jobSeekerList.Count >= 0)
+              {
 
-                if (jobSeekerList.Count > 0)
-                {
-                    var jobSeeker = controller.Get(jobSeekerList[0].Id.ToString());
+                  if (jobSeekerList.Count > 0)
+                  {*/
+                    // var jobSeeker = controller.Get(jobSeekerList[0].Id.ToString());
 
-                    if (jobSeeker != null)
-                    {
-                        jobSeeker.Birthday = DateTime.Now.ToString();
-                        controller.Put(jobSeeker.Id.ToString(), jobSeeker);
-                    }
-                }
-                JobSeeker jobSeekerNew = new JobSeeker();
-                jobSeekerNew.FirstName = "Test";
-                jobSeekerNew.LastName = "User";
-                jobSeekerNew.Email = "test@orchid-software.com";
-                jobSeekerNew.Birthday = DateTime.Now.ToString();
-                jobSeekerNew.UserName = "test";
-                jobSeekerNew.Password = "user";
+            /* if (jobSeeker != null)
+             {
+                 jobSeeker.Birthday = DateTime.Now.ToString();
+                 controller.Put(jobSeeker.Id.ToString(), jobSeeker);
+             }
 
-                controller.Post(jobSeekerNew);
+            Scholarship AddinInfo = new Scholarship();
+            AddinInfo.JobSeekerId = "8f500a04-22f0-40fa-b4ce-c24c3813d3d2";
+            AddinInfo.InstitutionName = "Saintgits";
+            AddinInfo.DegreeId = "Engineering";
+            AddinInfo.StartDate = "27TH Jun 2011";
+            AddinInfo.EndDate = "30Th Jun 2013";
+            AddinInfo.MajorFocus = "Computer";
+            AddinInfo.MinorFocus = "Economics";
+            AddinInfo.CurrentlyEnrolled = "No";
+            AddinInfo.GPA = "68.4";
 
-                List<JobSeeker> jobSeekerList2 = controller.GetAll().ToList<JobSeeker>();
-                if (jobSeekerList2.Count > 1)
+            controller.Post(AddinInfo);
+         }*/
+
+
+            //List<LookupDto> jobSeekerList2 = controller.GetAll("State").ToList<LookupDto>();
+                /*if (jobSeekerList2.Count > 1)
                 {
                    controller.Delete(jobSeekerList2[1].Id.ToString());
-                }
+                }*/
             }
 
         }
-    }
+    
 }

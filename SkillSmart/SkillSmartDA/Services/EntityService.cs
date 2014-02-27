@@ -28,6 +28,12 @@ namespace SkillSmartMongoDA.Services
             MongoCollection = mongoDatabase.GetCollection<T>(typeof(T).Name + "s");
         }
 
+        protected EntityService(MongoDatabase mongoDb, string collectionName)
+        {
+            this.mongoDatabase = mongoDb;
+            MongoCollection = mongoDatabase.GetCollection<T>(collectionName);
+        }
+
         public virtual T GetById(string id)
         {
             var entityQuery = Query<T>.EQ(e => e.Id, new Guid(id));

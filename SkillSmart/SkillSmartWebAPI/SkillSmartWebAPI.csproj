@@ -81,7 +81,18 @@
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="App_Start\LoggingHandler.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdditionalInformationController.cs" />
+    <Compile Include="Controllers\CertificationController.cs" />
+    <Compile Include="Controllers\EducationController.cs" />
+    <Compile Include="Controllers\ExtraCurricularActivityController.cs" />
+    <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\LookupController.cs" />
     <Compile Include="Controllers\JobSeekerController.cs" />
+    <Compile Include="Controllers\OverviewController.cs" />
+    <Compile Include="Controllers\ScholarshipController.cs" />
+    <Compile Include="Controllers\SpecialityCourseController.cs" />
+    <Compile Include="Controllers\TrainingCourseController.cs" />
+    <Compile Include="Controllers\WorkHistoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
