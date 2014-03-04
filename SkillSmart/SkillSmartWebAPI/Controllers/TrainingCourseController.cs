@@ -11,40 +11,62 @@ namespace SkillSmartWebAPI.Controllers
     public class TrainingCourseController : ApiController
     {
 
-        public IEnumerable<TrainingCourse> GetAllLanguagesById()
+        /// <summary>
+        /// To get all training course details of the jobseeker
+        /// </summary>
+        /// <returns>list of jobseeker training course</returns>
+        public IEnumerable<TrainingCourse> GetJobSeekerTrainingCourseById()
         {
-            return ServiceFactory.GetJobSeekerTrainingCourse().GetJobSeekerTrainingCourse("cdc83674-95f4-460c-95e0-6ae04174f75e");
+            return ServiceFactory.GetJobSeekerTrainingCourse().GetJobSeekerTrainingCourseById("cdc83674-95f4-460c-95e0-6ae04174f75e");
         }
 
+        /// <summary>
+        /// To get details of a particular training course of the jobseekr
+        /// </summary>
+        /// <param name="id">TrainingCourseId</param>
+        /// <returns>details of a particular course</returns>
         public TrainingCourse Get(string id)
         {
             return ServiceFactory.GetJobSeekerTrainingCourse().GetById(id);
         }
 
-        public void Post(TrainingCourse jobSeekerObj)
+        /// <summary>
+        /// To create a new training course
+        /// </summary>
+        /// <param name="jobSeekerTrainingCourseObj">trainingcourseobject</param>
+        public void Post(TrainingCourse jobSeekerTrainingCourseObj)
         {
             try
             {
-                ServiceFactory.GetJobSeekerTrainingCourse().Create(jobSeekerObj);
+                ServiceFactory.GetJobSeekerTrainingCourse().Create(jobSeekerTrainingCourseObj);
             }
             catch (Exception ex){}
         }
 
-        public void Put(string id, TrainingCourse jobSeekerObj)
+        /// <summary>
+        /// To update training course service
+        /// </summary>
+        /// <param name="id">training course id</param>
+        /// <param name="jobSeekerTrainingCourseObj">training course object</param>
+        public void Put(string id, TrainingCourse jobSeekerTrainingCourseObj)
         {
             try
             {
-                jobSeekerObj.Id = new Guid(id);
-                ServiceFactory.GetJobSeekerTrainingCourse().Update(jobSeekerObj);
+                jobSeekerTrainingCourseObj.Id = new Guid(id);
+                ServiceFactory.GetJobSeekerTrainingCourse().Update(jobSeekerTrainingCourseObj);
             }
             catch (Exception exp){}
         }
 
+        /// <summary>
+        /// To delete a particular training course of jobseeker
+        /// </summary>
+        /// <param name="id">training course id</param>
         public void Delete(string id)
         {
-            ITrainingCourseService<TrainingCourse> jobSeekerService = ServiceFactory.GetJobSeekerTrainingCourse();
-            var jobSeeker = jobSeekerService.GetById(id);
-            jobSeekerService.Delete(jobSeeker);  
+            ITrainingCourseService<TrainingCourse> jobSeekerTrainingCourseService = ServiceFactory.GetJobSeekerTrainingCourse();
+            var jobSeekerTrainingCourse = jobSeekerTrainingCourseService.GetById(id);
+            jobSeekerTrainingCourseService.Delete(jobSeekerTrainingCourse);  
         }
     }
 }

@@ -5,18 +5,33 @@ namespace SkillSmartMongoDA.Entities
     [BsonIgnoreExtraElements]
     public class Scholarship : MongoEntity
     {
+        /// <summary>
+        /// EducationId
+        /// </summary>
         [BsonElement("EducationId")]
         public string EducationId { get; set; }
 
+        /// <summary>
+        /// ScholarshipCheck
+        /// </summary>
         [BsonElement("Scholarship")]
         public string ScholarshipCheck { get; set; }
 
+        /// <summary>
+        /// Title
+        /// </summary>
         [BsonElement("Title")]
         public string Title { get; set; }
 
+        /// <summary>
+        /// ScholarshipDescription
+        /// </summary>
         [BsonElement("ScholarshipDescription")]
         public string ScholarshipDescription { get; set; }
 
+        /// <summary>
+        /// Value
+        /// </summary>
         [BsonElement("Value")]
         public string Value { get; set; }
 

@@ -11,31 +11,44 @@ namespace SkillSmartWebAPI.Controllers
 {
     public class AdditionalInformationController : ApiController
     {
+        /// <summary>
+        /// Get a jobseekers additional information by id
+        /// </summary>
+        /// <param name="id">jobseeker id</param>
+        /// <returns>jobseeker additional information object</returns>
         public AdditionalInformation Get(string id)
         {
             return ServiceFactory.GetJobSeekerAdditionalInformation().GetById(id);
         }
 
-        public void Post(AdditionalInformation jobSeekerObj)
+        /// <summary>
+        /// To insert jobseeker additional information
+        /// </summary>
+        /// <param name="jobSeekerObj">Additional information object</param>
+        public void Post(AdditionalInformation jobSeekerObjAdditionalInfo)
         {
             try
             {
-                ServiceFactory.GetJobSeekerAdditionalInformation().Create(jobSeekerObj);
+                ServiceFactory.GetJobSeekerAdditionalInformation().Create(jobSeekerObjAdditionalInfo);
             }
             catch (Exception ex) { }
         }
 
-        public void Put(string id, AdditionalInformation jobSeekerObj)
+        /// <summary>
+        /// To udate jobseekers additional information
+        /// </summary>
+        /// <param name="id">Additional Information id</param>
+        /// <param name="jobSeekerObj">jobseeker object</param>
+        public void Put(string id, AdditionalInformation jobSeekerObjAdditionalInfo)
         {
             try
             {
-                jobSeekerObj.Id = new Guid(id);
-                ServiceFactory.GetJobSeekerAdditionalInformation().Update(jobSeekerObj);
+                jobSeekerObjAdditionalInfo.Id = new Guid(id);
+                ServiceFactory.GetJobSeekerAdditionalInformation().Update(jobSeekerObjAdditionalInfo);
             }
             catch (Exception exp) { }
         }
 
-        
 
         public HttpResponseMessage Options()
         {

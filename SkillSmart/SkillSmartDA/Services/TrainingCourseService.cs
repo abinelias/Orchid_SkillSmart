@@ -12,7 +12,12 @@ namespace SkillSmartMongoDA.Services
             : base(mongoDatabase)
         { }
 
-        public IEnumerable<SkillSmart.Dto.TrainingCourse> GetJobSeekerTrainingCourse(string id)
+        /// <summary>
+        /// Function to get all training course of the jobseeker
+        /// </summary>
+        /// <param name="id">JobSeekerId</param>
+        /// <returns>TrainingCourseList</returns>
+        public IEnumerable<SkillSmart.Dto.TrainingCourse> GetJobSeekerTrainingCourseById(string id)
         {
             var jobSeekerTrainingCourseList = this.MongoCollection.FindAllAs<TrainingCourse>();
 
@@ -27,13 +32,22 @@ namespace SkillSmartMongoDA.Services
             }
             return jobSeekerTrainingCourse;
         }
-
+        
+        /// <summary>
+        /// Function to create a new training course of jobseeker
+        /// </summary>
+        /// <param name="entity">TrainingCourseObject</param>
         public void Create(SkillSmart.Dto.TrainingCourse entity)
         {
             TrainingCourse seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.TrainingCourse, SkillSmartMongoDA.Entities.TrainingCourse>(entity);
             base.Create(seeker);
         }
 
+        /// <summary>
+        /// Function to get details of a particular jobseeker training course
+        /// </summary>
+        /// <param name="id">TrainingCourseId</param>
+        /// <returns></returns>
         public new SkillSmart.Dto.TrainingCourse GetById(string id)
         {
             TrainingCourse dbObj = base.GetById(id);
@@ -41,12 +55,20 @@ namespace SkillSmartMongoDA.Services
             return seeker;
         }
 
+        /// <summary>
+        /// Function to Update training course
+        /// </summary>
+        /// <param name="entity">TrainingCourseObject</param>
         public void Update(SkillSmart.Dto.TrainingCourse entity)
         {
             TrainingCourse seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.TrainingCourse, SkillSmartMongoDA.Entities.TrainingCourse>(entity);
             base.Update(seeker);
         }
 
+        /// <summary>
+        /// Function to delete training course
+        /// </summary>
+        /// <param name="entity">TrainingCourseObject</param>
         public void Delete(SkillSmart.Dto.TrainingCourse entity)
         {
             TrainingCourse seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.TrainingCourse, SkillSmartMongoDA.Entities.TrainingCourse>(entity);

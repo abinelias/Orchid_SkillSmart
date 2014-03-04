@@ -58,18 +58,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\common.css" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\JobSeekerEdit.js" />
-    <Content Include="Scripts\JobSeekerList.js" />
-    <Content Include="Scripts\JobSeekerRegistration.js" />
-    <Content Include="Scripts\jquery-1.6.2.min.js" />
-    <Content Include="Scripts\knockout-2.2.0.debug.js" />
-    <Content Include="Scripts\knockout-2.2.0.js" />
-    <Content Include="Scripts\knockout-3.0.0.js" />
-    <Content Include="Scripts\knockout.mapping-latest.js" />
-    <Content Include="Scripts\knockout.validation.debug.js" />
-    <Content Include="Scripts\knockout.validation.js" />
-    <Content Include="Scripts\knoclout.mapping-latest.debug.js" />
+    <Content Include="Scripts\application.js" />
+    <Content Include="Scripts\vendor\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\vendor\jquery-ui.js" />
+    <Content Include="Scripts\vendor\jquery.viewloader.js" />
+    <Content Include="Scripts\vendor\knockout-3.0.0.js" />
+    <Content Include="Scripts\vendor\knockout.mapping-latest.js" />
+    <Content Include="Scripts\vendor\knockout.validation.debug.js" />
+    <Content Include="Scripts\vendor\knockout.validation.js" />
+    <Content Include="Scripts\vendor\knoclout.mapping-latest.debug.js" />
+    <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekeradditionalinformation.js" />
+    <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekeredit.js" />
+    <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekerlist.js" />
+    <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekerregistration.js" />
+    <Content Include="Scripts\viewmodel\skillsmart.model.jobseekeradditionalinformation.js" />
+    <Content Include="Scripts\viewmodel\skillsmart.model.jobseekeredit.js" />
+    <Content Include="Scripts\viewmodel\skillsmart.model.jobseekerregistration.js" />
+    <Content Include="Views\JobSeeker\JobSeekerAdditionalInformation.html" />
     <Content Include="Views\JobSeeker\JobSeekerEdit.html" />
     <Content Include="Views\JobSeeker\JobSeekerList.html" />
     <Content Include="Views\JobSeeker\JobSeekerRegistration.html" />

@@ -13,6 +13,11 @@ namespace SkillSmartMongoDA.Services
             : base(mongoDatabase)
         { }
 
+        /// <summary>
+        /// Function to get all extra curricular activity
+        /// </summary>
+        /// <param name="id">EducationId</param>
+        /// <returns>ExtraCurricularActivity List</returns>
         public IEnumerable<SkillSmart.Dto.ExtraCurricularActivity> GetAllExtraCurricularActivityById(string id)
         {
             var jobSeekerExtraCurricularActivityList = this.MongoCollection.FindAllAs<ExtraCurricularActivity>();
@@ -29,12 +34,21 @@ namespace SkillSmartMongoDA.Services
             return jobSeekerExtraCurricularActivity;
         }
 
+        /// <summary>
+        ///  Function to get all extra curricular activity
+        /// </summary>
+        /// <param name="entity">ExtraCurricularActivity Object</param>
         public void Create(SkillSmart.Dto.ExtraCurricularActivity entity)
         {
             ExtraCurricularActivity seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.ExtraCurricularActivity, SkillSmartMongoDA.Entities.ExtraCurricularActivity>(entity);
             base.Create(seeker);
         }
 
+        /// <summary>
+        /// Function to get an ExtraCurricular Activity details
+        /// </summary>
+        /// <param name="id">ExtraCurricularActivityId</param>
+        /// <returns>ExtraCurricularActivity Object</returns>
         public new SkillSmart.Dto.ExtraCurricularActivity GetById(string id)
         {
             ExtraCurricularActivity dbObj = base.GetById(id);
@@ -42,12 +56,20 @@ namespace SkillSmartMongoDA.Services
             return seeker;
         }
 
+        /// <summary>
+        ///  Function to Update an extra curricular activity
+        /// </summary>
+        /// <param name="entity">ExtraCurricularActivity Object</param>
         public void Update(SkillSmart.Dto.ExtraCurricularActivity entity)
         {
             ExtraCurricularActivity seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.ExtraCurricularActivity, SkillSmartMongoDA.Entities.ExtraCurricularActivity>(entity);
             base.Update(seeker);         
         }
 
+        /// <summary>
+        ///  Function to Delete an extra curricular activity
+        /// </summary>
+        /// <param name="entity">ExtraCurricularActivity Object</param>
         public void Delete(SkillSmart.Dto.ExtraCurricularActivity entity)
         {
             ExtraCurricularActivity seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.ExtraCurricularActivity, SkillSmartMongoDA.Entities.ExtraCurricularActivity>(entity);

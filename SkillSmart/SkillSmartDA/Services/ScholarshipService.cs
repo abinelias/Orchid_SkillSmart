@@ -13,6 +13,11 @@ namespace SkillSmartMongoDA.Services
             : base(mongoDatabase)
         { }
 
+        /// <summary>
+        /// Function to get all scholoaship
+        /// </summary>
+        /// <param name="id">EducationId</param>
+        /// <returns>Scholarship Object</returns>
         public IEnumerable<SkillSmart.Dto.Scholarship> GetAllScholarshipById(string id)
         {
             var jobSeekerScholarshipList = this.MongoCollection.FindAllAs<Scholarship>();
@@ -29,12 +34,21 @@ namespace SkillSmartMongoDA.Services
             return jobSeekerScholarship;
         }
 
+        /// <summary>
+        /// Function to create a scholoaship
+        /// </summary>
+        /// <param name="entity">Scholarship Object</param>
         public void Create(SkillSmart.Dto.Scholarship entity)
         {
             Scholarship seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Scholarship, SkillSmartMongoDA.Entities.Scholarship>(entity);
             base.Create(seeker);
         }
 
+        /// <summary>
+        /// Function to get a scholoaship deatils
+        /// </summary>
+        /// <param name="id">ScholarshipId</param>
+        /// <returns>Scholarship Object</returns>
         public new SkillSmart.Dto.Scholarship GetById(string id)
         {
             Scholarship dbObj = base.GetById(id);
@@ -42,12 +56,20 @@ namespace SkillSmartMongoDA.Services
             return seeker;
         }
 
+        /// <summary>
+        /// Function to Update a scholoaship
+        /// </summary>
+        /// <param name="entity">Scholarship Object</param>
         public void Update(SkillSmart.Dto.Scholarship entity)
         {
             Scholarship seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Scholarship, SkillSmartMongoDA.Entities.Scholarship>(entity);
             base.Update(seeker);         
         }
 
+        /// <summary>
+        /// Function to Delete a scholoaship
+        /// </summary>
+        /// <param name="entity">Scholarship Object</param>
         public void Delete(SkillSmart.Dto.Scholarship entity)
         {
             Scholarship seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Scholarship, SkillSmartMongoDA.Entities.Scholarship>(entity);

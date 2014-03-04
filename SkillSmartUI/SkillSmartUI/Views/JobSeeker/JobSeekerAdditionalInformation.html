@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>JobSeeker AdditionalInformation</title>
+    <link rel="stylesheet" href="/Content/common.css" />
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+    <script src="/Scripts/vendor/knockout.validation.js"></script>
+    <script src="/Scripts/viewmodel/skillsmart.model.jobseekeradditionalinformation.js"></script>
+    <script src="/Scripts/viewmediator/skillsmart.mediator.jobseekeradditionalinformation.js"></script>
+    <script>
+        $(document).ready(function () {
+            if (typeof (skillsmart) == 'undefined') skillsmart = {}
+            if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
+            if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
+
+            function InitializeApplication() {
+                $(document).viewloader({
+                    logLevel: "debug",
+                    success: function (successfulResolution) {
+                        InitializeViewMediators();
+                    },
+                    error: function (failedResolution) {
+                        alert(failedResolution);
+                    }
+                });
+            }
+            function InitializeViewMediators() {                
+
+                skillsmart.mediator.jobseekeradditionalinformation.createViewMediator();
+                skillsmart.mediator.jobseekeradditionalinformation.setupViewDataBindings();
+            }
+            InitializeApplication();
+        });
+    </script>
+</head>
+<body>
+     <div id="outer_container" >       
+        <div id="banner_container"><h2>SkillSmart</h2>
+            <div><a  href="JobSeekerRegistration.html"><font color="white">JobSeeker Registration</font></a>    <a  href="JobSeekerList.html"><font color="white">JobSeeker List</font></a>     <a href="JobSeekerAdditionalInformation.html"><font color="white">JobSeeker AdditionalInformation</font></a></div>
+        </div>           
+        <div id="form_div" >
+            <h3 align="center">JobSeeker Additional Information</h3>
+            <ul>
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li style="width:200px;float:left;"><label>Preferred Name<sup>*</sup></label></li>
+                        <li style="width:200px;float:left;"><input type="text" id="preferred-name" placeholder="Preferred Name" class="inputs"  /></li>
+                    </ul>
+                </li>
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li  style="width:200px;float:left;"><label>Address Line1<sup>*</sup></label></li>
+                        <li  style="width:200px;float:left;"><input type="text" id="address-line1" placeholder="AddressLine1" class="inputs" /></li>
+                    </ul>
+                </li>
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li  style="width:200px;float:left;"><label>Address Line2</label></li>
+                        <li  style="width:200px;float:left;"><input type="text" id="address-line2" placeholder="AddressLine2" class="inputs"  /></li>
+                    </ul>
+                </li>
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li  style="width:200px;float:left;"><label>City<sup>*</sup></label></li>
+                        <li  style="width:200px;float:left;"><input type="text" id="city" placeholder="City" class="inputs" /></li>
+                    </ul>
+                </li>
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li  style="width:200px;float:left;"><label>State<sup>*</sup></label></li>
+                        <li  style="width:200px;float:left;">
+                            <select>
+                                <option>--Select--</option>
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li  style="width:200px;float:left;"><label>Zip<sup>*</sup></label></li>
+                        <li  style="width:200px;float:left;"><input type="text" id="zip" placeholder="Zip" class="inputs" maxlength="6" /></li>
+                    </ul>
+                </li>
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li  style="width:200px;float:left;"><label>Country<sup>*</sup></label></li>
+                        <li  style="width:200px;float:left;">
+                            <select id="country">
+                                <option>--Select--</option>
+                                <option></option>
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li  style="width:200px;float:left;"><label>Citizenship<sup>*</sup></label></li>
+                        <li  style="width:200px;float:left;"><input type="text" id="citizenship" placeholder="Citizenship" class="inputs"  /></li>
+                    </ul>
+                </li>                
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li  style="width:200px;float:left;"><label>Phone Home</label></li>
+                        <li  style="width:200px;float:left;"><input type="text" id="phone-home" placeholder="Phone Home" class="inputs"  /></li>
+                    </ul>
+                </li>
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li  style="width:200px;float:left;"><label>Phone Mobile<sup>*</sup></label></li>
+                        <li  style="width:200px;float:left;"><input type="text" id="phone-mobile" placeholder="Phone Mobile" class="inputs" /></li>
+                    </ul>
+                </li>
+                
+                <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li  style="width:200px;float:left;"><label>Preferred Method of Contact</label></li>
+                        <li  style="width:200px;float:left;">
+                            <select>
+                                <option>--Select--</option>
+                                <option>Email</option>
+                                <option>Home Phone</option>
+                                <option>Home Mobile</option>
+                            </select>
+
+                        </li>
+                    </ul>
+                </li>
+               <li style="width:600px;float:left;" class="marginclass">
+                    <ul style="width:600px;float:left;">
+                        <li style="width:200px;float:left;"><input type="submit" id="submit-button" value="Add Information" class="submitbutton" /></li>
+                        <li style="width:200px;float:left;"><input type="button" id="reset-button" value="Reset" class="resetbutton"  /></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+     </div>
+</body>
+</html>

@@ -5,7 +5,7 @@ namespace SkillSmart.Base.Services
     public interface ITrainingCourseService<T> : IEntityService<T> where T : IEntity
     {
 
-        IEnumerable<T> GetJobSeekerTrainingCourse(string id);
+        IEnumerable<T> GetJobSeekerTrainingCourseById(string id);
 
     }
 }

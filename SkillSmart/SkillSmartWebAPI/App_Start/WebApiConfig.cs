@@ -11,11 +11,21 @@ namespace SkillSmartWebAPI
     {
         public static void Register(HttpConfiguration config)
         {
+
+            config.Routes.MapHttpRoute(
+              name: "RestPCApi",
+              routeTemplate: "api/{controller}/{action}/{id}",
+              defaults: new { action = RouteParameter.Optional }
+            );
+
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            
 
             var json = config.Formatters.JsonFormatter;
             json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;

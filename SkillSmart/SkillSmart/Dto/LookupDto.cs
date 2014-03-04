@@ -9,6 +9,9 @@ namespace SkillSmart.Dto
     {
         public Guid Id { get; set; }
 
+        /// <summary>
+        /// Name
+        /// </summary>
         [Display(Name = "Name:")]
         [Required(ErrorMessage = "Name Required")]
         public string Name { get; set; }

@@ -13,7 +13,12 @@ namespace SkillSmartMongoDA.Services
             : base(mongoDatabase)
         { }
 
-        public IEnumerable<SkillSmart.Dto.WorkHistory> GetJobSeekerWorkHistory(string id)
+        /// <summary>
+        /// Function to Get all Work history details of the jobseeker
+        /// </summary>
+        /// <param name="id">JobSeekerId</param>
+        /// <returns>List of work history details of the jobseeker</returns>
+        public IEnumerable<SkillSmart.Dto.WorkHistory> GetJobSeekerWorkHistoryById(string id)
         {
             var jobSeekerWorkHistoryList = this.MongoCollection.FindAllAs<WorkHistory>();
 
@@ -29,12 +34,21 @@ namespace SkillSmartMongoDA.Services
             return jobSeekerWorkHostory;
         }
 
+        /// <summary>
+        /// Function to Create new work history details for the jobseeker
+        /// </summary>
+        /// <param name="entity">WorkHistory Object</param>
         public void Create(SkillSmart.Dto.WorkHistory entity)
         {
             WorkHistory seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.WorkHistory, SkillSmartMongoDA.Entities.WorkHistory>(entity);
             base.Create(seeker);
         }
 
+        /// <summary>
+        /// Function to get details of a particular work history of the jobseeker
+        /// </summary>
+        /// <param name="id">WorkHistoryId</param>
+        /// <returns>WorkHistory Object</returns>
         public new SkillSmart.Dto.WorkHistory GetById(string id)
         {
             WorkHistory dbObj = base.GetById(id);
@@ -42,12 +56,20 @@ namespace SkillSmartMongoDA.Services
             return seeker;
         }
 
+        /// <summary>
+        /// Function to Update WorkHistory details
+        /// </summary>
+        /// <param name="entity">WorkHistory Object</param>
         public void Update(SkillSmart.Dto.WorkHistory entity)
         {
             WorkHistory seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.WorkHistory, SkillSmartMongoDA.Entities.WorkHistory>(entity);
             base.Update(seeker);         
         }
 
+        /// <summary>
+        /// Function to Delete WorkHistory details
+        /// </summary>
+        /// <param name="entity">WorkHistory Object</param>
         public void Delete(SkillSmart.Dto.WorkHistory entity)
         {
             WorkHistory seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.WorkHistory, SkillSmartMongoDA.Entities.WorkHistory>(entity);

@@ -11,7 +11,9 @@ namespace SkillSmartTest
     {
         public static void Main(string[] args)
         {
-            ScholarshipController controller = new ScholarshipController();
+            AdditionalInformationController controller = new AdditionalInformationController();
+
+
 
             //List<Education> jobSeekerList = controller.GetAllEducationById().ToList<Education>();
             /*  if (jobSeekerList.Count >= 0)
@@ -19,7 +21,7 @@ namespace SkillSmartTest
 
                   if (jobSeekerList.Count > 0)
                   {*/
-                    // var jobSeeker = controller.Get(jobSeekerList[0].Id.ToString());
+            var jobSeeker = controller.Get("8f500a04-22f0-40fa-b4ce-c24c3813d3d2");
 
             /* if (jobSeeker != null)
              {
@@ -27,28 +29,35 @@ namespace SkillSmartTest
                  controller.Put(jobSeeker.Id.ToString(), jobSeeker);
              }
 
-            Scholarship AddinInfo = new Scholarship();
+            AdditionalInformation AddinInfo = new AdditionalInformation();
             AddinInfo.JobSeekerId = "8f500a04-22f0-40fa-b4ce-c24c3813d3d2";
-            AddinInfo.InstitutionName = "Saintgits";
-            AddinInfo.DegreeId = "Engineering";
-            AddinInfo.StartDate = "27TH Jun 2011";
-            AddinInfo.EndDate = "30Th Jun 2013";
-            AddinInfo.MajorFocus = "Computer";
-            AddinInfo.MinorFocus = "Economics";
-            AddinInfo.CurrentlyEnrolled = "No";
-            AddinInfo.GPA = "68.4";
+            AddinInfo.PreferedName = "Saintgits";
+            AddinInfo.AddressLine1 = "Engineering";
+            AddinInfo.AddressLine2 = "27TH Jun 2011";
+            AddinInfo.City = "30Th Jun 2013";
+            AddinInfo.StateId = "Computer";
+            AddinInfo.CountryId = "Economics";
+            AddinInfo.ZipCode = "No";
+            AddinInfo.Citizenship = "68.4";
+            AddinInfo.Gender = "30Th Jun 2013";
+            AddinInfo.HomePhone = "Computer";
+            AddinInfo.Mobile = "Economics";
+            AddinInfo.MethodOfContact = "No";
+            AddinInfo.Birthday = "68.4";
+            AddinInfo.RaceId = "68.4";
 
             controller.Post(AddinInfo);
-         }*/
+         }
 
 
             //List<LookupDto> jobSeekerList2 = controller.GetAll("State").ToList<LookupDto>();
-                /*if (jobSeekerList2.Count > 1)
-                {
-                   controller.Delete(jobSeekerList2[1].Id.ToString());
-                }*/
+            /*if (jobSeekerList2.Count > 1)
+            {
+               controller.Delete(jobSeekerList2[1].Id.ToString());
             }
+        }*/
 
         }
-    
+
+    }
 }

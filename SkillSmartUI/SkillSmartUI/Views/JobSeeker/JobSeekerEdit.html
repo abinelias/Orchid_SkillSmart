@@ -2,68 +2,104 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>JobSeeker Edit</title>
-    <link rel="stylesheet" href="../../Content/common.css" />
-    <script src="../../Scripts/jquery-1.6.2.min.js"></script>
-    <script src="../../Scripts/knockout-3.0.0.js"></script>
-    <script src="../../Scripts/JobSeekerEdit.js"></script>
-    <script src="../../Scripts/knockout.validation.js"></script>
+    <link rel="stylesheet" href="/Content/common.css" />   
+    <link href="/Content/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+
+    <script src="/Scripts/viewmodel/skillsmart.model.jobseekeredit.js"></script>
+    <script src="/Scripts/viewmediator/skillsmart.mediator.jobseekeredit.js"></script>    
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+    <script src="/Scripts/vendor/knockout.validation.js"></script>
+    <script src="/Scripts/vendor/jquery-ui.js"></script>
+    <script src="/Scripts/vendor/knockout.validation.debug.js"></script>  
+    <script src="/Scripts/vendor/knockout.mapping-latest.js"></script>
+
+
+    <script>
+         $(document).ready(function () {
+             if (typeof (skillsmart) == 'undefined') skillsmart = {}
+             if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
+             if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
+
+             $(function () {
+                 $("#birth-day").datepicker();
+             });
+
+             function InitializeApplication() {
+                 $(document).viewloader({
+                     logLevel: "debug",
+                     success: function (successfulResolution) {
+                         InitializeViewMediators();
+                     },
+                     error: function (failedResolution) {
+                         alert(failedResolution);
+                     }
+                 });
+             }
+             function InitializeViewMediators() {
+                 skillsmart.mediator.jobseekeredit.createViewMediator();
+                 skillsmart.mediator.jobseekeredit.setupViewDataBindings();
+             }
+             InitializeApplication();
+         });
+    </script>
 </head>
 <body>
-<script id="customMessageTemplate" type="text/html">
-    <em class="customMessage" data-bind='validationMessage: field'></em>
-</script>
+
   <div id="outer_container" >       
         <div id="banner_container"><h2>SkillSmart</h2>
-            <div><a  href="JobSeekerRegistration.html"><font color="white">JobSeeker Registration</font></a>    <a  href="JobSeekerList.html"><font color="white">JobSeeker List</font></a></div>
+            <div><a  href="JobSeekerRegistration.html"><font color="white">JobSeeker Registration</font></a>    <a  href="JobSeekerList.html"><font color="white">JobSeeker List</font></a>     <a href="JobSeekerAdditionalInformation.html"><font color="white">JobSeeker AdditionalInformation</font></a></div>
         </div>           
-        <div id="form_div" >
+        <div id="jobseeker-edit" >
             
             <ul>
                 <li style="width:600px;float:left;" class="marginclass">
                     <ul style="width:600px;float:left;">
                         <li style="width:200px;float:left;"><label>First Name<sup>*</sup></label></li>
-                        <li style="width:200px;float:left;"><input type="text" class="inputs" placeholder="First Name" data-bind='value: employee.firstname, valueUpdate: "change"' required="required" /></li>
+                        <li style="width:200px;float:left;"><input type="text" id="first-name" class="inputs" placeholder="First Name"  required="required" /></li>
                     </ul>
                 </li>
                 <li style="width:600px;float:left;" class="marginclass">
                     <ul style="width:600px;float:left;">
                         <li style="width:200px;float:left;"><label>Last Name<sup>*</sup></label></li>
-                        <li style="width:200px;float:left;"><input type="text" class="inputs" placeholder ="Last Name" data-bind='value: employee.lastname, valueUpdate: "afterkeydown"' required="required"/></li>
+                        <li style="width:200px;float:left;"><input type="text" id="last-name" class="inputs" placeholder ="Last Name"  required="required"/></li>
                     </ul>
                 </li>                 
                 <li style="width:600px;float:left;" class="marginclass">
                     <ul style="width:600px;float:left;">
                         <li style="width:200px;float:left;"><label>Birthday<sup>*</sup></label></li>
-                        <li style="width:200px;float:left;"><input type="text"  class="inputs" placeholder="Birthday" data-bind=' value: employee.birthday, valueUpdate: "change"' required="required"/></li>
+                        <li style="width:200px;float:left;"><input type="text" id="birth-day" class="inputs" placeholder="Birthday" /></li>
                     </ul>
                 </li>
                 <li style="width:600px;float:left;" class="marginclass">
                     <ul style="width:600px;float:left;">
                         <li style="width:200px;float:left;"><label>Email<sup>*</sup></label></li>
-                        <li style="width:200px;float:left;"><input type="text" class="inputs" placeholder="Email" data-bind='value: employee.email, valueUpdate: "change"' required="required" /></li>
+                        <li style="width:200px;float:left;"><input type="text" id="email-address" class="inputs" placeholder="Email"  required="required" /></li>
                     </ul>
                 </li>
                 <li style="width:600px;float:left;" class="marginclass">
                     <ul style="width:600px;float:left;">
                         <li style="width:200px;float:left;"><label>User Name<sup>*</sup></label></li>
-                        <li style="width:200px;float:left;"><input type="text" disabled="disabled" class="inputs" placeholder="User Name" data-bind='value: employee.username, valueUpdate: "change"' /></li>
+                        <li style="width:200px;float:left;"><input type="text" id="user-name" disabled="disabled" class="inputs" placeholder="User Name"  /></li>
                     </ul>
                 </li>
                 <li style="width:600px;float:left;" class="marginclass">
                     <ul style="width:600px;float:left;">
                         <li style="width:200px;float:left;"><label>Password<sup>*</sup></label></li>
-                        <li style="width:200px;float:left;"><input type="password" disabled="disabled" class="inputs" placeholder="Password" data-bind='value: employee.password, valueUpdate: "afterkeydown"' required="required" /></li>
+                        <li style="width:200px;float:left;"><input type="password" id="password" disabled="disabled" class="inputs" placeholder="Password"  required="required" /></li>
                     </ul>
                 </li>
                 <li style="width:600px;float:left;" class="marginclass">
                     <ul style="width:600px;float:left;">
                         <li style="width:200px;float:left;"><label>Password confirm<sup>*</sup></label></li>
-                        <li style="width:200px;float:left;"><input type="password" disabled="disabled" class="inputs" placeholder="Password confirm" data-bind='value: employee.passwordconfirm, valueUpdate: "change"' required="required"/></li>
+                        <li style="width:200px;float:left;"><input type="password" id="password-confirm" disabled="disabled" class="inputs" placeholder="Password confirm"  required="required"/></li>
                     </ul>
                 </li>
                 <li style="width:600px;float:left;" class="marginclass">
                     <ul style="width:600px;float:left;">
-                        <li style="width:200px;float:left;"><input type="submit" value="Update" class="submitbutton" data-bind="click: submit" /></li>                        
+                        <li style="width:200px;float:left;"><input type="submit" id="submit-button" value="Update" class="submitbutton"  /></li>                        
                     </ul>
                 </li>
             </ul>

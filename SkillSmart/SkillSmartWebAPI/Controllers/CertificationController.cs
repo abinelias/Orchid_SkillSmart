@@ -11,40 +11,62 @@ namespace SkillSmartWebAPI.Controllers
     public class CertificationController : ApiController
     {
 
-        public IEnumerable<Certification> GetAllLanguagesById()
+        /// <summary>
+        /// To get all certifications of jobseeker
+        /// </summary>
+        /// <returns>Certification list of jobseeker</returns>
+        public IEnumerable<Certification> GetJobSeekerCertificationById()
         {
-            return ServiceFactory.GetJobSeekerCertification().GetJobSeekerCertification("cdc83674-95f4-460c-95e0-6ae04174f75e");
+            return ServiceFactory.GetJobSeekerCertification().GetJobSeekerCertificationById("cdc83674-95f4-460c-95e0-6ae04174f75e");
         }
 
+        /// <summary>
+        /// To get all certification details of the jobseeker
+        /// </summary>
+        /// <param name="id">certification Id</param>
+        /// <returns></returns>
         public Certification Get(string id)
         {
             return ServiceFactory.GetJobSeekerCertification().GetById(id);
         }
 
-        public void Post(Certification jobSeekerObj)
+        /// <summary>
+        /// To insert jobseeker certification details
+        /// </summary>
+        /// <param name="jobSeekerCertificationObj">certification object</param>
+        public void Post(Certification jobSeekerCertificationObj)
         {
             try
             {
-                ServiceFactory.GetJobSeekerCertification().Create(jobSeekerObj);
+                ServiceFactory.GetJobSeekerCertification().Create(jobSeekerCertificationObj);
             }
             catch (Exception ex){}
         }
 
-        public void Put(string id, Certification jobSeekerObj)
+        /// <summary>
+        /// To update jobseeker certification details
+        /// </summary>
+        /// <param name="id">sertificationId</param>
+        /// <param name="jobSeekerCertificationObj">certification object</param>
+        public void Put(string id, Certification jobSeekerCertificationObj)
         {
             try
             {
-                jobSeekerObj.Id = new Guid(id);
-                ServiceFactory.GetJobSeekerCertification().Update(jobSeekerObj);
+                jobSeekerCertificationObj.Id = new Guid(id);
+                ServiceFactory.GetJobSeekerCertification().Update(jobSeekerCertificationObj);
             }
             catch (Exception exp){}
         }
 
+        /// <summary>
+        /// To delete jobseeker certification details
+        /// </summary>
+        /// <param name="id">Certification Id</param>
         public void Delete(string id)
         {
-            ICertificationService<Certification> jobSeekerService = ServiceFactory.GetJobSeekerCertification();
-            var jobSeeker = jobSeekerService.GetById(id);
-            jobSeekerService.Delete(jobSeeker);  
+            ICertificationService<Certification> jobSeekerCertificationService = ServiceFactory.GetJobSeekerCertification();
+            var jobSeekerCertificationObj = jobSeekerCertificationService.GetById(id);
+            jobSeekerCertificationService.Delete(jobSeekerCertificationObj);  
         }
     }
 }

@@ -13,6 +13,11 @@ namespace SkillSmartMongoDA.Services
             : base(mongoDatabase)
         { }
 
+        /// <summary>
+        /// Function to get all languages of jobseeker
+        /// </summary>
+        /// <param name="id">jobseekerID</param>
+        /// <returns>List of jobseeker languages</returns>
         public IEnumerable<SkillSmart.Dto.Language> GetAllLanguagesById(string id)
         {
             var jobSeekerLanguageList = this.MongoCollection.FindAllAs<Language>();
@@ -29,12 +34,21 @@ namespace SkillSmartMongoDA.Services
             return jobSeekerLanguage;
         }
 
+        /// <summary>
+        /// Function to create a new language for jobseeker
+        /// </summary>
+        /// <param name="entity">languagae object</param>
         public void Create(SkillSmart.Dto.Language entity)
         {
             Language seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Language, SkillSmartMongoDA.Entities.Language>(entity);
             base.Create(seeker);
         }
 
+        /// <summary>
+        /// Function to get details of a language known by jobseeker
+        /// </summary>
+        /// <param name="id">languageid</param>
+        /// <returns>details of language as object</returns>
         public new SkillSmart.Dto.Language GetById(string id)
         {
             Language dbObj = base.GetById(id);
@@ -42,12 +56,20 @@ namespace SkillSmartMongoDA.Services
             return seeker;
         }
 
+        /// <summary>
+        /// Functon to update language details of jobseeker
+        /// </summary>
+        /// <param name="entity">language object</param>
         public void Update(SkillSmart.Dto.Language entity)
         {
             Language seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Language, SkillSmartMongoDA.Entities.Language>(entity);
             base.Update(seeker);         
         }
 
+        /// <summary>
+        /// Function to delete a language of jobseeker
+        /// </summary>
+        /// <param name="entity">language object</param>
         public void Delete(SkillSmart.Dto.Language entity)
         {
             Language seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Language, SkillSmartMongoDA.Entities.Language>(entity);

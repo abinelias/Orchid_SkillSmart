@@ -5,7 +5,7 @@ namespace SkillSmart.Base.Services
     public interface IWorkHistoryService<T> : IEntityService<T> where T : IEntity
     {
 
-        IEnumerable<T> GetJobSeekerWorkHistory(string id);
+        IEnumerable<T> GetJobSeekerWorkHistoryById(string id);
 
     }
 }

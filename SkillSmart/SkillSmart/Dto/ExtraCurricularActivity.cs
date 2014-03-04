@@ -8,15 +8,27 @@ namespace SkillSmart.Dto
     {
         public Guid Id { get; set; }
 
+        /// <summary>
+        /// EducationId
+        /// </summary>
         [Required(ErrorMessage = "EducationId Required")]
         public string EducationId { get; set; }
 
+        /// <summary>
+        /// Activity
+        /// </summary>
         [Required(ErrorMessage = "Activity Required")]
         public string Activity { get; set; }
 
+        /// <summary>
+        /// StartDate
+        /// </summary>
         [Required(ErrorMessage = "StartDate Required")]
         public string StartDate { get; set; }
 
+        /// <summary>
+        /// EndDate
+        /// </summary>
         [Required(ErrorMessage = "EndDate Required")]
         public string EndDate { get; set; }
     }

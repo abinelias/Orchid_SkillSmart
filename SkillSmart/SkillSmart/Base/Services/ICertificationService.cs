@@ -5,7 +5,7 @@ namespace SkillSmart.Base.Services
     public interface ICertificationService<T> : IEntityService<T> where T : IEntity
     {
 
-        IEnumerable<T> GetJobSeekerCertification(string id);
+        IEnumerable<T> GetJobSeekerCertificationById(string id);
 
     }
 }

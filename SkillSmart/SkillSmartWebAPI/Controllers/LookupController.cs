@@ -10,16 +10,24 @@ namespace SkillSmartWebAPI.Controllers
 {
     public class LookupController : ApiController
     {
-        public IEnumerable<LookupDto> GetAll(string collectionName)
+        /// <summary>
+        /// To get all collection of anylookup
+        /// </summary>
+        /// <returns>list of lookup collections</returns>
+        public IEnumerable<LookupDto> GetAll()
         {
-            return ServiceFactory.GetLookupService(collectionName).GetAll();
+            return ServiceFactory.GetLookupService("Country").GetAll();
         }
 
-        public void Post(LookupDto jobSeekerObj)
+        /// <summary>
+        /// to createlookup collection
+        /// </summary>
+        /// <param name="lookupObj">lookup object</param>
+        public void Post(LookupDto lookupObj)
         {
             try
             {
-                ServiceFactory.GetLookupService("State").Create(jobSeekerObj);
+                ServiceFactory.GetLookupService("Country").Create(lookupObj);
             }
             catch (Exception ex) { }
         }

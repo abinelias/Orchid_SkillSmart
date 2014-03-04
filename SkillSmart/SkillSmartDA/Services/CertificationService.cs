@@ -12,7 +12,12 @@ namespace SkillSmartMongoDA.Services
             : base(mongoDatabase)
         { }
 
-        public IEnumerable<SkillSmart.Dto.Certification> GetJobSeekerCertification(string id)
+        /// <summary>
+        /// Function to Get list of all certification of the jobseeker
+        /// </summary>
+        /// <param name="id">JobSeekerId</param>
+        /// <returns>List of Jobseeker Certifications</returns>
+        public IEnumerable<SkillSmart.Dto.Certification> GetJobSeekerCertificationById(string id)
         {
             var jobSeekerCertificationList = this.MongoCollection.FindAllAs<Certification>();
 
@@ -28,12 +33,21 @@ namespace SkillSmartMongoDA.Services
             return jobSeekerCertification;
         }
 
+        /// <summary>
+        /// Function TO create a new Certification for jobseeker
+        /// </summary>
+        /// <param name="entity"></param>
         public void Create(SkillSmart.Dto.Certification entity)
         {
             Certification seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Certification, SkillSmartMongoDA.Entities.Certification>(entity);
             base.Create(seeker);
         }
 
+        /// <summary>
+        /// Function to get details of certification details of a jobseeker
+        /// </summary>
+        /// <param name="id">CertificationId</param>
+        /// <returns>CertificationObject</returns>
         public new SkillSmart.Dto.Certification GetById(string id)
         {
             Certification dbObj = base.GetById(id);
@@ -41,12 +55,20 @@ namespace SkillSmartMongoDA.Services
             return seeker;
         }
 
+        /// <summary>
+        /// Function To update Certification details of the jobseeker
+        /// </summary>
+        /// <param name="entity">CertificationObject</param>
         public void Update(SkillSmart.Dto.Certification entity)
         {
             Certification seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Certification, SkillSmartMongoDA.Entities.Certification>(entity);
             base.Update(seeker);
         }
 
+        /// <summary>
+        /// Function To Delete Certification details of the jobseeker
+        /// </summary>
+        /// <param name="entity">CertificationObject</param>
         public void Delete(SkillSmart.Dto.Certification entity)
         {
             Certification seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Certification, SkillSmartMongoDA.Entities.Certification>(entity);

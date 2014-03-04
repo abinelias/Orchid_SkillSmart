@@ -12,19 +12,34 @@ namespace SkillSmartMongoDA.Services
             : base(mongoDatabase)
         { }
 
+        /// <summary>
+        /// Function to create jobseeker overview
+        /// </summary>
+        /// <param name="entity">jobseeker overview object</param>
         public void Create(SkillSmart.Dto.Overview entity)
         {
-            Overview seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Overview, SkillSmartMongoDA.Entities.Overview>(entity);
-            base.Create(seeker);
+            Overview seekerOverview = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Overview, SkillSmartMongoDA.Entities.Overview>(entity);
+            base.Create(seekerOverview);
         }
 
+        /// <summary>
+        /// to get job geeker overview using jobseekerid
+        /// </summary>
+        /// <param name="id">JobseekerId</param>
+        /// <returns>Jobseeker overview object</returns>
         public new SkillSmart.Dto.Overview GetById(string id)
         {
-            Overview dbObj = base.GetById(id);
-            SkillSmart.Dto.Overview seeker = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.Overview, SkillSmart.Dto.Overview>(dbObj);
-            return seeker;
+            var entityQuery = Query<SkillSmartMongoDA.Entities.Overview>.EQ(e => e.JobSeekerId, id);
+            Overview dbObj = MongoCollection.FindOne(entityQuery);
+
+            SkillSmart.Dto.Overview seekerOverview = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.Overview, SkillSmart.Dto.Overview>(dbObj);
+            return seekerOverview;
         }
 
+        /// <summary>
+        /// Function to update jobseeker
+        /// </summary>
+        /// <param name="entity">jobseeker overview object</param>
         public void Update(SkillSmart.Dto.Overview entity)
         {
             Overview seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Overview, SkillSmartMongoDA.Entities.Overview>(entity);

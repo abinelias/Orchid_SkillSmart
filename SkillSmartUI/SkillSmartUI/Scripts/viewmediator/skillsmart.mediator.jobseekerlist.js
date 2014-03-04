@@ -1,4 +1,8 @@
-﻿$(document).ready(function ()
+﻿if (typeof (skillsmart) == 'undefined') skillsmart = {}
+if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
+if (typeof (skillsmart.mediator.jobseekerlist) == 'undefined') skillsmart.mediator.jobseekerlist = {}
+
+skillsmart.mediator.jobseekerlist.setupViewDataBindings = function ()
 {
     var deleteId = getParameterByName('DeleteId');
     if (deleteId != null && deleteId.length > 0)
@@ -31,7 +35,7 @@
         type: 'GET',
         dataType: 'JSON',
 
-        success: function (data) {
+        success: function (data) {           
             for (da in data) {
                 var person = {
                     FirstName: ko.observable(''),
@@ -62,7 +66,7 @@
 
     ko.applyBindings(viewModel, document.getElementById('form_div'));
     var that = this;
-});
+}
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

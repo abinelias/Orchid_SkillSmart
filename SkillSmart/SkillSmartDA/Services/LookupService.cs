@@ -12,7 +12,10 @@ namespace SkillSmartMongoDA.Services
             : base(mongoDatabase, collectionName)
         { }
 
-
+        /// <summary>
+        /// Function to get all details of lookup table
+        /// </summary>
+        /// <returns>object of lookup collection</returns>
         public IEnumerable<SkillSmart.Dto.LookupDto> GetAll()
         {
             var DropList = this.MongoCollection.FindAllAs<LookupEntity>();
@@ -26,6 +29,10 @@ namespace SkillSmartMongoDA.Services
             return listCursor;
         }
 
+        /// <summary>
+        /// Function to create a collection for lookup
+        /// </summary>
+        /// <param name="entity">lookup object</param>
         public void Create(SkillSmart.Dto.LookupDto entity)
         {
             LookupEntity seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.LookupDto, SkillSmartMongoDA.Entities.LookupEntity>(entity);

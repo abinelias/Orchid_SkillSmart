@@ -8,48 +8,93 @@ namespace SkillSmart.Dto
     {
         public Guid Id { get; set; }
 
+        /// <summary>
+        /// JobSeekerId
+        /// </summary>
         [Required(ErrorMessage = "JobSeekerId Required")]
         public string JobSeekerId { get; set; }
 
+        /// <summary>
+        /// PreferedName
+        /// </summary>
         [Required(ErrorMessage = "PreferedName Required")]
         public string PreferedName { get; set; }
 
+        /// <summary>
+        /// AddressLine1
+        /// </summary>
         [Required(ErrorMessage = "AddressLine1 Required")]
         public string AddressLine1 { get; set; }
 
+        /// <summary>
+        /// AddressLine2
+        /// </summary>
         [Required(ErrorMessage = "AddressLine2 Required")]
         public string AddressLine2 { get; set; }
 
+        /// <summary>
+        /// City
+        /// </summary>
         [Required(ErrorMessage = "City Required")]
         public string City { get; set; }
 
+        /// <summary>
+        /// StateId
+        /// </summary>
         [Required(ErrorMessage = "StateId Required")]
         public string StateId { get; set; }
 
+        /// <summary>
+        /// CountryId
+        /// </summary>
         [Required(ErrorMessage = "CountryId Required")]
         public string CountryId { get; set; }
 
+        /// <summary>
+        /// ZipCode
+        /// </summary>
         [Required(ErrorMessage = "ZipCode Required")]
         public string ZipCode { get; set; }
 
+        /// <summary>
+        /// Citizenship
+        /// </summary>
         [Required(ErrorMessage = "Citizenship Required")]
         public string Citizenship { get; set; }
 
+        /// <summary>
+        /// Citizenship
+        /// </summary>
         [Required(ErrorMessage = "Gender Required")]
         public string Gender { get; set; }
 
+        /// <summary>
+        /// HomePhone
+        /// </summary>
         [Required(ErrorMessage = "HomePhone Required")]
         public string HomePhone { get; set; }
 
+        /// <summary>
+        /// Mobile
+        /// </summary>
         [Required(ErrorMessage = "Mobile Required")]
         public string Mobile { get; set; }
 
+        /// <summary>
+        /// MethodOfContact
+        /// </summary>
         [Required(ErrorMessage = "MethodOfContact Required")]
         public string MethodOfContact { get; set; }
 
+        /// <summary>
+        /// Birthday
+        /// </summary>
         [Required(ErrorMessage = "Birthday Required")]
         public string Birthday { get; set; }
 
+        /// <summary>
+        /// RaceId
+        /// </summary>
         [Required(ErrorMessage = "RaceId Required")]
         public string RaceId { get; set; }
 

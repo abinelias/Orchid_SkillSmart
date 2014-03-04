@@ -153,6 +153,58 @@ namespace SkillSmartData.Factory
             return serviceObj;
         }
 
+        public static ICategoryService<Category> GetCategory()
+        {
+            ICategoryService<SkillSmart.Dto.Category> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new CategoryService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new CategoryService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static ISkillService<Skill> GetSkill()
+        {
+            ISkillService<SkillSmart.Dto.Skill> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new SkillService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new SkillService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static ISkillMapService<SkillMap> GetSkillMap()
+        {
+            ISkillMapService<SkillSmart.Dto.SkillMap> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new SkillMapService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new SkillMapService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IJobSeekerSkillListService<JobSeekerSkillList> GetJobSeekerSkillList()
+        {
+            IJobSeekerSkillListService<SkillSmart.Dto.JobSeekerSkillList> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new JobSeekerSkillListService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new JobSeekerSkillListService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
         public static ILookupService<LookupDto> GetLookupService(string collectionName)
         {
             ILookupService<LookupDto> serviceObj = null;

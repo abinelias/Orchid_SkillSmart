@@ -11,35 +11,57 @@ namespace SkillSmartWebAPI.Controllers
     public class SpecialityCourseController : ApiController
     {
 
-        public IEnumerable<SpecialityCourse> GetAllEducationById()
+        /// <summary>
+        /// To get all speciality course of the jobseeker for a particular education
+        /// </summary>
+        /// <returns>SpecialityCourse list</returns>
+        public IEnumerable<SpecialityCourse> GetAllSpecialityCourseById()
         {
             return ServiceFactory.GetJobSeekerSpecialityCourse().GetAllSpecialityCourseById("8f500a04-22f0-40fa-b4ce-c24c3813d3d2");
         }
 
+        /// <summary>
+        /// To get a Specaility course details
+        /// </summary>
+        /// <param name="id">SpecialityCourseId</param>
+        /// <returns>SpecialityCourse Object</returns>
         public SpecialityCourse Get(string id)
         {
             return ServiceFactory.GetJobSeekerSpecialityCourse().GetById(id);
         }
 
-        public void Post(SpecialityCourse jobSeekerObj)
+        /// <summary>
+        /// To create Speciality course details
+        /// </summary>
+        /// <param name="specialityCourseObj">SpecialityCourse Object</param>
+        public void Post(SpecialityCourse specialityCourseObj)
         {
             try
             {
-                ServiceFactory.GetJobSeekerSpecialityCourse().Create(jobSeekerObj);
+                ServiceFactory.GetJobSeekerSpecialityCourse().Create(specialityCourseObj);
             }
             catch (Exception ex){}
         }
 
-        public void Put(string id, SpecialityCourse jobSeekerObj)
+        /// <summary>
+        /// To update speciality course details
+        /// </summary>
+        /// <param name="id">SpecialityCourseId</param>
+        /// <param name="specialityCourseObj">SpecialityCourse Object</param>
+        public void Put(string id, SpecialityCourse specialityCourseObj)
         {
             try
             {
-                jobSeekerObj.Id = new Guid(id);
-                ServiceFactory.GetJobSeekerSpecialityCourse().Update(jobSeekerObj);
+                specialityCourseObj.Id = new Guid(id);
+                ServiceFactory.GetJobSeekerSpecialityCourse().Update(specialityCourseObj);
             }
             catch (Exception exp){}
         }
 
+        /// <summary>
+        /// To delete Speciality course details
+        /// </summary>
+        /// <param name="id">SpecialityCourseId</param>
         public void Delete(string id)
         {
             ISpecialityCourseService<SpecialityCourse> jobSeekerService = ServiceFactory.GetJobSeekerSpecialityCourse();
