@@ -3,7 +3,7 @@ if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
 if (typeof (skillsmart.mediator.jobseekermyinformation) == 'undefined') skillsmart.mediator.jobseekermyinformation = {}
 
 var userId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
-
+var ab;
 
 skillsmart.mediator.jobseekermyinformation.createViewMediatorMyInformation = function () {
     var apiUrlJobSeeker = GetWebAPIURL() + '/api/JobSeeker/' + userId;
