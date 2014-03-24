@@ -8,8 +8,8 @@ namespace SkillSmartMongoDA.Entities
         /// <summary>
         /// EducationId
         /// </summary>
-        [BsonElement("EducationId")]
-        public string EducationId { get; set; }
+        [BsonElement("JobSeekerId")]
+        public string JobSeekerId { get; set; }
 
         /// <summary>
         /// ScholarshipCheck
@@ -20,8 +20,8 @@ namespace SkillSmartMongoDA.Entities
         /// <summary>
         /// Title
         /// </summary>
-        [BsonElement("Title")]
-        public string Title { get; set; }
+        [BsonElement("ScholarshipTitle")]
+        public string ScholarshipTitle { get; set; }
 
         /// <summary>
         /// ScholarshipDescription

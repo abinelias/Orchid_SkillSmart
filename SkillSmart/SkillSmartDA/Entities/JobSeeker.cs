@@ -12,12 +12,6 @@ namespace SkillSmartMongoDA.Entities
         public string FirstName { get; set; }
 
         /// <summary>
-        /// MiddleName
-        /// </summary>
-        [BsonElement("MiddleName")]
-        public string MiddleName { get; set; }
-
-        /// <summary>
         /// LastName
         /// </summary>
         [BsonElement("LastName")]

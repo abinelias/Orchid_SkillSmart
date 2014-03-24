@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web;
+
 namespace SkillSmartWebAPI.Controllers
 {
     public class JobSeekerController : ApiController
@@ -33,13 +35,15 @@ namespace SkillSmartWebAPI.Controllers
         /// To add a jobseeker details
         /// </summary>
         /// <param name="jobSeekerObj">JobSeeekr Object</param>
-        public void Post(JobSeeker jobSeekerObj)
+        public string Post(JobSeeker jobSeekerObj)
         {
             try
             {
                 ServiceFactory.GetJobSeeker().Create(jobSeekerObj);
+               
             }
-            catch (Exception ex){}
+            catch (Exception ex) { throw ex; }
+            return jobSeekerObj.Id.ToString();
         }
 
         /// <summary>

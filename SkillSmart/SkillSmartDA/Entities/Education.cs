@@ -18,6 +18,12 @@ namespace SkillSmartMongoDA.Entities
         public string InstitutionName { get; set; }
 
         /// <summary>
+        /// InstitutionLocation
+        /// </summary>
+        [BsonElement("InstitutionLocation")]
+        public string InstitutionLocation { get; set; }
+
+        /// <summary>
         /// DegreeId
         /// </summary>
         [BsonElement("DegreeId")]

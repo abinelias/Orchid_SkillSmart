@@ -76,6 +76,18 @@ namespace SkillSmartMongoDA.Entities
         /// </summary>
         [BsonElement("JobDuties")]
         public string JobDuties { get; set; }
+
+        /// <summary>
+        /// SalaryType
+        /// </summary>
+        [BsonElement("SalaryType")]
+        public string SalaryType { get; set; }
+
+        /// <summary>
+        /// CompanyLocation
+        /// </summary>
+        [BsonElement("CompanyLocation")]
+        public string CompanyLocation { get; set; }
      }
 
 }

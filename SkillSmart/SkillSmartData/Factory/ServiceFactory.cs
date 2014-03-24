@@ -205,6 +205,19 @@ namespace SkillSmartData.Factory
             return serviceObj;
         }
 
+        public static ISkillAliasService<SkillAlias> GetSkillAlias()
+        {
+            ISkillAliasService<SkillSmart.Dto.SkillAlias> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new SkillAliasService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new SkillAliasService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
         public static ILookupService<LookupDto> GetLookupService(string collectionName)
         {
             ILookupService<LookupDto> serviceObj = null;
@@ -213,6 +226,19 @@ namespace SkillSmartData.Factory
                 case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new LookupService(DatabaseFactory.CreateMongoDatabase(), collectionName );
                     break;
                 default: serviceObj = new LookupService(DatabaseFactory.CreateMongoDatabase(), collectionName);
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static ILookupByCriteriaService<LookupByCriteria> GetLookupByCriteriaService(string collectionName)
+        {
+            ILookupByCriteriaService<LookupByCriteria> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new LookupByCriteriaService(DatabaseFactory.CreateMongoDatabase(), collectionName);
+                    break;
+                default: serviceObj = new LookupByCriteriaService(DatabaseFactory.CreateMongoDatabase(), collectionName);
                     break;
             }
             return serviceObj;

@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<head>   
     <title>JobSeeker Registration</title>
-    <link rel="stylesheet" href="/Content/common.css" />   
+    <link rel="stylesheet" href="/Content/common.css" />  
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
     <link href="/Content/jquery-ui.css" rel="stylesheet" />
     <link rel="stylesheet" href="/resources/demos/style.css" />
-
+    <script src="/Scripts/Common.js"></script>
     <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
     <script src="/Scripts/vendor/jquery.viewloader.js"></script>
     <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
@@ -21,10 +22,6 @@
             if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
             if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
 
-           /* $(function () {
-                $("#birth-day").datepicker({ dateFormat: "dd/mm/yy" });
-            });*/
-
             function InitializeApplication() {
                 $(document).viewloader({
                     logLevel: "debug",
@@ -34,91 +31,60 @@
                     error: function (failedResolution) {
                         alert(failedResolution);
                     }
-                });                
+                });
             }
             function InitializeViewMediators() {
                 skillsmart.mediator.jobseekerregistration.createViewMediator();
                 skillsmart.mediator.jobseekerregistration.setupViewDataBindings();
             }
             InitializeApplication();
-       });
+        });
     </script>
 </head>
 <body>
-<script id="customMessageTemplate" type="text/html">
-    <em class="customMessage" data-bind='validationMessage: field'></em>
-	</script>
-  <div id="outer_container" >       
-    <div id="banner_container"><h2>SkillSmart</h2>
-        <div><a  href="JobSeekerRegistration.html"><font color="white">JobSeeker Registration</font></a>    <a  href="JobSeekerList.html"><font color="white">JobSeeker List</font></a>       <a href="JobSeekerAdditionalInformation.html"><font color="white">JobSeeker AdditionalInformation</font></a></div>
-    </div>           
-    <div id="jobseeker-registration">
-    <h3>JobSeeker Registration</h3>
-    <ul>
-        <li style="width:600px;float:left;" class="marginclass">
-            <ul style="width:600px;float:left;">
-                <li style="width:200px;float:left;"><label>First Name<sup>*</sup></label></li>
-                <li style="width:200px;float:left;"><input type="text" id="first-name" class="inputs" placeholder="First Name" /></li>
+    <div id="outer_container" >       
+        <div id="banner_container"><h2>SkillSmart</h2>
+            <div><a  href="JobSeekerRegistration.html">JobSeeker Registration</a>    <a  href="JobSeekerList.html">JobSeeker List</a></div>
+        </div> 
+        <div id="jobseeker_registration_signup_div"><h3>Sign Up</h3></div>          
+        <div id="jobseeker-registration">
+            <h4>Enter your details below to create an account.</h4>
+             <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                <li data-bind="text: $data"></li>
             </ul>
-        </li>
-        <li style="width:600px;float:left;" class="marginclass">
-            <ul style="width:600px;float:left;">
-                <li style="width:200px;float:left;"><label>Last Name<sup>*</sup></label></li>
-                <li style="width:200px;float:left;"><input type="text" id="last-name" class="inputs" placeholder ="Last Name" /></li>
+            <ul>
+                <li  class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">                
+                        <li class="jobseeker_registration_innerli"><input type="text" id="first-name" class="inputs" placeholder="First name" /></li>
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_registration_innerli"><input type="text" id="last-name" class="inputs" placeholder ="Last name" /></li>
+                    </ul>
+                </li>                         
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_registration_innerli"><input type="text" id="email-address" class="inputs" placeholder="Email" /></li>
+                    </ul>
+                </li>      
+                <li  class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_registration_innerli"><input type="password" id="password" class="inputs" placeholder="Password"  /></li>
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_registration_innerli"><input type="password" id="confirm-password" class="inputs" placeholder="Confirm password" /></li>
+                    </ul>
+                </li>       
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_registration_innerli"><input type="button" id="submit-button" value="Create Account" class="submitbutton"  /></li>                
+                    </ul>
+                </li>
             </ul>
-        </li>                 
-        <li style="width:600px;float:left;" class="marginclass">
-            <ul style="width:600px;float:left;">
-                <li style="width:200px;float:left;"><label>Birthday<sup>*</sup></label></li>
-                <li style="width:200px;float:left;"><input type="text" id="birth-day" class="inputs" placeholder="Birthday" /></li>
-            </ul>
-        </li>
-        <li style="width:600px;float:left;" class="marginclass">
-            <ul style="width:600px;float:left;">
-                <li style="width:200px;float:left;"><label>Email<sup>*</sup></label></li>
-                <li style="width:200px;float:left;"><input type="text" id="email-address" class="inputs" placeholder="Email" /></li>
-            </ul>
-        </li>
-        <li style="width:600px;float:left;" class="marginclass">
-            <ul style="width:600px;float:left;">
-                <li style="width:200px;float:left;"><label>User Name<sup>*</sup></label></li>
-                <li style="width:200px;float:left;"><input type="text" id="user-name" class="inputs" placeholder="User Name"  /></li>
-            </ul>
-        </li>
-        <li style="width:600px;float:left;" class="marginclass">
-            <ul style="width:600px;float:left;">
-                <li style="width:200px;float:left;"><label>Password<sup>*</sup></label></li>
-                <li style="width:200px;float:left;"><input type="password" id="password" class="inputs" placeholder="Password"  /></li>
-            </ul>
-        </li>
-        <li style="width:600px;float:left;" class="marginclass">
-            <ul style="width:600px;float:left;">
-                <li style="width:200px;float:left;"><label>Password confirm<sup>*</sup></label></li>
-                <li style="width:200px;float:left;"><input type="password" id="confirm-password" class="inputs" placeholder="Password confirm" /></li>
-            </ul>
-        </li>
-        <li style="width:600px;float:left;" class="marginclass">
-            <ul style="width:600px;float:left;">
-                <li style="width:200px;float:left;"><label>Gender<sup>*</sup></label></li>
-                <li style="width:100px;float:left;"><input type="radio" name="Gender" value="m" class="gender"/>Male</li>
-                <li style="width:100px;float:left;"><input type="radio" name="Gender" value="f" class="gender"/>Female</li>
-            </ul>
-        </li>
-        <li style="width:600px;float:left;" class="marginclass">
-            <ul style="width:600px;float:left;">
-                <li style="width:200px;float:left;"><label>Method of Contact<sup>*</sup></label></li>
-                <li style="width:100px;float:left;"><input type="checkbox"  value="Mobile" class="contact"/>Mobile</li>
-                <li style="width:100px;float:left;"><input type="checkbox"  value="Email" class="contact"/>Email</li>
-            </ul>
-        </li>
-        <li style="width:600px;float:left;" class="marginclass">
-            <ul style="width:600px;float:left;">
-                <li style="width:200px;float:left;"><input type="submit" id="submit-button" value="Create Account" class="submitbutton"  /></li>
-                <li style="width:200px;float:left;"><input type="button" id="reset-button" value="Reset" class="resetbutton"  /></li>
-            </ul>
-        </li>
-    </ul>
-</div>
-</div>
+        </div>
+    </div>
 </body>
 </html>

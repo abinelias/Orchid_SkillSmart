@@ -31,7 +31,7 @@ namespace SkillSmartWebAPI.Controllers
             {
                 ServiceFactory.GetJobSeekerAdditionalInformation().Create(jobSeekerObjAdditionalInfo);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { throw ex; }
         }
 
         /// <summary>

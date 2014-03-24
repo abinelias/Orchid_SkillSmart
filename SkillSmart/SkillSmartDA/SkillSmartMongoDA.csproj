@@ -57,11 +57,13 @@
     <Compile Include="Entities\JobSeeker.cs" />
     <Compile Include="Entities\JobSeekerSkillList.cs" />
     <Compile Include="Entities\Language.cs" />
+    <Compile Include="Entities\LookupByCriteria.cs" />
     <Compile Include="Entities\LookupEntity.cs" />
     <Compile Include="Entities\MongoEntity.cs" />
     <Compile Include="Entities\Overview.cs" />
     <Compile Include="Entities\Scholarship.cs" />
     <Compile Include="Entities\Skill.cs" />
+    <Compile Include="Entities\SkillAlias.cs" />
     <Compile Include="Entities\SkillMap.cs" />
     <Compile Include="Entities\SpecialityCourse.cs" />
     <Compile Include="Entities\TrainingCourse.cs" />
@@ -74,11 +76,13 @@
     <Compile Include="Services\ExtraCurricularActivityService.cs" />
     <Compile Include="Services\JobSeekerSkillListService.cs" />
     <Compile Include="Services\LanguageService.cs" />
+    <Compile Include="Services\LookupByCriteriaService.cs" />
     <Compile Include="Services\LookupService.cs" />
     <Compile Include="Services\EntityService.cs" />
     <Compile Include="Services\JobSeekerService.cs" />
     <Compile Include="Services\OverviewService.cs" />
     <Compile Include="Services\ScholarshipService.cs" />
+    <Compile Include="Services\SkillAliasService.cs" />
     <Compile Include="Services\SkillMapService.cs" />
     <Compile Include="Services\SkillService.cs" />
     <Compile Include="Services\SpecialityCourseService.cs" />

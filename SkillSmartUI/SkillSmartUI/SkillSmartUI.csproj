@@ -58,9 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\common.css" />
+    <Content Include="Content\jobseekerstyle.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\application.js" />
+    <Content Include="Scripts\Common.js" />
     <Content Include="Scripts\vendor\jquery-1.10.2.min.js" />
     <Content Include="Scripts\vendor\jquery-ui.js" />
     <Content Include="Scripts\vendor\jquery.viewloader.js" />
@@ -70,15 +72,20 @@
     <Content Include="Scripts\vendor\knockout.validation.js" />
     <Content Include="Scripts\vendor\knoclout.mapping-latest.debug.js" />
     <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekeradditionalinformation.js" />
-    <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekeredit.js" />
+    <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekeraddtionalinformationedit.js" />
     <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekerlist.js" />
+    <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekermyinformation.js" />
     <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekerregistration.js" />
     <Content Include="Scripts\viewmodel\skillsmart.model.jobseekeradditionalinformation.js" />
-    <Content Include="Scripts\viewmodel\skillsmart.model.jobseekeredit.js" />
+    <Content Include="Scripts\viewmodel\skillsmart.model.jobseekeraddtionalinformationedit.js" />
+    <Content Include="Scripts\viewmodel\skillsmart.model.jobseekerlist.js" />
+    <Content Include="Scripts\viewmodel\skillsmart.model.jobseekermyinformation.js" />
     <Content Include="Scripts\viewmodel\skillsmart.model.jobseekerregistration.js" />
+    <Content Include="Views\JobSeeker\header.html" />
     <Content Include="Views\JobSeeker\JobSeekerAdditionalInformation.html" />
-    <Content Include="Views\JobSeeker\JobSeekerEdit.html" />
+    <Content Include="Views\JobSeeker\JobSeekerAdditionalInformationEdit.html" />
     <Content Include="Views\JobSeeker\JobSeekerList.html" />
+    <Content Include="Views\JobSeeker\JobSeekerMyInformation.html" />
     <Content Include="Views\JobSeeker\JobSeekerRegistration.html" />
     <Content Include="Web.config" />
   </ItemGroup>

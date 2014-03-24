@@ -13,7 +13,7 @@ namespace SkillSmartWebAPI
         {
 
             config.Routes.MapHttpRoute(
-              name: "RestPCApi",
+              name: "RPCApi",
               routeTemplate: "api/{controller}/{action}/{id}",
               defaults: new { action = RouteParameter.Optional }
             );

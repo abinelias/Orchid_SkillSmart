@@ -13,3 +13,8 @@ D:\Projects\Temp\SkillSmartUI\SkillSmartUI\SkillSmartUI\bin\SkillSmartUI.pdb
 D:\Projects\Temp\SkillSmartUI\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.csprojResolveAssemblyReference.cache
 D:\Projects\Temp\SkillSmartUI\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.dll
 D:\Projects\Temp\SkillSmartUI\SkillSmartUI\SkillSmartUI\obj\Debug\SkillSmartUI.pdb
+D:\Projects\Orchid_SkillSmart\SkillSmart-UI\SkillSmartUI\bin\SkillSmartUI.dll
+D:\Projects\Orchid_SkillSmart\SkillSmart-UI\SkillSmartUI\bin\SkillSmartUI.pdb
+D:\Projects\Orchid_SkillSmart\SkillSmart-UI\SkillSmartUI\obj\Debug\SkillSmartUI.csprojResolveAssemblyReference.cache
+D:\Projects\Orchid_SkillSmart\SkillSmart-UI\SkillSmartUI\obj\Debug\SkillSmartUI.dll
+D:\Projects\Orchid_SkillSmart\SkillSmart-UI\SkillSmartUI\obj\Debug\SkillSmartUI.pdb

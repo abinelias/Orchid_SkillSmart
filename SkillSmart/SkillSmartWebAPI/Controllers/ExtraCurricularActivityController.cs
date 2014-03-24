@@ -15,9 +15,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all extra Curricular activities of jobseeker related to an education details
         /// </summary>
         /// <returns>ExtraCurricular Activity List</returns>
-        public IEnumerable<ExtraCurricularActivity> GetAllExtraCurricularActivityById()
+        public IEnumerable<ExtraCurricularActivity> GetAllExtraCurricularActivityById(string jobSeekerId)
         {
-            return ServiceFactory.GetJobSeekerExtraCurricularActivityService().GetAllExtraCurricularActivityById("cdc83674-95f4-460c-95e0-6ae04174f75e");
+            return ServiceFactory.GetJobSeekerExtraCurricularActivityService().GetAllExtraCurricularActivityById(jobSeekerId);
         }
 
         /// <summary>
@@ -67,6 +67,13 @@ namespace SkillSmartWebAPI.Controllers
             IExtraCurricularActivityService<ExtraCurricularActivity> jobSeekerService = ServiceFactory.GetJobSeekerExtraCurricularActivityService();
             var jobSeeker = jobSeekerService.GetById(id);
             jobSeekerService.Delete(jobSeeker);  
+        }
+
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
         }
     }
 }

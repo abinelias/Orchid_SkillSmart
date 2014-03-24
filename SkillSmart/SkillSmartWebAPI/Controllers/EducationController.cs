@@ -15,9 +15,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all education ddetails of the jobseeker
         /// </summary>
         /// <returns>Jobseeker education list</returns>
-        public IEnumerable<Education> GetAllEducationById()
+        public IEnumerable<Education> GetAll(String jobSeekerId)
         {
-            return ServiceFactory.GetJobSeekerEducation().GetAllEducationById("8f500a04-22f0-40fa-b4ce-c24c3813d3d2");
+            return ServiceFactory.GetJobSeekerEducation().GetAllEducationById(jobSeekerId);
         }
 
         /// <summary>
@@ -67,6 +67,13 @@ namespace SkillSmartWebAPI.Controllers
             IEducationService<Education> jobSeekerEducationService = ServiceFactory.GetJobSeekerEducation();
             var jobSeekerEducationObj = jobSeekerEducationService.GetById(id);
             jobSeekerEducationService.Delete(jobSeekerEducationObj);  
+        }
+
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
         }
     }
 }

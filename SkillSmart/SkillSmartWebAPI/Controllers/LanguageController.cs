@@ -15,9 +15,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all languages of jobseeker
         /// </summary>
         /// <returns>jobseeker languages list</returns>
-        public IEnumerable<Language> GetAllLanguagesById()
+        public IEnumerable<Language> GetAll(string jobSeekerId)
         {
-            return ServiceFactory.GetJobSeekerLanguage().GetAllLanguagesById("cdc83674-95f4-460c-95e0-6ae04174f75e");
+            return ServiceFactory.GetJobSeekerLanguage().GetAllLanguagesById(jobSeekerId);
         }
 
         /// <summary>
@@ -67,6 +67,13 @@ namespace SkillSmartWebAPI.Controllers
             ILanguageService<Language> jobSeekerService = ServiceFactory.GetJobSeekerLanguage();
             var jobSeeker = jobSeekerService.GetById(id);
             jobSeekerService.Delete(jobSeeker);  
+        }
+
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
         }
     }
 }

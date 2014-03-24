@@ -15,9 +15,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all jobseeker work history
         /// </summary>
         /// <returns>List of all work history of jobseeker</returns>
-        public IEnumerable<WorkHistory> GetJobSeekerWorkHistoryById()
+        public IEnumerable<WorkHistory> GetJobSeekerWorkHistoryById(String jobSeekerId)
         {
-            return ServiceFactory.GetJobSeekerWorkHistory().GetJobSeekerWorkHistoryById("cdc83674-95f4-460c-95e0-6ae04174f75e");
+            return ServiceFactory.GetJobSeekerWorkHistory().GetJobSeekerWorkHistoryById(jobSeekerId);
         }
 
         /// <summary>
@@ -67,6 +67,13 @@ namespace SkillSmartWebAPI.Controllers
             IWorkHistoryService<WorkHistory> jobSeekerWorkHistoryService = ServiceFactory.GetJobSeekerWorkHistory();
             var jobSeekerWorkHistory = jobSeekerWorkHistoryService.GetById(id);
             jobSeekerWorkHistoryService.Delete(jobSeekerWorkHistory);  
+        }
+
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
         }
     }
 }

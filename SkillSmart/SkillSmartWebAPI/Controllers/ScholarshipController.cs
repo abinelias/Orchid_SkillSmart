@@ -15,9 +15,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all Scholarship of jobseeker related to an education details
         /// </summary>
         /// <returns>list of Scholarship</returns>
-        public IEnumerable<Scholarship> GetAllScholarshipById()
+        public IEnumerable<Scholarship> GetAll(string jobSeekerId)
         {
-            return ServiceFactory.GetJobSeekerScholarship().GetAllScholarshipById("cdc83674-95f4-460c-95e0-6ae04174f75e");
+            return ServiceFactory.GetJobSeekerScholarship().GetAllScholarshipById(jobSeekerId);
         }
 
         /// <summary>
@@ -67,6 +67,13 @@ namespace SkillSmartWebAPI.Controllers
             IScholarshipService<Scholarship> jobSeekerService = ServiceFactory.GetJobSeekerScholarship();
             var jobSeeker = jobSeekerService.GetById(id);
             jobSeekerService.Delete(jobSeeker);  
+        }
+
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
         }
     }
 }

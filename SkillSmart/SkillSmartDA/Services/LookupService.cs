@@ -39,12 +39,16 @@ namespace SkillSmartMongoDA.Services
             base.Create(seeker);
         }
 
+        /// <summary>
+        /// FUnction to get lookUp collection name by Id
+        /// </summary>
+        /// <param name="id">lookUp CollectionId</param>
+        /// <returns>LookupDto object</returns>
         public new SkillSmart.Dto.LookupDto GetById(string id)
         {
-
-            SkillSmart.Dto.LookupDto list = new SkillSmart.Dto.LookupDto ();
-            list.Name = "Test";
-            return list;
+            LookupEntity dbObj = base.GetById(id);
+            SkillSmart.Dto.LookupDto seeker = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.LookupEntity, SkillSmart.Dto.LookupDto>(dbObj);
+            return seeker;
         }
 
         public void Update(SkillSmart.Dto.LookupDto entity)

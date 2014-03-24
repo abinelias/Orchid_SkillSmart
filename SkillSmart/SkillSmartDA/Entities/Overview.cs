@@ -18,6 +18,18 @@ namespace SkillSmartMongoDA.Entities
         public string Summary { get; set; }
 
         /// <summary>
+        /// Industry
+        /// </summary>
+        [BsonElement("Industry")]
+        public string Industry { get; set; }
+
+        /// <summary>
+        /// Speciality
+        /// </summary>
+        [BsonElement("Speciality")]
+        public string Speciality { get; set; }
+
+        /// <summary>
         /// ExperienceId
         /// </summary>
         [BsonElement("ExperienceId")]

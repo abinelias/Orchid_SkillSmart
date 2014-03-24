@@ -15,9 +15,23 @@ namespace SkillSmart.Dto
         public string JobSeekerId { get; set; }
 
         /// <summary>
+        /// MiddleName
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// MiddleName
+        /// </summary>
+        public string Suffix { get; set; }
+
+        /// <summary>
+        /// MiddleName
+        /// </summary>
+        public string MiddleName { get; set; }
+
+        /// <summary>
         /// PreferedName
         /// </summary>
-        [Required(ErrorMessage = "PreferedName Required")]
         public string PreferedName { get; set; }
 
         /// <summary>
@@ -65,7 +79,6 @@ namespace SkillSmart.Dto
         /// <summary>
         /// Citizenship
         /// </summary>
-        [Required(ErrorMessage = "Gender Required")]
         public string Gender { get; set; }
 
         /// <summary>
@@ -77,7 +90,6 @@ namespace SkillSmart.Dto
         /// <summary>
         /// Mobile
         /// </summary>
-        [Required(ErrorMessage = "Mobile Required")]
         public string Mobile { get; set; }
 
         /// <summary>
@@ -89,13 +101,11 @@ namespace SkillSmart.Dto
         /// <summary>
         /// Birthday
         /// </summary>
-        [Required(ErrorMessage = "Birthday Required")]
         public string Birthday { get; set; }
 
         /// <summary>
         /// RaceId
         /// </summary>
-        [Required(ErrorMessage = "RaceId Required")]
         public string RaceId { get; set; }
 
 

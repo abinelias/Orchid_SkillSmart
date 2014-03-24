@@ -47,5 +47,12 @@ namespace SkillSmartWebAPI.Controllers
             }
             catch (Exception exp){}
         }
+
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
+        }
     }
 }

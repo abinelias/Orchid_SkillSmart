@@ -39,6 +39,12 @@ namespace SkillSmart.Dto
         public string EndDate { get; set; }
 
         /// <summary>
+        /// InstitutionLocation
+        /// </summary>
+        [Required(ErrorMessage = "InstitutionLocation Required")]
+        public string InstitutionLocation { get; set; }
+
+        /// <summary>
         /// MajorFocus
         /// </summary>
         [Required(ErrorMessage = "MajorFocus Required")]

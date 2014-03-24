@@ -2,17 +2,40 @@
 if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
 if (typeof (skillsmart.mediator.jobseekerlist) == 'undefined') skillsmart.mediator.jobseekerlist = {}
 
+skillsmart.mediator.jobseekerlist.createViewMediator = function () {
+    var dataObjJobseeker;
+    var apiUrl = GetWebAPIURL() + '/api/JobSeeker/';
+
+    //To get jobseekers
+    $.ajax({
+        url: apiUrl,
+        type: 'GET',
+        dataType: 'JSON',
+        async: false,
+        success: function (data) {
+            dataObjJobseeker = data;
+
+        },
+
+        error: function (xhr, status, error) {
+            alert('Error :' + status);
+        }
+    });
+    var viewModel = skillsmart.model.jobseekerlist.initializeViewModel(dataObjJobseeker);
+    skillsmart.mediator.jobseekerlist.setViewModel(viewModel);
+};
+
 skillsmart.mediator.jobseekerlist.setupViewDataBindings = function ()
 {
-    var deleteId = getParameterByName('DeleteId');
+    /*var deleteId = getParameterByName('DeleteId');
     if (deleteId != null && deleteId.length > 0)
     {
-        var rootUrl = 'http://localhost:2043';
-        var apiUrl = '/api/JobSeeker/' + deleteId;
+        var apiUrl = GetWebAPIURL() + '/api/JobSeeker/' + deleteId;
         var viewModel;
 
+        //To delete Jobseeker
         $.ajax({
-            url: rootUrl + apiUrl,
+            url:  apiUrl,
             type: 'DELETE',
             async : false,
             contentType: "application/json; charset=utf-8",
@@ -23,54 +46,19 @@ skillsmart.mediator.jobseekerlist.setupViewDataBindings = function ()
                 alert('Error :' + status);
             }
         });
-    }
-    var rootUrl = 'http://localhost:2043';
-    var apiUrl = '/api/JobSeeker/';   
-    var viewModel =
-    {
-        persons: ko.observableArray()
-    };
-    $.ajax({
-        url: rootUrl + apiUrl,
-        type: 'GET',
-        dataType: 'JSON',
+    }*/
 
-        success: function (data) {           
-            for (da in data) {
-                var person = {
-                    FirstName: ko.observable(''),
-                    LastName: ko.observable(''),
-                    Email: ko.observable(''),
-                    Birthday: ko.observable(''),
-                    Id: ko.observable('')
-                };
-                Uid = data[da].Id;
-                person.Id(data[da].Id);
-                person.FirstName(data[da].FirstName);
-                person.LastName(data[da].LastName);
-                person.Email(data[da].Email);
-                person.Birthday(data[da].Birthday);
-                person.EditUrl = ko.computed(function () {
-                    return '/Views/JobSeeker/JobSeekerEdit.html?Id=' + data[da].Id;
-                }, this);
-                person.DeleteUrl = ko.computed(function () {
-                    return '/Views/JobSeeker/JobSeekerList.html?DeleteId=' + data[da].Id;
-                }, this);
-                viewModel.persons.push(person);
-            }
-        },
-        error: function (xhr, status, error) {
-            alert('Error :' + status);
-        }
-    });
-
-    ko.applyBindings(viewModel, document.getElementById('form_div'));
-    var that = this;
+    var viewModel = skillsmart.mediator.jobseekerlist.getViewModel();
+    var viewNode = $("#form_div")[0];
+    ko.applyBindings(viewModel, viewNode);
+    
 }
 
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+skillsmart.mediator.jobseekerlist.getViewModel = function () {
+    return $(document).data("skillsmart.model.jobseekerlist.viewmodel");
 }
+
+skillsmart.mediator.jobseekerlist.setViewModel = function (viewModel) {
+    $(document).data("skillsmart.model.jobseekerlist.viewmodel", viewModel);
+}
+

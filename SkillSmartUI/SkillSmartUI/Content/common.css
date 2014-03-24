@@ -1,9 +1,18 @@
 ﻿#form_div 
 {   
-    /*background-color: #ABBBD8;*/
-    /*width:600px;*/
-    height:500px;
-} 
+    overflow:auto;
+    width:710px;
+    background-color:#F2FAFE;
+    margin:0 auto;
+    padding-bottom:10px;
+}
+#main-div 
+{
+    overflow:auto;
+    width:845px;
+    background-color:#F0F8FF;
+    margin:0 auto;
+}
 .resetbutton
 {
          width:100px;
@@ -15,15 +24,80 @@
 {
     background:#808080;
 }
-.submitbutton {
-     width:100px;
-         height:50px;
+.submitbutton 
+{
+     width:150px;
+         height:30px;
          border-style:none;
-         background-color:#99A1BF;
+         background-color:#fc9949;
+         color:white;
 }
 .submitbutton:hover
 {
     background:#0094ff;
+}
+.editbutton 
+{
+    float:right;
+    width:90px;
+    height:30px;
+    border-style:none;
+    background-color:#999999;
+    color:white;
+  
+}
+.editbutton:hover
+{
+    background:#808080;
+}
+.savebutton 
+{
+    width:50px;
+    height:30px;
+    border-style:none;
+    background-color:#0094ff;
+    color:white;
+    margin-bottom:10px;
+}
+.deletebutton {
+
+    width:60px;
+    height:30px;
+    border-style:none;
+    background-color:red;
+    color:white;
+    float:right;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+.cancelbutton {
+    width:60px;
+    height:30px;
+    border-style:none;
+    background-color:lightgray;
+    color:white;   
+}
+.individual_editbutton
+ {
+    width:50px;
+    height:30px;
+    border-style:none;
+    background-color:#F0F8FF;    
+    margin-left:550px;
+    margin-top:10px;
+   
+}
+.individual_editbutton_tab
+ {
+    width:50px;
+    height:30px;
+    border-style:none;
+    background-color:#F0F8FF;    
+    /*margin-left:550px;*/
+    position:absolute;
+    right:50px;
+    margin-top:10px;
+   
 }
 ul {
     list-style-type: none;
@@ -38,8 +112,8 @@ li {
     padding-top:10px;
 }
 
-#outer_container {
-    /*border:1px solid#dddddd ;*/
+#outer_container 
+{
        width:100%;
 }
 
@@ -76,7 +150,30 @@ body {
  color: #6a747c;
  margin: 0;
  padding: 0;
- font-size: 14px;
+ font-size: 11px;
+}
+
+.tab_style {
+ background:white;
+ font-family: 'Questrial', sans-serif;
+ color: #6a747c;
+ margin: 0;
+ padding: 0;
+ font-size: 11px;
+}
+
+a
+{
+    color:white;
+    text-decoration:none;
+}
+.jobseeker_list_a 
+{
+    color:blue;
+}
+.validationMessage {
+    visibility:hidden;
+    font-size:0px;
 }
 .li_style 
 {
@@ -99,4 +196,71 @@ body {
 { 
     border-color: black; 
     outline: none; 
+}
+
+select {
+    height:28px;
+}
+.common_banner 
+{
+    height:50px;
+    width:800px;
+    margin: auto;
+    margin-top:10px;
+    background-color:#333333; 
+    position:relative;
+    color:white;
+}
+.common_background
+{
+    width:800px;
+    overflow:auto;
+    margin:0px auto;
+    background-color:white;
+    
+}
+.common_tab_background
+{
+    width:750px;
+    overflow:auto;
+    margin:0px auto;
+    background-color:white;
+    
+}
+.add_div {
+     width:720px;
+    overflow:auto;
+    margin:0px auto;
+    background-color:#F0F8FF;
+    margin-top:10px;
+}
+.tab_savebackground_div {
+     width:720px;
+    overflow:auto;
+    margin:0px auto;
+    background-color:#F0F8FF;
+    margin-top:40px;
+}
+#aboutme 
+{
+    height:100px;
+    width:400px;
+}
+.language_label 
+{
+    background-color:#F2FAFE;
+    display:block;
+    width:95px;
+    height:30px;
+    text-align:center;
+    padding-top:15px;
+    font-size:12px;
+    margin-top:20px;
+    margin-bottom:10px;
+}
+#awards-description 
+{
+    height:100px;
+    width:400px;
+    margin-top:10px;
 }

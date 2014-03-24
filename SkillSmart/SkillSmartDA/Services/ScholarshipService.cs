@@ -25,7 +25,7 @@ namespace SkillSmartMongoDA.Services
             List<SkillSmart.Dto.Scholarship> jobSeekerScholarship = new List<SkillSmart.Dto.Scholarship>();
             foreach (Scholarship jobSeeker in jobSeekerScholarshipList)
             {
-                if (jobSeeker.EducationId == id)
+                if (jobSeeker.JobSeekerId == id)
                 {
                     SkillSmart.Dto.Scholarship jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.Scholarship, SkillSmart.Dto.Scholarship>(jobSeeker);
                     jobSeekerScholarship.Add(jobSeekerObj);

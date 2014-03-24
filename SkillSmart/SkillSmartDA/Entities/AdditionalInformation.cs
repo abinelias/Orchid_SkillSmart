@@ -11,6 +11,26 @@ namespace SkillSmartMongoDA.Entities
         [BsonElement("JobSeekerId")]
         public string JobSeekerId { get; set; }
 
+
+        /// <summary>
+        /// MiddleName
+        /// </summary>
+        [BsonElement("Title")]
+        public string Title { get; set; }
+
+
+        /// <summary>
+        /// MiddleName
+        /// </summary>
+        [BsonElement("Suffix")]
+        public string Suffix { get; set; }
+        
+        /// <summary>
+        /// MiddleName
+        /// </summary>
+        [BsonElement("MiddleName")]
+        public string MiddleName { get; set; }
+
         /// <summary>
         /// PreferedName
         /// </summary>

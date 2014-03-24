@@ -8,3 +8,4 @@ D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmart\bin\Debug\SkillSmart.pdb
 D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmart\bin\Debug\AutoMapper.dll
 D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmart\obj\Debug\SkillSmart.dll
 D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmart\obj\Debug\SkillSmart.pdb
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmart\obj\Debug\SkillSmart.csprojResolveAssemblyReference.cache

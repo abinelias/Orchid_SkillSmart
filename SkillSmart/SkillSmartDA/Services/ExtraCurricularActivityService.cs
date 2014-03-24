@@ -25,7 +25,7 @@ namespace SkillSmartMongoDA.Services
             List<SkillSmart.Dto.ExtraCurricularActivity> jobSeekerExtraCurricularActivity = new List<SkillSmart.Dto.ExtraCurricularActivity>();
             foreach (ExtraCurricularActivity jobSeeker in jobSeekerExtraCurricularActivityList)
             {
-                if (jobSeeker.EducationId == id)
+                if (jobSeeker.JobSeekerId == id)
                 {
                     SkillSmart.Dto.ExtraCurricularActivity jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.ExtraCurricularActivity, SkillSmart.Dto.ExtraCurricularActivity>(jobSeeker);
                     jobSeekerExtraCurricularActivity.Add(jobSeekerObj);

@@ -11,25 +11,7 @@ namespace SkillSmartMongoDA.Services
         public JobSeekerService(MongoDatabase mongoDatabase)
             : base(mongoDatabase)
         { }
- 
-        
-        public IEnumerable<SkillSmart.Dto.JobSeeker> GetJobSeekerList(int limit, int skip)
-        {
-            var jobSeekerList = this.MongoCollection.FindAllAs<JobSeeker>()
-                .SetSortOrder(SortBy<JobSeeker>.Descending(j => j.FirstName))
-                .SetLimit(limit)
-                .SetSkip(skip)
-                .SetFields(Fields<JobSeeker>.Include(j => j.Id, j => j.FirstName, j => j.MiddleName, j => j.LastName, j => j.Email,  j => j.Password));
 
-            
-            List<SkillSmart.Dto.JobSeeker> jobSeekerCursor = new List<SkillSmart.Dto.JobSeeker>();
-            foreach (JobSeeker jobSeeker in jobSeekerList)
-            {
-                SkillSmart.Dto.JobSeeker jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.JobSeeker, SkillSmart.Dto.JobSeeker>(jobSeeker);
-                jobSeekerCursor.Add(jobSeekerObj);
-            }
-            return jobSeekerCursor;
-        }
 
         /// <summary>
         /// Function to get all jobseeker details
@@ -56,8 +38,9 @@ namespace SkillSmartMongoDA.Services
         /// <param name="entity">jobseeker object</param>
         public void Create(SkillSmart.Dto.JobSeeker entity)
         {
-            JobSeeker seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.JobSeeker, SkillSmartMongoDA.Entities.JobSeeker>(entity);
+            SkillSmartMongoDA.Entities.JobSeeker seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.JobSeeker, SkillSmartMongoDA.Entities.JobSeeker>(entity);
             base.Create(seeker);
+            entity.Id = seeker.Id;
         }
 
         /// <summary>
@@ -91,5 +74,25 @@ namespace SkillSmartMongoDA.Services
             JobSeeker seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.JobSeeker, SkillSmartMongoDA.Entities.JobSeeker>(entity);
             base.Delete(seeker);
         }
+
+
+
+        public IEnumerable<SkillSmart.Dto.JobSeeker> GetJobSeekerList(int limit, int skip)
+         {
+             var jobSeekerList = this.MongoCollection.FindAllAs<JobSeeker>()
+                 .SetSortOrder(SortBy<JobSeeker>.Descending(j => j.FirstName))
+                 .SetLimit(limit)
+                 .SetSkip(skip)
+                 .SetFields(Fields<JobSeeker>.Include(j => j.Id, j => j.FirstName, j => j.LastName, j => j.Email,  j => j.Password));
+
+            
+             List<SkillSmart.Dto.JobSeeker> jobSeekerCursor = new List<SkillSmart.Dto.JobSeeker>();
+             foreach (JobSeeker jobSeeker in jobSeekerList)
+             {
+                 SkillSmart.Dto.JobSeeker jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.JobSeeker, SkillSmart.Dto.JobSeeker>(jobSeeker);
+                 jobSeekerCursor.Add(jobSeekerObj);
+             }
+             return jobSeekerCursor;
+         }
     }
 }

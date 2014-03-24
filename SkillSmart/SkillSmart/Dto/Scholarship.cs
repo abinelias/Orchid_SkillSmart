@@ -11,8 +11,8 @@ namespace SkillSmart.Dto
         /// <summary>
         /// EducationId
         /// </summary>
-        [Required(ErrorMessage = "EducationId Required")]
-        public string EducationId { get; set; }
+        [Required(ErrorMessage = "JobSeekerId Required")]
+        public string JobSeekerId { get; set; }
 
         /// <summary>
         /// ScholarshipCheck
@@ -24,7 +24,7 @@ namespace SkillSmart.Dto
         /// Title
         /// </summary>
         [Required(ErrorMessage = "Title Required")]
-        public string Title { get; set; }
+        public string ScholarshipTitle { get; set; }
 
         /// <summary>
         /// ScholarshipDescription

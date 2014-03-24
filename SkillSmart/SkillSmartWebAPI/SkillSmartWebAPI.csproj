@@ -88,10 +88,12 @@
     <Compile Include="Controllers\ExtraCurricularActivityController.cs" />
     <Compile Include="Controllers\JobSeekerSkillListController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\LookupByCriteriaController.cs" />
     <Compile Include="Controllers\LookupController.cs" />
     <Compile Include="Controllers\JobSeekerController.cs" />
     <Compile Include="Controllers\OverviewController.cs" />
     <Compile Include="Controllers\ScholarshipController.cs" />
+    <Compile Include="Controllers\SkillAliasController.cs" />
     <Compile Include="Controllers\SkillController.cs" />
     <Compile Include="Controllers\SkillMapController.cs" />
     <Compile Include="Controllers\SpecialityCourseController.cs" />

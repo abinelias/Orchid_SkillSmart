@@ -3,6 +3,8 @@
 <head>
     <title>JobSeeker AdditionalInformation</title>
     <link rel="stylesheet" href="/Content/common.css" />
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+    <script src="/Scripts/Common.js"></script>
     <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
     <script src="/Scripts/vendor/jquery.viewloader.js"></script>
     <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
@@ -26,7 +28,7 @@
                     }
                 });
             }
-            function InitializeViewMediators() {                
+            function InitializeViewMediators() {
 
                 skillsmart.mediator.jobseekeradditionalinformation.createViewMediator();
                 skillsmart.mediator.jobseekeradditionalinformation.setupViewDataBindings();
@@ -38,99 +40,149 @@
 <body>
      <div id="outer_container" >       
         <div id="banner_container"><h2>SkillSmart</h2>
-            <div><a  href="JobSeekerRegistration.html"><font color="white">JobSeeker Registration</font></a>    <a  href="JobSeekerList.html"><font color="white">JobSeeker List</font></a>     <a href="JobSeekerAdditionalInformation.html"><font color="white">JobSeeker AdditionalInformation</font></a></div>
-        </div>           
-        <div id="form_div" >
-            <h3 align="center">JobSeeker Additional Information</h3>
+            <div><a  href="JobSeekerRegistration.html">JobSeeker Registration</a>     <a  href="JobSeekerList.html">JobSeeker List</a>    </div>
+        </div> 
+         <div id="jobseeker_list_accountdetails_banner_div" ><h3>Account Details</h3></div>                            
+         <div id="form_div">
+            <h3>Enter your personal information.</h3>
+            <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                <li data-bind="text: $data"></li>
+            </ul>
             <ul>
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li style="width:200px;float:left;"><label>Preferred Name<sup>*</sup></label></li>
-                        <li style="width:200px;float:left;"><input type="text" id="preferred-name" placeholder="Preferred Name" class="inputs"  /></li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li  class="jobseeker_myinformation_innerli"><label>Title</label></li>                        
                     </ul>
                 </li>
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li  style="width:200px;float:left;"><label>Address Line1<sup>*</sup></label></li>
-                        <li  style="width:200px;float:left;"><input type="text" id="address-line1" placeholder="AddressLine1" class="inputs" /></li>
-                    </ul>
-                </li>
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li  style="width:200px;float:left;"><label>Address Line2</label></li>
-                        <li  style="width:200px;float:left;"><input type="text" id="address-line2" placeholder="AddressLine2" class="inputs"  /></li>
-                    </ul>
-                </li>
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li  style="width:200px;float:left;"><label>City<sup>*</sup></label></li>
-                        <li  style="width:200px;float:left;"><input type="text" id="city" placeholder="City" class="inputs" /></li>
-                    </ul>
-                </li>
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li  style="width:200px;float:left;"><label>State<sup>*</sup></label></li>
-                        <li  style="width:200px;float:left;">
-                            <select>
-                                <option>--Select--</option>
+                 <input type="hidden" id="userPassword" />
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li  class="jobseeker_additionalinformation_liwidth">
+                            <select id="title">
                             </select>
                         </li>
                     </ul>
                 </li>
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li  style="width:200px;float:left;"><label>Zip<sup>*</sup></label></li>
-                        <li  style="width:200px;float:left;"><input type="text" id="zip" placeholder="Zip" class="inputs" maxlength="6" /></li>
+                 <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_additionalinformation_innerli"><label>First Name<sup>*</sup></label></li>
+                        <li class="jobseeker_myinformation_innerli"><label>Middle Name</label></li>
                     </ul>
                 </li>
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li  style="width:200px;float:left;"><label>Country<sup>*</sup></label></li>
-                        <li  style="width:200px;float:left;">
+                 <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_additionalinformation_innerli"><input type="text" id="first-name" placeholder="First Name" class="inputs"  /></li>
+                        <li class="jobseeker_myinformation_innerli"><input type="text" id="middle-name" placeholder="Middle Name" class="inputs"  /></li>
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_myinformation_innerli"><label>Preferred Name</label></li>                        
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_additionalinformation_liwidth"><input type="text" id="preferred-name" placeholder="Preferred Name" class="inputs"  /></li>
+                    </ul>
+                </li>
+                 <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_myinformation_innerli"><label>Last Name<sup>*</sup></label></li>                        
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_additionalinformation_liwidth"><input type="text" id="last-name" placeholder="last Name" class="inputs"  /></li>
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li  class="jobseeker_myinformation_innerli"><label>Suffix</label></li>                       
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                         <li  class="jobseeker_additionalinformation_liwidth">
+                            <select id="suffix" >
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li  class="jobseeker_additionalinformation_innerli"><label>Street Address<sup>*</sup></label></li>
+                        <li  class="jobseeker_myinformation_innerli"><label>Address 2<sup>*</sup></label></li>
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li  class="jobseeker_additionalinformation_innerli"><input type="text" id="address-line1" placeholder="Street Address" class="inputs" /></li>
+                        <li  class="jobseeker_myinformation_innerli"><input type="text" id="address-line2" placeholder="AddressLine2" class="inputs"  /></li>
+                    </ul>
+                </li>
+                <li class="jobseeker_additionalinformation_city_outerli">
+                    <ul class="jobseeker_additionalinformation_city_ul" >
+                        <li  class="jobseeker_additionalinformation_innerli"><label>City<sup>*</sup></label></li>                        
+                        <li  class="jobseeker_myinformation_innerli"><label>Country<sup>*</sup></label></li>
+                        <li  class="jobseeker_myinformation_innerli"><label>State<sup>*</sup></label></li>
+                    </ul>
+                </li>
+                <li class="jobseeker_additionalinformation_city_outerli">
+                    <ul class="jobseeker_additionalinformation_city_ul">
+                        <li  class="jobseeker_additionalinformation_innerli"><input type="text" id="city" placeholder="City" class="inputs" /></li>
+                        <li  class="jobseeker_myinformation_innerli">
                             <select id="country">
-                                <option>--Select--</option>
-                                <option></option>
+                            </select>
+                        </li>
+                        <li  class="jobseeker_myinformation_innerli">
+                            <select id ="state">
+                            </select>
+                        </li>                         
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li  class="jobseeker_additionalinformation_innerli"><label>Zip<sup>*</sup></label></li>
+                        <li  class="jobseeker_myinformation_innerli"><label>Citizenship<sup>*</sup></label></li>
+                    </ul>
+                </li>
+                 <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li  class="jobseeker_additionalinformation_innerli"><input type="text" id="zip" placeholder="Zip" class="inputs" maxlength="5" /></li>
+                        <li  class="jobseeker_myinformation_innerli">
+                            <select id="citizenship" >
                             </select>
                         </li>
                     </ul>
-                </li>
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li  style="width:200px;float:left;"><label>Citizenship<sup>*</sup></label></li>
-                        <li  style="width:200px;float:left;"><input type="text" id="citizenship" placeholder="Citizenship" class="inputs"  /></li>
-                    </ul>
-                </li>                
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li  style="width:200px;float:left;"><label>Phone Home</label></li>
-                        <li  style="width:200px;float:left;"><input type="text" id="phone-home" placeholder="Phone Home" class="inputs"  /></li>
+                </li>                                             
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_additionalinformation_innerli"><label>Phone<sup>*</sup></label></li>
+                        <li  class="jobseeker_myinformation_innerli"><label>Email<sup>*</sup></label></li>
                     </ul>
                 </li>
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li  style="width:200px;float:left;"><label>Phone Mobile<sup>*</sup></label></li>
-                        <li  style="width:200px;float:left;"><input type="text" id="phone-mobile" placeholder="Phone Mobile" class="inputs" /></li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_additionalinformation_innerli"><input type="text" id="phone" placeholder="Phone Number" class="inputs"  /></li>
+                        <li class="jobseeker_myinformation_innerli"><input type="text" id="email-address" placeholder="Email" class="inputs" disabled/></li>
                     </ul>
                 </li>
                 
-                <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li  style="width:200px;float:left;"><label>Preferred Method of Contact</label></li>
-                        <li  style="width:200px;float:left;">
-                            <select>
-                                <option>--Select--</option>
-                                <option>Email</option>
-                                <option>Home Phone</option>
-                                <option>Home Mobile</option>
-                            </select>
-
-                        </li>
+                <li  class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_myinformation_innerli"><label>Prefered Method of contact<sup>*</sup></label></li>                    
                     </ul>
                 </li>
-               <li style="width:600px;float:left;" class="marginclass">
-                    <ul style="width:600px;float:left;">
-                        <li style="width:200px;float:left;"><input type="submit" id="submit-button" value="Add Information" class="submitbutton" /></li>
-                        <li style="width:200px;float:left;"><input type="button" id="reset-button" value="Reset" class="resetbutton"  /></li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_additionalinformation_preferredmethod_innerli"><input type="radio" name="contact" value="email" class="contact"/>Email</li>
+                        <li class="jobseeker_additionalinformation_preferredmethod_innerli"><input type="radio" name="contact" value="phone" class="contact"/>Phone</li>
+                    </ul>
+                </li>
+               <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_myinformation_innerli"><input type="submit" id="submit-button" value="Add Information" class="submitbutton" /></li>
+                        <li class="jobseeker_myinformation_innerli"><input type="button" id="reset-button" value="Cancel" class="submitbutton"  /></li>
                     </ul>
                 </li>
             </ul>

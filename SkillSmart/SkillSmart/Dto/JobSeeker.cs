@@ -16,13 +16,6 @@ namespace SkillSmart.Dto
         public string FirstName { get; set; }
 
         /// <summary>
-        /// MiddleName
-        /// </summary>
-        [Display(Name = "MiddleName:")]
-        [Required(ErrorMessage = "MiddleName Required")]
-        public string MiddleName { get; set; }
-
-        /// <summary>
         /// LastName
         /// </summary>
         [Display(Name = "Last Name:")]

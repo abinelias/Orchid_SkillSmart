@@ -80,5 +80,16 @@ namespace SkillSmart.Dto
         [Required(ErrorMessage = "JobDuties Required")]
         public string JobDuties { get; set; }
 
+        /// <summary>
+        /// SalaryType
+        /// </summary>
+        [Required(ErrorMessage = "SalaryType Required")]
+        public string SalaryType { get; set; }
+
+        /// <summary>
+        /// CompanyLocation
+        /// </summary>
+        [Required(ErrorMessage = "CompanyLocation Required")]
+        public string CompanyLocation { get; set; }
     }
 }

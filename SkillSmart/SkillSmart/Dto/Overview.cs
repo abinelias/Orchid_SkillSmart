@@ -15,6 +15,17 @@ namespace SkillSmart.Dto
         public string JobSeekerId { get; set; }
 
         /// <summary>
+        /// Industry
+        /// </summary>
+        public string Industry { get; set; }
+
+        /// <summary>
+        /// Speciality
+        /// </summary>
+        public string Speciality { get; set; }
+
+
+        /// <summary>
         /// Summary
         /// </summary>
         [Required(ErrorMessage = "Summary Required")]
