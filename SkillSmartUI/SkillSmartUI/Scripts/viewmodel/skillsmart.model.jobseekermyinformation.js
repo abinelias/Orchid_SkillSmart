@@ -9,44 +9,94 @@ skillsmart.model.jobseekermyinformation.initializeViewModelMyInformation = funct
     }
     return viewModel;
 }
+
 skillsmart.model.jobseekermyinformation.initializeViewModelPersonalInformation = function (dataObjOverview, dataSecurityCleareanceObj, dataWillingToRelocate, dataObjGetSecurityCleareance, dataObjGetWillingToRelocate) {
-    var viewModel = {
-        myinfoid: ko.observable(dataObjOverview.Id),
+    if (dataObjOverview) {
+        var viewModel = {
+            myinfoid: ko.observable(dataObjOverview.Id),
+            jobseekerId: ko.observable(dataObjOverview.JobSeekerId),
 
-        industriesTextbox: ko.observable(dataObjOverview.Industry),
-        industriesLabel: ko.observable(dataObjOverview.Industry),
+            industriesTextbox: ko.observable(dataObjOverview.Industry),
+            industriesLabel: ko.observable(dataObjOverview.Industry),
 
-        specialityLabel: ko.observable(dataObjOverview.Speciality),
-        specialityTextbox: ko.observable(dataObjOverview.Speciality),
+            specialityLabel: ko.observable(dataObjOverview.Speciality),
+            specialityTextbox: ko.observable(dataObjOverview.Speciality),
 
-        WillingToRelocateLabel: ko.observable(dataObjGetWillingToRelocate.Name),
-        SecurityCleareanceLabel: ko.observable(dataObjGetSecurityCleareance.Name),
+            WillingToRelocateLabel: ko.observable(dataObjGetWillingToRelocate.Name),
+            SecurityCleareanceLabel: ko.observable(dataObjGetSecurityCleareance.Name),
 
-        selectedSecurityCleareanceItem: ko.observable(dataObjOverview.SecurityClearanceId),
-        SecurityCleareance: ko.observableArray(),
+            selectedSecurityCleareanceItem: ko.observable(dataObjOverview.SecurityClearanceId),
+            SecurityCleareance: ko.observableArray(),
 
-        selectedWillingToRelocate: ko.observable(dataObjOverview.WillingToRelocateId),
-        WillingToRelocate: ko.observableArray()
+            selectedWillingToRelocate: ko.observable(dataObjOverview.WillingToRelocateId),
+            WillingToRelocate: ko.observableArray()
+        }
+
+        viewModel.SecurityCleareance.push({ name: "Select", id: "" });
+        for (key in dataSecurityCleareanceObj) {
+
+            viewModel.SecurityCleareance.push({ name: dataSecurityCleareanceObj[key].Name, id: dataSecurityCleareanceObj[key].Id });
+        }
+
+
+        viewModel.WillingToRelocate.push({ name: "Select", id: "" });
+        for (key in dataWillingToRelocate) {
+
+            viewModel.WillingToRelocate.push({ name: dataWillingToRelocate[key].Name, id: dataWillingToRelocate[key].Id });
+        }
     }
-    viewModel.SecurityCleareance.push({ name: "Select", id: "" });
-    for (key in dataSecurityCleareanceObj) {
+    else {
+        
+        var viewModel = {
+            myinfoid: ko.observable(''),
+            jobseekerId: ko.observable(''),
 
-        viewModel.SecurityCleareance.push({ name: dataSecurityCleareanceObj[key].Name, id: dataSecurityCleareanceObj[key].Id });
-    }
+            industriesTextbox: ko.observable(''),
+            industriesLabel: ko.observable(''),
+
+            specialityLabel: ko.observable(''),
+            specialityTextbox: ko.observable(''),
+
+            WillingToRelocateLabel: ko.observable(''),
+            SecurityCleareanceLabel: ko.observable(''),
+
+            selectedSecurityCleareanceItem: ko.observable(''),
+            SecurityCleareance: ko.observableArray(),
+
+            selectedWillingToRelocate: ko.observable(''),
+            WillingToRelocate: ko.observableArray()
+        }
+
+        viewModel.SecurityCleareance.push({ name: "Select", id: "" });
+        for (key in dataSecurityCleareanceObj) {
+            viewModel.SecurityCleareance.push({ name: dataSecurityCleareanceObj[key].Name, id: dataSecurityCleareanceObj[key].Id });
+        }
 
 
-    viewModel.WillingToRelocate.push({ name: "Select", id: "" });
-    for (key in dataWillingToRelocate) {
+        viewModel.WillingToRelocate.push({ name: "Select", id: "" });
+        for (key in dataWillingToRelocate) {
 
-        viewModel.WillingToRelocate.push({ name: dataWillingToRelocate[key].Name, id: dataWillingToRelocate[key].Id });
+            viewModel.WillingToRelocate.push({ name: dataWillingToRelocate[key].Name, id: dataWillingToRelocate[key].Id });
+        }
+        
     }
     return viewModel;
 }
 
 skillsmart.model.jobseekermyinformation.initializeViewModelAboutMe = function (dataObjOverview) {
-    var viewModel = {
-        myinfoid: ko.observable(dataObjOverview.Id),
-        summary: ko.observable(dataObjOverview.Summary),
+    if (dataObjOverview) {
+        var viewModel = {
+            myinfoid: ko.observable(dataObjOverview.Id),
+            jobseekerId: ko.observable(dataObjOverview.JobSeekerId),
+            summary: ko.observable(dataObjOverview.Summary)
+        }
+    }
+    else {
+        var viewModel = {
+            myinfoid: ko.observable(''),
+            jobseekerId: ko.observable(''),
+            summary: ko.observable('')
+        }
     }
     return viewModel;
 }

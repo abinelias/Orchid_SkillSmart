@@ -2,7 +2,7 @@
 if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
 if (typeof (skillsmart.mediator.jobseekermyinformation) == 'undefined') skillsmart.mediator.jobseekermyinformation = {}
 
-var userId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
+var userId = "28432311-8992-41e3-b8ca-6d38a3360ca7";
 
 skillsmart.mediator.jobseekermyinformation.createViewMediatorMyInformation = function () {
     var apiUrlJobSeeker = GetWebAPIURL() + '/api/JobSeeker/' + userId;
@@ -71,7 +71,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsMyInformation = 
 
 skillsmart.mediator.jobseekermyinformation.createViewMediatorPersonalInformation = function () {
 
-
     $("#edit-personal-information").hide();
     $("#submit").hide();
 
@@ -108,7 +107,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorPersonalInformation
             alert('Error :' + status);
         }
     });
-
+    
     var apiUrlWillingToRelocate = GetWebAPIURL() + '/api/Lookup/?name=WillingToRelocate';
     var dataWillingToRelocate;
 
@@ -125,49 +124,53 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorPersonalInformation
             alert('Error :' + status);
         }
     });
+    
+    if (dataObjOverview) {
+        
+        var apiUrlGetSecurityCleareance = GetWebAPIURL() + '/api/Lookup/?name=SecurityClearance&id=' + dataObjOverview.SecurityClearanceId;
+        var dataObjGetSecurityCleareance;
 
-    var apiUrlGetSecurityCleareance = GetWebAPIURL() + '/api/Lookup/?name=SecurityClearance&id=' + dataObjOverview.SecurityClearanceId;
-    var dataObjGetSecurityCleareance;
+        //To get security cleareance name
+        $.ajax({
+            url: apiUrlGetSecurityCleareance,
+            type: 'GET',
+            async: false,
+            success: function (data) {
+                dataObjGetSecurityCleareance = data;
 
-    //To get security cleareance name
-    $.ajax({
-        url: apiUrlGetSecurityCleareance,
-        type: 'GET',
-        async: false,
-        success: function (data) {
-            dataObjGetSecurityCleareance = data;
+            },
+            error: function (xhr, status, error) {
+                alert('Error :' + status);
+            }
+        });
+    }
+    if (dataObjOverview) {
+        var apiUrlGetWillingToRelocate = GetWebAPIURL() + '/api/Lookup/?name=WillingToRelocate&id=' + dataObjOverview.WillingToRelocateId;
+        var dataObjGetWillingToRelocate;
 
-        },
-        error: function (xhr, status, error) {
-            alert('Error :' + status);
-        }
-    });
+        //To get willing to relocate name
+        $.ajax({
+            url: apiUrlGetWillingToRelocate,
+            type: 'GET',
+            async: false,
+            success: function (data) {
+                dataObjGetWillingToRelocate = data;
 
-    var apiUrlGetWillingToRelocate = GetWebAPIURL() + '/api/Lookup/?name=WillingToRelocate&id=' + dataObjOverview.WillingToRelocateId;
-    var dataObjGetWillingToRelocate;
-
-    //To get willing to relocate name
-    $.ajax({
-        url: apiUrlGetWillingToRelocate,
-        type: 'GET',
-        async: false,
-        success: function (data) {
-            dataObjGetWillingToRelocate = data;
-
-        },
-        error: function (xhr, status, error) {
-            alert('Error :' + status);
-        }
-    });
-
+            },
+            error: function (xhr, status, error) {
+                alert('Error :' + status);
+            }
+        });
+    }
+    
     var viewModelPersonalInformation = skillsmart.model.jobseekermyinformation.initializeViewModelPersonalInformation(dataObjOverview, dataSecurityCleareanceObj, dataWillingToRelocate, dataObjGetSecurityCleareance, dataObjGetWillingToRelocate);
     skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelPersonalInformation", viewModelPersonalInformation);
 }
 
 skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsPersonalInformation = function () {
-
-    $("#myInfoId").attr("data-bind", "value:myinfoid");
-
+    
+    $("#JobseekerPersonalinfoId").attr("data-bind", "value:jobseekerId");
+    $("#overviewIdPersonalInfo").attr("data-bind", "value:myinfoid");
 
     $("#industries-label").attr("data-bind", "text:industriesLabel");
     $("#industries-textbox").attr("data-bind", "value:industriesTextbox");
@@ -198,41 +201,275 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsPersonalInformat
         $("#edit").hide();
         $("#edit-personal-information").show();
         $("#submit").show();
+        this.jobseekerId(userId);
     };
     viewModelPersonalInformation.submit = function () {
-
+        var viewModelPersonalInformation = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelPersonalInformation");
         if (viewModelPersonalInformation.isValid()) {
             var jsonObject = ko.toJS(viewModelPersonalInformation);
 
-            var dataObjMyInfo;
-
-            var jobSeekerMyInfoObj = {}
-            jobSeekerMyInfoObj.JobSeekerId = userId;
-            jobSeekerMyInfoObj.Industry = jsonObject.industriesTextbox;
-            jobSeekerMyInfoObj.Speciality = jsonObject.specialityTextbox;
-            jobSeekerMyInfoObj.SecurityClearanceId = jsonObject.selectedSecurityCleareanceItem;
-            jobSeekerMyInfoObj.WillingToRelocateId = jsonObject.selectedWillingToRelocate;
-
-            dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
-
-            var rootUrl = 'http://localhost:2043';
-            var apiUrlMyInfoUpdate = '/api/Overview/' + jsonObject.myinfoid;
+            if (jsonObject.myinfoid) {
+                
+                var apiUrlOverview = GetWebAPIURL() + '/api/Overview/' + userId;
+                var dataObjOverview;
 
 
-            $.ajax({
-                url: rootUrl + apiUrlMyInfoUpdate,
-                type: "PUT",
-                data: dataObjMyInfo,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    location.reload();
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
+                //To get overview details
+                $.ajax({
+                    url: apiUrlOverview,
+                    type: 'GET',
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        dataObjOverview = data;
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Eroooror :' + status);
+                    }
+                });
 
+
+                var dataObjMyInfo;
+
+                var jobSeekerMyInfoObj = {}
+                jobSeekerMyInfoObj.JobSeekerId = userId;
+                jobSeekerMyInfoObj.Industry = jsonObject.industriesTextbox;
+                jobSeekerMyInfoObj.Speciality = jsonObject.specialityTextbox;
+                jobSeekerMyInfoObj.SecurityClearanceId = jsonObject.selectedSecurityCleareanceItem;
+                jobSeekerMyInfoObj.WillingToRelocateId = jsonObject.selectedWillingToRelocate;
+                jobSeekerMyInfoObj.Summary = dataObjOverview.Summary;
+
+                dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+
+                var apiUrlMyInfoUpdate = GetWebAPIURL() + '/api/Overview/' + jsonObject.myinfoid;
+
+                
+                $.ajax({
+                    url: apiUrlMyInfoUpdate,
+                    type: "PUT",
+                    data: dataObjMyInfo,
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    success: function (data) {
+                        
+                        personalInfoObject = viewModelPersonalInformation;
+                        personalInfoObject.jobseekerId(userId);
+
+                        personalInfoObject.industriesLabel(jsonObject.industriesTextbox);
+                        personalInfoObject.specialityLabel(jsonObject.specialityTextbox);
+
+                        personalInfoObject.selectedSecurityCleareanceItem(jsonObject.selectedSecurityCleareanceItem);
+                        personalInfoObject.selectedWillingToRelocate(jsonObject.selectedWillingToRelocate);
+
+                        personalInfoObject.industriesTextbox(jsonObject.industriesTextbox);
+                        personalInfoObject.specialityTextbox(jsonObject.specialityTextbox);
+
+                        var apiUrlGetSecurityCleareance = GetWebAPIURL() + '/api/Lookup/?name=SecurityClearance&id=' + jsonObject.selectedSecurityCleareanceItem;
+                        var dataObjGetSecurityCleareance;
+
+                        //To get security cleareance name
+                        $.ajax({
+                            url: apiUrlGetSecurityCleareance,
+                            type: 'GET',
+                            async: false,
+                            success: function (data) {
+                                dataObjGetSecurityCleareance = data;
+
+                            },
+                            error: function (xhr, status, error) {
+                                alert('Error :' + status);
+                            }
+                        });
+                        
+                        var apiUrlGetWillingToRelocate = GetWebAPIURL() + '/api/Lookup/?name=WillingToRelocate&id=' + jsonObject.selectedWillingToRelocate;
+                        var dataObjGetWillingToRelocate;
+
+                        //To get willing to relocate name
+                        $.ajax({
+                            url: apiUrlGetWillingToRelocate,
+                            type: 'GET',
+                            async: false,
+                            success: function (data) {
+                                dataObjGetWillingToRelocate = data;
+
+                            },
+                            error: function (xhr, status, error) {
+                                alert('Error :' + status);
+                            }
+                        });
+                        
+                        personalInfoObject.SecurityCleareanceLabel(dataObjGetSecurityCleareance.Name);
+                        personalInfoObject.WillingToRelocateLabel(dataObjGetWillingToRelocate.Name);
+                        viewModelPersonalInformation = personalInfoObject;
+                    },
+                    error: function (xhr, error) {
+                        alert('Error :' + error);
+                    }
+                });
+
+                $("#personal-container").show();
+                $("#edit").show();
+                $("#edit-personal-information").hide();
+                $("#submit").hide();
+
+                
+            }
+            else {
+                var dataObjMyInfo;
+
+                var jobSeekerMyInfoObj = {}
+                jobSeekerMyInfoObj.JobSeekerId = userId;
+                jobSeekerMyInfoObj.Industry = jsonObject.industriesTextbox;
+                jobSeekerMyInfoObj.Speciality = jsonObject.specialityTextbox;
+                jobSeekerMyInfoObj.SecurityClearanceId = jsonObject.selectedSecurityCleareanceItem;
+                jobSeekerMyInfoObj.WillingToRelocateId = jsonObject.selectedWillingToRelocate;
+
+                dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+
+                var apiUrlMyInfoUpdate = GetWebAPIURL() + '/api/Overview/';
+
+
+                $.ajax({
+                    url: apiUrlMyInfoUpdate,
+                    type: "POST",
+                    data: dataObjMyInfo,
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    success: function (data) {
+                        var apiUrlOverview = GetWebAPIURL() + '/api/Overview/' + userId;
+                        var dataObjOverview;
+                        //To get overview details
+                        $.ajax({
+                            url: apiUrlOverview,
+                            type: 'GET',
+                            async: false,
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+                                dataObjOverview = data;
+                            },
+                            error: function (xhr, status, error) {
+                                alert('Eroooror :' + status);
+                            }
+                        });
+
+
+                        var apiUrlSecurityCleareance = GetWebAPIURL() + '/api/Lookup/?name=SecurityClearance';
+                        var dataSecurityCleareanceObj;
+
+                        //To get details of security cleareance lookup
+                        $.ajax({
+                            url: apiUrlSecurityCleareance,
+                            type: 'GET',
+                            async: false,
+                            success: function (data) {
+                                dataSecurityCleareanceObj = data;
+
+                            },
+                            error: function (xhr, status, error) {
+                                alert('Error :' + status);
+                            }
+                        });
+
+                        var apiUrlWillingToRelocate = GetWebAPIURL() + '/api/Lookup/?name=WillingToRelocate';
+                        var dataWillingToRelocate;
+
+                        //TO get details of willing to relocate lookup details
+                        $.ajax({
+                            url: apiUrlWillingToRelocate,
+                            type: 'GET',
+                            async: false,
+                            success: function (data) {
+                                dataWillingToRelocate = data;
+
+                            },
+                            error: function (xhr, status, error) {
+                                alert('Error :' + status);
+                            }
+                        });
+
+
+                        var apiUrlGetSecurityCleareance = GetWebAPIURL() + '/api/Lookup/?name=SecurityClearance&id=' + dataObjOverview.SecurityClearanceId;
+                        var dataObjGetSecurityCleareance;
+
+                        //To get security cleareance name
+                        $.ajax({
+                            url: apiUrlGetSecurityCleareance,
+                            type: 'GET',
+                            async: false,
+                            success: function (data) {
+                                dataObjGetSecurityCleareance = data;
+
+                            },
+                            error: function (xhr, status, error) {
+                                alert('Error :' + status);
+                            }
+                        });
+                        
+
+                        var apiUrlGetWillingToRelocate = GetWebAPIURL() + '/api/Lookup/?name=WillingToRelocate&id=' + dataObjOverview.WillingToRelocateId;
+                        var dataObjGetWillingToRelocate;
+
+                        //To get willing to relocate name
+                        $.ajax({
+                            url: apiUrlGetWillingToRelocate,
+                            type: 'GET',
+                            async: false,
+                            success: function (data) {
+                                dataObjGetWillingToRelocate = data;
+
+                            },
+                            error: function (xhr, status, error) {
+                                alert('Error :' + status);
+                            }
+                        });
+                        
+                        
+                        var viewModelPersonalInformation = {
+                            myinfoid: ko.observable(dataObjOverview.Id),
+                            jobseekerId: ko.observable(dataObjOverview.JobSeekerId),
+
+                            industriesTextbox: ko.observable(dataObjOverview.Industry),
+                            industriesLabel: ko.observable(dataObjOverview.Industry),
+
+                            specialityLabel: ko.observable(dataObjOverview.Speciality),
+                            specialityTextbox: ko.observable(dataObjOverview.Speciality),
+
+                            WillingToRelocateLabel: ko.observable(dataObjGetWillingToRelocate.Name),
+                            SecurityCleareanceLabel: ko.observable(dataObjGetSecurityCleareance.Name),
+
+                            selectedSecurityCleareanceItem: ko.observable(dataObjOverview.SecurityClearanceId),
+                            SecurityCleareance: ko.observableArray(),
+
+                            selectedWillingToRelocate: ko.observable(dataObjOverview.WillingToRelocateId),
+                            WillingToRelocate: ko.observableArray()
+                        }
+
+                        viewModelPersonalInformation.SecurityCleareance.push({ name: "Select", id: "" });
+                        for (key in dataSecurityCleareanceObj) {
+
+                            viewModelPersonalInformation.SecurityCleareance.push({ name: dataSecurityCleareanceObj[key].Name, id: dataSecurityCleareanceObj[key].Id });
+                        }
+
+                        
+                        viewModelPersonalInformation.WillingToRelocate.push({ name: "Select", id: "" });
+                        for (key in dataWillingToRelocate) {
+
+                            viewModelPersonalInformation.WillingToRelocate.push({ name: dataWillingToRelocate[key].Name, id: dataWillingToRelocate[key].Id });
+                        }
+                        
+                        skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelPersonalInformation", viewModelPersonalInformation);
+                        alert("hi");
+                    },
+                    error: function (xhr, error) {
+                        alert('Error :' + error);
+                    }
+                });
+
+                $("#personal-container").show();
+                $("#edit").show();
+                $("#edit-personal-information").hide();
+                $("#submit").hide();
+            }
         }
         else {
 
@@ -259,27 +496,38 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorAboutMe = function 
             alert('Eroooror :' + status);
         }
     });
-    if (dataObjOverview.Summary != null) {
-        $("#show_aboutme_div").show();
-        $("#edit_aboutme_div").hide();
-        $("#edit-pitch").show();
-        $("#aboutme_div").hide();
-        $("#submit-pitch").hide();
+    if (dataObjOverview) {
+        if (dataObjOverview.Summary != null) {
+            $("#show_aboutme_div").show();
+            $("#edit_aboutme_div").hide();
+            $("#edit-pitch").show();
+            $("#aboutme_div").hide();
+            $("#submit-pitch").hide();
+        }
+        else {
+            $("#show_aboutme_div").hide();
+            $("#aboutme_div").show();
+            $("#edit-pitch").hide();
+            $("#submit-pitch").hide();
+            $("#edit_aboutme_div").hide();
+        }
     }
     else {
         $("#show_aboutme_div").hide();
         $("#aboutme_div").show();
         $("#edit-pitch").hide();
         $("#submit-pitch").hide();
-        $("#aboutme").hide();
-
+        $("#edit_aboutme_div").hide();
     }
     var viewModelAboutMe = skillsmart.model.jobseekermyinformation.initializeViewModelAboutMe(dataObjOverview);
     skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelAboutMe", viewModelAboutMe);
 }
 
 skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsAboutMe = function () {
-    $("#myInfoId").attr("data-bind", "value:myinfoid");
+
+    $("#jobSeekerSummary").attr("data-bind", "value:jobseekerId");
+    $("#overviewIdSummary").attr("data-bind", "value:myinfoid");
+
     $("#aboutme").attr("data-bind", "value:summary");
     $("#show-summary").attr("data-bind", "text:summary");
 
@@ -294,61 +542,88 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsAboutMe = functi
 
     viewModelAboutMe.pitchYourself = function () {
         $("#aboutme_div").hide();
-        $("#aboutme").show();
+        $("#edit_aboutme_div").show();
         $("#submit-pitch").show();
+        this.jobseekerId(userId);
     }
 
     viewModelAboutMe.submitPitch = function () {
-
-        var apiUrlOverview = GetWebAPIURL() + '/api/Overview/' + userId;
-        var dataObjOverview;
-
-
-        //To get overview details
-        $.ajax({
-            url: apiUrlOverview,
-            type: 'GET',
-            async: false,
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                dataObjOverview = data;
-            },
-            error: function (xhr, status, error) {
-                alert('Eroooror :' + status);
-            }
-        });
-
-
         var jsonObject = ko.toJS(viewModelAboutMe);
-        var jobSeekerMyInfoObj = {}
-        jobSeekerMyInfoObj.JobSeekerId = userId;
-        jobSeekerMyInfoObj.Summary = jsonObject.summary;
-        jobSeekerMyInfoObj.Industry = dataObjOverview.Industry;
-        jobSeekerMyInfoObj.Speciality = dataObjOverview.Speciality;
-        jobSeekerMyInfoObj.SecurityClearanceId = dataObjOverview.SecurityClearanceId;
-        jobSeekerMyInfoObj.WillingToRelocateId = dataObjOverview.WillingToRelocateId;
+        if (jsonObject.myinfoid) {
+            var apiUrlOverview = GetWebAPIURL() + '/api/Overview/' + userId;
+            var dataObjOverview;
 
-        dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
 
-        var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/' + jsonObject.myinfoid;
+            //To get overview details
+            $.ajax({
+                url: apiUrlOverview,
+                type: 'GET',
+                async: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    dataObjOverview = data;
+                },
+                error: function (xhr, status, error) {
+                    alert('Eroooror :' + status);
+                }
+            });
 
-        alert(jsonObject.summary);
-        $.ajax({
-            url: apiUrlAboutMe,
-            type: "PUT",
-            data: dataObjMyInfo,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
-        $("#edit_aboutme_div").hide();
-        $("#show_aboutme_div").show();
-        $("#submit-pitch").hide();
-        $("#edit-pitch").show();
+            var dataObjMyInfo;
+            var jobSeekerMyInfoObj = {}
+            jobSeekerMyInfoObj.JobSeekerId = userId;
+            jobSeekerMyInfoObj.Summary = jsonObject.summary;
+            jobSeekerMyInfoObj.Industry = dataObjOverview.Industry;
+            jobSeekerMyInfoObj.Speciality = dataObjOverview.Speciality;
+            jobSeekerMyInfoObj.SecurityClearanceId = dataObjOverview.SecurityClearanceId;
+            jobSeekerMyInfoObj.WillingToRelocateId = dataObjOverview.WillingToRelocateId;
+
+            dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+
+            var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/' + jsonObject.myinfoid;
+
+            $.ajax({
+                url: apiUrlAboutMe,
+                type: "PUT",
+                data: dataObjMyInfo,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+            $("#edit_aboutme_div").hide();
+            $("#show_aboutme_div").show();
+            $("#submit-pitch").hide();
+            $("#edit-pitch").show();
+        }
+        else {
+            var dataObjMyInfo;
+            var jobSeekerMyInfoObj = {}
+            jobSeekerMyInfoObj.JobSeekerId = userId;
+            jobSeekerMyInfoObj.Summary = jsonObject.summary;
+            dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+
+            var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/';
+
+            $.ajax({
+                url: apiUrlAboutMe,
+                type: "POST",
+                data: dataObjMyInfo,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+            $("#edit_aboutme_div").hide();
+            $("#show_aboutme_div").show();
+            $("#submit-pitch").hide();
+            $("#edit-pitch").show();
+        }
     }
     viewModelAboutMe.editPitch = function () {
         $("#edit_aboutme_div").show();
