@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/Content/common.css" />
     <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
     <link href="/Content/jquery-ui.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="/resources/demos/style.css"/>
 
 
     <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
@@ -80,6 +80,16 @@
 
                  skillsmart.mediator.jobseekermyinformation.createViewMediatorTrainingCourseInsertion();
                  skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseInsertion();
+
+                 skillsmart.mediator.jobseekermyinformation.createViewMediatorTrainingCourseList();
+                 skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseList();
+
+                 skillsmart.mediator.jobseekermyinformation.createViewMediatorCertificationInsertion();
+                 skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationInsertion();
+
+                 skillsmart.mediator.jobseekermyinformation.createViewMediatorCertificationList();
+                 skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationList();
+
 
              }
              InitializeApplication();
@@ -404,32 +414,91 @@
                             <div  data-bind="foreach: education">
                                 <div style="overflow:auto;border-style:solid;border-width:1px;  width:740px;margin-top:15px;font-family: 'Questrial', sans-serif; color: #6a747c;">
                                     <div style="margin:10px;">
-                                        <li ><label style="font-size:large;" data-bind="text: universityName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editEducationDetails">Edit</button></li>                                    
-                                        <li  ><label style="font-size:large;" data-bind="text: degreeName"></label>, <label style="font-size:large;" data-bind="    text: majorFocus"></label></li>
-                                        <li  ><label  data-bind="text: startDate"></label> - <label  data-bind="    text: endDate"></label> / <label  data-bind="    text: universityLocation"></label></li>                                
+                                        <li><label style="font-size:large;" data-bind="text: universityName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editEducationDetails">Edit</button></li>                                    
+                                        <li><label style="font-size:large;" data-bind="text: degreeName"></label>, <label style="font-size:large;" data-bind="    text: majorFocus"></label></li>
+                                        <li><label  data-bind="text: startDate"></label> - <label  data-bind="    text: endDate"></label> / <label  data-bind="    text: universityLocation"></label></li>                                
                                     </div>
                                 </div>
                             </div>                                                               
                         </div>
                     </div>
                     <div id="tabs-3">
-                        <div id="Div1" class="common_tab_background">
-                            <ul>
-                                <li class="jobseeker_myinformation_descriptionli">
-                                        Tell us about your Certification Details.
-                                </li>
-                                <li class="jobseeker_myinformation_exampleli" >
-                                    Where you took it, Certification details etc.
-                                </li>
-                                <li class="jobseeker_myinformation_buttonli">
-                                    <input type="button" id="Button1" class="submitbutton" value="Add Details" />
-                                </li>
-                            </ul>           
+                        <div id="CertificationInsertionDetailsDiv">
+                            <li><input  type="button" id="addMoreCertification" class="editbutton" value="Add More" /></li>
+                            <div id="Certification_General" class="common_tab_background">
+                                <ul>
+                                    <li class="jobseeker_myinformation_descriptionli">
+                                            Tell us about your Certification Details.
+                                    </li>
+                                    <li class="jobseeker_myinformation_exampleli" >
+                                        Where you took it, Certification details etc.
+                                    </li>
+                                    <li class="jobseeker_myinformation_buttonli">
+                                        <input type="button" id="addFirstCertification" class="submitbutton" value="Add Details" />
+                                    </li>
+                                </ul>           
+                            </div>
+
+                            <div class="common_tab_background">
+                                <div id="Edit_Certification" class="tab_savebackground_div">
+                                    <ul>
+                                        <li>
+                                            <li><input type="hidden" id="JobseekerCertificationId"  /></li>
+                                        </li>
+                                        <li>
+                                            <input type="hidden" id="CertificationId"  />
+                                        </li>
+                                        <li class="jobseeker_registration_outerli">
+                                            <ul class="jobseeker_registration_ul">
+                                                <li class="jobseeker_additionalinformation_innerli"><input type="text" id="Certification_Name" placeholder="Certification" class="inputs" /></li>
+                                                <li  class="jobseeker_myinformation_innerli"><input type="checkbox" id="Certification_currently_Enrolled" />Currently Enrolled</li>
+                                            </ul>
+                                        </li>
+                                        <li class="jobseeker_registration_outerli">
+                                            <ul class="jobseeker_registration_ul">
+                                                <li class="jobseeker_additionalinformation_innerli"><input type="text" id="Certification_Institution" placeholder="Institution/Association" class="inputs" /></li>                                               
+                                            </ul>
+                                        </li>
+                                        <li class="jobseeker_registration_outerli">
+                                            <ul class="jobseeker_registration_ul">                                                
+                                                 <li class="jobseeker_additionalinformation_innerli"><input type="text" id="certification_completed_date" placeholder=" Completed Date" class="inputs" /></li>
+                                                <li class="jobseeker_myinformation_innerli"><input type="text" id="expires" placeholder="Expires" class="inputs" /></li>
+                                            </ul>
+                                        </li>
+                                        <li class="jobseeker_registration_outerli">
+                                            <ul class="jobseeker_registration_ul">
+                                                <li class="jobseeker_additionalinformation_innerli"><textarea id="Certification_Details" placeholder=" Details" class="inputs"></textarea></li>                                                
+                                            </ul>
+                                        </li>                                                                                                                  
+                                        <li class="jobseeker_additionalinformation_city_outerli">
+                                            <ul class="jobseeker_additionalinformation_city_ul" >
+                                                <li  class="jobseeker_additionalinformation_innerli"><input type="button" id="save_certification" class="savebutton" value="Save" /></li>
+                                                <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel_certification" class="cancelbutton" value="Cancel" /></li>
+                                                <li class="jobseeker_myinformation_innerli"><input type="button" id="delete_certification" class="deletebutton" value="Delete" /></li>
+                                            </ul>
+                                        </li>
+                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="List_Certification" class="common_tab_background">                         
+                            <div  data-bind="foreach: certification">
+                                <div style="overflow:auto;border-style:solid;border-width:1px;  width:740px;margin-top:15px;font-family: 'Questrial', sans-serif; color: #6a747c;">
+                                    <div style="margin:10px;">
+                                        <li><label style="font-size:large;" data-bind="text: certificationName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editCertificationDetails">Edit</button></li>                                    
+                                        <li><label style="font-size:large;" data-bind="text: certificationInstituion"></label></li>
+                                        <li><label  data-bind="text: completedDate"></label> - <label  data-bind="    text: expireDate"></label></li>    
+                                        <li><label  data-bind="text: certificationDetails"></label></li>
+                                    </div>
+                                </div>
+                            </div>                                                               
                         </div>
                     </div>
                     <div id="tabs-4">
                         <div id="TrainingCourse_InsertionDetails_Div">
-                            <div id="TrainingCourse_General_Div" class="common_tab_background">
+                           <li><input  type="button" id="addMoreTrainingCourse" class="editbutton" value="Add More" /></li>
+                            <div id="TrainingCourse_General" class="common_tab_background">
                                 <ul>
                                     <li class="jobseeker_myinformation_descriptionli">
                                          Tell us about your Training Course Details.
@@ -442,7 +511,70 @@
                                     </li>
                                 </ul>           
                             </div>
+                            <div class="common_tab_background">
+                                <div id="Edit_TrainingCourse" class="tab_savebackground_div">
+                                    <ul>
+                                        <li>
+                                            <li><input type="hidden" id="JobseekerTrainigId"  /></li>
+                                        </li>
+                                        <li>
+                                            <input type="hidden" id="TrainingId"  />
+                                        </li>
+                                        <li class="jobseeker_registration_outerli">
+                                            <ul class="jobseeker_registration_ul">
+                                                <li class="jobseeker_additionalinformation_innerli"><select id="Program_Type" class="jobseeker_myinformation_select" ></select></li>
+                                                <li class="jobseeker_myinformation_innerli" style="padding-top:10px;"><input type="checkbox" id="Currently_Enrolled"  />Currently Enrolled</li>
+                                            </ul>
+                                        </li>
+                                        <li class="jobseeker_registration_outerli">
+                                            <ul class="jobseeker_registration_ul">
+                                                <li class="jobseeker_registration_innerli"><input type="text" id="Focus" placeholder="Focus" class="inputs" /></li>
+                                            </ul>
+                                        </li>
+                                        <li class="jobseeker_registration_outerli">
+                                            <ul class="jobseeker_registration_ul">
+                                                <li class="jobseeker_additionalinformation_innerli"><input type="text" id="TrainingCourse_Institution" placeholder="Institution/Association" class="inputs" /></li>                                                
+                                            </ul>
+                                        </li>  
+                                        <li class="jobseeker_registration_outerli">
+                                            <ul class="jobseeker_registration_ul">
+                                                <li class="jobseeker_additionalinformation_innerli"><input type="text" id="Training_ExpiresDate" placeholder="Expires" class="inputs" /></li>
+                                                <li class="jobseeker_myinformation_innerli"><input type="text" id="Completion_Date" placeholder="Completion Date" class="inputs" /></li>
+                                            </ul>
+                                        </li> 
+                                        <li class="jobseeker_registration_outerli">
+                                            <ul class="jobseeker_registration_ul">
+                                                <li class="jobseeker_registration_innerli"><textarea id="Training_Details" placeholder="Details" class="common_textarea"></textarea></li>
+                                            </ul>
+                                        </li>
+                                                                             
+                                         
+                                    
+                                        <li class="jobseeker_additionalinformation_city_outerli">
+                                            <ul class="jobseeker_additionalinformation_city_ul" >
+                                                <li class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="Save_TrainingCourse" class="savebutton" value="Save" /></li>
+                                                <li class="jobseeker_myinformation_innerli"><input type="button" id="Cancel_TrainingCourse" class="cancelbutton" value="Cancel" /></li>
+                                                <li class="jobseeker_myinformation_innerli"><input type="button" id="Delete_TrainingCourse" class="deletebutton" value="Delete" /></li>
+                                            </ul>
+                                        </li>                        
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
+
+                        <div id="List_TrainingCourse" class="common_tab_background">                                                                                                
+                            <div  data-bind="foreach: trainingCourse">
+                                <div style="overflow:auto;border-style:solid;border-width:1px;  width:740px;margin-top:15px;font-family: 'Questrial', sans-serif; color: #6a747c;">
+                                    <div style="margin:10px;">
+                                        <li ><label style="font-size:large;" data-bind="text: programTypeName"></label>,<label style="font-size:large;text-align:left;"  data-bind="text: focus"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editTrainingCourseDetails">Edit</button></li>                                           
+                                        <li><label  data-bind="text: expiryDate"></label> - <label  data-bind="    text: completionDate "></label>
+                                         <li><label  data-bind="text: trainingDetails"></label></li>   
+                                        
+                                    </div>
+                                </div>
+                            </div>                         
+                        </div>
+
                     </div>
                 </div>
             </div>

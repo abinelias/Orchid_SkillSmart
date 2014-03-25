@@ -39,6 +39,12 @@ namespace SkillSmart.Dto
         public string CompletionDate { get; set; }
 
         /// <summary>
+        /// ExpirationDate
+        /// </summary>
+        [Required(ErrorMessage = "ExpirationDate Required")]
+        public string ExpirationDate { get; set; }
+
+        /// <summary>
         /// CurrentlyEnrolled
         /// </summary>
         [Required(ErrorMessage = "CurrentlyEnrolled Required")]

@@ -15,7 +15,7 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all education ddetails of the jobseeker
         /// </summary>
         /// <returns>Jobseeker education list</returns>
-        public IEnumerable<Education> GetAll(String jobSeekerId)
+        public IEnumerable<Education> GetAll(string jobSeekerId)
         {
             return ServiceFactory.GetJobSeekerEducation().GetAllEducationById(jobSeekerId);
         }

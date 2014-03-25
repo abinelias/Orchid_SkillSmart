@@ -15,9 +15,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all certifications of jobseeker
         /// </summary>
         /// <returns>Certification list of jobseeker</returns>
-        public IEnumerable<Certification> GetJobSeekerCertificationById()
+        public IEnumerable<Certification> GetJobSeekerCertificationById(string jobSeekerId)
         {
-            return ServiceFactory.GetJobSeekerCertification().GetJobSeekerCertificationById("cdc83674-95f4-460c-95e0-6ae04174f75e");
+            return ServiceFactory.GetJobSeekerCertification().GetJobSeekerCertificationById(jobSeekerId);
         }
 
         /// <summary>
@@ -67,6 +67,12 @@ namespace SkillSmartWebAPI.Controllers
             ICertificationService<Certification> jobSeekerCertificationService = ServiceFactory.GetJobSeekerCertification();
             var jobSeekerCertificationObj = jobSeekerCertificationService.GetById(id);
             jobSeekerCertificationService.Delete(jobSeekerCertificationObj);  
+        }
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
         }
     }
 }

@@ -36,6 +36,13 @@ namespace SkillSmartMongoDA.Entities
         public string CompletionDate { get; set; }
 
         /// <summary>
+        /// ExpirationDate
+        /// </summary>
+        [BsonElement("ExpirationDate")]
+        public string ExpirationDate { get; set; }
+
+
+        /// <summary>
         /// CurrentlyEnrolled
         /// </summary>
         [BsonElement("CurrentlyEnrolled")]

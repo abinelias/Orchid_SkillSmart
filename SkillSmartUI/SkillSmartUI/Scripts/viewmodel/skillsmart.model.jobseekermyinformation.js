@@ -334,7 +334,7 @@ skillsmart.model.jobseekermyinformation.initializeViewModelEducationList = funct
     return viewModel;
 }
 
-skillsmart.model.jobseekermyinformation.initializeViewModelTrainingCourseInsertion = function () {
+skillsmart.model.jobseekermyinformation.initializeViewModelTrainingCourseInsertion = function (dataProgramTypeObj) {
     var viewModel =
     {
         jobseekerId: ko.observable(),
@@ -342,11 +342,123 @@ skillsmart.model.jobseekermyinformation.initializeViewModelTrainingCourseInserti
 
         selectedProgramType: ko.observable(),
         programType: ko.observableArray(),
+        programTypeName: ko.observableArray(),
 
         focus: ko.observable(),
         completionDate: ko.observable(),
-        currentlyEnrolled: ko.observable()
+        currentlyEnrolled: ko.observable(),
+        trainingCourseInstitution: ko.observable(),
+        expiryDate: ko.observable(),
+        trainingDetails:ko.observable()
 
     }
+
+    viewModel.programType.push({ name: "Program Type", id: "" });
+    for (da in dataProgramTypeObj) {
+        viewModel.programType.push({ name: dataProgramTypeObj[da].Name, id: dataProgramTypeObj[da].Id });
+    }
+
+    return viewModel;
+}
+
+skillsmart.model.jobseekermyinformation.initializeViewModelTrainingCourseList = function (dataobjTrainingCourse, dataProgramTypeObj) {
+
+    var viewModel = {
+
+        trainingCourse: ko.observableArray()
+    }
+    for (da in dataobjTrainingCourse) {
+
+        var trainingCourse = {
+            jobseekerId: ko.observable(),
+            trainingId: ko.observable(),
+
+            programType: ko.observable(),
+            programTypeName: ko.observable(),
+
+            focus: ko.observable(),
+            completionDate: ko.observable(),
+            currentlyEnrolled: ko.observable(),
+            trainingCourseInstitution: ko.observable(),
+            expiryDate: ko.observable(),
+            trainingDetails: ko.observable()
+
+        };
+
+        for (key in dataProgramTypeObj) {
+            if (dataProgramTypeObj[key].Id == dataobjTrainingCourse[da].ProgramTypeId) {
+                trainingCourse.programTypeName(dataProgramTypeObj[key].Name);
+                break;
+            }
+        }
+
+        trainingCourse.jobseekerId(dataobjTrainingCourse[da].JobSeekerId);
+        trainingCourse.trainingId(dataobjTrainingCourse[da].Id);
+        trainingCourse.programType(dataobjTrainingCourse[da].ProgramTypeId);
+
+        trainingCourse.focus(dataobjTrainingCourse[da].Focus);
+        trainingCourse.completionDate(dataobjTrainingCourse[da].CompletionDate);
+        trainingCourse.currentlyEnrolled(dataobjTrainingCourse[da].CurrentlyEnrolled);
+
+        trainingCourse.trainingCourseInstitution(dataobjTrainingCourse[da].InstitutionName);
+        trainingCourse.expiryDate(dataobjTrainingCourse[da].ExpirationDate);
+        trainingCourse.trainingDetails(dataobjTrainingCourse[da].TrainingDetails);
+
+
+        viewModel.trainingCourse.push(trainingCourse);
+    }
+    return viewModel;
+}
+
+skillsmart.model.jobseekermyinformation.initializeViewModelCertificationInsertion = function () {
+
+    var viewModel = {
+        jobseekerId: ko.observable(),
+        certificationId: ko.observable(),
+
+        certificationName: ko.observable(),
+        certificationEnrolled: ko.observable(),
+        certificationInstituion: ko.observable(),
+        completedDate: ko.observable(),
+        expireDate: ko.observable(),
+        certificationDetails: ko.observable()
+    }
+
+    return viewModel;
+}
+
+skillsmart.model.jobseekermyinformation.initializeViewModelCertificationList = function (dataobjCertification) {
+
+    var viewModel = {
+        certification: ko.observableArray()
+    }
+    for (da in dataobjCertification) {
+        var certification =
+            {
+                jobseekerId: ko.observable(),
+                certificationId: ko.observable(),
+
+                certificationName: ko.observable(),
+                certificationEnrolled: ko.observable(),
+                certificationInstituion: ko.observable(),
+                completedDate: ko.observable(),
+                expireDate: ko.observable(),
+                certificationDetails: ko.observable()
+            };
+
+        certification.jobseekerId(dataobjCertification[da].JobSeekerId);
+        certification.certificationId(dataobjCertification[da].Id);
+
+        certification.certificationName(dataobjCertification[da].CertificationName);
+        certification.certificationEnrolled(dataobjCertification[da].CurrentlyEnrolled);
+        certification.certificationInstituion(dataobjCertification[da].InstitutionName);
+        certification.completedDate(dataobjCertification[da].CompletionDate);
+        certification.expireDate(dataobjCertification[da].ExpirationDate);
+        certification.certificationDetails(dataobjCertification[da].CertificationDetails);
+
+        viewModel.certification.push(certification);
+
+    }
+
     return viewModel;
 }

@@ -246,6 +246,29 @@ select {
     height:100px;
     width:400px;
 }
+#Certification_Details 
+{
+    height:90px;
+    width:430px;
+}
+.common_textarea {
+ height:90px;
+    width:430px;
+     
+    border: 1px solid #EBE6E2; 
+    border-radius: 2px; 
+    -webkit-transition: all 0.3s ease-out; 
+    -moz-transition: all 0.3s ease-out; 
+    -ms-transition: all 0.3s ease-out; 
+    -o-transition: all 0.3s ease-out; 
+    transition: all 0.3s ease-out; 
+   
+}
+.common_textarea:focus
+{ 
+    border-color: black; 
+    outline: none; 
+}
 .language_label 
 {
     background-color:#F2FAFE;

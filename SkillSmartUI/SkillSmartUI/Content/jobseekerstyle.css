@@ -3,6 +3,12 @@
     width:230px;
     float:left;
 }
+
+.jobseeker_additionalinformation_innerli_save_button 
+{
+    width:60px;
+    float:left;
+}
 .jobseeker_additionalinformation_preferredmethod_innerli 
 {
     width:100px;

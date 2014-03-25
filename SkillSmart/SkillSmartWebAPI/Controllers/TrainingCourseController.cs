@@ -15,9 +15,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all training course details of the jobseeker
         /// </summary>
         /// <returns>list of jobseeker training course</returns>
-        public IEnumerable<TrainingCourse> GetJobSeekerTrainingCourseById()
+        public IEnumerable<TrainingCourse> GetJobSeekerTrainingCourseById(string jobSeekerId)
         {
-            return ServiceFactory.GetJobSeekerTrainingCourse().GetJobSeekerTrainingCourseById("cdc83674-95f4-460c-95e0-6ae04174f75e");
+            return ServiceFactory.GetJobSeekerTrainingCourse().GetJobSeekerTrainingCourseById(jobSeekerId);
         }
 
         /// <summary>
@@ -67,6 +67,12 @@ namespace SkillSmartWebAPI.Controllers
             ITrainingCourseService<TrainingCourse> jobSeekerTrainingCourseService = ServiceFactory.GetJobSeekerTrainingCourse();
             var jobSeekerTrainingCourse = jobSeekerTrainingCourseService.GetById(id);
             jobSeekerTrainingCourseService.Delete(jobSeekerTrainingCourse);  
+        }
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
         }
     }
 }

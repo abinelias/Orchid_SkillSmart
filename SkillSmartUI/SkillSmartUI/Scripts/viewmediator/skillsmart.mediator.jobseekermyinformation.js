@@ -3,7 +3,6 @@ if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
 if (typeof (skillsmart.mediator.jobseekermyinformation) == 'undefined') skillsmart.mediator.jobseekermyinformation = {}
 
 var userId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
-var ab;
 
 skillsmart.mediator.jobseekermyinformation.createViewMediatorMyInformation = function () {
     var apiUrlJobSeeker = GetWebAPIURL() + '/api/JobSeeker/' + userId;
@@ -2307,7 +2306,24 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationList = 
 }
 
 skillsmart.mediator.jobseekermyinformation.createViewMediatorTrainingCourseInsertion = function () {
-    var viewModelTrainingCourseInsertion = skillsmart.model.jobseekermyinformation.initializeViewModelTrainingCourseInsertion();
+    var apiUrlDegreeType = GetWebAPIURL() + '/api/Lookup/?name=ProgramType';
+    var dataProgramTypeObj;
+
+    //To get details of security cleareance lookup
+    $.ajax({
+        url: apiUrlDegreeType,
+        type: 'GET',
+        async: false,
+        success: function (data) {
+            dataProgramTypeObj = data;
+
+        },
+        error: function (xhr, status, error) {
+            alert('Error :' + status);
+        }
+    });
+
+    var viewModelTrainingCourseInsertion = skillsmart.model.jobseekermyinformation.initializeViewModelTrainingCourseInsertion(dataProgramTypeObj);
     skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelTrainingCourseInsertion", viewModelTrainingCourseInsertion);
 }
 
@@ -2319,10 +2335,765 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
     $("#Focus").attr("data-bind", "value:focus");
     $("#Completion_Date").attr("data-bind", "value:completionDate");
 
-    var viewNode = $("#TrainingCourse_InsertionDetails_Div")[0];
+    $("#Currently_Enrolled").attr("data-bind", "checked:currentlyEnrolled");
+    $("#TrainingCourse_Institution").attr("data-bind", "value:trainingCourseInstitution");
+    $("#Training_ExpiresDate").attr("data-bind", "value:expiryDate");
+    $("#Training_Details").attr("data-bind", "value:trainingDetails");
 
+
+    $("#addFirstTrainingCourse").attr("data-bind", "click:addFirstTrainingCourse");
+    $("#Save_TrainingCourse").attr("data-bind", "click:saveTrainingCourse");
+    $("#Cancel_TrainingCourse").attr("data-bind", "click:cancelTrainingCourse");
+    $("#Delete_TrainingCourse").attr("data-bind", "click:deleteTrainingCourse");
+    $("#addMoreTrainingCourse").attr("data-bind", "click:addMoreTrainingCourse");
+
+
+    var viewNode = $("#TrainingCourse_InsertionDetails_Div")[0];
     var viewModelTrainingCourseInsertion = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelTrainingCourseInsertion");
+
+    viewModelTrainingCourseInsertion.addFirstTrainingCourse = function () {
+        $("#Edit_TrainingCourse").show();
+        $("#TrainingCourse_General").hide();
+        this.jobseekerId(userId);
+    }
+
+    viewModelTrainingCourseInsertion.saveTrainingCourse = function () {
+        var viewModelTrainingCourseList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelTrainingCourseList");
+
+        var jsonObject = ko.toJS(viewModelTrainingCourseInsertion);
+        var dataobjTrainingCourse;
+        if (jsonObject.trainingId) {
+            var jobseekerTrainingCourseObj = {}
+            jobseekerTrainingCourseObj.JobSeekerId = userId;
+            jobseekerTrainingCourseObj.ProgramTypeId = jsonObject.selectedProgramType;
+            jobseekerTrainingCourseObj.Focus = jsonObject.focus;
+            jobseekerTrainingCourseObj.InstitutionName = jsonObject.trainingCourseInstitution;
+
+            jobseekerTrainingCourseObj.CompletionDate = jsonObject.completionDate;
+            jobseekerTrainingCourseObj.ExpirationDate = jsonObject.expiryDate;
+            jobseekerTrainingCourseObj.CurrentlyEnrolled = jsonObject.currentlyEnrolled;
+            jobseekerTrainingCourseObj.TrainingDetails = jsonObject.trainingDetails;
+
+            dataobjTrainingCourse = JSON.stringify(jobseekerTrainingCourseObj);
+
+            var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?Id=' + jsonObject.trainingId;
+            var TrainingCourseObject;
+
+            $.ajax({
+                url: apiUrlTrainingCourse,
+                type: "PUT",
+                data: dataobjTrainingCourse,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    for (var i = 0, len = viewModelTrainingCourseList.trainingCourse().length; i < len; ++i) {
+                        TrainingCourseObject = viewModelTrainingCourseList.trainingCourse()[i];
+                        var result = TrainingCourseObject.trainingId().localeCompare(jsonObject.trainingId);
+                        if (result == 0) {
+                            var apiUrlProgramType = GetWebAPIURL() + '/api/Lookup/?name=ProgramType';
+                            var dataProgramTypeObj;
+
+                            //To get details of security cleareance lookup
+                            $.ajax({
+                                url: apiUrlProgramType,
+                                type: 'GET',
+                                async: false,
+                                success: function (data) {
+                                    dataProgramTypeObj = data;
+
+                                },
+                                error: function (xhr, status, error) {
+                                    alert('Error :' + status);
+                                }
+                            });
+                            TrainingCourseObject.jobseekerId(jsonObject.userId);
+                            TrainingCourseObject.trainingId(jsonObject.trainingId);
+                            TrainingCourseObject.programType(jsonObject.selectedProgramType);
+
+                            TrainingCourseObject.focus(jsonObject.focus);
+                            TrainingCourseObject.completionDate(jsonObject.completionDate);
+                            TrainingCourseObject.currentlyEnrolled(jsonObject.currentlyEnrolled);
+                            TrainingCourseObject.trainingCourseInstitution(jsonObject.trainingCourseInstitution);
+
+                            TrainingCourseObject.expiryDate(jsonObject.expiryDate);
+                            TrainingCourseObject.trainingDetails(jsonObject.trainingDetails);
+
+                            for (key in dataProgramTypeObj) {
+                                if (dataProgramTypeObj[key].Id == jsonObject.selectedProgramType) {
+                                    TrainingCourseObject.programTypeName(dataProgramTypeObj[key].Name);
+                                    break;
+                                }
+                            }
+
+                            viewModelTrainingCourseList.trainingCourse()[i] = TrainingCourseObject;
+
+                            break;
+                        }
+                    }
+                   
+                    $("#Edit_TrainingCourse").hide();
+                    $("#addMoreTrainingCourse").show();
+                    this.trainingId("");
+                    this.selectedProgramType("");
+                    this.programTypeName("");
+                    this.focus("");
+                    this.completionDate("");
+                    this.currentlyEnrolled("");
+                    this.trainingCourseInstitution("");
+                    this.expiryDate("");
+                    this.trainingDetails("");
+
+
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
+        else {
+            var jobseekerTrainingCourseObj = {}
+            jobseekerTrainingCourseObj.JobSeekerId = userId;
+            jobseekerTrainingCourseObj.ProgramTypeId = jsonObject.selectedProgramType;
+            jobseekerTrainingCourseObj.Focus = jsonObject.focus;
+            jobseekerTrainingCourseObj.InstitutionName = jsonObject.trainingCourseInstitution;
+
+            jobseekerTrainingCourseObj.CompletionDate = jsonObject.completionDate;
+            jobseekerTrainingCourseObj.ExpirationDate = jsonObject.expiryDate;
+            jobseekerTrainingCourseObj.CurrentlyEnrolled = jsonObject.currentlyEnrolled;
+            jobseekerTrainingCourseObj.TrainingDetails = jsonObject.trainingDetails;
+
+            dataobjTrainingCourse = JSON.stringify(jobseekerTrainingCourseObj);
+            
+
+            var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse';
+
+
+
+            $.ajax({
+                url: apiUrlTrainingCourse,
+                type: "POST",
+                data: dataobjTrainingCourse,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    getDetails();
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+
+            $("#Edit_TrainingCourse").hide();
+            this.trainingId("");
+            this.selectedProgramType("");
+            this.programTypeName("");
+            this.focus("");
+            this.completionDate("");
+            this.currentlyEnrolled("");
+            this.trainingCourseInstitution("");
+            this.expiryDate("");
+            this.trainingDetails("");
+
+
+        }
+        function getDetails() {
+           
+            var apiUrlProgramType = GetWebAPIURL() + '/api/Lookup/?name=ProgramType';
+            var dataProgramTypeObj;
+
+            //To get details of security cleareance lookup
+            $.ajax({
+                url: apiUrlProgramType,
+                type: 'GET',
+                async: false,
+                success: function (data) {
+                    dataProgramTypeObj = data;
+
+                },
+                error: function (xhr, status, error) {
+                    alert('Error :' + status);
+                }
+            });
+
+            var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?jobSeekerId=' + userId;
+            var dataobjTrainingCourse;
+
+            //To get Scholarship details
+            $.ajax({
+                url: apiUrlTrainingCourse,
+                type: 'GET',
+                async: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    dataobjTrainingCourse = data;
+                    viewModelTrainingCourseList.trainingCourse.removeAll();
+                    for (da in dataobjTrainingCourse) {
+
+                        var trainingCourse = {
+                            jobseekerId: ko.observable(),
+                            trainingId: ko.observable(),
+
+                            programType: ko.observable(),
+                            programTypeName: ko.observable(),
+
+                            focus: ko.observable(),
+                            completionDate: ko.observable(),
+                            currentlyEnrolled: ko.observable(),
+                            trainingCourseInstitution: ko.observable(),
+                            expiryDate: ko.observable(),
+                            trainingDetails: ko.observable()
+
+                        };
+
+                        for (key in dataProgramTypeObj) {
+                            if (dataProgramTypeObj[key].Id == dataobjTrainingCourse[da].ProgramTypeId) {
+                                trainingCourse.programTypeName(dataProgramTypeObj[key].Name);
+                                break;
+                            }
+                        }
+
+                        trainingCourse.jobseekerId(dataobjTrainingCourse[da].JobSeekerId);
+                        trainingCourse.trainingId(dataobjTrainingCourse[da].Id);
+                        trainingCourse.programType(dataobjTrainingCourse[da].ProgramTypeId);
+
+                        trainingCourse.focus(dataobjTrainingCourse[da].Focus);
+                        trainingCourse.completionDate(dataobjTrainingCourse[da].CompletionDate);
+                        trainingCourse.currentlyEnrolled(dataobjTrainingCourse[da].CurrentlyEnrolled);
+
+                        trainingCourse.trainingCourseInstitution(dataobjTrainingCourse[da].InstitutionName);
+                        trainingCourse.expiryDate(dataobjTrainingCourse[da].ExpirationDate);
+                        trainingCourse.trainingDetails(dataobjTrainingCourse[da].TrainingDetails);
+
+                        viewModelTrainingCourseList.trainingCourse.push(trainingCourse);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('Eroooror :' + status);
+                }
+            });
+            skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelTrainingCourseList", viewModelTrainingCourseList);
+        }
+    }
+
+    viewModelTrainingCourseInsertion.addMoreTrainingCourse = function () {
+        $("#Edit_TrainingCourse").show();
+        $("#TrainingCourse_General").hide();
+        this.jobseekerId(userId);
+        this.trainingId("");
+        this.selectedProgramType("");
+        this.programTypeName("");
+        this.focus("");
+        this.completionDate("");
+        this.currentlyEnrolled("");
+        this.trainingCourseInstitution("");
+        this.expiryDate("");
+        this.trainingDetails("");
+    }
+
+    viewModelTrainingCourseInsertion.cancelTrainingCourse = function () {
+
+        $("#Edit_TrainingCourse").hide();
+        this.trainingId("");
+        this.selectedProgramType("");
+        this.programTypeName("");
+        this.focus("");
+        this.completionDate("");
+        this.currentlyEnrolled("");
+        this.trainingCourseInstitution("");
+        this.expiryDate("");
+        this.trainingDetails("");
+    }
+
+    viewModelTrainingCourseInsertion.deleteTrainingCourse = function () {
+        var viewModelTrainingCourseList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelTrainingCourseList");
+        var jsonObject = ko.toJS(viewModelTrainingCourseInsertion);
+        if (jsonObject.trainingId) {
+            var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?Id=' + jsonObject.trainingId;
+
+            $.ajax({
+                url: apiUrlTrainingCourse,
+                type: "DELETE",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+
+                    var trainingCourseObject;
+                    for (var i = 0, len = viewModelTrainingCourseList.trainingCourse().length; i < len; ++i) {
+                        trainingCourseObject = viewModelTrainingCourseList.trainingCourse()[i];
+                        var result = trainingCourseObject.trainingId().localeCompare(jsonObject.trainingId);
+                        if (result == 0) {
+                            viewModelTrainingCourseList.trainingCourse.remove(trainingCourseObject);
+                            break;
+                        }
+                    }
+
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+            $("#Edit_TrainingCourse").hide();
+            this.trainingId("");
+            this.selectedProgramType("");
+            this.programTypeName("");
+            this.focus("");
+            this.completionDate("");
+            this.currentlyEnrolled("");
+            this.trainingCourseInstitution("");
+            this.expiryDate("");
+            this.trainingDetails("");
+
+            if (viewModelEducationList.education().length == 0) {
+                $("#Education_General").show();
+                $("#addMoreEducation").hide();
+            }
+        }
+        else {
+            alert("No Item selected");
+        }
+    }
+   
+    
     ko.applyBindings(viewModelTrainingCourseInsertion, viewNode);
+    
+}
+
+skillsmart.mediator.jobseekermyinformation.createViewMediatorTrainingCourseList = function ()
+{
+
+
+    var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?jobSeekerId=' + userId;
+    var dataobjTrainingCourse;
+
+    //To get Languages from Language table
+    $.ajax({
+        url: apiUrlTrainingCourse,
+        type: 'GET',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            dataobjTrainingCourse = data;
+        },
+        error: function (xhr, status, error) {
+            alert('Erooororlang :' + status);
+        }
+    });
+
+
+    if (dataobjTrainingCourse.length != 0) {
+        $("#Edit_TrainingCourse").hide();
+        $("#TrainingCourse_General").hide();
+
+        var apiUrlProgramType = GetWebAPIURL() + '/api/Lookup/?name=ProgramType';
+        var dataProgramTypeObj;
+
+        //To get details of security cleareance lookup
+        $.ajax({
+            url: apiUrlProgramType,
+            type: 'GET',
+            async: false,
+            success: function (data) {
+                dataProgramTypeObj = data;
+
+            },
+            error: function (xhr, status, error) {
+                alert('Error :' + status);
+            }
+        });
+
+    }
+    else {
+
+        $("#addMoreTrainingCourse").hide();
+        $("#Edit_TrainingCourse").hide();
+        $("#List_TrainingCourse").hide();
+
+    }
+
+    var viewModelTrainingCourseList = skillsmart.model.jobseekermyinformation.initializeViewModelTrainingCourseList(dataobjTrainingCourse, dataProgramTypeObj);
+    skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelTrainingCourseList", viewModelTrainingCourseList);
+}
+
+skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseList = function () {
+    var viewNode = $("#List_TrainingCourse")[0];
+    var viewModelTrainingCourseList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelTrainingCourseList");
+
+    viewModelTrainingCourseList.editTrainingCourseDetails = function (trainingCourseObj) {
+        var viewModelTrainingCourseInsertion = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelTrainingCourseInsertion");
+
+        var jsonObj = ko.toJSON(trainingCourseObj);
+        var obj = JSON.parse(jsonObj);
+
+        $("#Edit_TrainingCourse").show();
+
+        $("#Program_Type").val(obj.programType);
+        $("#Focus").val(obj.focus);
+        $("#Completion_Date").val(obj.completionDate);
+
+        $("#Currently_Enrolled").val(obj.currentlyEnrolled);
+        $("#JobseekerTrainigId").val(obj.jobseekerId);
+        $("#TrainingId").val(obj.trainingId);
+
+        $("#TrainingCourse_Institution").val(obj.trainingCourseInstitution);
+        $("#Training_ExpiresDate").val(obj.expiryDate);
+        $("#Training_Details").val(obj.trainingDetails);
+
+        viewModelTrainingCourseInsertion.jobseekerId(obj.jobseekerId);
+        viewModelTrainingCourseInsertion.trainingId(obj.trainingId);
+        viewModelTrainingCourseInsertion.selectedProgramType(obj.programType);
+
+        viewModelTrainingCourseInsertion.programTypeName(obj.programTypeName);
+
+        viewModelTrainingCourseInsertion.focus(obj.focus);
+        viewModelTrainingCourseInsertion.completionDate(obj.completionDate);
+        viewModelTrainingCourseInsertion.currentlyEnrolled(obj.currentlyEnrolled);
+
+        viewModelTrainingCourseInsertion.trainingCourseInstitution(obj.trainingCourseInstitution);
+        viewModelTrainingCourseInsertion.expiryDate(obj.expiryDate);
+        viewModelTrainingCourseInsertion.trainingDetails(obj.trainingDetails);
+
+
+    }
+
+    ko.applyBindings(viewModelTrainingCourseList, viewNode);
+}
+
+skillsmart.mediator.jobseekermyinformation.createViewMediatorCertificationInsertion = function () {
+    var viewModelCertificationInsertion = skillsmart.model.jobseekermyinformation.initializeViewModelCertificationInsertion();
+    skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelCertificationInsertion", viewModelCertificationInsertion);
+}
+
+skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationInsertion = function () {
+
+    $("#JobseekerCertificationId").attr("data-bind", "value:jobseekerId");
+    $("#CertificationId").attr("data-bind", "value:certificationId");
+
+    $("#Certification_Name").attr("data-bind", "value:certificationName");
+    $("#Certification_currently_Enrolled").attr("data-bind", "checked:certificationEnrolled");
+    $("#Certification_Institution").attr("data-bind", "value:certificationInstituion");
+    $("#certification_completed_date").attr("data-bind", "value:completedDate");
+    $("#expires").attr("data-bind", "value:expireDate");
+    $("#Certification_Details").attr("data-bind", "value:certificationDetails");
+
+    $("#addFirstCertification").attr("data-bind", "click:addFirstCertification");
+    $("#addMoreCertification").attr("data-bind", "click:addMoreCertification");
+    $("#save_certification").attr("data-bind", "click:saveCertification");
+    $("#cancel_certification").attr("data-bind", "click:cancelCertification");
+    $("#delete_certification").attr("data-bind", "click:deleteCertification");
+
+
+    var viewNode = $("#CertificationInsertionDetailsDiv")[0];
+    var viewModelCertificationInsertion = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelCertificationInsertion");
+
+    viewModelCertificationInsertion.addFirstCertification = function () {
+        $("#Edit_Certification").show();
+        $("#Certification_General").hide();
+        this.jobseekerId(userId);
+    }
+
+
+    viewModelCertificationInsertion.deleteCertification = function () {
+        var viewModelCertificationList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelCertificationList");
+        var jsonObject = ko.toJS(viewModelCertificationInsertion);
+        if (jsonObject.certificationId) {
+            var apiUrlEducation = GetWebAPIURL() + '/api/Certification?Id=' + jsonObject.certificationId;
+
+            $.ajax({
+                url: apiUrlEducation,
+                type: "DELETE",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+
+                    var certificationObject;
+                    for (var i = 0, len = viewModelCertificationList.certification().length; i < len; ++i) {
+                        certificationObject = viewModelCertificationList.certification()[i];
+                        var result = certificationObject.certificationId().localeCompare(jsonObject.certificationId);
+                        if (result == 0) {
+                            viewModelCertificationList.certification.remove(certificationObject);
+                            break;
+                        }
+                    }
+
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+            $("#Edit_Certification").hide();
+            this.certificationId("");
+            this.certificationName("");
+            this.certificationEnrolled("");
+            this.certificationInstituion("");
+            this.completedDate("");
+            this.expireDate("");
+            this.certificationDetails("");
+
+            if (viewModelCertificationList.certification().length == 0) {
+                $("#Certification_General").show();
+                $("#addMoreCertification").hide();
+            }
+        }
+        else {
+            alert("No Item selected");
+        }
+    }
+
+    viewModelCertificationInsertion.saveCertification = function () {
+        var viewModelCertificationList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelCertificationList");
+        var jsonObject = ko.toJS(viewModelCertificationInsertion);
+        var dataobjCertification;
+        if (jsonObject.certificationId) {
+            var jobseekerCertificationObj = {}
+            jobseekerCertificationObj.JobSeekerId = jsonObject.jobseekerId;
+            jobseekerCertificationObj.CertificationName = jsonObject.certificationName;
+            jobseekerCertificationObj.CurrentlyEnrolled = jsonObject.certificationEnrolled;
+            jobseekerCertificationObj.InstitutionName = jsonObject.certificationInstituion;
+            jobseekerCertificationObj.CompletionDate = jsonObject.completedDate;
+            jobseekerCertificationObj.ExpirationDate = jsonObject.expireDate;
+            jobseekerCertificationObj.CertificationDetails = jsonObject.certificationDetails;
+
+            dataobjCertification = JSON.stringify(jobseekerCertificationObj);
+
+            var apiUrlCertification = GetWebAPIURL() + '/api/Certification?Id=' + jsonObject.certificationId;
+            var certificationObject;
+
+            $.ajax({
+                url: apiUrlCertification,
+                type: "PUT",
+                data: dataobjCertification,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    for (var i = 0, len = viewModelCertificationList.certification().length; i < len; ++i) {
+                        certificationObject = viewModelCertificationList.certification()[i];
+                        var result = certificationObject.certificationId().localeCompare(jsonObject.certificationId);
+                        if (result == 0) {
+                            certificationObject.certificationId(jsonObject.certificationId);
+                            certificationObject.jobseekerId(jsonObject.jobseekerId);
+
+                            certificationObject.certificationName(jsonObject.certificationName);
+                            certificationObject.certificationEnrolled(jsonObject.certificationEnrolled);
+                            certificationObject.certificationInstituion(jsonObject.certificationInstituion);
+                            certificationObject.completedDate(jsonObject.completedDate);
+                            certificationObject.expireDate(jsonObject.expireDate);
+                            certificationObject.certificationDetails(jsonObject.certificationDetails);
+
+
+                            viewModelCertificationList.certification()[i] = certificationObject;
+
+                            break;
+                        }
+                    }
+
+
+                    $("#Edit_Certification").hide();
+                    $("#addMoreCertification").show();
+
+
+                    this.certificationInstituion("");
+                    this.completedDate("");
+                    this.expireDate("");
+                    this.certificationDetails("");
+
+
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
+        else {
+            var jobseekerCertificationObj = {}
+            jobseekerCertificationObj.JobSeekerId = jsonObject.jobseekerId;
+            jobseekerCertificationObj.CertificationName = jsonObject.certificationName;
+            jobseekerCertificationObj.CurrentlyEnrolled = jsonObject.certificationEnrolled;
+            jobseekerCertificationObj.InstitutionName = jsonObject.certificationInstituion;
+            jobseekerCertificationObj.CompletionDate = jsonObject.completedDate;
+            jobseekerCertificationObj.ExpirationDate = jsonObject.expireDate;
+            jobseekerCertificationObj.CertificationDetails = jsonObject.certificationDetails;
+
+            dataobjCertification = JSON.stringify(jobseekerCertificationObj);
+
+            var apiUrlCertification = GetWebAPIURL() + '/api/Certification';
+            $.ajax({
+                url: apiUrlCertification,
+                type: "POST",
+                data: dataobjCertification,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    getDetails();
+
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+            $("#Edit_Certification").hide();
+            this.certificationInstituion("");
+            this.completedDate("");
+            this.expireDate("");
+            this.certificationDetails("");
+        }
+
+        function getDetails() {
+
+            var apiUrlCertification = GetWebAPIURL() + '/api/Certification?jobSeekerId=' + userId;
+            var dataobjCertification;
+
+            //To get certification from Language table
+            $.ajax({
+                url: apiUrlCertification,
+                type: 'GET',
+                async: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    dataobjCertification = data;
+                    viewModelCertificationList.certification.removeAll();
+                    for (da in dataobjCertification) {
+                        var certification =
+                            {
+                                jobseekerId: ko.observable(),
+                                certificationId: ko.observable(),
+
+                                certificationName: ko.observable(),
+                                certificationEnrolled: ko.observable(),
+                                certificationInstituion: ko.observable(),
+                                completedDate: ko.observable(),
+                                expireDate: ko.observable(),
+                                certificationDetails: ko.observable()
+                            };
+
+                        certification.jobseekerId(dataobjCertification[da].JobSeekerId);
+                        certification.certificationId(dataobjCertification[da].Id);
+
+                        certification.certificationName(dataobjCertification[da].CertificationName);
+                        certification.certificationEnrolled(dataobjCertification[da].CurrentlyEnrolled);
+                        certification.certificationInstituion(dataobjCertification[da].InstitutionName);
+                        certification.completedDate(dataobjCertification[da].CompletionDate);
+                        certification.expireDate(dataobjCertification[da].ExpirationDate);
+                        certification.certificationDetails(dataobjCertification[da].CertificationDetails);
+
+                        viewModelCertificationList.certification.push(certification);
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    alert('Eroooror :' + status);
+                }
+            });
+
+            skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelCertificationList", viewModelCertificationList);
+
+        }
+    }
+    viewModelCertificationInsertion.cancelCertification = function () {
+        $("#Edit_Certification").hide();
+        this.certificationInstituion("");
+        this.completedDate("");
+        this.expireDate("");
+        this.certificationDetails("");
+        this.certificationName("");
+
+    }
+
+
+    viewModelCertificationInsertion.addMoreCertification = function () {
+        $("#Edit_Certification").show();
+        $("#Certification_General").hide();
+        this.jobseekerId(userId);
+        this.certificationId("");
+        this.certificationName("");
+        this.certificationInstituion("");
+        this.completedDate("");
+        this.expireDate("");
+        this.certificationDetails("");
+
+    }
+
+    ko.applyBindings(viewModelCertificationInsertion, viewNode);
+}
+
+skillsmart.mediator.jobseekermyinformation.createViewMediatorCertificationList = function () {
+    var apiUrlCertification = GetWebAPIURL() + '/api/Certification?jobSeekerId=' + userId;
+    var dataobjCertification;
+
+    //To get certification from Language table
+    $.ajax({
+        url: apiUrlCertification,
+        type: 'GET',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            dataobjCertification = data;
+        },
+        error: function (xhr, status, error) {
+            alert('Eroooror :' + status);
+        }
+    });
+
+
+    if (dataobjCertification.length != 0) {
+        $("#Edit_Certification").hide();
+        $("#Certification_General").hide();
+    }
+    else {
+
+        $("#addMoreCertification").hide();
+        $("#Edit_Certification").hide();
+        $("#List_Certification").hide();
+
+    }
+
+    var viewModelCertificationList = skillsmart.model.jobseekermyinformation.initializeViewModelCertificationList(dataobjCertification);
+    skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelCertificationList", viewModelCertificationList);
+}
+
+skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationList = function () {
+    var viewNode = $("#List_Certification")[0];
+
+    var viewModelCertificationList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelCertificationList");
+
+    viewModelCertificationList.editCertificationDetails = function (certificationObj) {
+        var viewModelCertificationInsertion = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelCertificationInsertion");
+
+        var jsonObj = ko.toJSON(certificationObj);
+        var obj = JSON.parse(jsonObj);
+
+        $("#Edit_Certification").show();
+
+        $("#Certification_Name").val(obj.certificationName);
+        $("#Certification_Institution").val(obj.certificationInstituion);
+        $("#certification_completed_date").val(obj.completedDate);
+        $("#expires").val(obj.expireDate);
+        $("#Certification_Details").val(obj.certificationDetails);
+
+
+        $("#JobseekerCertificationId").val(obj.jobseekerId);
+        $("#CertificationId").val(obj.certificationId);
+
+        if (obj.certificationEnrolled == "True")
+            $('#Certification_currently_Enrolled').prop('checked', true);
+        else
+            $('#Certification_currently_Enrolled').prop('checked', false);
+
+        viewModelCertificationInsertion.jobseekerId(obj.jobseekerId);
+
+        viewModelCertificationInsertion.certificationId(obj.certificationId);
+
+        viewModelCertificationInsertion.certificationName(obj.certificationName);
+        viewModelCertificationInsertion.certificationEnrolled(obj.certificationEnrolled);
+
+        viewModelCertificationInsertion.certificationInstituion(obj.certificationInstituion);
+        viewModelCertificationInsertion.completedDate(obj.completedDate);
+        viewModelCertificationInsertion.expireDate(obj.expireDate);
+        viewModelCertificationInsertion.certificationDetails(obj.certificationDetails);
+
+
+    }
+
+    ko.applyBindings(viewModelCertificationList, viewNode);
 }
 
 skillsmart.mediator.jobseekermyinformation.getViewModel = function (key) {
