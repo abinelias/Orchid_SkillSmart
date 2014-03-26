@@ -2247,7 +2247,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
                         };
                         
                         for (key in dataDegreeTypeObj) {
-                            if (dataDegreeTypeObj[key].Id == dataDegreeTypeObj[da].DegreeId) {
+                            if (dataDegreeTypeObj[key].Id == dataobjEducation[da].DegreeId) {
                                 education.degreeName(dataDegreeTypeObj[key].Name);
                                 break;
                             }
