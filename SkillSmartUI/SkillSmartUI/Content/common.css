@@ -167,10 +167,7 @@ a
     color:white;
     text-decoration:none;
 }
-.jobseeker_list_a 
-{
-    color:blue;
-}
+
 .validationMessage {
     visibility:hidden;
     font-size:0px;
@@ -241,7 +238,7 @@ select {
     background-color:#F0F8FF;
     margin-top:40px;
 }
-#aboutme 
+/*#aboutme 
 {
     height:100px;
     width:400px;
@@ -250,7 +247,7 @@ select {
 {
     height:90px;
     width:430px;
-}
+}*/
 .common_textarea {
  height:90px;
     width:430px;
@@ -286,4 +283,43 @@ select {
     height:100px;
     width:400px;
     margin-top:10px;
+}
+
+
+#tabs { 
+	margin-left:25px; 
+	background: none; 
+	border-width: 0px; 
+    width:800px;
+    background-color:white;
+} 
+#tabs .ui-tabs-nav { 
+	padding-left: 0px; 
+	background: transparent; 
+	border-width: 0px 0px 1px 0px; 
+	-moz-border-radius: 0px; 
+	-webkit-border-radius: 0px; 
+	border-radius: 0px; 
+        
+} 
+#tabs .ui-tabs-panel { 
+	border-width: 0px 1px 1px 1px; 
+}
+
+ul li a {
+    background-color: #0094ff;
+    height:30px;
+}
+ul li a:focus {background-color: white;}
+
+.jobseeker_list_a 
+{
+    color:blue;
+    text-decoration:none;
+    background-color: #F2FAFE;
+}
+
+.myinformation {
+    height:50px;width:800px;background-color:#F0F8FF;margin:0 auto;
+    color:black;
 }

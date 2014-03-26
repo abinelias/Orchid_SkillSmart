@@ -173,3 +173,46 @@
     margin-bottom:10px;
 
 }
+.jobseeker_myinformation_edit_personal_li {
+
+    width:700px;
+    float:left;
+    padding-top:10px;
+}
+.jobseeker_myinformation_edit_personal_ul {
+
+    width:700px;
+    float:left;
+ 
+}
+
+.jobseeker_myinformation_list_tab_main_div 
+{
+
+    overflow:auto;
+    border-style:solid;
+    border-width:1px;  
+    width:740px;
+    margin-top:15px;
+    font-family: 'Questrial', sans-serif; 
+    color: #6a747c;
+}
+.jobseeker_myinformation_list_tab_sub_div 
+{
+
+    margin:10px;
+}
+.jobseeker_myinformation_list_tab_workExperience_label {
+    font-size:large;
+}
+.jobseeker_myinformation_list_tab_label {
+    font-size:medium;
+}
+.jobseeker_myinformation_language_list_li_ul {
+    width:650px;
+    float:left;
+
+}
+.jobseeker_myinformation_language_list_inner_li {
+    width:200px;float:left;
+}

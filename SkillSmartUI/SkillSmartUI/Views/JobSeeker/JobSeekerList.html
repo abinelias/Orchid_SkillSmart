@@ -50,16 +50,18 @@
                     <ul class="jobseeker_list_li_ul">
                         <li class="jobseeker_list_innerli"><b>FirstName</b></li>
                         <li class="jobseeker_list_innerli"><b>LastName</b></li>
-                        <li class="jobseeker_list_innerli"><b>Email</b></li>
+                        
                         <li class="jobseeker_list_innerli"><b>Edit</b></li>
+                        <li class="jobseeker_list_innerli"><b>Action</b></li>
                     </ul>
                 </li>
                 <li  class="jobseeker_list_li_ul">
                     <ul class="jobseeker_list_li_ul"  data-bind="foreach: persons">
                         <li class="jobseeker_list_innerli"><label data-bind="text: FirstName"></label></li>
                         <li class="jobseeker_list_innerli" data-bind="text: LastName"></li>
-                        <li class="jobseeker_list_innerli" data-bind="text: Email"></li>
+                       
                         <li class="jobseeker_list_innerli"><a class="jobseeker_list_a" data-bind="attr: { href: EditUrl }">Edit</a></li>
+                        <li class="jobseeker_list_innerli"><a class="jobseeker_list_a" data-bind="attr: { href: MyInfoUrl }">MyInformation</a></li>
                     </ul>
                 </li>
             </ul>                       

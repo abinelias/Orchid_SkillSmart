@@ -27,27 +27,7 @@ skillsmart.mediator.jobseekerlist.createViewMediator = function () {
 
 skillsmart.mediator.jobseekerlist.setupViewDataBindings = function ()
 {
-    /*var deleteId = getParameterByName('DeleteId');
-    if (deleteId != null && deleteId.length > 0)
-    {
-        var apiUrl = GetWebAPIURL() + '/api/JobSeeker/' + deleteId;
-        var viewModel;
-
-        //To delete Jobseeker
-        $.ajax({
-            url:  apiUrl,
-            type: 'DELETE',
-            async : false,
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                alert('Job Seeker has been deleted.');
-            },
-            error: function (xhr, status, error) {
-                alert('Error :' + status);
-            }
-        });
-    }*/
-
+   
     var viewModel = skillsmart.mediator.jobseekerlist.getViewModel();
     var viewNode = $("#form_div")[0];
     ko.applyBindings(viewModel, viewNode);

@@ -1,8 +1,9 @@
 ﻿if (typeof (skillsmart) == 'undefined') skillsmart = {}
 if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
 if (typeof (skillsmart.mediator.jobseekermyinformation) == 'undefined') skillsmart.mediator.jobseekermyinformation = {}
+var url = window.location.href;
+var userId = url.substring(url.lastIndexOf('=') + 1);
 
-var userId = "28432311-8992-41e3-b8ca-6d38a3360ca7";
 
 skillsmart.mediator.jobseekermyinformation.createViewMediatorMyInformation = function () {
     var apiUrlJobSeeker = GetWebAPIURL() + '/api/JobSeeker/' + userId;
@@ -163,6 +164,22 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorPersonalInformation
         });
     }
     
+    if (dataObjOverview)
+    {
+        $("#personal_general_div").hide();
+        $("#personal-container").show();
+        $("#edit").show();
+        $("#Add_First_personalInformation").hide();
+    }
+    else
+    {
+        $("#personal_general_div").show();
+        $("#Add_First_personalInformation").show();
+        $("#personal-container").hide();
+        $("#edit").hide();
+
+    }
+
     var viewModelPersonalInformation = skillsmart.model.jobseekermyinformation.initializeViewModelPersonalInformation(dataObjOverview, dataSecurityCleareanceObj, dataWillingToRelocate, dataObjGetSecurityCleareance, dataObjGetWillingToRelocate);
     skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelPersonalInformation", viewModelPersonalInformation);
 }
@@ -186,6 +203,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsPersonalInformat
 
     $("#edit").attr("data-bind", "click:edit");
     $("#submit").attr("data-bind", "click:submit");
+    $("#Add_First_personalInformation").attr("data-bind", "click:addFirstPersonalInformation");
 
     var viewNode = $("#personal-information")[0];
     var viewModelPersonalInformation = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelPersonalInformation");
@@ -196,6 +214,15 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsPersonalInformat
         messagesOnModified: true,
         insertMessages: false
     });
+    viewModelPersonalInformation.addFirstPersonalInformation = function ()
+    {
+        $("#edit-personal-information").show();
+        $("#submit").show();
+        $("#personal-container").hide();
+        $("#personal_general_div").hide();
+        this.jobseekerId(userId);
+    }
+
     viewModelPersonalInformation.edit = function () {
         $("#personal-container").hide();
         $("#edit").hide();
@@ -204,7 +231,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsPersonalInformat
         this.jobseekerId(userId);
     };
     viewModelPersonalInformation.submit = function () {
-        var viewModelPersonalInformation = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelPersonalInformation");
         if (viewModelPersonalInformation.isValid()) {
             var jsonObject = ko.toJS(viewModelPersonalInformation);
 
@@ -242,8 +268,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsPersonalInformat
                 dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
 
                 var apiUrlMyInfoUpdate = GetWebAPIURL() + '/api/Overview/' + jsonObject.myinfoid;
-
-                
+                //To update overview table
                 $.ajax({
                     url: apiUrlMyInfoUpdate,
                     type: "PUT",
@@ -310,13 +335,10 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsPersonalInformat
                 $("#personal-container").show();
                 $("#edit").show();
                 $("#edit-personal-information").hide();
-                $("#submit").hide();
-
-                
+                $("#submit").hide();                
             }
             else {
                 var dataObjMyInfo;
-
                 var jobSeekerMyInfoObj = {}
                 jobSeekerMyInfoObj.JobSeekerId = userId;
                 jobSeekerMyInfoObj.Industry = jsonObject.industriesTextbox;
@@ -327,7 +349,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsPersonalInformat
                 dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
 
                 var apiUrlMyInfoUpdate = GetWebAPIURL() + '/api/Overview/';
-
+                //To insert details into Overview table
 
                 $.ajax({
                     url: apiUrlMyInfoUpdate,
@@ -336,129 +358,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsPersonalInformat
                     contentType: "application/json; charset=utf-8",
                     async: false,
                     success: function (data) {
-                        var apiUrlOverview = GetWebAPIURL() + '/api/Overview/' + userId;
-                        var dataObjOverview;
-                        //To get overview details
-                        $.ajax({
-                            url: apiUrlOverview,
-                            type: 'GET',
-                            async: false,
-                            contentType: "application/json; charset=utf-8",
-                            success: function (data) {
-                                dataObjOverview = data;
-                            },
-                            error: function (xhr, status, error) {
-                                alert('Eroooror :' + status);
-                            }
-                        });
-
-
-                        var apiUrlSecurityCleareance = GetWebAPIURL() + '/api/Lookup/?name=SecurityClearance';
-                        var dataSecurityCleareanceObj;
-
-                        //To get details of security cleareance lookup
-                        $.ajax({
-                            url: apiUrlSecurityCleareance,
-                            type: 'GET',
-                            async: false,
-                            success: function (data) {
-                                dataSecurityCleareanceObj = data;
-
-                            },
-                            error: function (xhr, status, error) {
-                                alert('Error :' + status);
-                            }
-                        });
-
-                        var apiUrlWillingToRelocate = GetWebAPIURL() + '/api/Lookup/?name=WillingToRelocate';
-                        var dataWillingToRelocate;
-
-                        //TO get details of willing to relocate lookup details
-                        $.ajax({
-                            url: apiUrlWillingToRelocate,
-                            type: 'GET',
-                            async: false,
-                            success: function (data) {
-                                dataWillingToRelocate = data;
-
-                            },
-                            error: function (xhr, status, error) {
-                                alert('Error :' + status);
-                            }
-                        });
-
-
-                        var apiUrlGetSecurityCleareance = GetWebAPIURL() + '/api/Lookup/?name=SecurityClearance&id=' + dataObjOverview.SecurityClearanceId;
-                        var dataObjGetSecurityCleareance;
-
-                        //To get security cleareance name
-                        $.ajax({
-                            url: apiUrlGetSecurityCleareance,
-                            type: 'GET',
-                            async: false,
-                            success: function (data) {
-                                dataObjGetSecurityCleareance = data;
-
-                            },
-                            error: function (xhr, status, error) {
-                                alert('Error :' + status);
-                            }
-                        });
-                        
-
-                        var apiUrlGetWillingToRelocate = GetWebAPIURL() + '/api/Lookup/?name=WillingToRelocate&id=' + dataObjOverview.WillingToRelocateId;
-                        var dataObjGetWillingToRelocate;
-
-                        //To get willing to relocate name
-                        $.ajax({
-                            url: apiUrlGetWillingToRelocate,
-                            type: 'GET',
-                            async: false,
-                            success: function (data) {
-                                dataObjGetWillingToRelocate = data;
-
-                            },
-                            error: function (xhr, status, error) {
-                                alert('Error :' + status);
-                            }
-                        });
-                        
-                        
-                        var viewModelPersonalInformation = {
-                            myinfoid: ko.observable(dataObjOverview.Id),
-                            jobseekerId: ko.observable(dataObjOverview.JobSeekerId),
-
-                            industriesTextbox: ko.observable(dataObjOverview.Industry),
-                            industriesLabel: ko.observable(dataObjOverview.Industry),
-
-                            specialityLabel: ko.observable(dataObjOverview.Speciality),
-                            specialityTextbox: ko.observable(dataObjOverview.Speciality),
-
-                            WillingToRelocateLabel: ko.observable(dataObjGetWillingToRelocate.Name),
-                            SecurityCleareanceLabel: ko.observable(dataObjGetSecurityCleareance.Name),
-
-                            selectedSecurityCleareanceItem: ko.observable(dataObjOverview.SecurityClearanceId),
-                            SecurityCleareance: ko.observableArray(),
-
-                            selectedWillingToRelocate: ko.observable(dataObjOverview.WillingToRelocateId),
-                            WillingToRelocate: ko.observableArray()
-                        }
-
-                        viewModelPersonalInformation.SecurityCleareance.push({ name: "Select", id: "" });
-                        for (key in dataSecurityCleareanceObj) {
-
-                            viewModelPersonalInformation.SecurityCleareance.push({ name: dataSecurityCleareanceObj[key].Name, id: dataSecurityCleareanceObj[key].Id });
-                        }
-
-                        
-                        viewModelPersonalInformation.WillingToRelocate.push({ name: "Select", id: "" });
-                        for (key in dataWillingToRelocate) {
-
-                            viewModelPersonalInformation.WillingToRelocate.push({ name: dataWillingToRelocate[key].Name, id: dataWillingToRelocate[key].Id });
-                        }
-                        
-                        skillsmart.mediator.jobseekermyinformation.setViewModel("skillsmart.model.jobseekermyinformation.viewModelPersonalInformation", viewModelPersonalInformation);
-                        alert("hi");
+                        location.reload();
                     },
                     error: function (xhr, error) {
                         alert('Error :' + error);
@@ -580,7 +480,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsAboutMe = functi
             dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
 
             var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/' + jsonObject.myinfoid;
-
+            //To update Overview table
             $.ajax({
                 url: apiUrlAboutMe,
                 type: "PUT",
@@ -606,7 +506,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsAboutMe = functi
             dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
 
             var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/';
-
+            //To Isert details into overview table
             $.ajax({
                 url: apiUrlAboutMe,
                 type: "POST",
@@ -690,7 +590,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsActivitiesInsert
 
             var apiUrlExtracurricularActivity = GetWebAPIURL() + '/api/ExtraCurricularActivity/?Id=' + jsonObject.activityid;
 
-            //To create Extracurricular Activity
+            //To update Extracurricular Activity
             $.ajax({
                 url: apiUrlExtracurricularActivity,
                 type: "PUT",
@@ -794,6 +694,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsActivitiesInsert
         var jsonObject = ko.toJS(viewModelActivitiesInsertion);
         if (jsonObject.activityid) {
             var apiUrlExtracurricularActivity = GetWebAPIURL() + '/api/ExtraCurricularActivity/?Id=' + jsonObject.activityid;
+            //To Delete data from Extracurricular activity
             $.ajax({
                 url: apiUrlExtracurricularActivity,
                 type: "DELETE",
@@ -819,6 +720,10 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsActivitiesInsert
             this.hobbies("");
             this.activityid("");
             $("#edit_activities_div").hide();
+            if (viewModelActivitiesList.activities().length == 0) {
+                $("#activities_general_div").show();
+                $("#addmore-activities").hide();
+            }
         }
         else {
             alert("No Item selected");
@@ -837,10 +742,15 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsActivitiesInsert
         $("#submit-activities").hide();
     }
     viewModelActivitiesInsertion.cancelActivities = function () {
+        var viewModelActivitiesList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelActivitiesList");
         this.hobbies("");
         this.activityid("");
-        // this.JobSeekerId("");
+        
         $("#edit_activities_div").hide();
+        if (viewModelActivitiesList.activities().length == 0) {
+            $("#activities_general_div").show();
+            $("#addmore-activities").hide();
+        }
     }
 
     ko.applyBindings(viewModelActivitiesInsertion, viewNode);
@@ -958,11 +868,15 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsAwardsInsertion 
     }
 
     viewModelAwardsInsertion.cancelAwards = function () {
+        var viewModelAwardsList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelAwardsListing");
         this.title("");
         this.description("");
         this.awardid("");
-        //this.jobseekerid(""); 
         $("#edit_awards_div").hide();
+        if (viewModelAwardsList.awards().length == 0) {
+            $("#awards_general").show();
+            $("#addmore-awards").hide();
+        }
     }
 
     viewModelAwardsInsertion.submitAwards = function () {
@@ -1114,6 +1028,10 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsAwardsInsertion 
             this.description("");
             this.awardid("");
             $("#edit_awards_div").hide();
+            if (viewModelAwardsList.awards().length == 0) {
+                $("#awards_general").show();
+                $("#addmore-awards").hide();
+            }
         }
         else {
             alert("No Item selected");
@@ -1153,9 +1071,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorAwardsListing = fun
                 $("#awards_general").hide();
                 $("#edit-modeList").hide();
                 $("#addmore-awards").hide();
-
                 $("#edit-awards").show();
-
             }
             else {
                 $("#edit_awards_div").hide();
@@ -1211,7 +1127,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorLanguagesInsertion 
     var apiUrlLanguageList = GetWebAPIURL() + '/api/Lookup/?name=LanguageList';
     var dataLanguageListObj;
 
-    //To get details of security cleareance lookup
+    //To get language name from Language Lookup
     $.ajax({
         url: apiUrlLanguageList,
         type: 'GET',
@@ -1228,7 +1144,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorLanguagesInsertion 
     var apiUrlProficiency = GetWebAPIURL() + '/api/Lookup/?name=Proficiency';
     var dataProficiencyObj;
 
-    //TO get details of willing to relocate lookup details
+    //To get Proficiency name from Proficiency Lookup
     $.ajax({
         url: apiUrlProficiency,
         type: 'GET',
@@ -1247,7 +1163,6 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorLanguagesInsertion 
 }
 
 skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInsertion = function () {
-    // $("#myInfoId").attr("data-bind", "value:myinfoid");
     $("#language_Id").attr("data-bind", "value:Id");
     $("#jobSeeker_Id").attr("data-bind", "value:jobSeekerId");
 
@@ -1262,8 +1177,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
     $("#Cancel_language").attr("data-bind", "click:cancelLanguage");
     $("#Delete_language").attr("data-bind", "click:deleteLanguage");
 
-
-
     var viewNode = $("#Language_insertion")[0];
     var viewModelLanguagesInsertion = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelLanguagesInsertion");
 
@@ -1272,7 +1185,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
         $("#Language_general").hide();
         $("#Edit_language_div").show();
         $("#Add_more_languages").show();
-
     }
 
     viewModelLanguagesInsertion.editLanguages = function () {
@@ -1294,8 +1206,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
         this.selectedLanguage('');
         this.selectedProficiency('');
         this.Id('');
-
-
     }
 
     viewModelLanguagesInsertion.saveLanguages = function () {
@@ -1310,10 +1220,8 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
             jobSeekerAwardsObj.ProficiencyId = jsonObject.selectedProficiency;
 
             dataObjAwards = JSON.stringify(jobSeekerAwardsObj);
-
-
             var apiUrlScholarShip = GetWebAPIURL() + '/api/Language?Id=' + jsonObject.Id;
-
+            //To update Scholarship details
             $.ajax({
                 url: apiUrlScholarShip,
                 type: "PUT",
@@ -1331,12 +1239,9 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
                             languageObject.ProficiencyId(jsonObject.selectedProficiency);
                             languageObject.Id(jsonObject.Id);
                             viewModelLanguagesList.languages()[i] = languageObject;
-
-
                             break;
                         }
                     }
-
                 },
                 error: function (xhr, error) {
                     alert('Error :' + error);
@@ -1356,9 +1261,8 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
             jobSeekerAwardsObj.ProficiencyId = jsonObject.selectedProficiency;
 
             dataObjAwards = JSON.stringify(jobSeekerAwardsObj);
-
             var apiUrlScholarShip = GetWebAPIURL() + '/api/Language';
-
+            //To insert data into scholarship table
             $.ajax({
                 url: apiUrlScholarShip,
                 type: "Post",
@@ -1382,8 +1286,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
         function getDetails() {
             var apiUrlLanguageList = GetWebAPIURL() + '/api/Lookup/?name=LanguageList';
             var dataLanguageListObj;
-
-            //To get details of security cleareance lookup
+            //To get details of Language lookup
             $.ajax({
                 url: apiUrlLanguageList,
                 type: 'GET',
@@ -1399,9 +1302,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
 
             var apiUrlLanguage = GetWebAPIURL() + '/api/Language?jobSeekerId=' + userId;
             var dataObjLanguages;
-
-
-            //To get Scholarship details
+            //To get Language details of jobseeker
             $.ajax({
                 url: apiUrlLanguage,
                 type: 'GET',
@@ -1418,15 +1319,12 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
                             ProficiencyId: ko.observable(''),
                             Id: ko.observable()
                         };
-
-
                         for (key in dataLanguageListObj) {
                             if (dataLanguageListObj[key].Id == dataObjLanguages[da].LanguageId) {
                                 languages.LanguageName(dataLanguageListObj[key].Name);
                                 break;
                             }
                         }
-
 
                         languages.LanguageId(dataObjLanguages[da].LanguageId);
                         languages.JobSeekerId(dataObjLanguages[da].JobSeekerId);
@@ -1445,12 +1343,17 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
     }
 
     viewModelLanguagesInsertion.cancelLanguage = function () {
+        var viewModelLanguagesList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelLanguagesList");
         $("#Edit_language_div").hide();
         this.languageId("");
         this.jobSeekerId(userId);
         this.LanguageLabel('');
         this.selectedLanguage('');
         this.selectedProficiency('');
+        if (viewModelLanguagesList.languages().length == 0) {
+            $("#Language_general").show();
+            $("#Add_more_languages").hide();
+        }
     }
 
     viewModelLanguagesInsertion.deleteLanguage = function () {
@@ -1459,6 +1362,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
         var jsonObject = ko.toJS(viewModelLanguagesInsertion);
         if (jsonObject.Id) {
             var apiUrlLanguage = GetWebAPIURL() + '/api/Language?Id=' + jsonObject.Id;
+            //To delete data from Language Table
             $.ajax({
                 url: apiUrlLanguage,
                 type: "DELETE",
@@ -1475,7 +1379,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
                             break;
                         }
                     }
-
                 },
                 error: function (xhr, error) {
                     alert('Error :' + error);
@@ -1485,12 +1388,14 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesInserti
             this.selectedProficiency("");
             this.languageId("");
             $("#Edit_language_div").hide();
+            if (viewModelLanguagesList.languages().length == 0) {
+                $("#Language_general").show();
+                $("#Add_more_languages").hide();
+            }
         }
         else {
             alert("No Item selected");
         }
-
-
     }
 
     ko.applyBindings(viewModelLanguagesInsertion, viewNode);
@@ -1571,12 +1476,9 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsLanguagesList = 
         var obj = JSON.parse(jsonObj);
 
         $("#Edit_language_div").show();
-
-        // $("#LanguageName").show();
         $("#LanguageList").hide();
         $("#mandatory").hide();
 
-        //$("#awards-title").val(obj.ScholarshipTitle);
         $("#ProficiencyList").val(obj.ProficiencyId);
         $("#language_Id").val(obj.Id);
         $("#jobSeeker_Id").val(obj.JobSeekerId);
@@ -1599,7 +1501,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorWorkExperienceInser
     var apiUrlIndustryType = GetWebAPIURL() + '/api/Lookup/?name=IndustryType';
     var dataIndustryTypeObj;
 
-    //To get details of security cleareance lookup
+    //To get details of Industry lookup
     $.ajax({
         url: apiUrlIndustryType,
         type: 'GET',
@@ -1616,7 +1518,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorWorkExperienceInser
     var apiUrlWorkType = GetWebAPIURL() + '/api/Lookup/?name=WorkType';
     var dataWorkTypeObj;
 
-    //TO get details of willing to relocate lookup details
+    //TO get details of worktype lookup details
     $.ajax({
         url: apiUrlWorkType,
         type: 'GET',
@@ -1686,7 +1588,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
 
             var apiUrlWorkExperience = GetWebAPIURL() + '/api/WorkHistory?Id=' + jsonObject.workHistoryId;
             var dataobjWorkExpereince;
-
+            //To update Workhistory table
             $.ajax({
                 url: apiUrlWorkExperience,
                 type: "PUT",
@@ -1719,7 +1621,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
                             var apiUrlWorkType = GetWebAPIURL() + '/api/Lookup/?name=WorkType';
                             var dataWorkTypeObj;
 
-                            //TO get details of willing to relocate lookup details
+                            //TO get worktype lookup details
                             $.ajax({
                                 url: apiUrlWorkType,
                                 type: 'GET',
@@ -1737,12 +1639,10 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
                             WorkExpObject.currentPosition(jsonObject.currentPosition);
                             WorkExpObject.startDate(jsonObject.startDate);
                             WorkExpObject.endDate(jsonObject.endDate);
-
                             WorkExpObject.companyLocation(jsonObject.companyLocation);
                             WorkExpObject.currentSalary(jsonObject.currentSalary);
                             WorkExpObject.salaryType(jsonObject.salaryType);
                             WorkExpObject.jobDescription(jsonObject.jobDescription);
-
                             WorkExpObject.jobSeekerId(jsonObject.jobSeekerId);
                             WorkExpObject.workHistoryId(jsonObject.workHistoryId);
                             WorkExpObject.industryTypeId(jsonObject.selectedIndusrtyType);
@@ -1754,7 +1654,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
                                     break;
                                 }
                             }
-
                             for (keygen in dataWorkTypeObj) {
                                 if (dataWorkTypeObj[keygen].Id == jsonObject.selectedWorkType) {
                                     WorkExpObject.workTypeName(dataWorkTypeObj[keygen].Name);
@@ -1762,7 +1661,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
                                 }
                             }
                             viewModelWorkExperienceList.workHistory()[i] = WorkExpObject;
-
                             break;
                         }
                     }
@@ -1773,12 +1671,10 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
                     this.startDate('');
                     this.endDate('');
                     this.companyLocation('');
-
                     this.currentSalary("");
                     this.salaryType('');
                     this.jobDescription('');
                     this.workHistoryId('');
-
                     this.selectedIndusrtyType('');
                     this.selectedWorkType('');
                 },
@@ -1802,10 +1698,8 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
             jobseekerworkExperienceObj.IndustryId = jsonObject.selectedIndusrtyType;
 
             dataobjWorkExpereince = JSON.stringify(jobseekerworkExperienceObj);
-
-
             var apiUrlWorkExperience = GetWebAPIURL() + '/api/WorkHistory/';
-
+            //To create WorkHistory table
             $.ajax({
                 url: apiUrlWorkExperience,
                 type: "POST",
@@ -1825,11 +1719,9 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
             this.startDate('');
             this.endDate('');
             this.companyLocation('');
-
             this.currentSalary("");
             this.salaryType('');
             this.jobDescription('');
-
             this.selectedIndusrtyType('');
             this.selectedWorkType('');
         }
@@ -1837,7 +1729,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
             var apiUrlIndustryType = GetWebAPIURL() + '/api/Lookup/?name=IndustryType';
             var dataIndustryTypeObj;
 
-            //To get details of security cleareance lookup
+            //To get details of IndustryType lookup
             $.ajax({
                 url: apiUrlIndustryType,
                 type: 'GET',
@@ -1854,7 +1746,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
             var apiUrlWorkType = GetWebAPIURL() + '/api/Lookup/?name=WorkType';
             var dataWorkTypeObj;
 
-            //TO get details of willing to relocate lookup details
+            //TO get details of WorkType lookup 
             $.ajax({
                 url: apiUrlWorkType,
                 type: 'GET',
@@ -1871,7 +1763,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
             var apiUrlWorkExperience = GetWebAPIURL() + '/api/WorkHistory?jobSeekerId=' + userId;
             var dataobjWorkExpereince;
 
-            //To get WorkExperience  details
+            //To get WorkHistory  details
             $.ajax({
                 url: apiUrlWorkExperience,
                 type: 'GET',
@@ -1897,16 +1789,12 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
                             industryTypeId: ko.observable(),
                             workTypeId: ko.observable()
                         };
-
-
                         for (key in dataIndustryTypeObj) {
                             if (dataIndustryTypeObj[key].Id == dataobjWorkExpereince[da].IndustryId) {
-                                alert("1");
                                 workHistory.industryTypeName(dataIndustryTypeObj[key].Name);
                                 break;
                             }
                         }
-
                         for (key in dataWorkTypeObj) {
                             if (dataWorkTypeObj[key].Id == dataobjWorkExpereince[da].WorkTypeId) {
                                 workHistory.workTypeName(dataWorkTypeObj[key].Name);
@@ -1914,22 +1802,18 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
                             }
                         }
 
-
                         workHistory.industryTypeId(dataobjWorkExpereince[da].IndustryId);
                         workHistory.jobSeekerId(dataobjWorkExpereince[da].JobSeekerId);
                         workHistory.workTypeId(dataobjWorkExpereince[da].WorkTypeId);
                         workHistory.workHistoryId(dataobjWorkExpereince[da].Id);
-
                         workHistory.companyName(dataobjWorkExpereince[da].CompanyName);
                         workHistory.currentPosition(dataobjWorkExpereince[da].EndingPosition);
                         workHistory.startDate(dataobjWorkExpereince[da].StartDate);
                         workHistory.endDate(dataobjWorkExpereince[da].EndDate);
-
                         workHistory.companyLocation(dataobjWorkExpereince[da].CompanyLocation);
                         workHistory.salaryType(dataobjWorkExpereince[da].SalaryType);
                         workHistory.jobDescription(dataobjWorkExpereince[da].JobDuties);
                         workHistory.currentSalary(dataobjWorkExpereince[da].EndingSalary);
-
 
                         viewModelWorkExperienceList.workHistory.push(workHistory);
                     }
@@ -1943,20 +1827,23 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
         }
     }
     viewModelWorkExperienceInsertion.cancelWorkExperience = function () {
+        var viewModelWorkExperienceList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelWorkExperienceList");
         $("#Edit_WorkExperience").hide();
         this.companyName("");
         this.currentPosition("");
         this.startDate('');
         this.endDate('');
         this.companyLocation('');
-
         this.currentSalary("");
         this.salaryType('');
         this.jobDescription('');
         this.workHistoryId('');
-
         this.selectedIndusrtyType('');
         this.selectedWorkType('');
+        if (viewModelWorkExperienceList.workHistory().length == 0) {
+            $("#WorkExperience_General").show();
+            $("#addMoreWorkHistory").hide();
+        }
     }
     viewModelWorkExperienceInsertion.deleteWorkExperience = function () {
 
@@ -2018,12 +1905,10 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
         this.startDate('');
         this.endDate('');
         this.companyLocation('');
-
         this.currentSalary("");
         this.salaryType('');
         this.jobDescription('');
         this.workHistoryId('');
-
         this.selectedIndusrtyType('');
         this.selectedWorkType('');
     }
@@ -2034,7 +1919,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorWorkExperienceList 
     var apiUrlWorkExperience = GetWebAPIURL() + '/api/WorkHistory?jobSeekerId=' + userId;
     var dataobjWorkExpereince;
 
-    //To get Languages from Language table
+    //To get workhistory details from workhistory table
     $.ajax({
         url: apiUrlWorkExperience,
         type: 'GET',
@@ -2070,11 +1955,10 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorWorkExperienceList 
                 alert('Error :' + status);
             }
         });
-
         var apiUrlWorkType = GetWebAPIURL() + '/api/Lookup/?name=WorkType';
         var dataWorkTypeObj;
 
-        //TO get details of WorkType lookup details
+        //TO get details of WorkType lookup 
         $.ajax({
             url: apiUrlWorkType,
             type: 'GET',
@@ -2109,9 +1993,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceLi
         var obj = JSON.parse(jsonObj);
 
         $("#Edit_WorkExperience").show();
-
-
-
         $("#CompanyName").val(obj.companyName);
         $("#CurrentPosition").val(obj.currentPosition);
         $("#StartDate").val(obj.startDate);
@@ -2155,7 +2036,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorEducationInsertion 
     var apiUrlDegreeType = GetWebAPIURL() + '/api/Lookup/?name=DegreeType';
     var dataDegreeTypeObj;
 
-    //To get details of security cleareance lookup
+    //To get details of DegreeType lookup
     $.ajax({
         url: apiUrlDegreeType,
         type: 'GET',
@@ -2193,13 +2074,8 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
     $("#cancel_Education").attr("data-bind", "click:cancelEducation");
     $("#delete_Education").attr("data-bind", "click:deleteEducation");
 
-
-
     var viewNode = $("#EducationInsertionDetailsDiv")[0];
     var viewModelEducationInsertion = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelEducationInsertion");
-
-
-
     viewModelEducationInsertion.saveEducation = function () {
         var viewModelEducationList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelEducationList");
 
@@ -2213,14 +2089,13 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
             jobseekerEducationObj.StartDate = jsonObject.startDate;
             jobseekerEducationObj.EndDate = jsonObject.endDate;
             jobseekerEducationObj.MajorFocus = jsonObject.majorFocus;
-
             jobseekerEducationObj.InstitutionLocation = jsonObject.universityLocation;
-            dataobjEducation = JSON.stringify(jobseekerEducationObj);
 
+            dataobjEducation = JSON.stringify(jobseekerEducationObj);
 
             var apiUrlEducation = GetWebAPIURL() + '/api/Education?Id=' + jsonObject.educationId;
             var educationObject;
-
+            //To update Education table
             $.ajax({
                 url: apiUrlEducation,
                 type: "PUT",
@@ -2235,7 +2110,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
                             var apiUrlDegreeType = GetWebAPIURL() + '/api/Lookup/?name=DegreeType';
                             var dataDegreeTypeObj;
 
-                            //To get details of security cleareance lookup
+                            //To get details of DegreeType lookup
                             $.ajax({
                                 url: apiUrlDegreeType,
                                 type: 'GET',
@@ -2255,7 +2130,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
                             educationObject.endDate(jsonObject.endDate);
                             educationObject.universityLocation(jsonObject.universityLocation);
                             educationObject.majorFocus(jsonObject.majorFocus);
-
                             educationObject.jobSeekerId(jsonObject.jobseekerId);
                             educationObject.educationId(jsonObject.educationId);
 
@@ -2265,7 +2139,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
                                     break;
                                 }
                             }
-
                             viewModelEducationList.education()[i] = educationObject;
 
                             break;
@@ -2280,7 +2153,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
                     this.universityLocation("");
                     this.majorFocus("");
                     this.selectedDegree("");
-
 
                 },
                 error: function (xhr, error) {
@@ -2300,11 +2172,8 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
             jobseekerEducationObj.InstitutionLocation = jsonObject.universityLocation;
             dataobjEducation = JSON.stringify(jobseekerEducationObj);
 
-
             var apiUrlEducation = GetWebAPIURL() + '/api/Education';
-
-
-
+            //To create Education details
             $.ajax({
                 url: apiUrlEducation,
                 type: "POST",
@@ -2327,14 +2196,13 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
             this.universityLocation("");
             this.selectedDegree("");
             this.majorFocus("");
-
-
         }
         function getDetails() {
+            
             var apiUrlDegreeType = GetWebAPIURL() + '/api/Lookup/?name=DegreeType';
             var dataDegreeTypeObj;
 
-            //To get details of security cleareance lookup
+            //To get details of DegreeType lookup
             $.ajax({
                 url: apiUrlDegreeType,
                 type: 'GET',
@@ -2351,8 +2219,8 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
 
             var apiUrlEducation = GetWebAPIURL() + '/api/Education?jobSeekerId=' + userId;
             var dataobjEducation;
-
-            //To get Scholarship details
+            
+            //To get Education details
             $.ajax({
                 url: apiUrlEducation,
                 type: 'GET',
@@ -2361,6 +2229,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
                 success: function (data) {
                     dataobjEducation = data;
                     viewModelEducationList.education.removeAll();
+                   
                     for (da in dataobjEducation) {
 
                         var education = {
@@ -2376,26 +2245,27 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
                             educationId: ko.observable()
 
                         };
-
+                        
                         for (key in dataDegreeTypeObj) {
                             if (dataDegreeTypeObj[key].Id == dataDegreeTypeObj[da].DegreeId) {
                                 education.degreeName(dataDegreeTypeObj[key].Name);
                                 break;
                             }
                         }
-
+                        
                         education.universityName(dataobjEducation[da].InstitutionName);
                         education.degree(dataobjEducation[da].DegreeId);
                         education.startDate(dataobjEducation[da].StartDate);
                         education.endDate(dataobjEducation[da].EndDate);
-                        educationObject.majorFocus(jsonObject.majorFocus);
-
+                        education.majorFocus(dataobjEducation[da].MajorFocus);
                         education.universityLocation(dataobjEducation[da].InstitutionLocation);
                         education.jobSeekerId(dataobjEducation[da].JobSeekerId);
                         education.educationId(dataobjEducation[da].Id);
-
                         viewModelEducationList.education.push(education);
+                         
                     }
+                    $("#List_Education").show();
+                    $("#addMoreEducation").show();
                 },
                 error: function (xhr, status, error) {
                     alert('Eroooror :' + status);
@@ -2406,7 +2276,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
         }
     }
     viewModelEducationInsertion.cancelEducation = function () {
-
+        var viewModelEducationList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelEducationList");
         $("#Edit_Education").hide();
         this.universityName("");
         this.startDate("");
@@ -2415,6 +2285,10 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
         this.universityLocation("");
         this.selectedDegree("");
         this.majorFocus("");
+        if (viewModelEducationList.education().length == 0) {
+            $("#Education_General").show();
+            $("#addMoreEducation").hide();
+        }
 
     }
     viewModelEducationInsertion.deleteEducation = function () {
@@ -2422,7 +2296,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
         var jsonObject = ko.toJS(viewModelEducationInsertion);
         if (jsonObject.educationId) {
             var apiUrlEducation = GetWebAPIURL() + '/api/Education?Id=' + jsonObject.educationId;
-
+            //To delete data from Education Table
             $.ajax({
                 url: apiUrlEducation,
                 type: "DELETE",
@@ -2473,7 +2347,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsEducationInserti
         $("#Education_General").hide();
         this.jobseekerId(userId);
         this.educationId("");
-
         this.universityName("");
         this.startDate("");
         this.endDate("");
@@ -2490,7 +2363,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorEducationList = fun
     var apiUrlEducation = GetWebAPIURL() + '/api/Education?jobSeekerId=' + userId;
     var dataobjEducation;
 
-    //To get Languages from Language table
+    //To get Education details 
     $.ajax({
         url: apiUrlEducation,
         type: 'GET',
@@ -2584,7 +2457,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorTrainingCourseInser
     var apiUrlDegreeType = GetWebAPIURL() + '/api/Lookup/?name=ProgramType';
     var dataProgramTypeObj;
 
-    //To get details of security cleareance lookup
+    //To get details of ProgramType lookup
     $.ajax({
         url: apiUrlDegreeType,
         type: 'GET',
@@ -2653,7 +2526,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
 
             var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?Id=' + jsonObject.trainingId;
             var TrainingCourseObject;
-
+            //To update Training Course
             $.ajax({
                 url: apiUrlTrainingCourse,
                 type: "PUT",
@@ -2737,13 +2610,10 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
             jobseekerTrainingCourseObj.CurrentlyEnrolled = jsonObject.currentlyEnrolled;
             jobseekerTrainingCourseObj.TrainingDetails = jsonObject.trainingDetails;
 
-            dataobjTrainingCourse = JSON.stringify(jobseekerTrainingCourseObj);
-            
+            dataobjTrainingCourse = JSON.stringify(jobseekerTrainingCourseObj);            
 
             var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse';
-
-
-
+            //To create Training Course Details
             $.ajax({
                 url: apiUrlTrainingCourse,
                 type: "POST",
@@ -2776,7 +2646,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
             var apiUrlProgramType = GetWebAPIURL() + '/api/Lookup/?name=ProgramType';
             var dataProgramTypeObj;
 
-            //To get details of security cleareance lookup
+            //To get details of ProgramType lookup
             $.ajax({
                 url: apiUrlProgramType,
                 type: 'GET',
@@ -2793,7 +2663,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
             var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?jobSeekerId=' + userId;
             var dataobjTrainingCourse;
 
-            //To get Scholarship details
+            //To get TrainingCourse details
             $.ajax({
                 url: apiUrlTrainingCourse,
                 type: 'GET',
@@ -2841,6 +2711,8 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
 
                         viewModelTrainingCourseList.trainingCourse.push(trainingCourse);
                     }
+                    $("#List_TrainingCourse").show();
+                    $("#addMoreTrainingCourse").show();
                 },
                 error: function (xhr, status, error) {
                     alert('Eroooror :' + status);
@@ -2866,7 +2738,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
     }
 
     viewModelTrainingCourseInsertion.cancelTrainingCourse = function () {
-
+        var viewModelTrainingCourseList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelTrainingCourseList");
         $("#Edit_TrainingCourse").hide();
         this.trainingId("");
         this.selectedProgramType("");
@@ -2877,6 +2749,11 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
         this.trainingCourseInstitution("");
         this.expiryDate("");
         this.trainingDetails("");
+
+        if (viewModelTrainingCourseList.trainingCourse().length == 0) {
+            $("#TrainingCourse_General").show();
+            $("#addMoreTrainingCourse").hide();
+        }
     }
 
     viewModelTrainingCourseInsertion.deleteTrainingCourse = function () {
@@ -2884,7 +2761,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
         var jsonObject = ko.toJS(viewModelTrainingCourseInsertion);
         if (jsonObject.trainingId) {
             var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?Id=' + jsonObject.trainingId;
-
+            //To delete data from Training Course
             $.ajax({
                 url: apiUrlTrainingCourse,
                 type: "DELETE",
@@ -2918,9 +2795,9 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
             this.expiryDate("");
             this.trainingDetails("");
 
-            if (viewModelEducationList.education().length == 0) {
-                $("#Education_General").show();
-                $("#addMoreEducation").hide();
+            if (viewModelTrainingCourseList.trainingCourse().length == 0) {
+                $("#TrainingCourse_General").show();
+                $("#addMoreTrainingCourse").hide();
             }
         }
         else {
@@ -2935,8 +2812,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsTrainingCourseIn
 
 skillsmart.mediator.jobseekermyinformation.createViewMediatorTrainingCourseList = function ()
 {
-
-
     var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?jobSeekerId=' + userId;
     var dataobjTrainingCourse;
 
@@ -2954,7 +2829,6 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorTrainingCourseList 
         }
     });
 
-
     if (dataobjTrainingCourse.length != 0) {
         $("#Edit_TrainingCourse").hide();
         $("#TrainingCourse_General").hide();
@@ -2962,7 +2836,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorTrainingCourseList 
         var apiUrlProgramType = GetWebAPIURL() + '/api/Lookup/?name=ProgramType';
         var dataProgramTypeObj;
 
-        //To get details of security cleareance lookup
+        //To get details of ProgramType lookup
         $.ajax({
             url: apiUrlProgramType,
             type: 'GET',
@@ -3072,7 +2946,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationIns
         var jsonObject = ko.toJS(viewModelCertificationInsertion);
         if (jsonObject.certificationId) {
             var apiUrlEducation = GetWebAPIURL() + '/api/Certification?Id=' + jsonObject.certificationId;
-
+            //To delete data from Certification
             $.ajax({
                 url: apiUrlEducation,
                 type: "DELETE",
@@ -3132,7 +3006,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationIns
 
             var apiUrlCertification = GetWebAPIURL() + '/api/Certification?Id=' + jsonObject.certificationId;
             var certificationObject;
-
+            //To update Certification
             $.ajax({
                 url: apiUrlCertification,
                 type: "PUT",
@@ -3191,6 +3065,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationIns
             dataobjCertification = JSON.stringify(jobseekerCertificationObj);
 
             var apiUrlCertification = GetWebAPIURL() + '/api/Certification';
+            //To create Certification
             $.ajax({
                 url: apiUrlCertification,
                 type: "POST",
@@ -3217,7 +3092,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationIns
             var apiUrlCertification = GetWebAPIURL() + '/api/Certification?jobSeekerId=' + userId;
             var dataobjCertification;
 
-            //To get certification from Language table
+            //To get certification from certification table
             $.ajax({
                 url: apiUrlCertification,
                 type: 'GET',
@@ -3242,7 +3117,6 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationIns
 
                         certification.jobseekerId(dataobjCertification[da].JobSeekerId);
                         certification.certificationId(dataobjCertification[da].Id);
-
                         certification.certificationName(dataobjCertification[da].CertificationName);
                         certification.certificationEnrolled(dataobjCertification[da].CurrentlyEnrolled);
                         certification.certificationInstituion(dataobjCertification[da].InstitutionName);
@@ -3252,6 +3126,8 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationIns
 
                         viewModelCertificationList.certification.push(certification);
                     }
+                    $("#List_Certification").show();
+                    $("#addMoreCertification").show();
 
                 },
                 error: function (xhr, status, error) {
@@ -3264,13 +3140,17 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsCertificationIns
         }
     }
     viewModelCertificationInsertion.cancelCertification = function () {
+        var viewModelCertificationList = skillsmart.mediator.jobseekermyinformation.getViewModel("skillsmart.model.jobseekermyinformation.viewModelCertificationList");
         $("#Edit_Certification").hide();
         this.certificationInstituion("");
         this.completedDate("");
         this.expireDate("");
         this.certificationDetails("");
         this.certificationName("");
-
+        if (viewModelCertificationList.certification().length == 0) {
+            $("#Certification_General").show();
+            $("#addMoreCertification").hide();
+        }
     }
 
 
@@ -3294,7 +3174,7 @@ skillsmart.mediator.jobseekermyinformation.createViewMediatorCertificationList =
     var apiUrlCertification = GetWebAPIURL() + '/api/Certification?jobSeekerId=' + userId;
     var dataobjCertification;
 
-    //To get certification from Language table
+    //To get certification from certification table
     $.ajax({
         url: apiUrlCertification,
         type: 'GET',

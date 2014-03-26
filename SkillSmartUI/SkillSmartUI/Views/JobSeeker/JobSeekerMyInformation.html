@@ -96,49 +96,17 @@
          });
     </script>
 
-    <style>
-
-	#tabs { 
-		margin-left:25px; 
-		background: none; 
-		border-width: 0px; 
-        width:800px;
-        background-color:white;
-	} 
-	#tabs .ui-tabs-nav { 
-		padding-left: 0px; 
-		background: transparent; 
-		border-width: 0px 0px 1px 0px; 
-		-moz-border-radius: 0px; 
-		-webkit-border-radius: 0px; 
-		border-radius: 0px; 
-        
-	} 
-	#tabs .ui-tabs-panel { 
-		border-width: 0px 1px 1px 1px; 
-	}
-
-    ul li a {
-        background-color: #0094ff;
-        height:30px;
-    }
-    ul li a:focus {background-color: white;}
-
-</style>
-
-
 </head>
 <body>
     <script id='my-view-template' type='text/html' src="/Views/JobSeeker/header.html" >
-</script>
-    <div id='savings-goal-view-container' data-bind='template: { name: "my-view-template" } ' ></div>
+</script>   
     <div id="outer_container" >       
         <div id="banner_container"><h2>SkillSmart</h2>
-            <div><a  href="JobSeekerRegistration.html"><font color="white">JobSeeker Registration</font></a>    <a  href="JobSeekerList.html"><font color="white">JobSeeker List</font></a>       </div>
+            <div><a  href="JobSeekerRegistration.html">JobSeeker Registration</a>    <a  href="JobSeekerList.html">JobSeeker List</a>       </div>
         </div>
         <div id="main-div">
             <div id="jobseeker-myinformation">
-                <div style="height:50px;width:800px;background-color:#F0F8FF;margin:0 auto;"><font color="black"><h3>My Information</h3></font></div>                                      
+                <div class="myinformation"><h3>My Information</h3></div>                                      
                 <div id="jobseeker-info" class="common_background">
                     <ul>
                         <li class="jobseeker_myinformation_outerli">
@@ -161,6 +129,21 @@
                 <div  class="common_banner">
                     <ul><li class="marginclass">Personal Information<input type="button" id="edit" value="Edit" class="editbutton" /><input type="button" id="submit" value="Submit" class="editbutton" /></li></ul>
                 </div>
+
+                <div id="personal_general_div" class="common_background">
+                    <ul>
+                        <li class="jobseeker_myinformation_descriptionli">
+                             Tell us about yourself!
+                        </li>
+                        <li class="jobseeker_myinformation_exampleli" >
+                            Say something about your industries,specialities,etc.
+                        </li>
+                        <li class="jobseeker_myinformation_buttonli">
+                            <input type="button" id="Add_First_personalInformation" class="submitbutton" value="Add Information" />
+                        </li>
+                    </ul>                              
+                </div>
+
                 <div id="personal-container" class="common_background" >
                     <ul>
                         <li class="jobseeker_myinformation_personalcontainer_outerli">
@@ -191,10 +174,10 @@
                                 <li class="jobseeker_myinformation_innerli" ><label>Willing to relocate</label></li>
                             </ul>
                         </li>
-                        <li style="width:700px;float:left;" class="marginclass">
-                            <ul style="width:700px;float:left;">
-                                <li><input type="text" id="JobseekerPersonalinfoId"  /></li>
-                                <li><input type="text" id="overviewIdPersonalInfo"  /></li>
+                        <li class="jobseeker_myinformation_edit_personal_li">
+                            <ul class="jobseeker_myinformation_edit_personal_ul">
+                                <li><input type="hidden" id="JobseekerPersonalinfoId"  /></li>
+                                <li><input type="hidden" id="overviewIdPersonalInfo"  /></li>
                                 <li class="jobseeker_myinformation_innerli" ><input type="text" id="industries-textbox"  /></li>
                                 <li class="jobseeker_myinformation_innerli" ><input type="text" id="speciality-textbox"  /></li>
                                 <li class="jobseeker_myinformation_innerli" ><select id="securityCleareanceDropDown" ></select></li>
@@ -223,10 +206,10 @@
                 </div>
                 <div id="edit_aboutme_div" class="common_background">
                     <ul>
-                        <li><input type="text" id="overviewIdSummary"  /></li>
-                        <li><input type="text" id="jobSeekerSummary"  /></li>
+                        <li><input type="hidden" id="overviewIdSummary"  /></li>
+                        <li><input type="hidden" id="jobSeekerSummary"  /></li>
                         <li>
-                            <textarea id="aboutme" placeholder="Maximum 500 characters" class="inputs"></textarea>
+                            <textarea id="aboutme" placeholder="Maximum 500 characters" class="common_textarea"></textarea>
                         </li>
                     </ul>
                 </div>
@@ -318,12 +301,11 @@
                                          <li class="jobseeker_registration_outerli">
                                             <ul class="jobseeker_registration_ul">
                                                 <li class="jobseeker_registration_innerli">
-                                                    <textarea id="JobDuties" placeholder="Job Description" class="inputs"></textarea>
+                                                    <textarea id="JobDuties" placeholder="Job Description" class="common_textarea"></textarea>
                                                 </li>
                                                 </ul>
                                          </li>
-                                    
-                                        <li class="jobseeker_additionalinformation_city_outerli">
+                                       <li class="jobseeker_additionalinformation_city_outerli">
                                             <ul class="jobseeker_additionalinformation_city_ul" >
                                                 <li  class="jobseeker_additionalinformation_innerli"><input type="button" id="save_workExperience" class="savebutton" value="Save" /></li>
                                                 <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel_workExperience" class="cancelbutton" value="Cancel" /></li>
@@ -337,17 +319,16 @@
                         </div>
                         <div id="List_WorkExperience" class="common_tab_background">                                                                                                
                             <div  data-bind="foreach: workHistory">
-                                <div style="overflow:auto;border-style:solid;border-width:1px;  width:740px;margin-top:15px;font-family: 'Questrial', sans-serif; color: #6a747c;">
-                                    <div style="margin:10px;">
-                                        <li ><label style="font-size:large;text-align:left;"  data-bind="text: companyName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editWorkHistoryDetails">Edit</button></li>                                           
-                                        <li ><label style="font-size:large;" data-bind="text: currentPosition"></label></li>
-                                        <li ><label  data-bind="text: startDate"></label> - <label data-bind="    text: endDate"></label> / <label  data-bind="    text: companyLocation"></label></li>
-                                        <li </li>                                            
+                                <div class="jobseeker_myinformation_list_tab_main_div">
+                                    <div class="jobseeker_myinformation_list_tab_sub_div">
+                                        <li ><label class="jobseeker_myinformation_list_tab_workExperience_label"  data-bind="text: companyName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editWorkHistoryDetails">Edit</button></li>                                           
+                                        <li ><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: currentPosition"></label></li>
+                                        <li ><label  data-bind="text: startDate"></label> - <label data-bind="    text: endDate"></label> / <label  data-bind="    text: companyLocation"></label></li>                                                                                  
                                         <hr />
-                                        <li ><label style="font-size:medium;">Salary: </label><label  data-bind="text: currentSalary"></label> <label data-bind="text: salaryType"></label></li>
-                                        <li ><label style="font-size:medium;">Employment Type: </label><label  data-bind="text: workTypeName"></label></li>
-                                        <li ><label style="font-size:medium;">Industries: </label><label  data-bind="text: industryTypeName"></label></li>
-                                        <li ><label style="font-size:medium;">Job Duties: </label><label  data-bind="text: jobDescription"></label></li>
+                                        <li ><label class="jobseeker_myinformation_list_tab_label">Salary: </label><label  data-bind="text: currentSalary"></label> <label data-bind="    text: salaryType"></label></li>
+                                        <li ><label class="jobseeker_myinformation_list_tab_label">Employment Type: </label><label  data-bind="text: workTypeName"></label></li>
+                                        <li ><label class="jobseeker_myinformation_list_tab_label">Industries: </label><label  data-bind="text: industryTypeName"></label></li>
+                                        <li ><label class="jobseeker_myinformation_list_tab_label">Job Duties: </label><label  data-bind="text: jobDescription"></label></li>
                                     </div>
                                 </div>
                             </div>                         
@@ -416,10 +397,10 @@
                         </div>
                         <div id="List_Education" class="common_tab_background">                         
                             <div  data-bind="foreach: education">
-                                <div style="overflow:auto;border-style:solid;border-width:1px;  width:740px;margin-top:15px;font-family: 'Questrial', sans-serif; color: #6a747c;">
-                                    <div style="margin:10px;">
-                                        <li><label style="font-size:large;" data-bind="text: universityName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editEducationDetails">Edit</button></li>                                    
-                                        <li><label style="font-size:large;" data-bind="text: degreeName"></label>, <label style="font-size:large;" data-bind="    text: majorFocus"></label></li>
+                                <div class="jobseeker_myinformation_list_tab_main_div">
+                                    <div class="jobseeker_myinformation_list_tab_sub_div">
+                                        <li><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: universityName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editEducationDetails">Edit</button></li>                                    
+                                        <li><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: degreeName"></label>, <label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="    text: majorFocus"></label></li>
                                         <li><label  data-bind="text: startDate"></label> - <label  data-bind="    text: endDate"></label> / <label  data-bind="    text: universityLocation"></label></li>                                
                                     </div>
                                 </div>
@@ -488,10 +469,10 @@
                         </div>
                         <div id="List_Certification" class="common_tab_background">                         
                             <div  data-bind="foreach: certification">
-                                <div style="overflow:auto;border-style:solid;border-width:1px;  width:740px;margin-top:15px;font-family: 'Questrial', sans-serif; color: #6a747c;">
-                                    <div style="margin:10px;">
-                                        <li><label style="font-size:large;" data-bind="text: certificationName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editCertificationDetails">Edit</button></li>                                    
-                                        <li><label style="font-size:large;" data-bind="text: certificationInstituion"></label></li>
+                                <div class="jobseeker_myinformation_list_tab_main_div">
+                                    <div class="jobseeker_myinformation_list_tab_sub_div">
+                                        <li><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: certificationName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editCertificationDetails">Edit</button></li>                                    
+                                        <li><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: certificationInstituion"></label></li>
                                         <li><label  data-bind="text: completedDate"></label> - <label  data-bind="    text: expireDate"></label></li>    
                                         <li><label  data-bind="text: certificationDetails"></label></li>
                                     </div>
@@ -551,9 +532,6 @@
                                                 <li class="jobseeker_registration_innerli"><textarea id="Training_Details" placeholder="Details" class="common_textarea"></textarea></li>
                                             </ul>
                                         </li>
-                                                                             
-                                         
-                                    
                                         <li class="jobseeker_additionalinformation_city_outerli">
                                             <ul class="jobseeker_additionalinformation_city_ul" >
                                                 <li class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="Save_TrainingCourse" class="savebutton" value="Save" /></li>
@@ -568,21 +546,18 @@
 
                         <div id="List_TrainingCourse" class="common_tab_background">                                                                                                
                             <div  data-bind="foreach: trainingCourse">
-                                <div style="overflow:auto;border-style:solid;border-width:1px;  width:740px;margin-top:15px;font-family: 'Questrial', sans-serif; color: #6a747c;">
-                                    <div style="margin:10px;">
-                                        <li ><label style="font-size:large;" data-bind="text: programTypeName"></label>,<label style="font-size:large;text-align:left;"  data-bind="text: focus"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editTrainingCourseDetails">Edit</button></li>                                           
+                                <div class="jobseeker_myinformation_list_tab_main_div">
+                                    <div class="jobseeker_myinformation_list_tab_sub_div">
+                                        <li ><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: programTypeName"></label>,<label class="jobseeker_myinformation_list_tab_workExperience_label"  data-bind="    text: focus"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editTrainingCourseDetails">Edit</button></li>                                           
                                         <li><label  data-bind="text: expiryDate"></label> - <label  data-bind="    text: completionDate "></label>
-                                         <li><label  data-bind="text: trainingDetails"></label></li>   
-                                        
+                                         <li><label  data-bind="text: trainingDetails"></label></li>                                           
                                     </div>
                                 </div>
                             </div>                         
                         </div>
-
                     </div>
                 </div>
             </div>
-
             <div id="award_insertion">
                 <div class="common_banner">
                     <ul>
@@ -643,9 +618,9 @@
                 </div>
                 <div id="edit-modeList" class="common_background">
                     <ul>
-                        <li  style="width:650px;float:left;">
-                            <ul style="width:650px;float:left;"  data-bind="foreach: awards">
-                                <li style="width:200px;float:left;" data-bind="text: ScholarshipTitle"></li>
+                        <li class="jobseeker_myinformation_language_list_li_ul" >
+                            <ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: awards">
+                                <li class="jobseeker_myinformation_language_list_inner_li" data-bind="text: ScholarshipTitle"></li>
                                 <li ><button class="individual_editbutton" data-bind="click: $parent.editAwardDetails">Edit</button></li>
                                 <hr />
                             </ul>
@@ -697,8 +672,7 @@
             </div>
             <div id="activities_list_div">
                 <div id="list_activities_div" class="common_background">
-                    <ul>
-                       
+                    <ul>                       
                         <li  class="jobseeker_list_li_ul">
                             <ul  class="jobseeker_list_li_ul"  data-bind="foreach: activities">
                                 <li class="jobseeker_list_innerli"><label class="language_label"  data-bind="text: Activity"></label></li>
@@ -708,9 +682,9 @@
                 </div>
                 <div id="edit_individual_activities" class="common_background">
                     <ul>                       
-                        <li style="width:650px;float:left;">
-                            <ul style="width:650px;float:left;"  data-bind="foreach: activities">                                                            
-                                <li style="width:200px;float:left;" data-bind="text: Activity"></li>
+                        <li class="jobseeker_myinformation_language_list_li_ul">
+                            <ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: activities">                                                            
+                                <li class="jobseeker_myinformation_language_list_inner_li" data-bind="text: Activity"></li>
                                 <li><button class="individual_editbutton" data-bind="click: $parent.editActivityDetails">Edit</button></li>
                                 <hr />
                             </ul>
@@ -734,7 +708,7 @@
                              Tell us about Languages known to you.
                         </li>
                         <li class="jobseeker_myinformation_exampleli" >
-                            Englistr,Spanish, French,etc.
+                            English,Spanish, French,etc.
                         </li>
                         <li class="jobseeker_myinformation_buttonli">
                             <input type="button" id="Add_first_language" class="submitbutton" value="Add Languages" />
@@ -746,9 +720,9 @@
                         <ul>
                             <li><input type="hidden" id="language_Id"  /></li>
                             <li><input type="hidden" id="jobSeeker_Id"  /></li>
-                            <li style=" width:220px; float:left;"></li>
+                            <li class="jobseeker_additionalinformation_innerli"></li>
 
-                            <li style=" width:220px; float:left;" ><label class="jobseeker_myinformation_select" id="LanguageNameLabel"></label><select id="LanguageList" class="jobseeker_myinformation_select" ></select><sup id="mandatory">*</sup></li>
+                            <li class="jobseeker_additionalinformation_innerli" ><label class="jobseeker_myinformation_select" id="LanguageNameLabel"></label><select id="LanguageList" class="jobseeker_myinformation_select" ></select><sup id="mandatory">*</sup></li>
                             <li ><select id="ProficiencyList" class="jobseeker_myinformation_select" ></select></li>
                             <li><input type="text" id="certification" class="inputs" placeholder="Certification" /></li>
                             <li>
@@ -764,18 +738,18 @@
             <div id="Language_listing">
                 <div id="Language_list_noneditable" class="common_background">
                     <ul>
-                         <li  style="width:650px;float:left;">
-                            <ul style="width:650px;float:left;"  data-bind="foreach: languages">
-                                <li style="width:200px;float:left;"><label class="language_label" data-bind="text: LanguageName"></label></li>
+                         <li class="jobseeker_myinformation_language_list_li_ul">
+                            <ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: languages">
+                                <li class="jobseeker_myinformation_language_list_inner_li"><label class="language_label" data-bind="text: LanguageName"></label></li>
                             </ul>
                         </li>
                     </ul>            
                 </div>
                 <div id="Language_list_editable" class="common_background">
                     <ul>
-                        <li  style="width:650px;float:left;">
-                            <ul style="width:650px;float:left;"  data-bind="foreach: languages">
-                                <li style="width:200px;float:left;" data-bind="text: LanguageName"></li>
+                        <li class="jobseeker_myinformation_language_list_li_ul">
+                            <ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: languages">
+                                <li class="jobseeker_myinformation_language_list_inner_li" data-bind="text: LanguageName"></li>
                                 <li ><button class="individual_editbutton" data-bind="click: $parent.editLanguageDetails">Edit</button></li>
                                 <hr />
                             </ul>
