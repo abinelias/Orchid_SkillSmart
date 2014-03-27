@@ -23,6 +23,7 @@
          });
 
          $(document).ready(function () {
+             $('#footer').load('/Views/Shared/Footer.html');
              if (typeof (skillsmart) == 'undefined') skillsmart = {}
              if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
              if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
@@ -121,11 +122,8 @@
              $("#ManageHoldingsFrame").show();
          }
     </script>
-
 </head>
 <body>
-    <script id='my-view-template' type='text/html' src="/Views/JobSeeker/header.html" >
-    </script>   
      <div id="ManageHoldingsDiv" style="text-align:left;vertical-align:middle;display:none;overflow:hidden;">
 		<iframe id="ManageHoldingsFrame" style="height:420px;width:905px;overflow:hidden;" ></iframe>
 	</div>
@@ -817,6 +815,7 @@
             </div>
 
         </div>
+        <div id="footer"></div>
     </div>
 </body>
 </html>

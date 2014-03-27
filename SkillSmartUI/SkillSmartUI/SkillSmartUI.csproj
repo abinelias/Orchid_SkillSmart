@@ -83,7 +83,8 @@
     <Content Include="Scripts\viewmodel\skillsmart.model.jobseekermyinformation.js" />
     <Content Include="Scripts\viewmodel\skillsmart.model.jobseekerregistration.js" />
     <Content Include="Scripts\viewmodel\skillsmart.model.popupskill.js" />
-    <Content Include="Views\JobSeeker\header.html" />
+    <Content Include="Views\Shared\Footer.html" />
+    <Content Include="Views\Shared\header.html" />
     <Content Include="Views\JobSeeker\JobSeekerAdditionalInformation.html" />
     <Content Include="Views\JobSeeker\JobSeekerAdditionalInformationEdit.html" />
     <Content Include="Views\JobSeeker\JobSeekerList.html" />
@@ -103,7 +104,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\images\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
