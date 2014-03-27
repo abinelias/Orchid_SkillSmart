@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Popup Skills</title>
+    <link rel="stylesheet" href="/Content/common.css" />
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/Common.js"></script>
+    <script src="/Scripts/viewmodel/skillsmart.model.popupskill.js"></script>
+    <script src="/Scripts/viewmediator/skillsmart.mediator.popupskill.js"></script>
+    <script src="/Scripts/vendor/knockout.validation.js"></script>
+    <script src="/Scripts/vendor/knockout.mapping-latest.js"></script>
+    <script>
+        $(document).ready(function () {
+            if (typeof (skillsmart) == 'undefined') skillsmart = {}
+            if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
+            if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
+
+            function InitializeApplication() {
+                $(document).viewloader({
+                    logLevel: "debug",
+                    success: function (successfulResolution) {
+                        InitializeViewMediators();
+                    },
+                    error: function (failedResolution) {
+                        alert(failedResolution);
+                    }
+                });
+            }
+            function InitializeViewMediators() {
+                skillsmart.mediator.popupskill.createViewMediatorPopupskill();
+                skillsmart.mediator.popupskill.setupViewDataBindingsPopupskill();
+            }
+            InitializeApplication();
+        });
+    </script>    
+
+</head>
+<body>
+    <div style="text-align:center" id="Popup_div">
+        <ul>
+            <li>
+                 <select id="CategoryList"class="jobseeker_myinformation_select"></select>
+            </li>
+            <li>
+                 <select id="SpecialityList" class="jobseeker_myinformation_select"></select>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -25,7 +25,7 @@ namespace SkillSmartMongoDA.Services
             List<SkillSmart.Dto.Category> category = new List<SkillSmart.Dto.Category>();
             foreach (Category jobSeeker in categoryList)
             {
-                if (jobSeeker.Id.ToString() == id)
+                if (jobSeeker.ParentId.ToString() == id)
                 {
                     SkillSmart.Dto.Category jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.Category, SkillSmart.Dto.Category>(jobSeeker);
                     category.Add(jobSeekerObj);

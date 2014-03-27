@@ -76,17 +76,20 @@
     <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekerlist.js" />
     <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekermyinformation.js" />
     <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekerregistration.js" />
+    <Content Include="Scripts\viewmediator\skillsmart.mediator.popupskill.js" />
     <Content Include="Scripts\viewmodel\skillsmart.model.jobseekeradditionalinformation.js" />
     <Content Include="Scripts\viewmodel\skillsmart.model.jobseekeraddtionalinformationedit.js" />
     <Content Include="Scripts\viewmodel\skillsmart.model.jobseekerlist.js" />
     <Content Include="Scripts\viewmodel\skillsmart.model.jobseekermyinformation.js" />
     <Content Include="Scripts\viewmodel\skillsmart.model.jobseekerregistration.js" />
+    <Content Include="Scripts\viewmodel\skillsmart.model.popupskill.js" />
     <Content Include="Views\JobSeeker\header.html" />
     <Content Include="Views\JobSeeker\JobSeekerAdditionalInformation.html" />
     <Content Include="Views\JobSeeker\JobSeekerAdditionalInformationEdit.html" />
     <Content Include="Views\JobSeeker\JobSeekerList.html" />
     <Content Include="Views\JobSeeker\JobSeekerMyInformation.html" />
     <Content Include="Views\JobSeeker\JobSeekerRegistration.html" />
+    <Content Include="Views\JobSeeker\PopupSkills.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

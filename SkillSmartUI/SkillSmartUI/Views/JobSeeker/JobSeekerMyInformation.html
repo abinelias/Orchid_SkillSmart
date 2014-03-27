@@ -94,12 +94,41 @@
              }
              InitializeApplication();
          });
+         function DisplayAddHoldingsDialog() {
+             $("#ManageHoldingsFrame").attr('src', "/Views/JobSeeker/PopupSkills.html");
+             $('#ManageHoldingsDiv').dialog(
+                 {
+                     open: function () {
+                         $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").css("background-color", "#C4E1F1");
+                     },
+                     width: 950,
+                     minWidth: 700,
+                     minHeight: 380,
+                     modal: true,
+                     hideTitleBar: false,
+                     resizable: true,
+                     title: "Add Holding",
+                     closeOnEscape: true,
+                     close: function (event, ui) { $(this).dialog('destroy'); },
+                     buttons: {
+                         'Close': function () {
+
+                             $(this).dialog('destroy');
+                         }
+                     }
+                 });
+
+             $("#ManageHoldingsFrame").show();
+         }
     </script>
 
 </head>
 <body>
     <script id='my-view-template' type='text/html' src="/Views/JobSeeker/header.html" >
-</script>   
+    </script>   
+     <div id="ManageHoldingsDiv" style="text-align:left;vertical-align:middle;display:none;overflow:hidden;">
+		<iframe id="ManageHoldingsFrame" style="height:420px;width:905px;overflow:hidden;" ></iframe>
+	</div>
     <div id="outer_container" >       
         <div id="banner_container"><h2>SkillSmart</h2>
             <div><a  href="JobSeekerRegistration.html">JobSeeker Registration</a>    <a  href="JobSeekerList.html">JobSeeker List</a>       </div>
@@ -125,12 +154,11 @@
                     </ul>
                 </div>
             </div>
-            <div id="personal-information">
+            <div id="personal-information">               
                 <div  class="common_banner">
                     <ul><li class="marginclass">Personal Information<input type="button" id="edit" value="Edit" class="editbutton" /><input type="button" id="submit" value="Submit" class="editbutton" /></li></ul>
                 </div>
-
-                <div id="personal_general_div" class="common_background">
+               <div id="personal_general_div" class="common_background">
                     <ul>
                         <li class="jobseeker_myinformation_descriptionli">
                              Tell us about yourself!
@@ -165,6 +193,9 @@
                     </ul>
                 </div> 
                 <div id="edit-personal-information" class="common_background" >
+                    <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                        <li data-bind="text: $data"></li>
+                    </ul>
                     <ul>
                         <li class="jobseeker_myinformation_personalcontainer_outerli">
                             <ul class="jobseeker_myinformation_personalcontainer_ul">
@@ -205,6 +236,9 @@
                     </ul>                              
                 </div>
                 <div id="edit_aboutme_div" class="common_background">
+                    <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                        <li data-bind="text: $data"></li>
+                    </ul>
                     <ul>
                         <li><input type="hidden" id="overviewIdSummary"  /></li>
                         <li><input type="hidden" id="jobSeekerSummary"  /></li>
@@ -253,6 +287,9 @@
                         </div>
                             <div class="common_tab_background">
                                 <div id="Edit_WorkExperience" class="tab_savebackground_div">
+                                    <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                                        <li data-bind="text: $data"></li>
+                                    </ul>
                                     <ul>
                                         <li>
                                             <ul>
@@ -329,6 +366,8 @@
                                         <li ><label class="jobseeker_myinformation_list_tab_label">Employment Type: </label><label  data-bind="text: workTypeName"></label></li>
                                         <li ><label class="jobseeker_myinformation_list_tab_label">Industries: </label><label  data-bind="text: industryTypeName"></label></li>
                                         <li ><label class="jobseeker_myinformation_list_tab_label">Job Duties: </label><label  data-bind="text: jobDescription"></label></li>
+                                        <hr />    
+                                        <li>Related Skill <button onclick='DisplayAddHoldingsDialog()' class="related_skillButton" >+</button></li>                                        
                                     </div>
                                 </div>
                             </div>                         
@@ -352,6 +391,9 @@
                             </div>
                             <div class="common_tab_background">
                                 <div id="Edit_Education" class="tab_savebackground_div">
+                                    <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                                        <li data-bind="text: $data"></li>
+                                    </ul>
                                     <ul>
                                         <li>
                                             <li><input type="hidden" id="JobseekerEducationId"  /></li>
@@ -426,6 +468,9 @@
 
                             <div class="common_tab_background">
                                 <div id="Edit_Certification" class="tab_savebackground_div">
+                                    <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                                        <li data-bind="text: $data"></li>
+                                    </ul>
                                     <ul>
                                         <li>
                                             <li><input type="hidden" id="JobseekerCertificationId"  /></li>
@@ -461,8 +506,7 @@
                                                 <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel_certification" class="cancelbutton" value="Cancel" /></li>
                                                 <li><input type="button" id="delete_certification" class="deletebutton" value="Delete" /></li>
                                             </ul>
-                                        </li>
-                        
+                                        </li>                       
                                     </ul>
                                 </div>
                             </div>
@@ -498,6 +542,9 @@
                             </div>
                             <div class="common_tab_background">
                                 <div id="Edit_TrainingCourse" class="tab_savebackground_div">
+                                    <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                                        <li data-bind="text: $data"></li>
+                                    </ul>
                                     <ul>
                                         <li>
                                             <li><input type="hidden" id="JobseekerTrainigId"  /></li>
@@ -583,6 +630,9 @@
                 </div>
                 <div class="common_background">
                     <div id="edit_awards_div" class="add_div">
+                    <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                        <li data-bind="text: $data"></li>
+                    </ul>
                         <ul>
                             <li>
                                 <input type="hidden" id="awards-id"  />
@@ -651,6 +701,10 @@
                 </div>
                 <div class="common_background">
                     <div id="edit_activities_div" class="add_div">
+                    <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                        <li data-bind="text: $data"></li>
+                    </ul>
+
                          <ul>
                              <li>
                                  <input type="hidden" id="activity-id" />
@@ -717,6 +771,10 @@
                 </div>
                 <div class="common_background">
                     <div id="Edit_language_div" class="add_div">
+                   <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                        <li data-bind="text: $data"></li>
+                    </ul>
+
                         <ul>
                             <li><input type="hidden" id="language_Id"  /></li>
                             <li><input type="hidden" id="jobSeeker_Id"  /></li>

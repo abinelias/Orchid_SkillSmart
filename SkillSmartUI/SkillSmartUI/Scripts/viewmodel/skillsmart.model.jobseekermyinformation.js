@@ -16,19 +16,19 @@ skillsmart.model.jobseekermyinformation.initializeViewModelPersonalInformation =
             myinfoid: ko.observable(dataObjOverview.Id),
             jobseekerId: ko.observable(dataObjOverview.JobSeekerId),
 
-            industriesTextbox: ko.observable(dataObjOverview.Industry),
+            industriesTextbox: ko.observable(dataObjOverview.Industry).extend({ required: { message: "Industries required" } }),
             industriesLabel: ko.observable(dataObjOverview.Industry),
 
             specialityLabel: ko.observable(dataObjOverview.Speciality),
-            specialityTextbox: ko.observable(dataObjOverview.Speciality),
+            specialityTextbox: ko.observable(dataObjOverview.Speciality).extend({ required: { message: "Speciality required" } }),
 
             WillingToRelocateLabel: ko.observable(dataObjGetWillingToRelocate.Name),
             SecurityCleareanceLabel: ko.observable(dataObjGetSecurityCleareance.Name),
 
-            selectedSecurityCleareanceItem: ko.observable(dataObjOverview.SecurityClearanceId),
+            selectedSecurityCleareanceItem: ko.observable(dataObjOverview.SecurityClearanceId).extend({ required: { message: "Select Security clearance " } }),
             SecurityCleareance: ko.observableArray(),
 
-            selectedWillingToRelocate: ko.observable(dataObjOverview.WillingToRelocateId),
+            selectedWillingToRelocate: ko.observable(dataObjOverview.WillingToRelocateId).extend({ required: { message: "Select willing to relocate" } }),
             WillingToRelocate: ko.observableArray()
         }
 
@@ -46,24 +46,24 @@ skillsmart.model.jobseekermyinformation.initializeViewModelPersonalInformation =
         }
     }
     else {
-        
+
         var viewModel = {
             myinfoid: ko.observable(''),
             jobseekerId: ko.observable(''),
 
-            industriesTextbox: ko.observable(''),
+            industriesTextbox: ko.observable('').extend({ required: { message: "Industries required" } }),
             industriesLabel: ko.observable(''),
 
             specialityLabel: ko.observable(''),
-            specialityTextbox: ko.observable(''),
+            specialityTextbox: ko.observable('').extend({ required: { message: "Speciality required" } }),
 
             WillingToRelocateLabel: ko.observable(''),
             SecurityCleareanceLabel: ko.observable(''),
 
-            selectedSecurityCleareanceItem: ko.observable(''),
+            selectedSecurityCleareanceItem: ko.observable('').extend({ required: { message: "Select Security clearance " } }),
             SecurityCleareance: ko.observableArray(),
 
-            selectedWillingToRelocate: ko.observable(''),
+            selectedWillingToRelocate: ko.observable('').extend({ required: { message: "Select willing to relocate" } }),
             WillingToRelocate: ko.observableArray()
         }
 
@@ -78,8 +78,10 @@ skillsmart.model.jobseekermyinformation.initializeViewModelPersonalInformation =
 
             viewModel.WillingToRelocate.push({ name: dataWillingToRelocate[key].Name, id: dataWillingToRelocate[key].Id });
         }
-        
+
     }
+    viewModel.displayErrors = ko.observable(false);
+
     return viewModel;
 }
 
@@ -88,27 +90,28 @@ skillsmart.model.jobseekermyinformation.initializeViewModelAboutMe = function (d
         var viewModel = {
             myinfoid: ko.observable(dataObjOverview.Id),
             jobseekerId: ko.observable(dataObjOverview.JobSeekerId),
-            summary: ko.observable(dataObjOverview.Summary)
+            summary: ko.observable(dataObjOverview.Summary).extend({ required: { message: "About me required" } })
         }
     }
     else {
         var viewModel = {
             myinfoid: ko.observable(''),
             jobseekerId: ko.observable(''),
-            summary: ko.observable('')
+            summary: ko.observable('').extend({ required: { message: "About me required" } })
         }
     }
+    viewModel.displayErrors = ko.observable(false);
     return viewModel;
 }
 
 skillsmart.model.jobseekermyinformation.initializeViewModelAwardsInsertion = function () {
     var viewModel = {
-        title: ko.observable(),
-        description: ko.observable(),
+        title: ko.observable().extend({ required: { message: "Title required" } }),
+        description: ko.observable().extend({ required: { message: "Description required" } }),
         awardid: ko.observable(),
         jobseekerid: ko.observable()
     }
-
+    viewModel.displayErrors = ko.observable(false);
     return viewModel;
 }
 
@@ -136,10 +139,11 @@ skillsmart.model.jobseekermyinformation.initializeViewModelAwardsListing = funct
 
 skillsmart.model.jobseekermyinformation.initializeViewModelActivitiesInsertion = function () {
     var viewModel = {
-        hobbies: ko.observable(),
+        hobbies: ko.observable().extend({ required: { message: "Activities required" } }),
         activityid: ko.observable(),
         JobSeekerId: ko.observable()
     }
+    viewModel.displayErrors = ko.observable(false);
     return viewModel;
 }
 
@@ -166,15 +170,14 @@ skillsmart.model.jobseekermyinformation.initializeViewModelActivitiesListing = f
 
 skillsmart.model.jobseekermyinformation.initializeViewModelLanguagesInsertion = function (dataLanguageListObj, dataProficiencyObj) {
     var viewModel = {
-        languageId: ko.observable(''),
         jobSeekerId: ko.observable(''),
         LanguageLabel: ko.observable(''),
         Id: ko.observable(''),
 
-        selectedLanguage: ko.observable(''),
+        selectedLanguage: ko.observable('').extend({ required: { message: "Select Language" } }),
         LanguageList: ko.observableArray(),
 
-        selectedProficiency: ko.observable(''),
+        selectedProficiency: ko.observable('').extend({ required: { message: "Select Proficiency" } }),
         Proficiency: ko.observableArray()
     }
     viewModel.LanguageList.push({ name: "Language", id: "" });
@@ -186,6 +189,7 @@ skillsmart.model.jobseekermyinformation.initializeViewModelLanguagesInsertion = 
     for (da in dataProficiencyObj) {
         viewModel.Proficiency.push({ name: dataProficiencyObj[da].Name, id: dataProficiencyObj[da].Id });
     }
+    viewModel.displayErrors = ko.observable(false);
     return viewModel;
 }
 
@@ -224,23 +228,23 @@ skillsmart.model.jobseekermyinformation.initializeViewModelLanguagesList = funct
 
 skillsmart.model.jobseekermyinformation.initializeViewModelWorkExperienceInsertion = function (dataIndustryTypeObj, dataWorkTypeObj) {
     var viewModel = {
-        companyName: ko.observable(),
-        currentPosition: ko.observable(),
-        startDate: ko.observable(),
-        endDate: ko.observable(),
-        companyLocation: ko.observable(),
-        currentSalary: ko.observable(),
-        salaryType: ko.observable(),
-        jobDescription: ko.observable(),
+        companyName: ko.observable().extend({ required: { message: "Company Name required" } }),
+        currentPosition: ko.observable().extend({ required: { message: "Current postion required" } }),
+        startDate: ko.observable().extend({ required: { message: "start date required" } }),
+        endDate: ko.observable().extend({ required: { message: "end date required" } }),
+        companyLocation: ko.observable().extend({ required: { message: "Company location required" } }),
+        currentSalary: ko.observable().extend({ required: { message: "current salary required" } }),
+        salaryType: ko.observable().extend({ required: { message: "Salary type required" } }),
+        jobDescription: ko.observable().extend({ required: { message: "job description required" } }),
         jobSeekerId: ko.observable(''),
         workHistoryId: ko.observable(),
         industryTypeName: ko.observable(),
         workTypeName: ko.observable(),
 
-        selectedIndusrtyType: ko.observable(''),
+        selectedIndusrtyType: ko.observable('').extend({ required: { message: "Select IndusrtyType" } }),
         IndusrtyType: ko.observableArray(),
 
-        selectedWorkType: ko.observable(''),
+        selectedWorkType: ko.observable('').extend({ required: { message: "Select WorkType" } }),
         WorkType: ko.observableArray()
     }
     viewModel.IndusrtyType.push({ name: "IndusrtyType", id: "" });
@@ -252,6 +256,7 @@ skillsmart.model.jobseekermyinformation.initializeViewModelWorkExperienceInserti
     for (da in dataWorkTypeObj) {
         viewModel.WorkType.push({ name: dataWorkTypeObj[da].Name, id: dataWorkTypeObj[da].Id });
     }
+    viewModel.displayErrors = ko.observable(false);
     return viewModel;
 }
 
@@ -321,14 +326,14 @@ skillsmart.model.jobseekermyinformation.initializeViewModelEducationInsertion = 
     var viewModel = {
         jobseekerId: ko.observable(),
         educationId: ko.observable(),
-        universityName: ko.observable(),
-        startDate: ko.observable(),
-        endDate: ko.observable(),
-        universityLocation: ko.observable(),
+        universityName: ko.observable().extend({ required: { message: "University Name required" } }),
+        startDate: ko.observable().extend({ required: { message: "start date required" } }),
+        endDate: ko.observable().extend({ required: { message: "end date required" } }),
+        universityLocation: ko.observable().extend({ required: { message: "University Location required" } }),
         degreeName: ko.observable(),
         majorFocus: ko.observable(),
 
-        selectedDegree: ko.observable(''),
+        selectedDegree: ko.observable('').extend({ required: { message: "Select Degree" } }),
         degree: ko.observableArray()
     }
 
@@ -336,7 +341,7 @@ skillsmart.model.jobseekermyinformation.initializeViewModelEducationInsertion = 
     for (da in dataDegreeTypeObj) {
         viewModel.degree.push({ name: dataDegreeTypeObj[da].Name, id: dataDegreeTypeObj[da].Id });
     }
-
+    viewModel.displayErrors = ko.observable(false);
     return viewModel;
 }
 
@@ -390,16 +395,16 @@ skillsmart.model.jobseekermyinformation.initializeViewModelTrainingCourseInserti
         jobseekerId: ko.observable(),
         trainingId: ko.observable(),
 
-        selectedProgramType: ko.observable(),
+        selectedProgramType: ko.observable().extend({ required: { message: "Select Degree" } }),
         programType: ko.observableArray(),
         programTypeName: ko.observableArray(),
 
-        focus: ko.observable(),
-        completionDate: ko.observable(),
+        focus: ko.observable().extend({ required: { message: "Focus required" } }),
+        completionDate: ko.observable().extend({ required: { message: "Completion required" } }),
         currentlyEnrolled: ko.observable(),
-        trainingCourseInstitution: ko.observable(),
-        expiryDate: ko.observable(),
-        trainingDetails:ko.observable()
+        trainingCourseInstitution: ko.observable().extend({ required: { message: "Institution required" } }),
+        expiryDate: ko.observable().extend({ required: { message: "Expires date required" } }),
+        trainingDetails: ko.observable().extend({ required: { message: "Details required" } })
 
     }
 
@@ -407,7 +412,7 @@ skillsmart.model.jobseekermyinformation.initializeViewModelTrainingCourseInserti
     for (da in dataProgramTypeObj) {
         viewModel.programType.push({ name: dataProgramTypeObj[da].Name, id: dataProgramTypeObj[da].Id });
     }
-
+    viewModel.displayErrors = ko.observable(false);
     return viewModel;
 }
 
@@ -466,14 +471,14 @@ skillsmart.model.jobseekermyinformation.initializeViewModelCertificationInsertio
         jobseekerId: ko.observable(),
         certificationId: ko.observable(),
 
-        certificationName: ko.observable(),
+        certificationName: ko.observable().extend({ required: { message: "Certification Name required" } }),
         certificationEnrolled: ko.observable(),
-        certificationInstituion: ko.observable(),
-        completedDate: ko.observable(),
-        expireDate: ko.observable(),
-        certificationDetails: ko.observable()
+        certificationInstituion: ko.observable().extend({ required: { message: "Institution required" } }),
+        completedDate: ko.observable().extend({ required: { message: "Completion date required" } }),
+        expireDate: ko.observable().extend({ required: { message: "Expires date required" } }),
+        certificationDetails: ko.observable().extend({ required: { message: "Details required" } })
     }
-
+    viewModel.displayErrors = ko.observable(false);
     return viewModel;
 }
 
