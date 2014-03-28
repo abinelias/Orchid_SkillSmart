@@ -13,6 +13,8 @@
     width:845px;
     background-color:#F0F8FF;
     margin:0 auto;
+
+    padding-bottom:20px;
 }
 .resetbutton
 {
@@ -101,10 +103,11 @@
    
 }
 .related_skillButton {
-    width:10px;
+    width:25px;
     border-style:none;
     float:right;
-
+    border-radius:20px;
+    background-color:#fc9949; 
 }
 ul {
     list-style-type: none;
@@ -127,9 +130,9 @@ li {
 #banner_container {
     border:1px solid#dddddd ;
     height:100px;
-    width:100%;
+    width:98%;
     background-color:midnightblue;
-    
+    margin: 0 auto;
 }
 #content_container {
    width:100%;
@@ -214,6 +217,7 @@ select {
     background-color:#333333; 
     position:relative;
     color:white;
+    font-size:medium;
 }
 .common_background
 {
@@ -344,11 +348,11 @@ ul li a:focus {background-color: white;}
 
 #wrapFooter {
 	background: none repeat scroll 0 0 #6a747c;
-	width: 100%;
+	width: 98%;
 }
 
 #footer {
-	width: 92%;
+	width: 98%;
 	margin: 0 auto;
 	padding: 30px 0;
 }
@@ -374,6 +378,7 @@ ul li a:focus {background-color: white;}
 	text-decoration: none;
 	font-size: 13px;
 	line-height: 20px;
+    background-color:#6a747c;
 }
 
 .footerLeft .menu li a:hover {
@@ -403,7 +408,7 @@ ul li a:focus {background-color: white;}
 }
 
 .footerCopyright {
-	width: 92%;
+	width: 98%;
 	margin: 0 auto;
 }
 

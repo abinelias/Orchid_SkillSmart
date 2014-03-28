@@ -14,6 +14,8 @@
     <script src="/Scripts/vendor/knockout.mapping-latest.js"></script>
     <script>
         $(document).ready(function () {
+            $('#header').load('/Views/Shared/header.html');
+            $('#footer').load('/Views/Shared/Footer.html');
             if (typeof (skillsmart) == 'undefined') skillsmart = {}
             if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
             if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
@@ -39,12 +41,10 @@
 </head>
 <body>
      <div id="outer_container" >       
-        <div id="banner_container"><h2>SkillSmart</h2>
-            <div><a href="JobSeekerRegistration.html">JobSeeker Registration</a>    </div>
-        </div>   
-        <div id="jobseeker_list_banner_div" ><h3>JobSeeker List</h3></div>        
+        <div id="header"></div>
+           
         <div id="form_div">
-
+            <div id="jobseeker_list_banner_div" ><h3>JobSeeker List</h3></div>     
             <ul>
                 <li class="jobseeker_list_li_ul">
                     <ul class="jobseeker_list_li_ul">
@@ -66,6 +66,7 @@
                 </li>
             </ul>                       
         </div>
+         <div id="footer"></div>
     </div>
 </body>
 </html>

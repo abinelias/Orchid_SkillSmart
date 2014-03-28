@@ -13,6 +13,8 @@
     <script src="/Scripts/viewmediator/skillsmart.mediator.jobseekeraddtionalinformationedit.js"></script>
     <script>
         $(document).ready(function () {
+            $('#header').load('/Views/Shared/header.html');
+            $('#footer').load('/Views/Shared/Footer.html');
             if (typeof (skillsmart) == 'undefined') skillsmart = {}
             if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
             if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
@@ -39,9 +41,7 @@
 </head>
 <body>
      <div id="outer_container" >       
-        <div id="banner_container"><h2>SkillSmart</h2>
-            <div><a  href="JobSeekerRegistration.html">JobSeeker Registration</a>    <a  href="JobSeekerList.html">JobSeeker List</a>    </div>
-        </div> 
+        <div id="header"></div>
          <div id="jobseeker_list_accountdetails_banner_div"><h3>Account Details</h3></div>                    
         <div id="form_div">
             <h3>Edit personal information.</h3>
@@ -187,6 +187,7 @@
                 </li>
             </ul>
         </div>
+         <div id="footer"></div>
      </div>
 </body>
 </html>

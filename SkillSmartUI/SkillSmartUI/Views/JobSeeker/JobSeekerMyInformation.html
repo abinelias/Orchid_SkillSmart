@@ -23,6 +23,7 @@
          });
 
          $(document).ready(function () {
+             $('#header').load('/Views/Shared/header.html');
              $('#footer').load('/Views/Shared/Footer.html');
              if (typeof (skillsmart) == 'undefined') skillsmart = {}
              if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
@@ -124,13 +125,12 @@
     </script>
 </head>
 <body>
+   
      <div id="ManageHoldingsDiv" style="text-align:left;vertical-align:middle;display:none;overflow:hidden;">
 		<iframe id="ManageHoldingsFrame" style="height:420px;width:905px;overflow:hidden;" ></iframe>
 	</div>
     <div id="outer_container" >       
-        <div id="banner_container"><h2>SkillSmart</h2>
-            <div><a  href="JobSeekerRegistration.html">JobSeeker Registration</a>    <a  href="JobSeekerList.html">JobSeeker List</a>       </div>
-        </div>
+        <div id="header"></div>
         <div id="main-div">
             <div id="jobseeker-myinformation">
                 <div class="myinformation"><h3>My Information</h3></div>                                      
