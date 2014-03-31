@@ -17,7 +17,6 @@ namespace SkillSmartMongoDA.Services
         {
             var skillMapCollectionList = this.MongoCollection.FindAllAs<SkillMap>(); //get all jobseekers
 
-            //Creating jobseeker object jobSeekerCursor
             List<SkillSmart.Dto.SkillMap> jobSeekerCursor = new List<SkillSmart.Dto.SkillMap>();
             foreach (SkillMap SkillMapCollection in skillMapCollectionList)
             {
@@ -26,6 +25,19 @@ namespace SkillSmartMongoDA.Services
                     SkillSmart.Dto.SkillMap jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.SkillMap, SkillSmart.Dto.SkillMap>(SkillMapCollection);
                     jobSeekerCursor.Add(jobSeekerObj);
                 }    
+            }
+            return jobSeekerCursor;
+        }
+
+        public IEnumerable<SkillSmart.Dto.SkillMap> GetAllSkillMap()
+        {
+            var skillMapCollectionList = this.MongoCollection.FindAllAs<SkillMap>(); //get all jobseekers
+
+            List<SkillSmart.Dto.SkillMap> jobSeekerCursor = new List<SkillSmart.Dto.SkillMap>();
+            foreach (SkillMap SkillMapCollection in skillMapCollectionList)
+            {
+                SkillSmart.Dto.SkillMap jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.SkillMap, SkillSmart.Dto.SkillMap>(SkillMapCollection);
+                jobSeekerCursor.Add(jobSeekerObj);
             }
             return jobSeekerCursor;
         }

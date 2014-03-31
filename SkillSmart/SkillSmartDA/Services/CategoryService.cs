@@ -35,6 +35,24 @@ namespace SkillSmartMongoDA.Services
         }
 
         /// <summary>
+        /// Function to get all Category
+        /// </summary>
+        /// <returns>Category object</returns>
+        public IEnumerable<SkillSmart.Dto.Category> GetAllCategory()
+        {
+            var categoryList = this.MongoCollection.FindAllAs<Category>();
+
+            List<SkillSmart.Dto.Category> category = new List<SkillSmart.Dto.Category>();
+            foreach (Category jobSeeker in categoryList)
+            {
+                SkillSmart.Dto.Category jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.Category, SkillSmart.Dto.Category>(jobSeeker);
+                category.Add(jobSeekerObj);
+            }
+            return category;
+        }
+
+
+        /// <summary>
         /// Function to create a Category
         /// </summary>
         /// <param name="entity">Category object</param>

@@ -88,6 +88,7 @@
     <Compile Include="Controllers\ExtraCurricularActivityController.cs" />
     <Compile Include="Controllers\JobSeekerSkillListController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\ListJobSeekerSkillController.cs" />
     <Compile Include="Controllers\LookupByCriteriaController.cs" />
     <Compile Include="Controllers\LookupController.cs" />
     <Compile Include="Controllers\JobSeekerController.cs" />

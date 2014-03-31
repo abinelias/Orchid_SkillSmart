@@ -6,6 +6,7 @@ namespace SkillSmart.Base.Services
     {
 
         IEnumerable<T> GetSkillsByCategoryId(string id);
+        IEnumerable<T> GetAllSkillMap();
 
     }
 }

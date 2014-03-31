@@ -72,6 +72,7 @@
     <Compile Include="Dto\ExtraCurricularActivity.cs" />
     <Compile Include="Dto\JobSeekerSkillList.cs" />
     <Compile Include="Dto\Language.cs" />
+    <Compile Include="Dto\ListingJobSeekerSkills.cs" />
     <Compile Include="Dto\LookupByCriteria.cs" />
     <Compile Include="Dto\LookupDto.cs" />
     <Compile Include="Dto\JobSeeker.cs" />
