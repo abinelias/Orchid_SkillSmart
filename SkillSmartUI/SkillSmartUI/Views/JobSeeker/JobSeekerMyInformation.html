@@ -23,6 +23,7 @@
          });
 
          $(document).ready(function () {
+             
              $('#header').load('/Views/Shared/header.html');
              $('#footer').load('/Views/Shared/Footer.html');
              if (typeof (skillsmart) == 'undefined') skillsmart = {}
@@ -96,8 +97,10 @@
              }
              InitializeApplication();
          });
-         function DisplayAddHoldingsDialog() {
-             $("#ManageHoldingsFrame").attr('src', "/Views/JobSeeker/PopupSkills.html");
+         function DisplayAddHoldingsDialog(uid) {
+             var url = window.location.href;
+             var userId = url.substring(url.lastIndexOf('=') + 1);
+             $("#ManageHoldingsFrame").attr('src', "/Views/JobSeeker/PopupSkills.html?uid="+uid+"&userid="+userId);
              $('#ManageHoldingsDiv').dialog(
                  {
                      open: function () {
@@ -129,8 +132,9 @@
      <div id="ManageHoldingsDiv" style="text-align:left;vertical-align:middle;display:none;overflow:hidden;">
 		<iframe id="ManageHoldingsFrame" style="height:420px;width:905px;overflow:hidden;" ></iframe>
 	</div>
+    <div id="header"></div>
     <div id="outer_container" >       
-        <div id="header"></div>
+
         <div id="main-div">
             <div id="jobseeker-myinformation">
                 <div class="myinformation"><h3>My Information</h3></div>                                      
@@ -365,7 +369,7 @@
                                         <li ><label class="jobseeker_myinformation_list_tab_label">Industries: </label><label  data-bind="text: industryTypeName"></label></li>
                                         <li ><label class="jobseeker_myinformation_list_tab_label">Job Duties: </label><label  data-bind="text: jobDescription"></label></li>
                                         <hr />    
-                                        <li>Related Skill <button onclick='DisplayAddHoldingsDialog()' class="related_skillButton" >+</button></li>                                        
+                                        <li>Related Skill <button onclick='DisplayAddHoldingsDialog(this.id)' id="63ac0887-82d4-43c6-8914-af47af0fab18" class="related_skillButton" >+</button></li>                                        
                                     </div>
                                 </div>
                             </div>                         
@@ -442,6 +446,8 @@
                                         <li><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: universityName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editEducationDetails">Edit</button></li>                                    
                                         <li><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: degreeName"></label>, <label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="    text: majorFocus"></label></li>
                                         <li><label  data-bind="text: startDate"></label> - <label  data-bind="    text: endDate"></label> / <label  data-bind="    text: universityLocation"></label></li>                                
+                                        <hr />    
+                                        <li>Related Skill <button onclick='DisplayAddHoldingsDialog(this.id)' id="9a1e5c72-757a-4486-bd95-5b20a84c08a0" class="related_skillButton" >+</button></li>                                        
                                     </div>
                                 </div>
                             </div>                                                               
@@ -815,7 +821,7 @@
             </div>
 
         </div>
-        <div id="footer"></div>
     </div>
+    <div id="footer"></div>
 </body>
 </html>

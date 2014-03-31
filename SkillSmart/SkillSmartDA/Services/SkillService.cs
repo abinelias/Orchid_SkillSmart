@@ -13,6 +13,20 @@ namespace SkillSmartMongoDA.Services
             : base(mongoDatabase)
         { }
 
+        public IEnumerable<SkillSmart.Dto.Skill> GetAll()
+        {
+            var allSkillList = this.MongoCollection.FindAllAs<Skill>(); //get all jobseekers
+
+            //Creating jobseeker object jobSeekerCursor
+            List<SkillSmart.Dto.Skill> skillList = new List<SkillSmart.Dto.Skill>();
+            foreach (Skill jobSeeker in allSkillList)
+            {
+                SkillSmart.Dto.Skill jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.Skill, SkillSmart.Dto.Skill>(jobSeeker);
+                skillList.Add(jobSeekerObj);
+            }
+            return skillList;
+        }
+
         /// <summary>
         /// Function to create a skill
         /// </summary>

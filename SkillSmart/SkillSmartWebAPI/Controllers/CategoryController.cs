@@ -67,5 +67,12 @@ namespace SkillSmartWebAPI.Controllers
             var jobSeeker = jobSeekerService.GetById(id);
             jobSeekerService.Delete(jobSeeker);  
         }
+
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
+        }
     }
 }

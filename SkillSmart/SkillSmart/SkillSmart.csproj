@@ -79,6 +79,7 @@
     <Compile Include="Dto\Scholarship.cs" />
     <Compile Include="Dto\Skill.cs" />
     <Compile Include="Dto\SkillAlias.cs" />
+    <Compile Include="Dto\SkillsSpeciality.cs" />
     <Compile Include="Dto\SkillMap.cs" />
     <Compile Include="Dto\SpecialityCourse.cs" />
     <Compile Include="Dto\TrainingCourse.cs" />

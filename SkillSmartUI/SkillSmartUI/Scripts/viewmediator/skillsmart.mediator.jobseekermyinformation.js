@@ -1721,6 +1721,7 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
     $("#CurrentSalary").attr("data-bind", "value:currentSalary");
     $("#JobDuties").attr("data-bind", "value:jobDescription");
     $(".salary").attr("data-bind", "checked:salaryType");
+    
 
     $("#IndustryType").attr("data-bind", "options:IndusrtyType,optionsText: 'name', optionsValue: 'id', value: selectedIndusrtyType");
     $("#EmploymentType").attr("data-bind", "options:WorkType,optionsText: 'name', optionsValue: 'id', value: selectedWorkType");
@@ -1741,6 +1742,8 @@ skillsmart.mediator.jobseekermyinformation.setupViewDataBindingsWorkExperienceIn
         messagesOnModified: true,
         insertMessages: false
     });
+
+   
     viewModelWorkExperienceInsertion.addfirstWork = function () {
         $("#Edit_WorkExperience").show();
         $("#WorkExperience_General").hide();

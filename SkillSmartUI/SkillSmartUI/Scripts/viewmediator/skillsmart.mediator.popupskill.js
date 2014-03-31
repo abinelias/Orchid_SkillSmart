@@ -2,6 +2,13 @@
 if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
 if (typeof (skillsmart.mediator.popupskill) == 'undefined') skillsmart.mediator.popupskill = {}
 
+//var url = window.location.href;
+//var userId = url.substring(url.lastIndexOf('=') + 1);
+
+var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+var acquiredId = hashes[0].substring(4);
+var userId = hashes[1].substring(7);
+
 skillsmart.mediator.popupskill.createViewMediatorPopupskill = function ()
 {
     var apiUrlCategory = GetWebAPIURL() + '/api/Category?parentId=0';
@@ -30,6 +37,9 @@ skillsmart.mediator.popupskill.setupViewDataBindingsPopupskill = function ()
 {
     $("#CategoryList").attr("data-bind", "options:category,optionsText: 'name', optionsValue: 'id', value: selectedCategory");
     $("#SpecialityList").attr("data-bind", "options:speciality,optionsText: 'name', optionsValue: 'id', value: selectedSpeciality");
+    $("#SkillList").attr("data-bind", "options:skill,optionsText: 'name', optionsValue: 'id', value: selectedSkill");
+
+    $("#save_Skills").attr("data-bind", "click:saveSkills");
 
     var viewNode = $("#Popup_div")[0];
     var viewModel = skillsmart.mediator.popupskill.getViewModel("skillsmart.model.popupskill.viewModel");
@@ -60,6 +70,58 @@ skillsmart.mediator.popupskill.setupViewDataBindingsPopupskill = function ()
             });
         }
     });
+
+    viewModel.selectedSpeciality.subscribe(function (newValue) {
+
+        if (newValue != "") {
+
+            var apiUrlSkill = GetWebAPIURL() + '/api/SkillMap/?specialityId=' + newValue;
+            var dataSkillObj;
+
+            //To get State for lookup
+            $.ajax({
+                url: apiUrlSkill,
+                type: 'GET',
+                async: false,
+                success: function (data) {
+                    viewModel.skill([]);
+                    viewModel.skill.push({ name: "skill", id: "" });
+                    for (keySkill in data) {
+                        viewModel.skill.push({ name: data[keySkill].SkillName, id: data[keySkill].SkillMapId });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('Errorskill :' + status);
+                }
+            });
+        }
+    });
+
+    viewModel.saveSkills = function ()
+    {
+        var jsonObject = ko.toJS(viewModel);
+        var jobseekerAddSkillObj = {}
+        jobseekerAddSkillObj.JobSeekerId = userId;
+        jobseekerAddSkillObj.SkillMapId = jsonObject.selectedSkill;
+        jobseekerAddSkillObj.SkillAcquiredId = acquiredId;
+
+        dataobjAddSkill = JSON.stringify(jobseekerAddSkillObj);
+        var apiUrlAddSkill = GetWebAPIURL() + '/api/JobSeekerSkillList/';
+
+        $.ajax({
+            url: apiUrlAddSkill,
+            type: "POST",
+            data: dataobjAddSkill,
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
+
+    }
     ko.applyBindings(viewModel, viewNode);
 }
 

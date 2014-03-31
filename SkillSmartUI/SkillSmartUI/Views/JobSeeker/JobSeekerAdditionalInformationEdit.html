@@ -40,10 +40,11 @@
     </script>
 </head>
 <body>
-     <div id="outer_container" >       
-        <div id="header"></div>
-         <div id="jobseeker_list_accountdetails_banner_div"><h3>Account Details</h3></div>                    
-        <div id="form_div">
+    <div id="header"></div>
+    <div id="outer_container" >               
+    <div id="main-div">
+        <div class="common_banner"><h3>Account Details</h3></div>                    
+        <div class="common_background">
             <h3>Edit personal information.</h3>
             <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
                 <li data-bind="text: $data"></li>
@@ -186,8 +187,9 @@
                     </ul>
                 </li>
             </ul>
-        </div>
-         <div id="footer"></div>
+             </div>
+        </div>        
      </div>
+    <div id="footer"></div>
 </body>
 </html>

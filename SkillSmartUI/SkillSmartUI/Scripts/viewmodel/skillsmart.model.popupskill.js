@@ -10,6 +10,10 @@ skillsmart.model.popupskill.initializeViewModelPopupSkill = function (dataCatego
 
         selectedSpeciality: ko.observable(''),
         speciality: ko.observableArray(),
+
+        selectedSkill: ko.observable(''),
+        skill: ko.observableArray(),
+
     }
     viewModel.category.push({ name: "Category", id: "" });
     for (da in dataCategoryObj)
@@ -18,5 +22,6 @@ skillsmart.model.popupskill.initializeViewModelPopupSkill = function (dataCatego
         viewModel.category.push({ name: dataCategoryObj[da].CategoryName, id: dataCategoryObj[da].Id });
     }
     viewModel.speciality.push({ name: "Speciality", id: "" });
+    viewModel.skill.push({ name: "Skill", id: "" });
     return viewModel;
 }

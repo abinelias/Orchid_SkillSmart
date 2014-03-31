@@ -11,9 +11,33 @@ namespace SkillSmartWebAPI.Controllers
     public class SkillMapController : ApiController
     {
 
-        public IEnumerable<SkillMap> GetAllCategoryById()
+        public IEnumerable<SkillSmart.Dto.SkillsSpeciality> GetAll(string specialityId)
         {
-            return ServiceFactory.GetSkillMap().GetSkillsByCategoryId("cdc83674-95f4-460c-95e0-6ae04174f75e");
+            var SkillMapListCategory = ServiceFactory.GetSkillMap().GetSkillsByCategoryId(specialityId);
+            var allSkillList = ServiceFactory.GetSkill().GetAll();
+
+            List<SkillSmart.Dto.SkillsSpeciality> skillList = new List<SkillSmart.Dto.SkillsSpeciality>();
+            foreach (SkillMap mapSkill in SkillMapListCategory)
+            {
+                if (mapSkill.CategoryId.ToString() == specialityId)
+                {
+                    var skillId = mapSkill.SkillId;
+                    foreach (Skill skillSelect in allSkillList)
+                    {
+                        if (skillSelect.Id.ToString() == skillId)
+                        {
+                            
+                            SkillSmart.Dto.SkillsSpeciality skillObj = new SkillSmart.Dto.SkillsSpeciality();
+                            skillObj.SkillMapId = mapSkill.Id.ToString();
+                            skillObj.SkillName = skillSelect.SkillName;
+
+                            skillList.Add(skillObj);
+                            break;
+                        }
+                    }
+                }
+            }
+            return skillList;
         }
 
         public SkillMap Get(string id)

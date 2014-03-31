@@ -11,11 +11,11 @@ namespace SkillSmartTest
     {
         public static void Main(string[] args)
         {
-            CategoryController controller = new CategoryController();
+            LookupController controller = new LookupController();
 
 
 
-            //List<Category> jobSeekerList = controller.GetAll().ToList<Category>();
+            List<SkillSmart.Dto.LookupDto> jobSeekerList = controller.GetAll("SkillAcquired").ToList<SkillSmart.Dto.LookupDto>();
             /*  if (jobSeekerList.Count >= 0)
               {
 
@@ -25,18 +25,17 @@ namespace SkillSmartTest
 
             /* if (jobSeeker != null)
              {
-                 jobSeeker.Birthday = DateTime.Now.ToString();
-                 controller.Put(jobSeeker.Id.ToString(), jobSeeker);  2293283a-9814-4395-a024-a76f3a9c8076
+                 jobSeeker.Birthday = DateTime.Now.ToString();072de9e5-9612-48b9-a86c-16d8f2381eec   
+                 controller.Put(jobSeeker.Id.ToString(), jobSeeker);   9a1e5c72-757a-4486-bd95-5b20a84c08a0
              }
-            
-          */
 
-            Category AddinInfo = new Category();
-            AddinInfo.CategoryName = "Backend";
-            AddinInfo.ParentId = "2293283a-9814-4395-a024-a76f3a9c8076";
-            
 
-            controller.Post(AddinInfo); 
+
+            LookupDto AddinInfo = new LookupDto();
+            AddinInfo.Name = "Certification";
+
+
+            controller.Post(AddinInfo); */
 
 
 

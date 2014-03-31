@@ -10,6 +10,15 @@ namespace SkillSmartWebAPI.Controllers
 {
     public class SkillController : ApiController
     {
+
+        /// <summary>
+        /// To get all Skills
+        /// </summary>
+        /// <returns>Skill object</returns>
+        public IEnumerable<Skill> GetAll()
+        {
+            return ServiceFactory.GetSkill().GetAll();
+        }
         /// <summary>
         /// To get a skill by id
         /// </summary>

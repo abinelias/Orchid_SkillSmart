@@ -15,11 +15,19 @@ namespace SkillSmartMongoDA.Services
 
         public IEnumerable<SkillSmart.Dto.SkillMap> GetSkillsByCategoryId(string id)
         {
-            var jobSeekerLanguageList = this.MongoCollection.FindAllAs<SkillMap>();
+            var skillMapCollectionList = this.MongoCollection.FindAllAs<SkillMap>(); //get all jobseekers
 
-            List<SkillSmart.Dto.SkillMap> jobSeekerLanguage = new List<SkillSmart.Dto.SkillMap>();
-           
-            return jobSeekerLanguage;
+            //Creating jobseeker object jobSeekerCursor
+            List<SkillSmart.Dto.SkillMap> jobSeekerCursor = new List<SkillSmart.Dto.SkillMap>();
+            foreach (SkillMap SkillMapCollection in skillMapCollectionList)
+            {
+                if(SkillMapCollection.CategoryId.ToString() == id)
+                {
+                    SkillSmart.Dto.SkillMap jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.SkillMap, SkillSmart.Dto.SkillMap>(SkillMapCollection);
+                    jobSeekerCursor.Add(jobSeekerObj);
+                }    
+            }
+            return jobSeekerCursor;
         }
 
         public void Create(SkillSmart.Dto.SkillMap entity)

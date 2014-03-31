@@ -18,8 +18,7 @@
     <script src="/Scripts/vendor/knockout.mapping-latest.js"></script>
     <script>
         $(document).ready(function () {
-            $('#header').load('/Views/Shared/header.html');
-            $('#footer').load('/Views/Shared/Footer.html');
+            
             if (typeof (skillsmart) == 'undefined') skillsmart = {}
             if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
             if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
@@ -45,7 +44,6 @@
 </head>
 <body>
     <div id="outer_container" >       
-        <div id="header"></div>
         <div id="jobseeker_registration_signup_div"><h3>Sign Up</h3></div>          
         <div id="jobseeker-registration">
             <h4>Enter your details below to create an account.</h4>
@@ -85,7 +83,7 @@
                 </li>
             </ul>
         </div>
-        <div id="footer"></div>
+        
     </div>
 </body>
 </html>

@@ -14,18 +14,18 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all skills of the jobseeker
         /// </summary>
         /// <returns>JobseekerSkillList Object</returns>
-        public IEnumerable<JobSeekerSkillList> GetAllJobseekerListById()
+        public IEnumerable<JobSeekerSkillList> GetAll(string jobSeekerId)
         {
-            return ServiceFactory.GetJobSeekerSkillList().GetAllJobseekerListById("bcvb");
+            return ServiceFactory.GetJobSeekerSkillList().GetAllJobseekerListById(jobSeekerId);
         }
 
         /// <summary>
         /// To get skills of the job seeker that get acquired from
         /// </summary>
         /// <returns>JobseekerSkillList Object</returns>
-        public IEnumerable<JobSeekerSkillList> GetJobSeekerSkillListByAcquiredId()
+        public IEnumerable<JobSeekerSkillList> GetJobSeekerSkillListByAcquiredId(string jobSeekerId, string acquiresId)
         {
-            return ServiceFactory.GetJobSeekerSkillList().GetJobSeekerSkillListByAcquiredId("vbv", "bcv");
+            return ServiceFactory.GetJobSeekerSkillList().GetJobSeekerSkillListByAcquiredId(jobSeekerId, acquiresId);
         }
 
         /// <summary>
@@ -76,6 +76,13 @@ namespace SkillSmartWebAPI.Controllers
             IJobSeekerSkillListService<JobSeekerSkillList> jobSeekerService = ServiceFactory.GetJobSeekerSkillList();
             var jobSeeker = jobSeekerService.GetById(id);
             jobSeekerService.Delete(jobSeeker);  
+        }
+
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
         }
     }
 }
