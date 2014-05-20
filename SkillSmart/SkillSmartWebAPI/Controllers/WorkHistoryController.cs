@@ -34,13 +34,11 @@ namespace SkillSmartWebAPI.Controllers
         /// To create a new work history details
         /// </summary>
         /// <param name="jobSeekerWorkHistoryObj">WorkHistory object</param>
-        public void Post(WorkHistory jobSeekerWorkHistoryObj)
+        public string Post(WorkHistory jobSeekerWorkHistoryObj)
         {
-            try
-            {
+            
                 ServiceFactory.GetJobSeekerWorkHistory().Create(jobSeekerWorkHistoryObj);
-            }
-            catch (Exception ex){}
+                return jobSeekerWorkHistoryObj.Id.ToString();
         }
 
         /// <summary>

@@ -1,0 +1,12 @@
+﻿<div class="common_banner">
+       <div class="common_bannerStyle">
+        <ul><li>Languages</li></ul>
+     </div>
+    <div class="common_banner_ButtonStyle">
+        <li class="marginclass"><!-- ko if: languageCheck() == '1' --><input type='button' id='addMoreLanguage' class='editbutton' value='Edit' data-bind='click: clickButtonLanguage, value: btnLanguage' /><!-- /ko --></li>
+    </div>
+</div>
+
+<div id='show_language_div' class='common_background'>
+    <ul data-bind='template: { name: whichTemplateToUseLanguage }'></ul>
+</div>

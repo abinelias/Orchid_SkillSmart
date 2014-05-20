@@ -1,0 +1,11 @@
+﻿<div class='common_banner'>
+   <div class="common_bannerStyle">
+        <ul><li> Demographic Information</li></ul>
+    </div>
+    <div class="common_banner_ButtonStyle">
+        <li class='marginclass'>  <!-- ko if: demographicCheck() == '1' --><!-- ko if: btnDemographic() == 'Edit' --> <a class="butn butn-dkgray" href="" data-bind='click: clickButtonDemographic, value: btnDemographic' >Edit</a><!-- /ko --><!-- /ko --></li>
+    </div>
+</div>
+<div id='show_aboutme_div' class='common_background'>
+    <ul data-bind='    template: { name: whichTemplateToUseDemographic }'></ul>
+</div>

@@ -1,0 +1,120 @@
+﻿<ul>
+            <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_myinformation_innerli'><label>Title</label></li>
+            </ul>
+        </li><input type='hidden' id='userPassword' />
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_liwidth'><input id="Text1" data-bind="wijcombobox: { selectedIndex: selectedIndexTitle, text: textTitle, data: dataTitle, }" /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><label>First Name<sup>*</sup></label></li>
+                <li class='jobseeker_myinformation_innerli'><label>Middle Name</label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><input type='text' id='first-name' placeholder='First Name'  data-bind='wijtextbox: {}, value: firstname' /></li>
+                <li class='jobseeker_myinformation_innerli'><input type='text' id='middle-name' placeholder='Middle Name'  data-bind='wijtextbox: {}, value: middlename' /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'><label>Preferred Name</label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_liwidth'><input type='text' id='preferred-name' placeholder='Preferred Name'  data-bind='wijtextbox: {}, value: preferredname' /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'><label>Last Name<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_liwidth'><input type='text' id='last-name' placeholder='last Name'  data-bind='wijtextbox: {}, value: lastname'  /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'><ul class='jobseeker_registration_ul'><li  class='jobseeker_myinformation_innerli'><label>Suffix</label></li></ul></li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_liwidth'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexSuffix, data: dataSuffix, }" /></li>
+            </ul>
+        </li>
+
+        <li class='jobseeker_registration_outerli'><ul class='jobseeker_registration_ul'><li  class='jobseeker_myinformation_innerli'><label>Years of experience</label><sup>*</sup></li></ul></li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_liwidth'><input type="text" id="numinput" data-bind="    wijinputnumber: {value:yrExperience, showSpinner: true }"/></li>
+            </ul>
+        </li>
+
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Street Address<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Address 2<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='address-line1' placeholder='Street Address'  data-bind='wijtextbox: {}, value: addressline1' /></li>
+                <li  class='jobseeker_myinformation_innerli'><input type='text' id='address-line2' placeholder='AddressLine2'  data-bind='wijtextbox: {}, value: addressline2' /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul' >
+                <li  class='jobseeker_additionalinformation_innerli'><label>City<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Country<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>State<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='city' placeholder='City'  data-bind='wijtextbox: {}, value: city'/></li>
+                <li  class='jobseeker_myinformation_innerli'><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexCountry, data: dataCountry }" /></li>
+                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexState, data: dataState }" /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Zip<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Citizenship<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='zip' placeholder='Zip'  maxlength='5' data-bind='wijtextbox: {}, value: zip' /></li>
+                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexCitizenship, data: dataCitizenship, }" /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><label>Phone<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Email<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><input type='text' id='phone' placeholder='Phone Number'  data-bind='wijtextbox: {}, value: phonehome' /></li>
+                <li class='jobseeker_myinformation_innerli'><input type='text' id='email-address' placeholder='Email'  disabled data-bind='wijtextbox: {}, value: email'/></li>
+            </ul>
+        </li>
+        <li  class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'><label>Prefered Method of contact<sup>*</sup></label></li>
+            </ul>
+        </li>
+         <li class='jobseeker_registration_outerli'>
+             <ul class='jobseeker_registration_ul'>
+                 <li class='jobseeker_additionalinformation_preferredmethod_innerli'><input type='radio' name='contact' value='email' class='contact' data-bind='    checked: contact'/>Email</li>
+                 <li class='jobseeker_additionalinformation_preferredmethod_innerli'><input type='radio' name='contact' value='phone' class='contact' data-bind='    checked: contact'/>Phone</li>
+             </ul>
+         </li>
+    
+</ul>

@@ -1,0 +1,64 @@
+﻿<!-- ko if: accountDetailsCheck() == '0' -->
+<ul>
+    <li class="jobseeker_myinformation_descriptionli">
+            To get started we'll need some basic information from you.
+    </li>
+    <li class="jobseeker_myinformation_exampleli" >
+       Tell us where you live, how we can contact you, set a profile pic and more.
+    </li>
+    <li class="jobseeker_myinformation_buttonli">
+        <input type="button"  class="submitbutton" value="Get Started " data-bind="click: getStartedAccount"/>
+    </li>
+</ul>
+ <!-- /ko -->
+<!-- ko if: accountDetailsCheck() == '1' -->
+
+    <div style="width:7%;float:left;">
+       <div> <img style="height:120px;" src="/images/avatar.jpg" /></div>
+    </div>
+    <div style="margin-left: 7%"">
+        <ul>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli">
+                        <label  class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: firstname"></label>  <label  class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="    text: lastname"></label>
+                    </li> 
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li>
+                    Username: <label data-bind="text: username"></label> / Password: <label>******</label><hr size="1" />
+                    </li>
+                </ul>
+             </li>
+             <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><img src="/images/google-map.png" />      
+                        <label data-bind="text: addressline1"></label>,<label data-bind="    text: addressline2"></label>, <label data-bind="    text: countryName"></label>
+                    </li>
+                </ul>
+             </li>
+
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><img src="/images/small_globe.jpg" /> <label data-bind="text: citizenshipLabel"></label> </li>
+                </ul>
+            </li>
+
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><img src="/images/Telephone-icon.png" /> <label data-bind="text: phonehome"></label> </li>
+                </ul>
+            </li>
+
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><img src="/images/icon_small_mail.png" /> Contact me by:<label data-bind="text: contact"></label></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+ <!-- /ko -->
+

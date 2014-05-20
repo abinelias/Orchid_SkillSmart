@@ -1,0 +1,10 @@
+﻿
+<ul><li>Competency</li>
+<li><label class="jobseeker_MessagePosition" data-bind="text: specialityName"></label><input type="button" class="related_skillButton" value="+" data-bind="    click: $root.expandSpecialityDetails, value: btnSpecialityList" />
+</li>
+    </ul>
+<!-- ko if: btnSpecialityList() == '-' -->
+    <div class="Skill" data-bind="foreach: skillArray" >
+        <div   data-bind="  template: { name: 'Skill' }" ></div>
+    </div>
+<!-- /ko -->

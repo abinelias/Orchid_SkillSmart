@@ -1,0 +1,19 @@
+﻿<!-- ko if: supportingMaterialCheck() == '0' -->
+    <li class="jobseeker_myinformation_descriptionli">
+        Provide some Supporting materials for this skill
+    </li>
+    <li class="jobseeker_myinformation_exampleli" >
+        Awards, Webpage etc.
+    </li>
+    <li class="jobseeker_myinformation_buttonli">
+        <input type="button" id="add-allocades" class="submitbutton" value="Add Reference" data-bind='click: $root.addFirstSupportingMaterial' />
+    </li>
+<!-- /ko -->
+
+<!-- ko if: supportingMaterialArray -->
+    <li class="jobseeker_myinformation_language_list_li_ul">
+        <ul  class="jobseeker_list_li_ul"  data-bind="foreach: supportingMaterialArray">
+            <li class="jobseekerSkillRelatedExperience_li"><div class="RelatedExperience_label"><button class="delete_skillButton" data-bind = "click: $root.deleteSupportingMaterial" >X</button><label data-bind="    text: title"></label></div></li>
+        </ul>
+    </li>
+<!-- /ko -->

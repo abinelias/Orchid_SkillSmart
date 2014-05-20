@@ -34,13 +34,11 @@ namespace SkillSmartWebAPI.Controllers
         /// To create a new training course
         /// </summary>
         /// <param name="jobSeekerTrainingCourseObj">trainingcourseobject</param>
-        public void Post(TrainingCourse jobSeekerTrainingCourseObj)
+        public string Post(TrainingCourse jobSeekerTrainingCourseObj)
         {
-            try
-            {
+           
                 ServiceFactory.GetJobSeekerTrainingCourse().Create(jobSeekerTrainingCourseObj);
-            }
-            catch (Exception ex){}
+                return jobSeekerTrainingCourseObj.Id.ToString();
         }
 
         /// <summary>

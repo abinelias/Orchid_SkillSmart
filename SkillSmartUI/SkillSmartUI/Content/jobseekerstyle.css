@@ -22,7 +22,8 @@
 {
     width:630px;
     float:left;
-    padding-top:10px;
+    /*padding-top:10px;*/
+    padding-top:5px;
 }
 .jobseeker_additionalinformation_city_ul 
 {
@@ -39,7 +40,8 @@
 {
     width:600px;
     float:left;
-    padding-top:10px;
+    /*padding-top:10px;*/
+    padding-top:5px;
 }
 .jobseeker_registration_ul 
 {
@@ -89,7 +91,8 @@
 {
     width:400px;
     float:left;
-    padding-top:10px;
+   /*padding-top:10px;*/
+    padding-top:5px;
 }
 .jobseeker_myinformation_ul
 {
@@ -101,13 +104,17 @@
 {
    width:150px;
    float:left;
-    
+   
+   padding-bottom:5px; 
 }
 .jobseeker_myinformation_personalcontainer_outerli 
 {
 
     width:700px;float:left;
-    padding-top:10px;
+    /*padding-top:10px;
+    padding-bottom:10px;*/
+      padding-top:5px;
+    padding-bottom:5px;
 }
 .jobseeker_myinformation_personalcontainer_ul 
 {
@@ -167,7 +174,7 @@
 }
 .jobseeker_myinformation_select 
 {
-    height:28px;
+    /*height:28px;*/
     width:200px;
     margin-top:10px;    
     margin-bottom:10px;
@@ -193,7 +200,7 @@
     border-style:solid;
     border-width:1px;  
     width:740px;
-    margin-top:15px;
+    margin-top:35px;
     font-family: 'Questrial', sans-serif; 
     color: #6a747c;
 }
@@ -214,5 +221,84 @@
 
 }
 .jobseeker_myinformation_language_list_inner_li {
-    width:200px;float:left;
+    width:200px;
+    float:left;
+    font-size:15px;
+}
+.jobseeker_demographic_innerli 
+{
+   width:105px;
+   float:left;    
+}
+.jobseeker_demographicDay_innerli 
+{
+    width:75px;
+    float:left;
+}
+.jobseeker_Notification_innerli {
+float:right;
+}
+
+.jobseeker_MessageEmployer {
+
+font-size:15px;
+font-weight:bold;
+}
+.jobseeker_MessagePosition {
+
+font-size:13px;
+
+}
+.jobseeker_notification_ul {
+ width:730px;
+    float:left;
+}
+
+.jobseeker_AppliedJobs_ul_li {
+float:left;width:676px;
+
+}
+.jobseeker_noOfJobs {
+    width:10px;
+    height:10px;
+    text-align:center;
+    background-color:orange;
+}
+.jobseekerList
+{
+   width:120px;
+   float:left;
+}
+#jobs_div 
+{
+    overflow:auto;
+    width:845px;
+    
+    margin:0 auto;
+
+    padding-bottom:20px;
+}
+.jobsApplied {
+    width:750px;
+    overflow:hidden;
+    margin:0px auto;
+    background-color:white;
+    
+
+}
+.jobseekerSkillText {
+    font-size:15px;
+     height:10px;
+    float: left;
+   /* width: 90px;*/
+}
+.jobseekerSkillRelatedExperience_li {
+
+float:left;margin-left:10px;
+}
+.jobseeker_Reference {
+
+font-size:16px;
+color:#007dc3;
+float:left;
 }

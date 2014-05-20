@@ -42,6 +42,7 @@ namespace SkillSmartMongoDA.Services
         {
             Language seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Language, SkillSmartMongoDA.Entities.Language>(entity);
             base.Create(seeker);
+            entity.Id = seeker.Id;
         }
 
         /// <summary>

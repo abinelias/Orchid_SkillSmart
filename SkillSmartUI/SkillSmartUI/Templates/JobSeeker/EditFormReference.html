@@ -1,0 +1,88 @@
+﻿<!-- ko if: isEdit() == '1' -->
+    <ul>
+    <li><input type="hidden" id="language_Id" data-bind= "value: Id" /></li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>First Name</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="awards-title" placeholder="First Name"  data-bind= "wijtextbox: {}, value: firstName" />
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Last Name</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="Text1" placeholder="Last Name"  data-bind= "wijtextbox: {}, value: lastName" />
+            </li>
+        </ul>
+    </li>
+
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Position</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="Text3" placeholder="Position"  data-bind= "wijtextbox: {}, value: position" />
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Description</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="Text2" placeholder="Description"  data-bind= "wijtextbox: {}, value: referenceDescription" />
+            </li>
+        </ul>
+    </li>
+
+    <li  class='jobseeker_registration_outerli'>
+        <ul class='jobseeker_registration_ul'>
+            <li class='jobseeker_myinformation_innerli'>
+                <label>Contact Method<sup>*</sup></label>
+            </li>
+        </ul>
+    </li> 
+    <li class='jobseeker_registration_outerli'>
+        <ul class='jobseeker_registration_ul'>
+            <li class='jobseeker_additionalinformation_preferredmethod_innerli'>
+                <input type='radio' name='contact' value='phone' class='contact' data-bind='checked: contactMethod'/>Phone
+            </li>
+            <li class='jobseeker_additionalinformation_preferredmethod_innerli'>
+                <input type='radio' name='contact' value='email' class='contact' data-bind='checked: contactMethod'/>Email
+            </li>
+        </ul>
+    </li>
+
+    <li class="jobseeker_additionalinformation_city_outerli">
+        <ul class="jobseeker_additionalinformation_city_ul" >
+            <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="submit-awards" class="savebutton" value="Save" data-bind = "click: $root.saveReference" /></li>
+            <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel-awards" class="cancelbutton" value="Cancel" data-bind = "click: $root.cancelReference" /></li>
+            <!-- ko if: deleteCheck() == '1' --><li><input type="button" id="delete-awards" class="deletebutton" value="Delete" data-bind = "click: $root.deleteReference" /></li><!-- /ko -->
+        </ul>
+    </li>
+</ul>
+<!-- /ko -->

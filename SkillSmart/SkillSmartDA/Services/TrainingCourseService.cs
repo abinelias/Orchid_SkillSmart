@@ -41,6 +41,7 @@ namespace SkillSmartMongoDA.Services
         {
             TrainingCourse seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.TrainingCourse, SkillSmartMongoDA.Entities.TrainingCourse>(entity);
             base.Create(seeker);
+            entity.Id = seeker.Id;
         }
 
         /// <summary>

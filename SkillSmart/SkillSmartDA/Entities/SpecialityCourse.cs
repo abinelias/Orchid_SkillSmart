@@ -6,28 +6,22 @@ namespace SkillSmartMongoDA.Entities
     public class SpecialityCourse : MongoEntity
     {
         /// <summary>
-        /// EducationId
+        /// JobSeekerId
         /// </summary>
-        [BsonElement("EducationId")]
-        public string EducationId { get; set; }
+        [BsonElement("JobSeekerId")]
+        public string JobSeekerId { get; set; }
 
         /// <summary>
-        /// CourseTitle
+        /// CourseName
         /// </summary>
-        [BsonElement("CourseTitle")]
-        public string CourseTitle { get; set; }
+        [BsonElement("CourseName")]
+        public string CourseName { get; set; }
 
         /// <summary>
         /// CourseDescription
         /// </summary>
         [BsonElement("CourseDescription")]
         public string CourseDescription { get; set; }
-
-        /// <summary>
-        /// Grade
-        /// </summary>
-        [BsonElement("Grade")]
-        public string Grade { get; set; }
 
     }
 }

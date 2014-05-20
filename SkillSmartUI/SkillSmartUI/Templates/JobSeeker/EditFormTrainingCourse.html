@@ -1,0 +1,44 @@
+﻿ <!-- ko if: isEditTraining() == '1' -->
+<div class="common_tab_background">
+    <div id="Edit_TrainingCourse" class="tab_savebackground_div">
+        <ul>
+            <li>
+                <li><input type="hidden" id="JobseekerTrainigId" data-bind="value: jobseekerId" /></li>
+            </li>
+            <li>
+                <input type="hidden" id="TrainingId" data-bind="value: trainingId" />
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><label>Program Type</label></li>                    
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><input style="width:110px;" data-bind="wijcombobox: { selectedIndex: selectedIndexProgramType, data: $parent.dataProgramType }" /></li>
+                    <li class="jobseeker_myinformation_innerli" style="padding-top:10px;"><input type="checkbox" id="Currently_Enrolled" data-bind="wijcheckbox: { checked: currentlyEnrolled }" />Currently Enrolled</li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><label>Focus</label></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><input type="text" id="Focus" placeholder="Focus" class="inputs" data-bind="wijtextbox: {}, value: focus" /></li>
+                </ul>
+            </li>
+                      <li data-bind="template: { name: 'CommonTemplateCourse' }"></li>                                                                                                       
+
+            <li class="jobseeker_additionalinformation_city_outerli">
+                <ul class="jobseeker_additionalinformation_city_ul" >
+                    <li class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="Save_TrainingCourse" class="savebutton" value="Save" data-bind="click: $parent.saveTrainingCourse" /></li>
+                    <li class="jobseeker_myinformation_innerli"><input type="button" id="Cancel_TrainingCourse" class="cancelbutton" value="Cancel" data-bind="click: $parent.cancelTrainingCourse" /></li>
+                  <!-- ko if: deleteCheck() == '1' -->  <li><input type="button" id="Delete_TrainingCourse" class="deletebutton" value="Delete" data-bind="click: $parent.deleteTrainingCourse" /></li><!-- /ko -->
+                </ul>
+            </li>                        
+        </ul>
+    </div>
+</div>
+<!-- /ko -->

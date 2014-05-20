@@ -2,60 +2,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Popup Skills</title>
-    <link rel="stylesheet" href="/Content/common.css" />
-    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
-    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
-    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
-    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
     <script src="/Scripts/Common.js"></script>
-    <script src="/Scripts/viewmodel/skillsmart.model.popupskill.js"></script>
-    <script src="/Scripts/viewmediator/skillsmart.mediator.popupskill.js"></script>
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
     <script src="/Scripts/vendor/knockout.validation.js"></script>
-    <script src="/Scripts/vendor/knockout.mapping-latest.js"></script>
-    <script>
-        $(document).ready(function () {
+    <script src="/Scripts/jobseeker.js"></script>
+    <script src="/Scripts/viewmodel/popupSkills.js"></script>
 
-           
 
-            if (typeof (skillsmart) == 'undefined') skillsmart = {}
-            if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
-            if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
+    <!--jQuery References-->
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
 
-            function InitializeApplication() {
-                $(document).viewloader({
-                    logLevel: "debug",
-                    success: function (successfulResolution) {
-                        InitializeViewMediators();
-                    },
-                    error: function (failedResolution) {
-                        alert(failedResolution);
-                    }
-                });
-            }
-            function InitializeViewMediators() {
-                skillsmart.mediator.popupskill.createViewMediatorPopupskill();
-                skillsmart.mediator.popupskill.setupViewDataBindingsPopupskill();
-            }
-            InitializeApplication();
-            
-        });
-    </script>    
+    <link type="text/css" href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" title="metro-jqueryui" />
+    <link href="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.css" rel="stylesheet"type="text/css" />
+    <script src="http://cdn.wijmo.com/jquery.wijmo-open.all.2.3.5.min.js" type="text/javascript"></script>
+    <script src="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.js" type="text/javascript"></script>
+
+    <!-- Multi-select widget (not Wijmo control)-->
+    <script src="/Scripts/jquery.multiselect.js"></script>
+    <link href="/Content/jquery.multiselect.css" rel="stylesheet" />
+
+    <!-- KnockoutJS for MVVM-->
+    <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout-2.0.0.js"></script>
+    <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout.wijmo.js"></script>
+       
+    <link href="/Content/skillsmart.css" rel="stylesheet" />
+    <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+    <link href="/Content/common.css" rel="stylesheet" />
 
 </head>
 <body>
-    <div style="text-align:center" id="Popup_div">
+    <div style="text-align:center" id="Div1">
         <ul>
             <li>
-                 <select id="CategoryList"class="jobseeker_myinformation_select"></select>
+                 <select id="CategoryList"class="jobseeker_myinformation_select" data-bind="options: category, optionsText: 'name', optionsValue: 'id', value: selectedCategory"></select>
             </li>
             <li>
-                 <select id="SpecialityList" class="jobseeker_myinformation_select"></select>
+                 <select id="SpecialityList" class="jobseeker_myinformation_select" data-bind="options: speciality, optionsText: 'name', optionsValue: 'id', value: selectedSpeciality"></select>
             </li>
             <li>
-                <select id="SkillList" class="jobseeker_myinformation_select"></select>
+                <select id="SkillList" multiple="multiple" class="jobseeker_myinformation_select" data-bind="multiSelectCheck: true, options: $root.skill, optionsText: 'name', optionsValue: 'id', selectedOptions: selectedSkill"></select>
             </li>
             <li>
-                <input type ="button" id="save_Skills" value="Save" class="submitbutton" />
+                <input type ="button" id="save_Skills" value="Save" class="submitbutton" data-bind="click: saveSkills" />
             </li>
         </ul>
     </div>

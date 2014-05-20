@@ -1,0 +1,34 @@
+﻿<!-- ko if: languageCheck() == '0' -->
+    <li class="jobseeker_myinformation_descriptionli">
+            Tell us about Languages known to you.
+    </li>
+    <li class="jobseeker_myinformation_exampleli" >
+        English,Spanish, French,etc.
+    </li>
+    <li class="jobseeker_myinformation_buttonli">
+        <input type="button" id="Add_first_language" class="submitbutton" value="Add Languages" data-bind='click: addFirstLanguage'/>
+    </li>
+<!-- /ko -->
+
+<!-- ko if: languages -->
+    <li class="jobseeker_myinformation_language_list_li_ul">
+        <ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: languages">
+            <li class="jobseekerSkillRelatedExperience_li">
+                 <div class="RelatedExperience_label">
+                    <ul >
+                        <li>
+                            <button class="delete_skillButton" data-bind = "click: $parent.deleteLanguage" >X</button>
+                            <label class="jobseeker_Reference" data-bind="    text: LanguageName"></label>
+                        </li>
+                        <li>                            
+                                <label style="float:left;text-align:left;" data-bind="    text: ProfociencyName"></label>                           
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            
+        </ul>
+    </li>
+<!-- /ko -->
+

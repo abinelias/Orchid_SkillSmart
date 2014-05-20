@@ -9,27 +9,21 @@ namespace SkillSmart.Dto
         public Guid Id { get; set; }
 
         /// <summary>
-        /// EducationId
+        /// JobSeekerId
         /// </summary>
-        [Required(ErrorMessage = "EducationId Required")]
-        public string EducationId { get; set; }
+        [Required(ErrorMessage = "JobSeekerId Required")]
+        public string JobSeekerId { get; set; }
 
         /// <summary>
-        /// CourseTitle
+        /// CourseName
         /// </summary>
-        [Required(ErrorMessage = "CourseTitle Required")]
-        public string CourseTitle { get; set; }
+        [Required(ErrorMessage = "CourseName Required")]
+        public string CourseName { get; set; }
 
         /// <summary>
         /// CourseDescription
         /// </summary>
         [Required(ErrorMessage = "CourseDescription Required")]
         public string CourseDescription { get; set; }
-
-        /// <summary>
-        /// Grade
-        /// </summary>
-        [Required(ErrorMessage = "Grade Required")]
-        public string Grade { get; set; }
     }
 }

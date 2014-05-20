@@ -24,6 +24,12 @@ namespace SkillSmartMongoDA.Entities
         public string Email { get; set; }
 
         /// <summary>
+        /// UserName
+        /// </summary>
+        [BsonElement("UserName")]
+        public string UserName { get; set; }
+
+        /// <summary>
         /// Password
         /// </summary>
         [BsonElement("Password")]

@@ -42,6 +42,7 @@ namespace SkillSmartMongoDA.Services
         {
             Scholarship seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Scholarship, SkillSmartMongoDA.Entities.Scholarship>(entity);
             base.Create(seeker);
+            entity.Id = seeker.Id;
         }
 
         /// <summary>

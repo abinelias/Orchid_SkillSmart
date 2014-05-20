@@ -243,5 +243,109 @@ namespace SkillSmartData.Factory
             }
             return serviceObj;
         }
+
+        public static IJobsListService<JobsList> GetJobsList()
+        {
+            IJobsListService<JobsList> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new JobsListService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new JobsListService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IJobSeekerAppliedJobsService<JobSeekerAppliedJobs> GetJobSeekerAppliedJobs()
+        {
+            IJobSeekerAppliedJobsService<JobSeekerAppliedJobs> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new JobSeekerAppliedJobsService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new JobSeekerAppliedJobsService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IJobSkillsService<JobSkills> GetJobSkills()
+        {
+            IJobSkillsService<JobSkills> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new JobSkillsService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new JobSkillsService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static ISkillReferenceService<SkillReference> GetSkillReference()
+        {
+            ISkillReferenceService<SkillReference> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new SkillReferenceService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new SkillReferenceService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static ISkillSupportingMaterial<SkillSupportingMaterial> GetSkillSupportingMaterial()
+        {
+            ISkillSupportingMaterial<SkillSupportingMaterial> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new SkillSupportingMaterialService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new SkillSupportingMaterialService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IRelatedExperienceService<RelatedExperience> GetSkillRelatedExperience()
+        {
+            IRelatedExperienceService<RelatedExperience> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new SkillRelatedExperienceService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new SkillRelatedExperienceService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static ICompanyService<Company> GetCompany()
+        {
+            ICompanyService<Company> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new CompanyService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new CompanyService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static ISavedJobSearch<SavedJobSearch> GetSavedJobSearch()
+        {
+            ISavedJobSearch<SavedJobSearch> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new SavedJobSearchService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new SavedJobSearchService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
     }
 }

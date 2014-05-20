@@ -34,13 +34,11 @@ namespace SkillSmartWebAPI.Controllers
         /// To create a new education detail for the jobseeker
         /// </summary>
         /// <param name="jobSeekerEducationObj">Education details object</param>
-        public void Post(Education jobSeekerEducationObj)
+        public string Post(Education jobSeekerEducationObj)
         {
-            try
-            {
+           
                 ServiceFactory.GetJobSeekerEducation().Create(jobSeekerEducationObj);
-            }
-            catch (Exception ex){}
+                return jobSeekerEducationObj.Id.ToString();
         }
 
         /// <summary>

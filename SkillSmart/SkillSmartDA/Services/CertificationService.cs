@@ -41,6 +41,7 @@ namespace SkillSmartMongoDA.Services
         {
             Certification seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Certification, SkillSmartMongoDA.Entities.Certification>(entity);
             base.Create(seeker);
+            entity.Id = seeker.Id;
         }
 
         /// <summary>

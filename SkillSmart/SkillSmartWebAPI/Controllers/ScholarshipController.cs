@@ -34,13 +34,12 @@ namespace SkillSmartWebAPI.Controllers
         /// To create a schoarship details for a jobseeker related to an education details
         /// </summary>
         /// <param name="scholarshipObj">scholarship Object</param>
-        public void Post(Scholarship scholarshipObj)
+        public string Post(Scholarship scholarshipObj)
         {
-            try
-            {
+           
                 ServiceFactory.GetJobSeekerScholarship().Create(scholarshipObj);
-            }
-            catch (Exception ex){}
+                return scholarshipObj.Id.ToString();
+            
         }
 
         /// <summary>

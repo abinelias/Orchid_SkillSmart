@@ -1,0 +1,115 @@
+﻿
+<section>
+    <ul>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'>
+                    <input type="text" placeholder="Keyword" class="inputs" />
+                </li>
+                <li class='jobseeker_myinformation_innerli'><input type="text" placeholder="Location" class="inputs"/></li>
+            </ul>
+        </li>
+
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Employment Type</label> </li>
+                <li class='jobseeker_myinformation_innerli'><label>Distance</label> </li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><select id="jobt" multiple="multiple" style="width:80px;"  data-bind="multiSelectCheck: true, options: $root.WorkType, optionsText: 'name', optionsValue: 'id', selectedOptions: workTypeId"></select></li>
+                <li class='jobseeker_myinformation_innerli'><input id="Text1" data-bind="wijcombobox: { selectedIndex: selectedIndexDistance, text: textDistance, data: dataDistance }" /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><label>Industry</label></li>
+                <li class='jobseeker_myinformation_innerli'><label>Salary</label> </li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'> <select multiple="multiple"  data-bind="multiSelectCheck: true, options: $root.industryType, optionsText: 'name', optionsValue: 'id', selectedOptions: industryTypeId"></select> </li>
+                <li class='jobseeker_myinformation_innerli'><select multiple="multiple"  data-bind="multiSelectCheck: true, options: $root.salary, optionsText: 'name', optionsValue: 'id', selectedOptions: salaryId"></select></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'><label>Career Level</label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_liwidth'><input id="Text2" data-bind="wijcombobox: { selectedIndex: selectedIndexCarrierLevel, text: textCarrierLevel, data: dataCarrierLevel }" /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'><label>Education Level</label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_liwidth'><input id="Text3" data-bind="wijcombobox: { selectedIndex: selectedIndexEducationLevel, text: textEducationLevel, data: dataEducationLevel }" /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'><label>Skills</label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_liwidth'><input type="text" placeholder="Enter/Search Skills" class="inputs" /> </li>
+            </ul>
+        </li>
+         <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_liwidth'><input type="text" placeholder="Enter/Search Skills" class="inputs"/> </li>
+            </ul>
+        </li>
+
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'><label>Saved Search</label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_liwidth'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexSavedSearch, text: textSavedSearch, data: dataSavedSearch }" /></li>
+            </ul>
+        </li>
+
+        <li  class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_liwidth'> <input type="button" value="Search" class="submitbutton" data-bind="click: searchJobs" /></li>
+            </ul>
+        </li>
+    </ul>
+    
+
+</section>
+ <!-- ko if: jobCheck() == '1' -->   
+<section class="common_background" >
+    <div data-bind="foreach: searchCriteria">
+        <ul>
+            <li class="jobseeker_list_innerli">
+                <div class="multiSelect_label"><button class="related_skillButton" data-bind="click: $root.deleteWork" >X</button><label  data-bind="    text: lookUpName"></label></div>
+                <div data-bind="foreach: contentArray">                  
+                    <!-- ko if: Name()--><!-- ko ifnot: Name() == 'All' --><ul><div class="language_label"><button class="related_skillButton" data-bind="click: $root.deleteSingleSelect" >X</button><label  data-bind="    text: Name"></label></div></ul><!-- /ko --><!-- /ko -->                
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+                
+<!-- /ko -->
+
+<div>
+    <input type="button" value="Save Search" class="editbutton" data-bind="click: saveSearch" />
+    <!-- ko if: saveSearchCheck() == '1' -->
+    <input type="text"  style="float:right;" data-bind="wijtextbox: {}, value: searchName" />
+    <!-- /ko -->
+
+</div>

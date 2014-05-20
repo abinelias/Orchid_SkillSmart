@@ -33,6 +33,7 @@ namespace SkillSmartMongoDA.Services
         {
             Education seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Education, SkillSmartMongoDA.Entities.Education>(entity);
             base.Create(seeker);
+            entity.Id = seeker.Id;
         }
 
         public new SkillSmart.Dto.Education GetById(string id)

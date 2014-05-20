@@ -21,23 +21,32 @@ namespace SkillSmartTest
 
                   if (jobSeekerList.Count > 0)
                   {*/
-            //var jobSeeker = controller.GetAll("State", "ec6bf599-c460-45b0-a093-a78c325cf08f");
+            //var jobSeeker = controller.GetAll("State", "ec6bf599-c460-45b0-a093-a78c325cf08f"); 
 
             /* if (jobSeeker != null)
              {
-                 jobSeeker.Birthday = DateTime.Now.ToString();072de9e5-9612-48b9-a86c-16d8f2381eec   
+                 jobSeeker.Birthday = DateTime.Now.ToString();
                  controller.Put(jobSeeker.Id.ToString(), jobSeeker);   
-             }  250013dd-e72d-46f8-87fa-89de662038ce  32723928-c866-414f-ba4d-9352874741b1   998f4c00-a8cf-448d-bcfa-2334a428e627   37f78176-e988-43e4-b66e-84a1c60f6ae6
+             }  
 
+           
             
 
-            SkillMap AddinInfo = new SkillMap();
-            AddinInfo.CategoryId = "e368323a-ad61-403d-82ba-5644a64305e4";
-            AddinInfo.SkillId = "32723928-c866-414f-ba4d-9352874741b1";
-
-
-            controller.Post(AddinInfo); */
-
+            JobsList company = new JobsList();
+            company.JobPosition = "Accountant";
+            company.CompanyId = "123";
+            company.CompanyName = "Brandekko";
+            company.JobLocation = "Washington ,DC Area";
+            company.PostingDate = "Apr 29, 2014";
+            company.JobViews = "452";
+            company.ApplicantsNumber = "120";
+            company.ApplicantAverage = "68";
+            company.JobSalary = "731e7c90-9e62-4703-a463-8ce2bb6f5b48";
+            company.JobDescription = "Doing the account works at the company";
+           
+            controller.Post(company); 
+            
+             */
 
 
             //List<LookupDto> jobSeekerList2 = controller.GetAll("SecurityClearance").ToList<LookupDto>();

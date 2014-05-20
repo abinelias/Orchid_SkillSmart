@@ -34,13 +34,11 @@ namespace SkillSmartWebAPI.Controllers
         /// To insert jobseeker certification details
         /// </summary>
         /// <param name="jobSeekerCertificationObj">certification object</param>
-        public void Post(Certification jobSeekerCertificationObj)
+        public string Post(Certification jobSeekerCertificationObj)
         {
-            try
-            {
+           
                 ServiceFactory.GetJobSeekerCertification().Create(jobSeekerCertificationObj);
-            }
-            catch (Exception ex){}
+                return jobSeekerCertificationObj.Id.ToString();
         }
 
         /// <summary>

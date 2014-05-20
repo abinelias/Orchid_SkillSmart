@@ -1,0 +1,42 @@
+﻿ <!-- ko if: isEditSpecialityCourse() == '1' -->
+<div class="common_tab_background">
+    <div id="Edit_Education" class="tab_savebackground_div">
+        <ul>
+            <li>
+                <li><input type="hidden" id="JobseekerEducationId" data-bind="value: jobSeekerId"  /></li>
+            </li>
+            <li>
+                <input type="hidden" id="EducationId"  data-bind="value: specialityCourseId" />
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><label>Course Name</label></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli" ><input type="text"  placeholder="Course Name" data-bind="wijtextbox: {}, value: specialityCourseName"/></li>
+                </ul>
+            </li>
+
+             <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><label>Course Description</label></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><input type="text" placeholder="Course Description"  data-bind="wijtextbox: {}, value: specialityCourseDescription" /></li>
+                </ul>
+            </li>                                                                            
+            <li class="jobseeker_additionalinformation_city_outerli">
+                <ul class="jobseeker_additionalinformation_city_ul" >
+                    <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button"  class="savebutton" value="Save" data-bind="click: $parent.saveSpecialityCourse" /></li>
+                    <li class="jobseeker_myinformation_innerli"><input type="button" class="cancelbutton" value="Cancel" data-bind="click: $parent.cancelSpecialityCourse" /></li>
+                    <!-- ko if: deleteCheck() == '1' --><li ><input type="button" class="deletebutton" value="Delete" data-bind="click: $parent.deleteSpecialityCourse" /></li><!-- /ko -->
+                </ul>
+            </li>                        
+        </ul>
+    </div>
+</div>
+<!-- /ko -->

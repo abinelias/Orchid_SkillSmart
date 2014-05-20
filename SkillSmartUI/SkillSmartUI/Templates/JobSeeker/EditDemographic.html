@@ -1,0 +1,55 @@
+﻿<div class="add_div">
+    <ul>
+        <li><input type='hidden'  data-bind='value: jobseekerId' /></li>
+        <li><input type='hidden'  data-bind='value: accountInfoId' /></li>
+         <li  class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'>
+                    <label>Birthdate</label>
+                </li>
+            </ul>
+        </li> 
+        <li class="jobseeker_additionalinformation_city_outerli">
+            <ul class="jobseeker_additionalinformation_city_ul" >
+                <li  class="jobseeker_demographicDay_innerli"><input type="text"  placeholder="Birth Day"  data-bind="    wijinputdate: { date: birthDate, showTrigger: true }"  />
+</li>
+            </ul>
+        </li>
+        <li  class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'>
+                    <label>Gender<sup>*</sup></label>
+                </li>
+            </ul>
+        </li> 
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_preferredmethod_innerli'>
+                    <input type='radio' name='contact' value='male' class='contact' data-bind='checked: gender'/>Male
+                </li>
+                <li class='jobseeker_additionalinformation_preferredmethod_innerli'>
+                    <input type='radio' name='contact' value='female' class='contact' data-bind='checked: gender'/>Female
+                </li>
+            </ul>
+        </li>
+         <li  class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'>
+                    <label>Ethnicity</label>
+                </li>
+            </ul>
+        </li> 
+
+        <li class="jobseeker_registration_outerli">
+            <ul class="jobseeker_registration_ul">
+                <li class="jobseeker_registration_innerli"><input type='text' placeholder="Ethnicity" data-bind='wijtextbox: {}, value: ethnicity'  /></li>
+            </ul>
+        </li>
+       <li class="jobseeker_additionalinformation_city_outerli">
+            <ul class="jobseeker_additionalinformation_city_ul" >
+                <li><a class="btn btn-blue first" href="" data-bind = "click: saveDemographic" >Save</a></li>
+                <li><a class="btn btn-ltgray" href=""  data-bind = "click: cancelDemographic" >Cancel</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

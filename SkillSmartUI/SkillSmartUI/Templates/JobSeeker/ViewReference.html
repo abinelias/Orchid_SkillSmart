@@ -1,0 +1,31 @@
+﻿<!-- ko if: referenceCheck() == '0' -->
+    <li class="jobseeker_myinformation_descriptionli">
+        Provide some reference for this skill
+    </li>
+    <li class="jobseeker_myinformation_exampleli" >
+        Supervisor, collabarator, co worker etc
+    </li>
+    <li class="jobseeker_myinformation_buttonli">
+        <input type="button" id="add-allocades" class="submitbutton" value="Add Reference" data-bind='click: $root.addFirstReference' />
+    </li>
+<!-- /ko -->
+
+<!-- ko if: referenceArray -->
+
+        <ul  class="jobseeker_list_li_ul"  data-bind="foreach: referenceArray">
+            <li class="jobseekerSkillRelatedExperience_li">
+                <div class="RelatedExperience_label">
+                    <ul >
+                        <li>
+                            <button class="delete_skillButton" data-bind = "click: $root.deleteReference" >X</button>
+                            <label class="jobseeker_Reference" data-bind="    text: firstName"></label>
+                        </li>
+                        <li>                            
+                                <label style="float:left;text-align:left;" data-bind="    text: position"></label>                           
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+<!-- /ko -->

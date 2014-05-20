@@ -1,0 +1,59 @@
+﻿<!-- ko if: isEdit() == '1' -->
+    <ul>
+    <li><input type="hidden" id="language_Id" data-bind= "value: Id" /></li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Material Title</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="awards-title" placeholder="Title"  data-bind= "wijtextbox: {}, value: title" />
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>WebsiteURL</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="Text1" placeholder="URL"  data-bind= "wijtextbox: {}, value: webURL" />
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Description</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="Text2" placeholder="Description"  data-bind= "wijtextbox: {}, value: description" />
+            </li>
+        </ul>
+    </li>
+
+
+
+    <li class="jobseeker_additionalinformation_city_outerli">
+        <ul class="jobseeker_additionalinformation_city_ul" >
+            <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="submit-awards" class="savebutton" value="Save" data-bind = "click: $root.saveSupportingMaterial" /></li>
+            <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel-awards" class="cancelbutton" value="Cancel" data-bind = "click: $root.cancelSupportingMaterial" /></li>
+            <!-- ko if: deleteCheck() == '1' --><li><input type="button" id="delete-awards" class="deletebutton" value="Delete" data-bind = "click: $root.deleteSupportingMaterial" /></li><!-- /ko -->
+        </ul>
+    </li>
+</ul>
+<!-- /ko -->

@@ -1,0 +1,33 @@
+﻿ <!-- ko if: educationCheck() == '0' -->
+<div id="Education_General" class="common_tab_background">
+    <ul>
+        <li class="jobseeker_myinformation_descriptionli">
+                Tell us about your Educational Details.
+        </li>
+        <li class="jobseeker_myinformation_exampleli" >
+            Where you study, Degree details etc.
+        </li>
+        <li class="jobseeker_myinformation_buttonli">
+            <input type="button" id="add_First_Education" class="submitbutton" value="Add Details" data-bind="click: addFirstEducation" />
+        </li>
+    </ul>           
+</div>
+<!-- /ko -->
+
+<div  data-bind="foreach: education">
+
+    <!-- ko if: isEditEducation() == '1' -->
+
+
+      <div id="WorkExperienceInsertionDiv" data-bind="template: { name: 'EditFormEducation' }" >            
+        </div>   
+    
+<!-- /ko -->
+     <!-- ko if: isEditEducation() == '0' -->
+
+   <div id="Div1" data-bind="template: { name: 'EducationList' }" >            
+        </div>   
+    <!-- /ko -->
+  </div>  
+ 
+

@@ -34,13 +34,10 @@ namespace SkillSmartWebAPI.Controllers
         /// To enter details about a language known by jobseeker
         /// </summary>
         /// <param name="jobSeekerObj"></param>
-        public void Post(Language jobSeekerObj)
+        public string Post(Language jobSeekerObj)
         {
-            try
-            {
-                ServiceFactory.GetJobSeekerLanguage().Create(jobSeekerObj);
-            }
-            catch (Exception ex){}
+            ServiceFactory.GetJobSeekerLanguage().Create(jobSeekerObj);
+            return jobSeekerObj.Id.ToString();
         }
 
         /// <summary>

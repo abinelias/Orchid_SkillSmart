@@ -25,13 +25,11 @@ namespace SkillSmartWebAPI.Controllers
         /// To insert jobseeker additional information
         /// </summary>
         /// <param name="jobSeekerObj">Additional information object</param>
-        public void Post(AdditionalInformation jobSeekerObjAdditionalInfo)
+        public string Post(AdditionalInformation jobSeekerObjAdditionalInfo)
         {
-            try
-            {
-                ServiceFactory.GetJobSeekerAdditionalInformation().Create(jobSeekerObjAdditionalInfo);
-            }
-            catch (Exception ex) { throw ex; }
+            
+            ServiceFactory.GetJobSeekerAdditionalInformation().Create(jobSeekerObjAdditionalInfo);
+            return jobSeekerObjAdditionalInfo.Id.ToString();
         }
 
         /// <summary>

@@ -1,0 +1,21 @@
+﻿<!-- ko if: activityCheck() == '0' -->
+    <li class="jobseeker_myinformation_descriptionli">
+        What do you like to do when you're not working?
+    </li>
+    <li class="jobseeker_myinformation_exampleli" >
+        Soccer,marathon,cycling,drawing,reading,etc.
+    </li>
+    <li class="jobseeker_myinformation_buttonli">
+        <input type="button" id="add-activities" class="submitbutton" value='Add Activities' data-bind='click: addFirstActivity' />
+    </li>
+<!-- /ko -->
+
+<!-- ko if: activitiesArray -->
+    <li class="jobseeker_myinformation_language_list_li_ul">
+        <ul  class="jobseeker_list_li_ul"  data-bind="foreach: activitiesArray">
+            <li class="jobseeker_list_innerli"><div class="test"><button class="delete_skillButton" data-bind = "click: $parent.deleteActivities" >X</button><label class="language_label"  data-bind="    text: Activity"></label></div></li>
+        </ul>
+    </li>
+<!-- /ko -->
+
+

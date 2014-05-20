@@ -29,6 +29,12 @@ namespace SkillSmart.Dto
         [Required(ErrorMessage = "Email Required")]
         public string Email { get; set; }
 
+        /// <summary>
+        /// UserName
+        /// </summary>
+        [Display(Name = "UserName:")]
+        [Required(ErrorMessage = "UserName Required")]
+        public string UserName { get; set; }
 
         /// <summary>
         /// Password

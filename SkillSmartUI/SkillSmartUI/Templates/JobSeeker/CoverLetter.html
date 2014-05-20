@@ -1,0 +1,11 @@
+﻿<section>
+    <ul><li><label class="jobseeker_MessagePosition">Cover Letter</label></li></ul>
+
+    <li class='jobseeker_myinformation_descriptionli'>Would you like to include a cover letter?</li>
+    <li class='jobseeker_myinformation_exampleli' >It's optional ofcourse.</li>
+    <li class='jobseeker_myinformation_buttonli'><input type='button' class='submitbutton' value='Type Cover Letter' data-bind='    click: typeCoverLetter'  /></li>
+
+    <!-- ko if: btnCoverValue() == '1' -->
+      <textarea id="wijeditor" style="width: 800px; height: 600px;" data-bind="wijeditor: { editorMode: editorMode, showPathSelector: showPathSelector, mode: mode, showFooter: showFooter, text: text }"></textarea>
+     <!-- /ko -->
+</section>

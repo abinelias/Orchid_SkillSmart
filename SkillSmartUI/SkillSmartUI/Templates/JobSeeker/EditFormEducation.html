@@ -1,0 +1,67 @@
+﻿ <!-- ko if: isEditEducation() == '1' -->
+<div class="common_tab_background">
+    <div id="Edit_Education" class="tab_savebackground_div">
+        <ul>
+            <li>
+                <li><input type="hidden" id="JobseekerEducationId" data-bind="value: jobSeekerId"  /></li>
+            </li>
+            <li>
+                <input type="hidden" id="EducationId"  data-bind="value: educationId" />
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><label>University Name</label></li>
+                    
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli" ><input type="text" id="University" placeholder="University Name" data-bind="wijtextbox: {}, value: universityName"/></li>
+                    <li class="jobseeker_myinformation_innerli"><input type="checkbox"   data-bind="wijcheckbox: { checked: currentlyStudying }" /> Currently Studying</li>
+                </ul>
+            </li>
+             <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><label>Degree</label></li>
+                    <li class="jobseeker_myinformation_innerli"><label>Major Focus</label></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexDegreeType, data: $parent.dataDegreeType }" /></li>
+                        <li class="jobseeker_myinformation_innerli" style="padding-top:10px;"><input type="text" id="Major_Focus" placeholder="Major Focus"  data-bind="wijtextbox: {}, value: majorFocus" /></li>
+                </ul>
+            </li>
+             <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><label>Start Date</label></li>
+                    <li class="jobseeker_myinformation_innerli"><label>End Date</label></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><input type="text" id="StartDateDegree" placeholder="Start Date"  data-bind="wijinputdate: { date: startDate, showTrigger: true }" /></li>
+                    <li class="jobseeker_myinformation_innerli"><!-- ko if: currentlyStudying()--> <input type="text"  placeholder="End Date"  value="present" disabled /><!-- /ko --> <!-- ko ifnot: currentlyStudying()--> <input type="text" id="EndDate" placeholder="End Date"  data-bind=" wijinputdate: { date: endDate, showTrigger: true }" /><!-- /ko --></li>
+                </ul>
+            </li>
+             <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><label>University Location</label></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><input type="text" id="UniversityLocation" placeholder="University Location"  data-bind="wijtextbox: {}, value: universityLocation" /></li>
+                </ul>
+            </li>                                                                            
+            <li class="jobseeker_additionalinformation_city_outerli">
+                <ul class="jobseeker_additionalinformation_city_ul" >
+                    <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="save_Education" class="savebutton" value="Save" data-bind="click: $parent.saveEducation" /></li>
+                    <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel_Education" class="cancelbutton" value="Cancel" data-bind="click: $parent.cancelEducation" /></li>
+                    <!-- ko if: deleteCheck() == '1' --><li ><input type="button" id="delete_Education" class="deletebutton" value="Delete" data-bind="click: $parent.deleteEducation" /></li><!-- /ko -->
+                </ul>
+            </li>                        
+        </ul>
+    </div>
+</div>
+<!-- /ko -->

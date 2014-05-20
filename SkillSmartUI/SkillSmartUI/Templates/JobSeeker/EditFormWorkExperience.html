@@ -1,0 +1,110 @@
+﻿<!DOCTYPE HTML>
+ <!-- ko if: isEditWork() == '1' -->
+<div class="common_tab_background">
+
+    <div id="Edit_WorkExperience" class="tab_savebackground_div">
+        <ul>
+            <li>
+                <ul>
+
+                    <li><input type="hidden" id="JobSeekerIdWork" data-bind="value: jobSeekerId"  /></li>
+                </ul>
+            </li>
+                <li>
+                    <ul>
+                    <li><input type="hidden" id="workHistoryId" data-bind="value: workHistoryId"  /></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><label>Company Name</label></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><input type="text" id="CompanyName" placeholder="Company Name"   data-bind="wijtextbox: {}, value: companyName" /></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><label>Current Position</label></li>
+
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><input type="text" id="CurrentPosition" placeholder="Current Position"  data-bind="wijtextbox: {}, value: currentPosition" /></li>
+                    <li class="jobseeker_myinformation_innerli"><input id="checkbox1" type="checkbox" data-bind="wijcheckbox: { checked: currentlyWorking }" /> Currently Working</li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><label>Start Date</label></li>
+                    <li class="jobseeker_myinformation_innerli"><label>End Date</label></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><input type="text"  placeholder="Start Date"  data-bind="  wijinputdate: { date: startDate, showTrigger: true }"   /></li>
+                    <li class="jobseeker_myinformation_innerli"><!-- ko if: currentlyWorking()--> <input type="text"  placeholder="End Date"  value="present" data-bind="wijtextbox: {}" disabled /><!-- /ko --> <!-- ko ifnot: currentlyWorking()--><input id="end_Date" type="text"  placeholder="End Date" data-bind="wijinputdate: { date: endDate, showTrigger: true } " /><!-- /ko --></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><label>Company Location</label></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><input type="text" id="CompanyLocation" placeholder="Company Location" data-bind="wijtextbox: {}, value: companyLocation" /></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><label>Current Salary</label></li>
+                    <li class="jobseeker_myinformation_innerli"><label>Salary Type</label></li>
+                </ul>
+            </li>
+                <li class="jobseeker_additionalinformation_city_outerli">
+                <ul class="jobseeker_additionalinformation_city_ul" >
+                    <li  class="jobseeker_additionalinformation_innerli"><input type="text" id="CurrentSalary" required placeholder="Current Salary"  data-bind="wijtextbox: {}, value: currentSalary" /></li>
+                    <li  class="jobseeker_myinformation_innerli"><input type="radio" name="salary"  id="Annually" value='Annually' data-bind=" checked: salaryType "/>Annually</li>
+                    <li  class="jobseeker_myinformation_innerli"><input type="radio" name="salary"  id="Monthly" value='Monthly' data-bind="checked: salaryType"/>Monthly</li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><label>Industry Type</label></li>
+                    <li class="jobseeker_myinformation_innerli"><label>Work Type</label></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexIndustry, data: $parent.dataIndustry }" /></li>
+                    <li class="jobseeker_myinformation_innerli"><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexWorkType, data: $parent.dataWorkType }" /></li>
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli"><label>Job Description</label></li>
+                </ul>
+            </li>
+                <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_registration_innerli">
+                        <textarea id="JobDuties" placeholder="Job Description"  data-bind="wijtextbox: {}, value: jobDescription"></textarea>
+                    </li>
+                    </ul>
+                </li>
+            <li class="jobseeker_additionalinformation_city_outerli">
+                <ul class="jobseeker_additionalinformation_city_ul" >
+                    <li class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="save_workExperience" class="savebutton" value="Save" data-bind="click: $parent.saveWorkExperience" /></li>
+                    <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel_workExperience" class="cancelbutton" value="Cancel" data-bind="click: $parent.cancelWorkExperience" /></li>
+                    <!-- ko if: deleteCheck() == '1' --><li ><input type="button" id="delete_workExperience" class="deletebutton" value="Delete" data-bind="click: $parent.deleteWorkExperience" /></li><!-- /ko -->
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- /ko -->

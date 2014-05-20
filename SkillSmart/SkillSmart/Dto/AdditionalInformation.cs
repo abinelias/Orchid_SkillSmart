@@ -99,9 +99,35 @@ namespace SkillSmart.Dto
         public string MethodOfContact { get; set; }
 
         /// <summary>
-        /// Birthday
+        /// BirthDate
         /// </summary>
-        public string Birthday { get; set; }
+        public string BirthDate { get; set; }
+
+        /// <summary>
+        /// BirthMonth
+        /// </summary>
+        public string BirthMonth { get; set; }
+
+        /// <summary>
+        /// BirthYear
+        /// </summary>
+        public string BirthYear { get; set; }
+
+        /// <summary>
+        /// Notification
+        /// </summary>
+        public string Notification { get; set; }
+
+        /// <summary>
+        /// Ethinicity
+        /// </summary>
+        public string Ethinicity { get; set; }
+
+        /// <summary>
+        /// ExperienceId
+        /// </summary>
+        [Required(ErrorMessage = "Experience Required")]
+        public string Experience { get; set; }
 
         /// <summary>
         /// RaceId

@@ -1,0 +1,34 @@
+﻿<!-- ko if: notificationCheck() == '0' -->
+
+<ul>
+    <li class="jobseeker_myinformation_descriptionli">
+            What kind of notifications would you like to receive from SkillSmart.
+    </li>
+    <li class="jobseeker_myinformation_exampleli" >
+       Set your communication preferences for emails, text alerts and more.
+    </li>
+    <li class="jobseeker_myinformation_buttonli">
+        <input type="button"  class="submitbutton" value="Set Preferences " data-bind="click: setPreferences"/>
+    </li>
+</ul>
+<!-- /ko -->
+<!-- ko if: notificationCheck() == '1' -->
+
+    <li  class="jobseeker_registration_outerli">       
+            <li  class="jobseeker_notification_ul">Receive emails about jobs<div class="jobseeker_Notification_innerli"><!-- ko if: jobs() --><img src="/images/small-tick.png" /><!-- /ko --><!-- ko ifnot: jobs() --><img src="/images/small_x.png" /><!-- /ko --></div>
+                <hr />
+            </li>        
+    </li>
+    <li  class="jobseeker_registration_outerli">
+            <li  class="jobseeker_notification_ul">Receive emails about courses<div class="jobseeker_Notification_innerli"><!-- ko if: course() --><img src="/images/small-tick.png" /><!-- /ko -->
+                <!-- ko ifnot: course() --><img src="/images/small_x.png" /><!-- /ko --></div>
+                <hr />
+            </li>
+    </li>
+    <li  class="jobseeker_registration_outerli">
+            <li  class="jobseeker_notification_ul">Receive text messages about jobs<div class="jobseeker_Notification_innerli"><!-- ko if: message()  --><img src="/images/small-tick.png" /><!-- /ko --><!-- ko ifnot: message() --><img src="/images/small_x.png" /><!-- /ko --></div>
+                <hr />
+            </li>
+    </li>
+
+<!-- /ko -->

@@ -25,5 +25,11 @@ namespace SkillSmart.Dto
         /// </summary>
         [Required(ErrorMessage = "ProficiencyId Required")]
         public string ProficiencyId { get; set; }
+
+        /// <summary>
+        /// Certification
+        /// </summary>
+        [Required(ErrorMessage = "Certification Required")]
+        public string Certification { get; set; }
     }
 }

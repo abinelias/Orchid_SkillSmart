@@ -1,0 +1,12 @@
+﻿<ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: relatedExperienceArray">
+    <!-- ko if: isEdit() == '0' -->
+        <div data-bind="template: { name: 'RelatedExperienceList' }">
+        </div>
+    <!-- /ko -->
+    <!-- ko if: isEdit() == '1' -->
+                
+        <div data-bind="template: { name: 'EditFormRelatedExperience' }">
+        </div>
+    <!-- /ko -->
+</ul>
+       

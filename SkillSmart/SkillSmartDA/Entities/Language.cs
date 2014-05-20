@@ -14,7 +14,7 @@ namespace SkillSmartMongoDA.Entities
         /// <summary>
         /// LanguageId
         /// </summary>
-        [BsonElement("LanguageId")]
+        [BsonElement("LanguageId")]   
         public string LanguageId { get; set; }
 
         /// <summary>
@@ -22,6 +22,12 @@ namespace SkillSmartMongoDA.Entities
         /// </summary>
         [BsonElement("ProficiencyId")]
         public string ProficiencyId { get; set; }
+
+        /// <summary>
+        /// Certification
+        /// </summary>
+        [BsonElement("Certification")]
+        public string Certification { get; set; }
 
     }
 }

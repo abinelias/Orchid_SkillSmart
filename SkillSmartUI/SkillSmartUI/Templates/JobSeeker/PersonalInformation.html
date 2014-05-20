@@ -1,0 +1,11 @@
+﻿<div  class='common_banner'>
+    <div class="common_bannerStyle">
+        <ul><li> Personal Information </li></ul>
+    </div>
+    <div class="common_banner_ButtonStyle">
+        <li class='marginclass'><!-- ko if: personalCheck() == '1' --><!-- ko if: btnPersonal() == 'Edit' --><a class="butn butn-dkgray" href="" data-bind='    click: clickButtonPersonal, value: btnPersonal' >Edit</a><!-- /ko --><!-- /ko --></li>
+    </div>
+</div>
+<div id='personal-container' class='common_background' >
+    <ul data-bind='    template: { name: whichTemplateToUsePersonal }'></ul>
+</div>

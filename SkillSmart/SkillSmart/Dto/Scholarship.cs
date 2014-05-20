@@ -15,10 +15,10 @@ namespace SkillSmart.Dto
         public string JobSeekerId { get; set; }
 
         /// <summary>
-        /// ScholarshipCheck
+        /// ScholarshipOrganization
         /// </summary>
-        [Required(ErrorMessage = "Scholarship Required")]
-        public string ScholarshipCheck { get; set; }
+        [Required(ErrorMessage = "ScholarshipOrganization Required")]
+        public string ScholarshipOrganization { get; set; }
 
         /// <summary>
         /// Title

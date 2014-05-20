@@ -42,6 +42,7 @@ namespace SkillSmartMongoDA.Services
         {
             WorkHistory seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.WorkHistory, SkillSmartMongoDA.Entities.WorkHistory>(entity);
             base.Create(seeker);
+            entity.Id = seeker.Id;
         }
 
         /// <summary>

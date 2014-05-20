@@ -1,0 +1,12 @@
+﻿<div >
+    
+        <ul><li><label style="font-size:15px;">Related Experience</label>
+    
+       <!-- ko if: relatedExperienceCheck() == '1' --><input type='button' id='addMoreLanguage' class='individual_editbuttonSkill'  data-bind='click: $root.clickButtonSkillRelatedExperience, value: btnRelatedExperience'  /><!-- /ko --></li>
+    <hr size="1" />
+        </ul>
+</div>
+
+<div id='show_activity_div' >
+    <div data-bind='template: { name: $root.whichTemplateToUseRelatedExperience }'></div>
+</div>

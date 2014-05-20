@@ -87,6 +87,13 @@ namespace SkillSmart.Dto
         public string City { get; set; }
 
         /// <summary>
+        /// State
+        /// </summary>
+        [Required(ErrorMessage = "State Required")]
+        public string State { get; set; }
+
+
+        /// <summary>
         /// Website
         /// </summary>
         [Required(ErrorMessage = "Website Required")]

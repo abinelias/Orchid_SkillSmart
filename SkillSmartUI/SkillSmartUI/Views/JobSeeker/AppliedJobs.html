@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Applied Jobs</title>
+    <link rel="stylesheet" href="/Content/common.css" />
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+    <link href="/Content/skillsmart.css" rel="stylesheet" />
+
+    <script src="/Scripts/vendor/knoclout.mapping-latest.debug.js"></script>
+    <script src="/Scripts/vendor/knockout.mapping-latest.js"></script>
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/jquery-ui.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+    <script src="/Scripts/vendor/knockout.validation.js"></script>
+    <script src="/Scripts/Common.js"></script>
+    <script src="/Scripts/jobseeker.js"></script>
+    <script src="/Scripts/viewmodel/appliedJobs.js"></script>
+
+    <!-- jQuery -->
+   <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- Wijmo CSS and script -->
+    <link type="text/css" href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" title="metro-jqueryui" />
+    
+
+    <!--Wijmo Widgets CSS-->
+    <link href="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.css" rel="stylesheet"
+        type="text/css" />
+    <!--Wijmo Widgets JavaScript-->
+    <script src="http://cdn.wijmo.com/jquery.wijmo-open.all.2.3.5.min.js" type="text/javascript"></script>
+    <script src="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.js" type="text/javascript"></script>
+    <!-- KnockoutJS for MVVM-->
+    <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout-2.0.0.js"></script>
+    <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout.wijmo.js"></script>    
+       
+   
+    <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
+   
+
+
+</head>
+<body>
+    <div id="header"></div>
+    <div id="main-div">
+        <div class="common_banner">
+            <div class="common_bannerStyle">
+                <ul><li>Apply</li></ul>
+            </div>
+        </div>
+        <section class="common_background" data-bind="template: { name: 'ViewJob' }"></section>
+        <section class="common_background" data-bind="template: { name: 'EditFormAccountDetails' }"></section>
+        <section class="common_background" data-bind="template: { name: 'CoverLetter' }"></section>
+        <section class="common_background">
+        <li class='jobseeker_myinformation_buttonli'><input type="button" value="Submit Application" class="submitbutton" data-bind="click:submitApplication" /></li></section>
+    </div>
+    <div id="footer"></div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+﻿<div class="add_div">
+    <ul>
+        <li><input type='hidden' id='overviewIdSummary' data-bind='value: jobseekerId' /></li>
+        <li><input type='hidden' id='jobSeekerSummary' data-bind='value: myinfoid' /></li>
+         <li class="jobseeker_registration_outerli">
+            <ul class="jobseeker_registration_ul">
+                <li class="jobseeker_additionalinformation_innerli"><label>Summary</label></li>                    
+            </ul>
+        </li>
+        <li class="jobseeker_registration_outerli">
+            <ul class="jobseeker_registration_ul">
+               <li class="jobseeker_additionalinformation_innerli"><textarea id='aboutme' placeholder='Maximum 500 characters' data-bind='wijtextbox: {}, value: summary'></textarea>
+               </li>
+            </ul>
+        </li>
+        <li class="jobseeker_additionalinformation_city_outerli">
+            <ul class="jobseeker_additionalinformation_city_ul" >
+                <li>
+            <a class="btn btn-blue first" href="" data-bind = "click: saveAboutMe" >Save</a></li>
+            <li><a class="btn btn-ltgray" href="" data-bind = "click: cancelAboutMe" >Cancel</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

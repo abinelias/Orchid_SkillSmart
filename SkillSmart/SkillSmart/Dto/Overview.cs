@@ -31,11 +31,12 @@ namespace SkillSmart.Dto
         [Required(ErrorMessage = "Summary Required")]
         public string Summary { get; set; }
 
+
         /// <summary>
-        /// ExperienceId
+        /// CurrentStatus
         /// </summary>
-        [Required(ErrorMessage = "ExperienceId Required")]
-        public string ExperienceId { get; set; }
+        [Required(ErrorMessage = "CurrentStatus Required")]
+        public string CurrentStatus { get; set; }
 
         /// <summary>
         /// SecurityClearanceId

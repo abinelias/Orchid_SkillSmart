@@ -32,6 +32,9 @@ namespace SkillSmart.Dto
         public string AcquiredId { get; set; }
 
         [Required(ErrorMessage = "SkillName Required")]
+        public string SkillScore { get; set; }
+
+        [Required(ErrorMessage = "SkillName Required")]
         public string Id { get; set; }
 
     }

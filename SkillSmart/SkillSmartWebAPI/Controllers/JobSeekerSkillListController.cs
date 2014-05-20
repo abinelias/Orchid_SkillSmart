@@ -23,9 +23,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get skills of the job seeker that get acquired from
         /// </summary>
         /// <returns>JobseekerSkillList Object</returns>
-        public IEnumerable<JobSeekerSkillList> GetJobSeekerSkillListByAcquiredId(string jobSeekerId, string acquiresId)
+        public IEnumerable<JobSeekerSkillList> GetJobSeekerSkillListByAcquiredId(string jobSeekerId, string acquiredId)
         {
-            return ServiceFactory.GetJobSeekerSkillList().GetJobSeekerSkillListByAcquiredId(jobSeekerId, acquiresId);
+            return ServiceFactory.GetJobSeekerSkillList().GetJobSeekerSkillListByAcquiredId(jobSeekerId, acquiredId);
         }
 
         /// <summary>
@@ -46,7 +46,15 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
-                ServiceFactory.GetJobSeekerSkillList().Create(jobSeekerSkillObj);
+                string skillMapId = jobSeekerSkillObj.SkillMapId;
+                string[] skillMapIdList = skillMapId.Split(',');
+
+                for (int i = 0; i < skillMapIdList.Length; i++)
+                {
+                    jobSeekerSkillObj.SkillMapId = skillMapIdList[i];
+                    ServiceFactory.GetJobSeekerSkillList().Create(jobSeekerSkillObj);
+                }
+                
             }
             catch (Exception ex){}
         }

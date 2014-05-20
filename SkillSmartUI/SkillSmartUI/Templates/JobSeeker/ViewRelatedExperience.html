@@ -1,0 +1,19 @@
+﻿<!-- ko if: relatedExperienceCheck() == '0' -->
+    <li class="jobseeker_myinformation_descriptionli">
+        Provide some related experience for this skill
+    </li>
+    <li class="jobseeker_myinformation_exampleli" >
+        company worked, Details etc.
+    </li>
+    <li class="jobseeker_myinformation_buttonli">
+        <input type="button" id="add-allocades" class="submitbutton" value="Add Reference" data-bind='click: $root.addFirstRelatedExperience' />
+    </li>
+<!-- /ko -->
+
+<!-- ko if: relatedExperienceArray -->
+    <li class="jobseeker_myinformation_language_list_li_ul">
+        <ul  class="jobseeker_list_li_ul"  data-bind="foreach: relatedExperienceArray">
+            <li class="jobseekerSkillRelatedExperience_li"><div class="RelatedExperience_label"><button class="delete_skillButton" data-bind = "click: $root.deleteRelatedExperience" >X</button><label data-bind="    text: companyName"></label></div></li>
+        </ul>
+    </li>
+<!-- /ko -->

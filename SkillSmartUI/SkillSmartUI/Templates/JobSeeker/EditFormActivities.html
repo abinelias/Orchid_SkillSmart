@@ -1,0 +1,59 @@
+﻿<!-- ko if: isEdit() == '1' -->
+<ul>
+    <li>
+        <input type="Hidden" id="activity-id" data-bind= "value: Id"/>
+    </li>
+    <li>
+        <input type="Hidden" id="JobseekerIdActivity" data-bind= "value: JobSeekerId" />
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Activity</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+                <input type="text" id="hobbies" placeholder="Activities" class="inputs" data-bind= "wijtextbox: {}, value: Activity" />
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Start Date</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+                <input type="text" id="StartDate" placeholder="Start Date"  data-bind= "wijinputdate: { date: StartDate, showTrigger: true }" />
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>End Date</label>
+            </li>
+        </ul>
+    </li>
+   <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+                <input type="text" id="EndDate" placeholder="End Date" data-bind= " wijinputdate: { date: EndDate, showTrigger: true }" />
+            </li>
+        </ul>
+   </li>
+    <li class="jobseeker_additionalinformation_city_outerli">
+        <ul class="jobseeker_additionalinformation_city_ul" >
+            <li><a class="btn btn-blue first" href="" data-bind = "click: $parent.saveActivities">Save</a></li>
+            <li ><a class="btn btn-ltgray" href="" data-bind = "click: $parent.cancelActivities">Cancel</a></li>
+           <!-- ko if: deleteCheck() == '1' --> <li><a class="btn btn-red" href="" data-bind = "click: $parent.deleteActivities" >Delete</a></li><!-- /ko -->
+        </ul>
+    </li>
+</ul>
+<!-- /ko -->

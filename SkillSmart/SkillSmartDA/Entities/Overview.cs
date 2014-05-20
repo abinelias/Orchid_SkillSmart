@@ -29,11 +29,13 @@ namespace SkillSmartMongoDA.Entities
         [BsonElement("Speciality")]
         public string Speciality { get; set; }
 
+
+
         /// <summary>
-        /// ExperienceId
+        /// CurrentStatus
         /// </summary>
-        [BsonElement("ExperienceId")]
-        public string ExperienceId { get; set; }
+        [BsonElement("CurrentStatus")]
+        public string CurrentStatus { get; set; }
 
         /// <summary>
         /// SecurityClearanceId

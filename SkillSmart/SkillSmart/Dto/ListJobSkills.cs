@@ -1,0 +1,21 @@
+﻿using SkillSmart.Base.Entities;
+using System;
+using System.Web.Script.Serialization;
+using System.ComponentModel.DataAnnotations;
+namespace SkillSmart.Dto
+{
+    public class ListJobSkills 
+    {
+        public string JobId { get; set; }
+
+        public string SkillMapId { get; set; }
+
+        public string SkillId { get; set; }
+
+        public string SkillName { get; set; }
+
+        public string SkillScore { get; set; }
+
+        public string Id { get; set; }
+    }
+}

@@ -1,0 +1,71 @@
+﻿<!-- ko if: isEdit() == '1' -->
+    <ul>
+    <li><input type="hidden" id="language_Id" data-bind= "value: Id" /></li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Company Name</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="awards-title" placeholder="Company Name"  data-bind= "wijtextbox: {}, value: companyName" />
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Position</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="Text1" placeholder="Position"  data-bind= "wijtextbox: {}, value: position" />
+            </li>
+        </ul>
+    </li>
+
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Start Date</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="Text4" placeholder="Start Date"  data-bind="    wijinputdate: { date: startDate, showTrigger: true }"  />
+            </li>
+        </ul>
+    </li>
+
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>End Date</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="Text3" placeholder="End Date"  data-bind="    wijinputdate: { date: endDate, showTrigger: true }"  />
+            </li>
+        </ul>
+    </li>
+
+    <li class="jobseeker_additionalinformation_city_outerli">
+        <ul class="jobseeker_additionalinformation_city_ul" >
+            <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="submit-awards" class="savebutton" value="Save" data-bind = "click: $root.saveRelatedExperience" /></li>
+            <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel-awards" class="cancelbutton" value="Cancel" data-bind = "click: $root.cancelRelatedExperience" /></li>
+            <!-- ko if: deleteCheck() == '1' --><li><input type="button" id="delete-awards" class="deletebutton" value="Delete" data-bind = "click: $root.deleteRelatedExperience" /></li><!-- /ko -->
+        </ul>
+    </li>
+</ul>
+<!-- /ko -->

@@ -21,6 +21,7 @@ namespace SkillSmartMongoDA.Services
         {
             AdditionalInformation seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.AdditionalInformation, SkillSmartMongoDA.Entities.AdditionalInformation>(entity);
             base.Create(seeker);
+            entity.Id = seeker.Id;
         }
 
         /// <summary>

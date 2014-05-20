@@ -1,0 +1,13 @@
+﻿
+<ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: languages">
+    <!-- ko if: isEdit() == '0' -->
+        <div data-bind="template: { name: 'LanguageLists' }">
+        </div>
+    <!-- /ko -->
+    <!-- ko if: isEdit() == '1' -->
+                
+        <div class="add_div" data-bind="template: { name: 'EditFormLanguages' }">
+        </div>
+    <!-- /ko -->
+</ul>
+       

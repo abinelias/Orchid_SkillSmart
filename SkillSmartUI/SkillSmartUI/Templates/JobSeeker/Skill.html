@@ -1,0 +1,61 @@
+﻿<!-- ko if: btnSkillList() == '+' -->
+<div class="container">
+    <ul>       
+        <li>
+            <div class="skill_Slider">                  
+                <label style="margin-left:10px;" data-bind="text: skillName"></label>
+                 
+                <a href  data-bind="    click: $root.expandSkillDetails"><img src="/images/Down_Arrow_Icon.png"</a>                  
+                <a href=""  data-bind=" click: $root.deleteSkillDetails"><img style="float:right;" src="/images/delete_icon.png" /></a>
+                <a href="" data-bind=" click: $root.expandSkillDetails"> <img style="float:right;" src="/images/EditObjectButton.png" /></a>
+                <hr size="1" width="95%" /> 
+                <input  data-bind="value: val, event: { change: $root.changeProficiency }" style="width: 200px;margin-bottom:15px;margin-left:10px;" /> 
+        
+                <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:210px"></div>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- /ko -->
+
+<!-- ko if: btnSkillList() == '-' -->
+<div class="editForm_div">
+    <div class="container">
+        <ul>       
+            <li>
+                <div >                  
+                    <label style="margin-left:10px;" data-bind="text: skillName"></label>
+                    <a href="" data-bind="    click: $root.expandSkillDetails" ><img src="/images/Up_Arrow_Icon.png" /></a> 
+                    <a href=""  data-bind=" click: $root.deleteSkillDetails"><img style="float:right;" src="/images/delete_icon.png" /></a> 
+                    <hr size="1" width="98%" /> 
+                    <div  style="width:40%;float:left;">
+                        <input  data-bind="value: val, event: { change: $root.changeProficiency }" style="width: 200px;margin-bottom:15px;margin-left:10px;" />         
+                        <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }" style="width:210px"></div>
+                        <div style="padding-top:3px;"> &nbsp &nbsp 0&nbsp&nbsp 1&nbsp &nbsp 2&nbsp&nbsp 3&nbsp &nbsp 4&nbsp &nbsp 5&nbsp &nbsp  6&nbsp &nbsp 7&nbsp &nbsp 8&nbsp &nbsp 9&nbsp &nbsp 10</div>
+                        <br />
+                    </div>
+                </div>
+                <div style="margin-left: 45%">
+                    <!-- ko if: validationFactor() >= '3' --> <div style="width:50px;background-color:darkolivegreen;height:30px;color:white;text-align:center;padding-top:10px;">HIGH</div> <!-- /ko -->
+                    <!-- ko if: validationFactor() == '2' --> <div style="width:50px;background-color:lightgoldenrodyellow;height:30px;color:black;text-align:center;padding-top:10px;">MEDIUM</div> <!-- /ko -->
+                    <!-- ko if: validationFactor() == '1' --> <div style="width:50px;background-color:lightgoldenrodyellow;height:30px;color:black;text-align:center;padding-top:10px;">MEDIUM</div> <!-- /ko -->
+                    <!-- ko if: validationFactor() == '0' --> <div style="width:50px;background-color:red;height:30px;color:white;text-align:center;padding-top:10px;">LOW</div> <!-- /ko -->
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="editForm_div">
+    <div id="Refcvberence" data-bind="template: { name: 'Reference' }" >
+    </div>
+</div>
+<div class="editForm_div">
+    <div id="fggj" data-bind="template: { name: 'SupportingMaterial' }" >
+    </div>
+</div>
+<div class="editForm_div">
+    <div id="Div1" data-bind="template: { name: 'RelatedExperience' }" >
+    </div>
+</div>
+
+<!-- /ko -->

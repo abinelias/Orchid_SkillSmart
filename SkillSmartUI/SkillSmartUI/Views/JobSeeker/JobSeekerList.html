@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>JobSeeker List</title>
+    <link href="/Content/skillsmart.css" rel="stylesheet" />
     <link rel="stylesheet" href="/Content/common.css" />
     <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
     <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
@@ -12,10 +13,9 @@
     <script src="/Scripts/viewmediator/skillsmart.mediator.jobseekerlist.js"></script>
     <script src="/Scripts/vendor/knockout.validation.js"></script>
     <script src="/Scripts/vendor/knockout.mapping-latest.js"></script>
+    <script src="/Scripts/jobseeker.js"></script>
     <script>
         $(document).ready(function () {
-            $('#header').load('/Views/Shared/header.html');
-            $('#footer').load('/Views/Shared/Footer.html');
             if (typeof (skillsmart) == 'undefined') skillsmart = {}
             if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
             if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
@@ -49,20 +49,24 @@
                 <ul>
                     <li class="jobseeker_list_li_ul">
                         <ul class="jobseeker_list_li_ul">
-                            <li class="jobseeker_list_innerli"><b>FirstName</b></li>
-                            <li class="jobseeker_list_innerli"><b>LastName</b></li>
+                            <li class="jobseekerList"><b>FirstName</b></li>
+                           
                         
-                            <li class="jobseeker_list_innerli"><b>Edit</b></li>
-                            <li class="jobseeker_list_innerli"><b>Action</b></li>
+                            <li class="jobseekerList"><b>Edit</b></li>
+                            <li class="jobseekerList"><b>Action</b></li>
+                            <li class="jobseekerList"><b>Action</b></li>
+                            <li class="jobseekerList"><b>Action</b></li>
                         </ul>
                     </li>
                     <li  class="jobseeker_list_li_ul">
                         <ul class="jobseeker_list_li_ul"  data-bind="foreach: persons">
-                            <li class="jobseeker_list_innerli"><label data-bind="text: FirstName"></label></li>
-                            <li class="jobseeker_list_innerli" data-bind="text: LastName"></li>
+                            <li class="jobseekerList"><label data-bind="text: FirstName"></label></li>
+                            
                        
-                            <li class="jobseeker_list_innerli"><a class="jobseeker_list_a" data-bind="attr: { href: EditUrl }">Edit</a></li>
-                            <li class="jobseeker_list_innerli"><a class="jobseeker_list_a" data-bind="attr: { href: MyInfoUrl }">MyInformation</a></li>
+                            <li class="jobseekerList"><a class="jobseeker_list_a" data-bind="attr: { href: EditUrl }">My Account</a></li>
+                            <li class="jobseekerList"><a class="jobseeker_list_a" data-bind="attr: { href: MyInfoUrl }">MyInformation</a></li>
+                            <li class="jobseekerList"><a class="jobseeker_list_a" data-bind="attr: { href: MyJobUrl }">MyJobs</a></li>
+                            <li class="jobseekerList"><a class="jobseeker_list_a" data-bind="attr: { href: MyJobSearchUrl }">JobsSearch</a></li>
                         </ul>
                     </li>
                 </ul>

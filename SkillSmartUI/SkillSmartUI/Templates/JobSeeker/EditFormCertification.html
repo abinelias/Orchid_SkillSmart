@@ -1,0 +1,33 @@
+﻿ <!-- ko if: isEditCertification() == '1' -->
+<div class="common_tab_background">
+    <div id="Edit_Certification" class="tab_savebackground_div">
+            <ul>
+            <li>
+                <li><input type="hidden" id="JobseekerCertificationId" data-bind="value: jobseekerId" /></li>
+            </li>
+            <li>
+                <input type="hidden" id="CertificationId" data-bind="value: certificationId" />
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><label>Certification Name</label></li>                    
+                </ul>
+            </li>
+            <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                    <li class="jobseeker_additionalinformation_innerli"><input type="text" id="Certification_Name" placeholder="Certification" class="inputs" data-bind="wijtextbox: {}, value: certificationName" /></li>
+                    <li  class="jobseeker_myinformation_innerli"><input type="checkbox" id="Certification_currently_Enrolled"  data-bind="wijcheckbox: { checked: certificationEnrolled }"/>Currently Enrolled</li>
+                </ul>
+            </li>
+           <li data-bind="template: { name: 'CommonTemplateCourse' }"></li>                                                                                                       
+            <li class="jobseeker_additionalinformation_city_outerli">
+                <ul class="jobseeker_additionalinformation_city_ul" >
+                    <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="save_certification" class="savebutton" value="Save" data-bind="click: $parent.saveCertification" /></li>
+                    <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel_certification" class="cancelbutton" value="Cancel" data-bind="click: $parent.cancelCertification" /></li>
+                   <!-- ko if: deleteCheck() == '1' --> <li><input type="button" id="delete_certification" class="deletebutton" value="Delete" data-bind="click: $parent.deleteCertification" /></li><!-- /ko -->
+                </ul>
+            </li>                       
+        </ul>                                
+    </div>
+</div>
+<!-- /ko -->

@@ -28,7 +28,7 @@ namespace SkillSmartMongoDA.Services
             List<SkillSmart.Dto.SpecialityCourse> jobSeekerSpecialityCourse = new List<SkillSmart.Dto.SpecialityCourse>();
             foreach (SpecialityCourse jobSeeker in jobSeekerSpecialityCourseList)
             {
-                if (jobSeeker.EducationId == id)
+                if (jobSeeker.JobSeekerId == id)
                 {
                     SkillSmart.Dto.SpecialityCourse jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.SpecialityCourse, SkillSmart.Dto.SpecialityCourse>(jobSeeker);
                     jobSeekerSpecialityCourse.Add(jobSeekerObj);
@@ -45,6 +45,7 @@ namespace SkillSmartMongoDA.Services
         {
             SpecialityCourse seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.SpecialityCourse, SkillSmartMongoDA.Entities.SpecialityCourse>(entity);
             base.Create(seeker);
+            entity.Id = seeker.Id;
         }
 
         /// <summary>

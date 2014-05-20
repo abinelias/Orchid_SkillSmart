@@ -1,0 +1,30 @@
+﻿ <div  data-bind="foreach: certification">
+     
+    <!-- ko if: isEditCertification() == '1' -->
+
+      <div id="CertificationInsertionDiv" data-bind="template: { name: 'EditFormCertification' }" >            
+        </div>   
+    
+<!-- /ko -->
+     <!-- ko if: isEditCertification() == '0' -->
+
+   <div id="Div1" data-bind="template: { name: 'CertificationList' }" >            
+        </div>   
+    <!-- /ko -->
+  </div>  
+
+<!-- ko if: certificationCheck() == '0' -->
+<div id="Certification_General" class="common_tab_background">
+    <ul>
+        <li class="jobseeker_myinformation_descriptionli">
+                Tell us about your Certification Details.
+        </li>
+        <li class="jobseeker_myinformation_exampleli" >
+            Where you took it, Certification details etc.
+        </li>
+        <li class="jobseeker_myinformation_buttonli">
+            <input type="button" id="addFirstCertification" class="submitbutton" value="Add Details" data-bind="click: addFirstCertification" />
+        </li>
+    </ul>           
+</div>
+   <!-- /ko -->

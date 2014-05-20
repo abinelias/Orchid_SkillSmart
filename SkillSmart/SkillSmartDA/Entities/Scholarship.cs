@@ -14,8 +14,8 @@ namespace SkillSmartMongoDA.Entities
         /// <summary>
         /// ScholarshipCheck
         /// </summary>
-        [BsonElement("Scholarship")]
-        public string ScholarshipCheck { get; set; }
+        [BsonElement("ScholarshipOrganization")]
+        public string ScholarshipOrganization { get; set; }
 
         /// <summary>
         /// Title

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>JobSeeker SkillList</title>
+    <link rel="stylesheet" href="/Content/common.css" />
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+    <script src="/Scripts/Common.js"></script>
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+    <script src="/Scripts/vendor/knockout.validation.js"></script>
+    <script src="/Scripts/viewmodel/JobSeekerSkillList.js"></script>
+
+    <script src="/Scripts/JobSeeker/SkillReference.js"></script>
+    <script src="/Scripts/JobSeeker/SkillSupportingMaterial.js"></script>
+    <script src="/Scripts/JobSeeker/RelatedExperience.js"></script>
+
+    <script src="/Scripts/jobseeker.js"></script>
+<!-- jQuery -->
+   <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- Wijmo CSS and script -->
+    <link type="text/css" href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" title="metro-jqueryui" />
+    
+
+    <!--Wijmo Widgets CSS-->
+    <link href="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.css" rel="stylesheet"
+        type="text/css" />
+    <!--Wijmo Widgets JavaScript-->
+    <script src="http://cdn.wijmo.com/jquery.wijmo-open.all.2.3.5.min.js" type="text/javascript"></script>
+    <script src="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.js" type="text/javascript"></script>
+    <!-- KnockoutJS for MVVM-->
+    <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout-2.0.0.js"></script>
+    <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout.wijmo.js"></script> 
+       
+    <link href="/Content/skillsmart.css" rel="stylesheet" />
+    <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
+    <style>
+        .wijmo-wijexpander .ui-expander-header .ui-icon {
+            left: 60.5em;
+            margin-top: -8px;
+            position: absolute;
+            top: 50%;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="ManageHoldingsDiv" style="text-align:left;vertical-align:middle;display:none;overflow:hidden;">
+        <iframe id="ManageHoldingsFrame" style="height:420px;width:905px;overflow:hidden;" ></iframe>
+    </div>
+    <div id="header"></div>
+    <div id="main-div">
+    <div class='common_banner'>
+        <ul>
+            <li class='marginclass'> Skill <input type='button' onclick='AddSkills("d7cb31e2-2288-44f7-99af-f1a27fc8027a")' id='myButton' class='editbutton' value='Add More'  /></li>
+        </ul>
+    </div>
+    <div class="common_background"  data-bind=" foreach: categoryArray" >
+        <div  data-bind="wijexpander: { expanded: false }">
+            <h5><li style="margin-left:10px;margin-top:10px;">Industry</li><label style="padding-bottom:12px;" class ="jobseekerSkillText" data-bind="text: categoryName"></h5>
+            <div   data-bind="  template: { name: 'Categories' }" ></div>
+        </div>
+    </div>
+    </div>
+    <div id="footer"></div> 
+</body>
+</html>

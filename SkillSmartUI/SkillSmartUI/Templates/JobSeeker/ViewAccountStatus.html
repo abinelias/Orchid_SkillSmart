@@ -1,0 +1,13 @@
+﻿<!-- ko if: accountStatusCheck() == '0' -->
+    <li class='jobseeker_myinformation_descriptionli'>How would you like to use skillsmart?</li>
+    <li class='jobseeker_myinformation_exampleli' >Let us know whether you are a job seeker, just browsing, etc and we will tailor your communication accordingly.</li>
+    <li class='jobseeker_myinformation_buttonli'><input type='button' id='pitch-yourself' class='submitbutton' value='Set Account Status' data-bind='    click: addAccountStatus'  /></li>
+<!-- /ko -->
+
+<!--<div data-bind='if: accountStatus'></div>-->
+    <!-- ko if: accountStatusCheck() == '1' -->
+
+    <li>Current Status</li>
+    <li><label id='show-summary' data-bind='    text: accountStatus'></label></li>
+    <!-- /ko -->
+

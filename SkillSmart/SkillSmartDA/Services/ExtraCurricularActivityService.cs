@@ -42,6 +42,7 @@ namespace SkillSmartMongoDA.Services
         {
             ExtraCurricularActivity seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.ExtraCurricularActivity, SkillSmartMongoDA.Entities.ExtraCurricularActivity>(entity);
             base.Create(seeker);
+            entity.Id = seeker.Id;
         }
 
         /// <summary>

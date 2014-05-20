@@ -15,9 +15,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all speciality course of the jobseeker for a particular education
         /// </summary>
         /// <returns>SpecialityCourse list</returns>
-        public IEnumerable<SpecialityCourse> GetAllSpecialityCourseById()
+        public IEnumerable<SpecialityCourse> GetAllSpecialityCourseById(String jobSeekerId)
         {
-            return ServiceFactory.GetJobSeekerSpecialityCourse().GetAllSpecialityCourseById("8f500a04-22f0-40fa-b4ce-c24c3813d3d2");
+            return ServiceFactory.GetJobSeekerSpecialityCourse().GetAllSpecialityCourseById(jobSeekerId);
         }
 
         /// <summary>
@@ -34,13 +34,10 @@ namespace SkillSmartWebAPI.Controllers
         /// To create Speciality course details
         /// </summary>
         /// <param name="specialityCourseObj">SpecialityCourse Object</param>
-        public void Post(SpecialityCourse specialityCourseObj)
+        public string Post(SpecialityCourse specialityCourseObj)
         {
-            try
-            {
-                ServiceFactory.GetJobSeekerSpecialityCourse().Create(specialityCourseObj);
-            }
-            catch (Exception ex){}
+             ServiceFactory.GetJobSeekerSpecialityCourse().Create(specialityCourseObj);
+             return specialityCourseObj.Id.ToString();
         }
 
         /// <summary>
@@ -67,6 +64,13 @@ namespace SkillSmartWebAPI.Controllers
             ISpecialityCourseService<SpecialityCourse> jobSeekerService = ServiceFactory.GetJobSeekerSpecialityCourse();
             var jobSeeker = jobSeekerService.GetById(id);
             jobSeekerService.Delete(jobSeeker);  
+        }
+
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
         }
     }
 }

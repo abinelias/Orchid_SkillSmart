@@ -34,13 +34,11 @@ namespace SkillSmartWebAPI.Controllers
         /// To get create an extra Curricular activity of jobseeker related to an education details
         /// </summary>
         /// <param name="extraCurricularActivityObj">extraCurricularActivity Object</param>
-        public void Post(ExtraCurricularActivity extraCurricularActivityObj)
+        public string Post(ExtraCurricularActivity extraCurricularActivityObj)
         {
-            try
-            {
-                ServiceFactory.GetJobSeekerExtraCurricularActivityService().Create(extraCurricularActivityObj);
-            }
-            catch (Exception ex){}
+            
+            ServiceFactory.GetJobSeekerExtraCurricularActivityService().Create(extraCurricularActivityObj);
+            return extraCurricularActivityObj.Id.ToString();
         }
 
         /// <summary>

@@ -1,0 +1,30 @@
+﻿<div class="add_div">
+    
+    <li><input type='hidden' data-bind='value: jobseekerId' /></li>
+    <li><input type='hidden'  data-bind='    value: myinfoid' /></li>
+    <li class='jobseeker_myinformation_personalcontainer_outerli'>
+        <ul class='jobseeker_myinformation_personalcontainer_ul'>
+            <li class='jobseeker_myinformation_innerli'><label>Industries</label></li>
+            <li class='jobseeker_myinformation_innerli' ><label>Specialities</label></li>
+            <li class='jobseeker_myinformation_innerli' ><label>Security Clearance</label></li>
+            <li class='jobseeker_myinformation_innerli' ><label>Willing to relocate</label></li>
+        </ul>
+    </li>
+    <li class='jobseeker_myinformation_edit_personal_li'>
+        <ul class='jobseeker_myinformation_edit_personal_ul'>
+            <li><input type='hidden' id='JobseekerPersonalinfoId' data-bind='    value: jobseekerId'  /></li>
+            <li><input type='hidden' id='overviewIdPersonalInfo' data-bind='    value: myinfoid' /></li>
+            <li class='jobseeker_myinformation_innerli' ><input type='text' id='industries-textbox' data-bind='wijtextbox: {}, value: industriesTextbox' /></li>
+            <li class='jobseeker_myinformation_innerli' ><input type='text' id='speciality-textbox'  data-bind='wijtextbox: {}, value: specialityTextbox' /></li>
+            <li class='jobseeker_myinformation_innerli' ><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexSecurity, data: dataSecurity }" /></li>
+            <li class='jobseeker_myinformation_innerli' ><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexRelocate, data: dataRelocate }" /></li>
+        </ul>
+    </li>
+    <li class="jobseeker_additionalinformation_city_outerli">
+        <ul class="jobseeker_additionalinformation_city_ul" >
+            <li ><a class="btn btn-blue first" href="" data-bind = "click: savePersonal" >Save</a></li>
+            <li ><a class="btn btn-ltgray" href=""  data-bind = "click: cancelPersonal" >Cancel</a></li>
+        </ul>
+    </li>
+    
+</div>

@@ -85,6 +85,12 @@ namespace SkillSmartMongoDA.Entities
         public string City { get; set; }
 
         /// <summary>
+        /// State
+        /// </summary>
+        [BsonElement("State")]
+        public string State { get; set; }
+
+        /// <summary>
         /// Website
         /// </summary>
         [BsonElement("Website")]

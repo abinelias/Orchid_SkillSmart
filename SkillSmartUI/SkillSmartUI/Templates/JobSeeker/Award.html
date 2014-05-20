@@ -1,0 +1,12 @@
+﻿<div class="common_banner">
+   <div class="common_bannerStyle">
+        <ul><li>Awards, Scholarships & Recognition</li></ul>
+    </div>
+    <div class="common_banner_ButtonStyle">
+        <li class="marginclass"><!-- ko if: awardCheck() == '1' --><input type='button' id='addMoreAward' class='editbutton' value='Edit' data-bind='click: clickButtonAward, value: btnAward' /><!-- /ko --></li>
+    </div>
+</div>
+
+<div id='show_activity_div' class='common_background'>
+    <ul data-bind='template: { name: whichTemplateToUseAward }'></ul>
+</div>

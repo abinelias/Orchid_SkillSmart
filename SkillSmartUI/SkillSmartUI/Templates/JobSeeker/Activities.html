@@ -1,0 +1,12 @@
+﻿<div class="common_banner">
+     <div class="common_bannerStyle">
+        <ul><li>Activities, Extracurriculars & Hobbies</li></ul>
+     </div>
+    <div class="common_banner_ButtonStyle">
+        <li class="marginclass"><!-- ko if: activityCheck() == '1' --><input type='button' id="addMoreActivity" class='editbutton' value='Edit' data-bind='click: clickButtonActivity, value: btnActivity' /><!-- /ko --></li>
+    </div>
+</div>
+
+<div id='show_activity_div' class='common_background'>
+    <ul data-bind='template: { name: whichTemplateToUseActivity }'></ul>
+</div>

@@ -1,0 +1,31 @@
+﻿<div  data-bind="foreach: trainingCourse">
+     
+    <!-- ko if: isEditTraining() == '1' -->
+
+      <div id="CertificationInsertionDiv" data-bind="template: { name: 'EditFormTrainingCourse' }" >            
+        </div>   
+    
+<!-- /ko -->
+     <!-- ko if: isEditTraining() == '0' -->
+
+   <div id="Div1" data-bind="template: { name: 'TrainingCourseList' }" >            
+        </div>   
+    <!-- /ko -->
+  </div>  
+
+
+<!-- ko if: trainingCheck() == '0' -->
+<div id="TrainingCourse_General" class="common_tab_background">
+    <ul>
+        <li class="jobseeker_myinformation_descriptionli">
+                Tell us about your Training Course Details.
+        </li>
+        <li class="jobseeker_myinformation_exampleli" >
+            Where you study, Training details etc.
+        </li>
+        <li class="jobseeker_myinformation_buttonli">
+            <input type="button" id="addFirstTrainingCourse" class="submitbutton" value="Add Details" data-bind="click: addFirstTrainingCourse" />
+        </li>
+    </ul>           
+</div>
+<!-- /ko -->

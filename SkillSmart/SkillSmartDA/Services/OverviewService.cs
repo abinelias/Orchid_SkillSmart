@@ -20,6 +20,7 @@ namespace SkillSmartMongoDA.Services
         {
             Overview seekerOverview = MapperUtilities.MapToDomainModel<SkillSmart.Dto.Overview, SkillSmartMongoDA.Entities.Overview>(entity);
             base.Create(seekerOverview);
+            entity.Id = seekerOverview.Id;
         }
 
         /// <summary>

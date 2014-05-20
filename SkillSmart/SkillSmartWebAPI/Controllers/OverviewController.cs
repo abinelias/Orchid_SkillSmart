@@ -24,13 +24,10 @@ namespace SkillSmartWebAPI.Controllers
         /// To create a jobseeker overview
         /// </summary>
         /// <param name="jobSeekerObj">jobseeker overview object</param>
-        public void Post(Overview jobSeekerOverviewObj)
+        public string Post(Overview jobSeekerOverviewObj)
         {
-            try
-            {
-                ServiceFactory.GetJobSeekerOverview().Create(jobSeekerOverviewObj);
-            }
-            catch (Exception ex){}
+             ServiceFactory.GetJobSeekerOverview().Create(jobSeekerOverviewObj);
+             return jobSeekerOverviewObj.Id.ToString();
         }
 
         /// <summary>

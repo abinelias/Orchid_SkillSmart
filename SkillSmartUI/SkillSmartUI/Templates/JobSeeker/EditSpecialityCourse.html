@@ -1,0 +1,29 @@
+﻿ <!-- ko if: specialityCourseCheck() == '0' -->
+<div id="Education_General" class="common_tab_background">
+    <ul>
+        <li class="jobseeker_myinformation_descriptionli">
+                Tell us about your Speciality COurse Details.
+        </li>
+        <li class="jobseeker_myinformation_exampleli" >
+            Where you study, Degree details etc.
+        </li>
+        <li class="jobseeker_myinformation_buttonli">
+            <input type="button" id="add_First_Education" class="submitbutton" value="Add Details" data-bind="click: addFirstSpecialityCourse" />
+        </li>
+    </ul>           
+</div>
+<!-- /ko -->
+
+<div  data-bind="foreach: specialityCourse">
+    <!-- ko if: isEditSpecialityCourse() == '1' -->
+        <div id="WorkExperienceInsertionDiv" data-bind="template: { name: 'EditFormSpecialityCourse' }" >            
+        </div>   
+    <!-- /ko -->
+
+    <!-- ko if: isEditSpecialityCourse() == '0' -->
+        <div id="Div1" data-bind="template: { name: 'SpecialityList' }" >            
+        </div>   
+    <!-- /ko -->
+</div>  
+ 
+

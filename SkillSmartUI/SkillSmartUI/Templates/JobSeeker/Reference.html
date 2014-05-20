@@ -1,0 +1,10 @@
+﻿<div>
+    <ul><li><label style="font-size:15px;"> Reference People</label>
+        <!-- ko if: referenceCheck() == '1' --><input type='button' id='addMoreLanguage' class='individual_editbuttonSkill'  data-bind='click: $root.clickButtonSkillReference, value: btnReference'  /><!-- /ko --></li>
+    <hr size="1" />
+    </ul>
+</div>
+
+<div id='show_activity_div' >
+    <div data-bind='template: { name: $root.whichTemplateToUseReference }'></div>
+</div>

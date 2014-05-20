@@ -1,0 +1,19 @@
+﻿<!-- ko if: awardCheck() == '0' -->
+    <li class="jobseeker_myinformation_descriptionli">
+        Tell us about some awards you've won.
+    </li>
+    <li class="jobseeker_myinformation_exampleli" >
+        Rookie of the Year,Best Team Player,etc.
+    </li>
+    <li class="jobseeker_myinformation_buttonli">
+        <input type="button" id="add-allocades" class="submitbutton" value="Add Accolades" data-bind='click: addFirstAward' />
+    </li>
+<!-- /ko -->
+
+<!-- ko if: awardArray -->
+    <li class="jobseeker_myinformation_language_list_li_ul">
+        <ul  class="jobseeker_list_li_ul"  data-bind="foreach: awardArray">
+            <li class="jobseeker_list_innerli"><div class="test"><button class="delete_skillButton" data-bind = "click: $parent.deleteAward" >X</button><label class="language_label"  data-bind="    text: Award"></label></div></li>
+        </ul>
+    </li>
+<!-- /ko -->

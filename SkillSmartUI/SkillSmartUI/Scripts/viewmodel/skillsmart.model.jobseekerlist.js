@@ -7,22 +7,29 @@ skillsmart.model.jobseekerlist.initializeViewModel = function (dataObjJobseeker)
         persons: ko.observableArray()
     }
 
-    
+
     for (da in dataObjJobseeker) {
         var person = {
             FirstName: ko.observable(''),
             LastName: ko.observable(''),
             Email: ko.observable(''),
         };
-       
+
         person.FirstName(dataObjJobseeker[da].FirstName);
         person.LastName(dataObjJobseeker[da].LastName);
         person.Email(dataObjJobseeker[da].Email);
         person.EditUrl = ko.computed(function () {
-            return '/Views/JobSeeker/JobSeekerAdditionalInformationEdit.html?Id=' + dataObjJobseeker[da].Id;
+            return '/Views/JobSeeker/AccountInformation.html?Id=' + dataObjJobseeker[da].Id;
         }, this);
         person.MyInfoUrl = ko.computed(function () {
-            return '/Views/JobSeeker/JobSeekerMyInformation.html?userId=' + dataObjJobseeker[da].Id;
+            return '/Views/JobSeeker/MyInformtion.html?userId=' + dataObjJobseeker[da].Id;
+        }, this);
+
+        person.MyJobUrl = ko.computed(function () {
+            return '/Views/JobSeeker/MyJobsApplied.html?userId=' + dataObjJobseeker[da].Id;
+        }, this);
+        person.MyJobSearchUrl = ko.computed(function () {
+            return '/Views/JobSeeker/AdvancedJobSearch.html?userId=' + dataObjJobseeker[da].Id;
         }, this);
         viewModel.persons.push(person);
     }

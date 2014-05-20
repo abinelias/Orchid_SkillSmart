@@ -1,0 +1,34 @@
+﻿
+
+<div  data-bind="foreach: workHistory">
+
+    <!-- ko if: isEditWork() == '1' -->
+
+
+      <div id="WorkExperienceInsertionDiv" data-bind="template: { name: 'EditFormWorkExperience' }" >            
+        </div>   
+    
+<!-- /ko -->
+     <!-- ko if: isEditWork() == '0' -->
+
+   <div id="Div1" data-bind="template: { name: 'WorkExperienceList' }" >            
+        </div>   
+    <!-- /ko -->
+  </div>  
+ <!-- ko if: workCheck() == '0' -->
+
+ <div id="WorkExperience_General" class="common_tab_background">
+    <ul>
+        <li class="jobseeker_myinformation_descriptionli">
+                Tell us about your work experience.
+        </li>
+        <li class="jobseeker_myinformation_exampleli" >
+            work details, company details etc.
+        </li>
+        <li class="jobseeker_myinformation_buttonli">
+            <input type="button" id="addFirstWork" class="submitbutton" value="Add Details" data-bind="click: addfirstWorkExp" />
+        </li>
+    </ul>           
+</div>
+   <!-- /ko -->
+                

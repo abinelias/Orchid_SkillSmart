@@ -104,10 +104,40 @@ namespace SkillSmartMongoDA.Entities
         public string MethodOfContact { get; set; }
 
         /// <summary>
-        /// Birthday
+        /// BirthDate
         /// </summary>
-        [BsonElement("Birthday")]
-        public string Birthday { get; set; }
+        [BsonElement("BirthDate")]
+        public string BirthDate { get; set; }
+
+        /// <summary>
+        /// BirthMonth
+        /// </summary>
+        [BsonElement("BirthMonth")]
+        public string BirthMonth { get; set; }
+
+        /// <summary>
+        /// BirthYear
+        /// </summary>
+        [BsonElement("BirthYear")]
+        public string BirthYear { get; set; }
+
+        /// <summary>
+        /// Notification
+        /// </summary>
+        [BsonElement("Notification")]
+        public string Notification { get; set; }
+
+        /// <summary>
+        /// Ethinicity
+        /// </summary>
+        [BsonElement("Ethinicity")]
+        public string Ethinicity { get; set; }
+
+        /// <summary>
+        /// ExperienceId
+        /// </summary>
+        [BsonElement("Experience")]
+        public string Experience { get; set; }
 
         /// <summary>
         /// RaceId
