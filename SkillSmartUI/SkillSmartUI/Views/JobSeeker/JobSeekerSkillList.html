@@ -37,7 +37,7 @@
     <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
     <style>
         .wijmo-wijexpander .ui-expander-header .ui-icon {
-            left: 60.5em;
+            left: 65.5em;
             margin-top: -8px;
             position: absolute;
             top: 50%;
@@ -59,7 +59,8 @@
     <div class="common_background"  data-bind=" foreach: categoryArray" >
         <div  data-bind="wijexpander: { expanded: false }">
             <h5><li style="margin-left:10px;margin-top:10px;">Industry</li><label style="padding-bottom:12px;" class ="jobseekerSkillText" data-bind="text: categoryName"></h5>
-            <div   data-bind="  template: { name: 'Categories' }" ></div>
+          
+             <div   data-bind="  template: { name: 'Categories' }" ></div>
         </div>
     </div>
     </div>

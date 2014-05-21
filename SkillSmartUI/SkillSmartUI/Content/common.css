@@ -602,8 +602,8 @@ textarea {
 {
     background-color:#F2FAFE;
     display:block;
-    width:220px;
-    height:80px;
+    width:33%;
+    height:87px;
     /*text-align:center;*/
     padding-top:15px;
     font-size:12px;
@@ -627,7 +627,7 @@ textarea {
      width:710px;
     overflow:hidden;
     background-color:#F0F8FF;
-    margin-left:10px;
+    
     margin-right:10px;
 }
 .individual_editbuttonSkill
@@ -676,6 +676,18 @@ textarea {
     background-color:white;
     /*margin-right:20px;*/
 }
+.delete_LanguageButton {
+    width:15px;
+    height:15px;
+    font-size:10px;
+    border-style:none;
+    float:right;
+    border-radius:20px;
+    border-radius: 50%;
+    line-height:20px;
+    background-color:#E7EFF1;
+    /*margin-right:20px;*/
+}
 
 .multiSelect_label 
 {
@@ -700,4 +712,28 @@ textarea {
     margin-bottom:10px;
 
     width:-moz-max-content;
+}
+.ListActivity {
+     background-color:#E7EFF1;float:left;padding-left:10px;padding-top:10px; margin-bottom:10px;margin-left:10px; height:35px;
+}
+
+.ListActivity_Label {
+ width:88%;float:left;
+}
+.ListActivity_Button {
+    margin-left: 88%;
+}
+.ListLanguage_Label {
+ width:80%;float:left;
+}
+.ListLanguage_Button {
+    margin-left: 80%;
+}
+
+.ListReference {
+     background-color:white;float:left;padding-left:10px;padding-top:10px; margin-bottom:10px;margin-left:10px; height:35px;
+}
+
+.spanNumber {
+    padding-right:6%;
 }

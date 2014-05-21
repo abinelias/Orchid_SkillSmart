@@ -1,8 +1,15 @@
 ﻿
-<ul><li>Competency</li>
-<li><label class="jobseeker_MessagePosition" data-bind="text: specialityName"></label><input type="button" class="related_skillButton" value="+" data-bind="    click: $root.expandSpecialityDetails, value: btnSpecialityList" />
+<li>Competency</li>
+<li><label class="jobseeker_MessagePosition" data-bind="text: specialityName"></label>
+    <!-- ko if: btnSpecialityList() == '+' -->
+        <a href="#" data-bind="    click: $root.expandSpecialityDetails, value: btnSpecialityList" ><img style="margin-left:562px;" src="/images/Orange_plusButton.png" /></a>
+    <!-- /ko -->
+      <!-- ko if: btnSpecialityList() == '-' -->
+        <a href="#" data-bind="    click: $root.expandSpecialityDetails, value: btnSpecialityList" ><img style="margin-left:562px;" src="/images/grey_minusButton.png" /></a>
+    <!-- /ko -->
+
 </li>
-    </ul>
+   
 <!-- ko if: btnSpecialityList() == '-' -->
     <div class="Skill" data-bind="foreach: skillArray" >
         <div   data-bind="  template: { name: 'Skill' }" ></div>

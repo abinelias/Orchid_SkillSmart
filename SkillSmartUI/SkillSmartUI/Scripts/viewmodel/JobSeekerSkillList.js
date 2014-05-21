@@ -325,6 +325,7 @@ $(document).ready(function () {
     }
 
     viewModel.changeProficiency = function (skillObj) {
+        setTimeout(function () {
         jsonObjectSkill = ko.toJS(skillObj);
 
         var dataObjSkill = getJobseekerSkillDetailsById(jsonObjectSkill.SkillId);
@@ -353,6 +354,7 @@ $(document).ready(function () {
                 alert('Error :' + error);
             }
         });
+        }, 100);
     }
 
     viewModel.deleteSkillDetails = function (skillObj)
@@ -360,6 +362,8 @@ $(document).ready(function () {
         alert("delete");
     }
 
-
+    viewModel.courseLink = function (skillObj) {
+        alert("Hello");
+    }
 });
 //alert(viewModel.categoryArray()[1].categoryName());

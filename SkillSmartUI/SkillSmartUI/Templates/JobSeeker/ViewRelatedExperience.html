@@ -13,7 +13,17 @@
 <!-- ko if: relatedExperienceArray -->
     <li class="jobseeker_myinformation_language_list_li_ul">
         <ul  class="jobseeker_list_li_ul"  data-bind="foreach: relatedExperienceArray">
-            <li class="jobseekerSkillRelatedExperience_li"><div class="RelatedExperience_label"><button class="delete_skillButton" data-bind = "click: $root.deleteRelatedExperience" >X</button><label data-bind="    text: companyName"></label></div></li>
+            <li >
+                 <div  class="ListReference">
+                    <div class="ListLanguage_Label">
+                        <label class="jobseeker_Reference" data-bind="    text: companyName"></label>
+                        <label data-bind="    text: position"></label>
+                    </div>
+                    <div class="ListLanguage_Button">
+                        <button class="delete_skillButton" data-bind = "click: $parent.deleteRelatedExperience" >X</button>
+                    </div>
+                </div>     
+            </li>
         </ul>
     </li>
 <!-- /ko -->

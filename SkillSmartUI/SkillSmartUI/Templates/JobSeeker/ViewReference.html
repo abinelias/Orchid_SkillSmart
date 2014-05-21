@@ -13,18 +13,16 @@
 <!-- ko if: referenceArray -->
 
         <ul  class="jobseeker_list_li_ul"  data-bind="foreach: referenceArray">
-            <li class="jobseekerSkillRelatedExperience_li">
-                <div class="RelatedExperience_label">
-                    <ul >
-                        <li>
-                            <button class="delete_skillButton" data-bind = "click: $root.deleteReference" >X</button>
-                            <label class="jobseeker_Reference" data-bind="    text: firstName"></label>
-                        </li>
-                        <li>                            
-                                <label style="float:left;text-align:left;" data-bind="    text: position"></label>                           
-                        </li>
-                    </ul>
-                </div>
+            <li class="jobseekerSkillRelatedExperience_li">                                             
+                <div  class="ListReference">
+                    <div class="ListLanguage_Label">
+                        <label class="jobseeker_Reference" data-bind="    text: firstName"></label>
+                        <label data-bind="    text: position"></label>
+                    </div>
+                    <div class="ListLanguage_Button">
+                        <button class="delete_skillButton" data-bind = "click: $parent.deleteReference" >X</button>
+                    </div>
+                </div>                     
             </li>
         </ul>
 

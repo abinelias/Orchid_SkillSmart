@@ -72,6 +72,7 @@
     <Content Include="images\bkgd-slider-arrow.png" />
     <Content Include="images\bkgd-slider-fill.png" />
     <Content Include="images\bkgd-slider.png" />
+    <Content Include="images\book_Icon.jpg" />
     <Content Include="images\delete_icon.png" />
     <Content Include="images\Down_Arrow_Icon.png" />
     <Content Include="images\EditObjectButton.png" />
@@ -79,10 +80,12 @@
     <Content Include="images\google-map.png" />
     <Content Include="images\google.png" />
     <Content Include="images\googleplus.png" />
+    <Content Include="images\grey_minusButton.png" />
     <Content Include="images\icon_small_mail.png" />
     <Content Include="images\linkedin.png" />
     <Content Include="images\logo.jpg" />
     <Content Include="images\minus.png" />
+    <Content Include="images\Orange_plusButton.png" />
     <Content Include="images\plus.png" />
     <Content Include="images\small-tick.png" />
     <Content Include="images\small_globe.jpg" />

@@ -13,22 +13,21 @@
 <!-- ko if: languages -->
     <li class="jobseeker_myinformation_language_list_li_ul">
         <ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: languages">
-            <li class="jobseekerSkillRelatedExperience_li">
-                 <div class="RelatedExperience_label">
-                    <ul >
-                        <li>
-                            <button class="delete_skillButton" data-bind = "click: $parent.deleteLanguage" >X</button>
-                            <label class="jobseeker_Reference" data-bind="    text: LanguageName"></label>
-                        </li>
-                        <li>                            
-                                <label style="float:left;text-align:left;" data-bind="    text: ProfociencyName"></label>                           
-                        </li>
-                    </ul>
+            <li >
+                <div  class="ListActivity">
+                    <div class="ListLanguage_Label">
+                       <label class="jobseeker_Reference" data-bind="    text: LanguageName"></label>
+                       <label data-bind="    text: ProfociencyName"></label>
+                    </div>
+                    <div class="ListLanguage_Button">
+                        <button class="delete_LanguageButton" data-bind = "click: $parent.deleteLanguage" >X</button>
+                    </div>
                 </div>
             </li>
-
-            
+           
         </ul>
+        
     </li>
+
 <!-- /ko -->
 
