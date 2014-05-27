@@ -70,6 +70,7 @@ var dataobjSkillList = getSkillList();
 var dataobjJobList = getJobsList();
 
 function initJobsApplied() {
+    viewModel.savedApplyCheck = ko.observable('1');
     viewModel.applyCheck = ko.observable('1');
     viewModel.disabled = ko.observable(false);
     viewModel.collapsible = ko.observable(false);
@@ -117,14 +118,6 @@ function createJobList(objJobs) {
     self.btnJobsList = ko.observable('+');
 }
 
-viewModel.expandJobDetails = function (objExpand) {
-    if (objExpand.btnJobsList() == '+') {
-        objExpand.btnJobsList('-');
-    }
-    else {
-        objExpand.btnJobsList('+');
-    }
-}
 
 viewModel.applyJobs = function (objExpand) {
     window.location = "AppliedJobs.html?userId=" + userId + "&jobId=" + objExpand.jobId;

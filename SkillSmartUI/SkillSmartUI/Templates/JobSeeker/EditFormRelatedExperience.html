@@ -3,6 +3,11 @@
     <li><input type="hidden" id="language_Id" data-bind= "value: Id" /></li>
     <li class="jobseeker_registration_outerli">
         <ul class="jobseeker_registration_ul">
+            <li class='jobseeker_additionalinformation_liwidth'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexCompanyName, data: $root.dataCompanyName }" /></li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
             <li class="jobseeker_registration_innerli">
             <label>Company Name</label>
             </li>
@@ -59,6 +64,7 @@
             </li>
         </ul>
     </li>
+
 
     <li class="jobseeker_additionalinformation_city_outerli">
         <ul class="jobseeker_additionalinformation_city_ul" >

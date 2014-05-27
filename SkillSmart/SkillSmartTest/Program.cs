@@ -11,11 +11,11 @@ namespace SkillSmartTest
     {
         public static void Main(string[] args)
         {
-            ListJobSeekerSkillController controller = new ListJobSeekerSkillController();
+            JobSeekerMessageController controller = new JobSeekerMessageController();
 
 
 
-            List<SkillSmart.Dto.ListingJobSeekerSkills> jobSeekerList = controller.GetAll("d7cb31e2-2288-44f7-99af-f1a27fc8027a").ToList<SkillSmart.Dto.ListingJobSeekerSkills>();
+            //List<SkillSmart.Dto.JobSeekerMessage> jobSeekerList = controller.GetAll("d7cb31e2-2288-44f7-99af-f1a27fc8027a").ToList<SkillSmart.Dto.JobSeekerMessage>();
             /*  if (jobSeekerList.Count >= 0)
               {
 
@@ -29,24 +29,20 @@ namespace SkillSmartTest
                  controller.Put(jobSeeker.Id.ToString(), jobSeeker);   
              }  
 
-           
-            
+           */
 
-            JobsList company = new JobsList();
-            company.JobPosition = "Accountant";
-            company.CompanyId = "123";
-            company.CompanyName = "Brandekko";
-            company.JobLocation = "Washington ,DC Area";
-            company.PostingDate = "Apr 29, 2014";
-            company.JobViews = "452";
-            company.ApplicantsNumber = "120";
-            company.ApplicantAverage = "68";
-            company.JobSalary = "731e7c90-9e62-4703-a463-8ce2bb6f5b48";
-            company.JobDescription = "Doing the account works at the company";
+
+            JobSeekerMessage company = new JobSeekerMessage();
+            company.JobSeekerId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
+            company.CompanyId = "50535a0e-0dae-4772-ad7f-d8737223fbdd";
+            company.EmployerId = "7a126dae-fa6c-45b5-bc0e-3e8289e9a356";
+            company.JobId = "d290d009-f473-4e53-8f73-8c5381931cd6";
+            company.Subject = "Call Letter";
+            company.Message = "Come and join on Aug 1St";
            
             controller.Post(company); 
             
-             */
+             
 
 
             //List<LookupDto> jobSeekerList2 = controller.GetAll("SecurityClearance").ToList<LookupDto>();

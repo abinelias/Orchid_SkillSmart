@@ -219,6 +219,7 @@ function getSavedJobSearch() {
 
 function initAdvancedJobSearch() {
 
+    viewModel.savedApplyCheck = ko.observable('0');
     viewModel.saveSearchCheck = ko.observable('0');
     viewModel.applyCheck = ko.observable('0');
     viewModel.listJobs = ko.observable('0');
@@ -476,7 +477,38 @@ function createListSearch() {
 
 viewModel.applyJobs = function (objExpand) {
     window.location = "AppliedJobs.html?userId=" + userId + "&jobId=" + objExpand.jobId;
+}
 
+viewModel.saveJobs = function (objExpand) {
+    alert(userId);
+    var today = new Date();
+    var monthtext = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    var dataObjSavedJobs;
+    var jobSeekerSavedJobsObj = {}
+    jobSeekerSavedJobsObj.JobId = objExpand.jobId;
+    jobSeekerSavedJobsObj.JobSeekerId = userId
+    jobSeekerSavedJobsObj.DateApplied = monthtext[today.getMonth()] + today.getDate() + ',' + today.getFullYear();
+
+
+    dataObjSavedJobs = JSON.stringify(jobSeekerSavedJobsObj);
+    var apiUrlSaveJob = GetWebAPIURL() + '/api/JobSeekerSavedJobs/';
+
+
+    //To create additional information of jobseeker
+    $.ajax({
+        url: apiUrlSaveJob,
+        type: "POST",
+        data: dataObjSavedJobs,
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        success: function (data) {
+            alert("job Saved Successfully");
+        },
+        error: function (xhr, error) {
+            alert('Error :' + error);
+        }
+    });
 }
 
 viewModel.deleteWork = function (objWork) {

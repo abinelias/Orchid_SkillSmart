@@ -16,8 +16,20 @@
             <li><input type='hidden' id='overviewIdPersonalInfo' data-bind='    value: myinfoid' /></li>
             <li class='jobseeker_myinformation_innerli' ><input type='text' id='industries-textbox' data-bind='wijtextbox: {}, value: industriesTextbox' /></li>
             <li class='jobseeker_myinformation_innerli' ><input type='text' id='speciality-textbox'  data-bind='wijtextbox: {}, value: specialityTextbox' /></li>
-            <li class='jobseeker_myinformation_innerli' ><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexSecurity, data: dataSecurity }" /></li>
-            <li class='jobseeker_myinformation_innerli' ><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexRelocate, data: dataRelocate }" /></li>
+            <li class='jobseeker_myinformation_innerli' ><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexSecurity, data: dataSecurity }" />
+                <!-- ko if: errorCheckSecurity() == '1' -->
+            <span class="validationMessage">select security Clearence</span>
+            <!-- /ko -->
+
+            </li>
+            
+            <li class='jobseeker_myinformation_innerli' ><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexRelocate, data: dataRelocate }" />
+                 <!-- ko if: errorCheckRelocate() == '1' -->
+            <span class="validationMessage">select Willing to relocate</span>
+            <!-- /ko -->
+            </li>
+            
+           
         </ul>
     </li>
     <li class="jobseeker_additionalinformation_city_outerli">

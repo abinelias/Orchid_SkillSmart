@@ -22,13 +22,14 @@ function createReference(da) {
     self.Id = ko.observable('');
     self.JobSeekerId = ko.observable(userId);
     self.jobSeekerSkillId = ko.observable('');
-    self.firstName = ko.observable('');
-    self.lastName = ko.observable('');
-    self.position = ko.observable('');
-    self.referenceDescription = ko.observable('');
+    self.firstName = ko.observable('').extend({ required: { message: "FirstName required" } });
+    self.lastName = ko.observable('').extend({ required: { message: "LastName required" } });
+    self.position = ko.observable('').extend({ required: { message: "Position required" } });
+    self.referenceDescription = ko.observable('').extend({ required: { message: "Description required" } });
     self.contactMethod = ko.observable();
     self.isEdit = ko.observable('0');
     self.deleteCheck = ko.observable('1');
+    self.errorReference = ko.validation.group({ p1: self.firstName, p2: self.lastName, p3: self.position, p4: self.referenceDescription });
     if (da) {
         self.Id(da.Id);
         self.JobSeekerId(da.JobSeekerId);
@@ -66,67 +67,72 @@ viewModel.editReferenceDetails = function (referenceObj) {
 }
 
 viewModel.saveReference = function (referenceObj) {
-    jsonObjectReference = ko.toJS(referenceObj);
-    if (jsonObjectReference.Id) {
-        var dataObjReference;
-        var jobSeekerReferenceObj = {}
+    if (referenceObj.firstName.isValid() && referenceObj.lastName.isValid() && referenceObj.position.isValid() && referenceObj.referenceDescription.isValid()) {
+        jsonObjectReference = ko.toJS(referenceObj);
+        if (jsonObjectReference.Id) {
+            var dataObjReference;
+            var jobSeekerReferenceObj = {}
 
-        jobSeekerReferenceObj.JobSeekerId = jsonObjectReference.JobSeekerId;
-        jobSeekerReferenceObj.JobSeekerSkillId = jsonObjectReference.jobSeekerSkillId;
-        jobSeekerReferenceObj.FirstName = jsonObjectReference.firstName;
-        jobSeekerReferenceObj.LastName = jsonObjectReference.lastName;
-        jobSeekerReferenceObj.Position = jsonObjectReference.position;
-        jobSeekerReferenceObj.Description = jsonObjectReference.referenceDescription;
-        jobSeekerReferenceObj.MethodOfContact = jsonObjectReference.contactMethod;
+            jobSeekerReferenceObj.JobSeekerId = jsonObjectReference.JobSeekerId;
+            jobSeekerReferenceObj.JobSeekerSkillId = jsonObjectReference.jobSeekerSkillId;
+            jobSeekerReferenceObj.FirstName = jsonObjectReference.firstName;
+            jobSeekerReferenceObj.LastName = jsonObjectReference.lastName;
+            jobSeekerReferenceObj.Position = jsonObjectReference.position;
+            jobSeekerReferenceObj.Description = jsonObjectReference.referenceDescription;
+            jobSeekerReferenceObj.MethodOfContact = jsonObjectReference.contactMethod;
 
-        dataObjReference = JSON.stringify(jobSeekerReferenceObj);
-        var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference?Id=' + jsonObjectReference.Id;
-        //To update Scholarship details
-        $.ajax({
-            url: apiUrlSkillReference,
-            type: "PUT",
-            data: dataObjReference,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                referenceObj.isEdit('0');
-                alert($parent.referenceCheck());
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+            dataObjReference = JSON.stringify(jobSeekerReferenceObj);
+            var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference?Id=' + jsonObjectReference.Id;
+            //To update Scholarship details
+            $.ajax({
+                url: apiUrlSkillReference,
+                type: "PUT",
+                data: dataObjReference,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    referenceObj.isEdit('0');
+                    alert($parent.referenceCheck());
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
 
+        }
+        else {
+            var dataObjReference;
+            var jobSeekerReferenceObj = {}
+
+            jobSeekerReferenceObj.JobSeekerId = jsonObjectReference.JobSeekerId;
+            jobSeekerReferenceObj.JobSeekerSkillId = jsonObjectReference.jobSeekerSkillId;
+            jobSeekerReferenceObj.FirstName = jsonObjectReference.firstName;
+            jobSeekerReferenceObj.LastName = jsonObjectReference.lastName;
+            jobSeekerReferenceObj.Position = jsonObjectReference.position;
+            jobSeekerReferenceObj.Description = jsonObjectReference.referenceDescription;
+            jobSeekerReferenceObj.MethodOfContact = jsonObjectReference.contactMethod;
+
+            dataObjReference = JSON.stringify(jobSeekerReferenceObj);
+            var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference';
+            //To insert data into scholarship table
+            $.ajax({
+                url: apiUrlSkillReference,
+                type: "POST",
+                data: dataObjReference,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    referenceObj.isEdit('0');
+                    referenceObj.Id(data);
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
     }
     else {
-        var dataObjReference;
-        var jobSeekerReferenceObj = {}
-
-        jobSeekerReferenceObj.JobSeekerId = jsonObjectReference.JobSeekerId;
-        jobSeekerReferenceObj.JobSeekerSkillId = jsonObjectReference.jobSeekerSkillId;
-        jobSeekerReferenceObj.FirstName = jsonObjectReference.firstName;
-        jobSeekerReferenceObj.LastName = jsonObjectReference.lastName;
-        jobSeekerReferenceObj.Position = jsonObjectReference.position;
-        jobSeekerReferenceObj.Description = jsonObjectReference.referenceDescription;
-        jobSeekerReferenceObj.MethodOfContact = jsonObjectReference.contactMethod;
-
-        dataObjReference = JSON.stringify(jobSeekerReferenceObj);
-        var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference';
-        //To insert data into scholarship table
-        $.ajax({
-            url: apiUrlSkillReference,
-            type: "POST",
-            data: dataObjReference,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                referenceObj.isEdit('0');
-                referenceObj.Id(data);
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+        referenceObj.errorReference.showAllMessages();
     }
 }
 viewModel.cancelReference = function (referenceObj) {
@@ -188,3 +194,9 @@ viewModel.deleteReference = function (referenceObj) {
         }
     }
 }
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});

@@ -347,5 +347,57 @@ namespace SkillSmartData.Factory
             }
             return serviceObj;
         }
+
+        public static IJobSeekerSavedJobsService<JobSeekerSavedJobs> GetJobSekerSavedJobs()
+        {
+            IJobSeekerSavedJobsService<JobSeekerSavedJobs> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new JobSeekerSavedJobsService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new JobSeekerSavedJobsService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IJobSeekerMessages<JobSeekerMessage> GetJobSekerMessages()
+        {
+            IJobSeekerMessages<JobSeekerMessage> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new JobSeekerMessageService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new JobSeekerMessageService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IEmployerMessages<EmployerMessage> GetEmployerMessages()
+        {
+            IEmployerMessages<EmployerMessage> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new EmployerMessageService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new EmployerMessageService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IEmployerService<Employer> GetEmployers()
+        {
+            IEmployerService<Employer> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new EmployerService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new EmployerService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
     }
 }

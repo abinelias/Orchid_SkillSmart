@@ -54,9 +54,13 @@
     <Compile Include="Entities\Certification.cs" />
     <Compile Include="Entities\Company.cs" />
     <Compile Include="Entities\Education.cs" />
+    <Compile Include="Entities\Employer.cs" />
+    <Compile Include="Entities\EmployerMessage.cs" />
     <Compile Include="Entities\ExtraCurricularActivity.cs" />
     <Compile Include="Entities\JobSeeker.cs" />
     <Compile Include="Entities\JobSeekerAppliedJobs.cs" />
+    <Compile Include="Entities\JobSeekerMessage.cs" />
+    <Compile Include="Entities\JobSeekerSavedJobs.cs" />
     <Compile Include="Entities\JobSeekerSkillList.cs" />
     <Compile Include="Entities\JobSkills.cs" />
     <Compile Include="Entities\JobsList.cs" />
@@ -81,8 +85,12 @@
     <Compile Include="Services\CertificationService.cs" />
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\EducationService.cs" />
+    <Compile Include="Services\EmployerMessageService.cs" />
+    <Compile Include="Services\EmployerService.cs" />
     <Compile Include="Services\ExtraCurricularActivityService.cs" />
     <Compile Include="Services\JobSeekerAppliedJobsService.cs" />
+    <Compile Include="Services\JobSeekerMessageService.cs" />
+    <Compile Include="Services\JobSeekerSavedJobsService.cs" />
     <Compile Include="Services\JobSeekerSkillListService.cs" />
     <Compile Include="Services\JobSkillsService.cs" />
     <Compile Include="Services\JobsListService.cs" />

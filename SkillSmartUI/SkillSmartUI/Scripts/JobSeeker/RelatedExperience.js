@@ -1,4 +1,7 @@
-﻿viewModel.whichTemplateToUseRelatedExperience = function (relatedExperienceObj) {
+﻿var url = window.location.href;
+var userId = url.substring(url.lastIndexOf('=') + 1);
+
+viewModel.whichTemplateToUseRelatedExperience = function (relatedExperienceObj) {
     selectedRelatedExperience = ko.toJS(relatedExperienceObj);
     return selectedRelatedExperience.isEditableRelatedExperience ? "ViewRelatedExperience" : "EditRelatedExperience";
 }
@@ -15,18 +18,45 @@ viewModel.addFirstRelatedExperience = function (relatedExperienceObj) {
 
     relatedExperienceObj.relatedExperienceArray.push(relatedExperience);
 }
+function getWorkHistoryCompany()
+{
+   
+    var apiUrlWorkHistory = GetWebAPIURL() + '/api/WorkHistory?jobSeekerId='+userId;
+    var dataWorkHistoryObj;
+
+    //TO get details of worktype lookup details
+    $.ajax({
+        url: apiUrlWorkHistory,
+        type: 'GET',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            dataWorkHistoryObj = data;
+            
+
+        },
+        error: function (xhr, status, error) {
+            alert('Error :' + status);
+        }
+    });
+    return dataWorkHistoryObj;
+   
+}
 
 function createRelatedExperience(da) {
     var self = this;
+    self.selectedIndexCompanyName = ko.observable(-1);
+
     self.Id = ko.observable('');
     self.JobSeekerId = ko.observable(userId);
     self.jobSeekerSkillId = ko.observable('');
-    self.companyName = ko.observable('');
-    self.position = ko.observable('');
+    self.companyName = ko.observable('').extend({ required: { message: "Company required" } });
+    self.position = ko.observable('').extend({ required: { message: "Position required" } });
     self.startDate = ko.observable('');
     self.endDate = ko.observable('');
     self.isEdit = ko.observable('0');
     self.deleteCheck = ko.observable('1');
+    self.errorRelatedExperience = ko.validation.group({ p1: self.companyName, p2: self.position });
     if (da) {
         self.Id(da.Id);
         self.JobSeekerId(da.JobSeekerId);
@@ -39,6 +69,19 @@ function createRelatedExperience(da) {
     }
 }
 
+function createListWorkHistory() {
+    
+    var dataWorkHistoryObj = getWorkHistoryCompany();
+    var list = [];
+    for (da in dataWorkHistoryObj) {
+        list.push({
+            label: dataWorkHistoryObj[da].CompanyName,
+            value: dataWorkHistoryObj[da].Id
+        });
+    }
+   
+    return list;
+}
 
 viewModel.clickButtonSkillRelatedExperience = function (relatedExperienceObj) {
     if (relatedExperienceObj.btnRelatedExperience() == "Add More") {
@@ -64,70 +107,101 @@ viewModel.editRelatedExperienceDetails = function (relatedExperienceObj) {
 }
 
 viewModel.saveRelatedExperience = function (relatedExperienceObj) {
-    jsonObjectRelatedExperience = ko.toJS(relatedExperienceObj);
-    if (jsonObjectRelatedExperience.Id) {
-        alert("hi");
-        var dataObjRelatedExperience;
-        var jobSeekerRelatedExperienceObj = {}
+    if (relatedExperienceObj.companyName.isValid() && relatedExperienceObj.position.isValid()) {
+        jsonObjectRelatedExperience = ko.toJS(relatedExperienceObj);
 
-        jobSeekerRelatedExperienceObj.JobSeekerId = jsonObjectRelatedExperience.JobSeekerId;
-        jobSeekerRelatedExperienceObj.JobSeekerSkillId = jsonObjectRelatedExperience.jobSeekerSkillId;
-        jobSeekerRelatedExperienceObj.CompanyName = jsonObjectRelatedExperience.companyName;
-        jobSeekerRelatedExperienceObj.Position = jsonObjectRelatedExperience.position;
-        jobSeekerRelatedExperienceObj.StartDate = convert(jsonObjectRelatedExperience.startDate);
-        jobSeekerRelatedExperienceObj.EndDate = convert(jsonObjectRelatedExperience.endDate);
+        if (jsonObjectRelatedExperience.Id) {
+            var dataObjRelatedExperience;
+            var jobSeekerRelatedExperienceObj = {}
 
-        dataObjRelatedExperience = JSON.stringify(jobSeekerRelatedExperienceObj);
-        alert(dataObjRelatedExperience);
-        var apiUrlRelatedExperience = GetWebAPIURL() + '/api/SkillRelatedExperience?Id=' + jsonObjectRelatedExperience.Id;
-        //To update Scholarship details
-        $.ajax({
-            url: apiUrlRelatedExperience,
-            type: "PUT",
-            data: dataObjRelatedExperience,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                relatedExperienceObj.isEdit('0');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+            jobSeekerRelatedExperienceObj.JobSeekerId = jsonObjectRelatedExperience.JobSeekerId;
+            jobSeekerRelatedExperienceObj.JobSeekerSkillId = jsonObjectRelatedExperience.jobSeekerSkillId;
+            jobSeekerRelatedExperienceObj.CompanyName = jsonObjectRelatedExperience.companyName;
+            jobSeekerRelatedExperienceObj.Position = jsonObjectRelatedExperience.position;
+            jobSeekerRelatedExperienceObj.StartDate = convert(jsonObjectRelatedExperience.startDate);
+            jobSeekerRelatedExperienceObj.EndDate = convert(jsonObjectRelatedExperience.endDate);
 
+            dataObjRelatedExperience = JSON.stringify(jobSeekerRelatedExperienceObj);
+            var apiUrlRelatedExperience = GetWebAPIURL() + '/api/SkillRelatedExperience?Id=' + jsonObjectRelatedExperience.Id;
+            //To update Scholarship details
+            $.ajax({
+                url: apiUrlRelatedExperience,
+                type: "PUT",
+                data: dataObjRelatedExperience,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    relatedExperienceObj.isEdit('0');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+
+        }
+        else {
+            var dataObjRelatedExperience;
+            var jobSeekerRelatedExperienceObj = {}
+
+            jobSeekerRelatedExperienceObj.JobSeekerId = jsonObjectRelatedExperience.JobSeekerId;
+            jobSeekerRelatedExperienceObj.JobSeekerSkillId = jsonObjectRelatedExperience.jobSeekerSkillId;
+            jobSeekerRelatedExperienceObj.CompanyName = jsonObjectRelatedExperience.companyName;
+            jobSeekerRelatedExperienceObj.Position = jsonObjectRelatedExperience.position;
+            jobSeekerRelatedExperienceObj.StartDate = jsonObjectRelatedExperience.startDate;
+            jobSeekerRelatedExperienceObj.EndDate = jsonObjectRelatedExperience.endDate;
+
+            dataObjRelatedExperience = JSON.stringify(jobSeekerRelatedExperienceObj);
+            var apiUrlRelatedExperience = GetWebAPIURL() + '/api/SkillRelatedExperience';
+            //To insert data into scholarship table
+            $.ajax({
+                url: apiUrlRelatedExperience,
+                type: "POST",
+                data: dataObjRelatedExperience,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    relatedExperienceObj.isEdit('0');
+                    relatedExperienceObj.Id(data);
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
+        if (jsonObjectRelatedExperience.selectedIndexCompanyName > -1) {
+            var dataObjSkill = getJobseekerSkillDetailsById(jsonObjectRelatedExperience.jobSeekerSkillId);
+            var jobSeekerSkillProficiencyObj = {}
+            jobSeekerSkillProficiencyObj.JobSeekerId = dataObjSkill.JobSeekerId;
+            jobSeekerSkillProficiencyObj.SkillMapId = dataObjSkill.SkillMapId;
+            jobSeekerSkillProficiencyObj.ExperienceId = dataObjSkill.ExperienceId;
+            jobSeekerSkillProficiencyObj.SkillAcquiredId = "63ac0887-82d4-43c6-8914-af47af0fab18";
+            jobSeekerSkillProficiencyObj.SkillParentCollectionId = viewModel.dataCompanyName()[jsonObjectRelatedExperience.selectedIndexCompanyName].value;
+            jobSeekerSkillProficiencyObj.ProficiencyId = dataObjSkill.val;
+
+            dataObjSkill = JSON.stringify(jobSeekerSkillProficiencyObj);
+            var apiUrlSkill = GetWebAPIURL() + '/api/JobSeekerSkillList?Id=' + jsonObjectRelatedExperience.jobSeekerSkillId;
+            //To insert data into scholarship table
+            $.ajax({
+                url: apiUrlSkill,
+                type: "PUT",
+                data: dataObjSkill,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
     }
     else {
-        alert("hi");
-        var dataObjRelatedExperience;
-        var jobSeekerRelatedExperienceObj = {}
-
-        jobSeekerRelatedExperienceObj.JobSeekerId = jsonObjectRelatedExperience.JobSeekerId;
-        jobSeekerRelatedExperienceObj.JobSeekerSkillId = jsonObjectRelatedExperience.jobSeekerSkillId;
-        jobSeekerRelatedExperienceObj.CompanyName = jsonObjectRelatedExperience.companyName;
-        jobSeekerRelatedExperienceObj.Position = jsonObjectRelatedExperience.position;
-        jobSeekerRelatedExperienceObj.StartDate = jsonObjectRelatedExperience.startDate;
-        jobSeekerRelatedExperienceObj.EndDate = jsonObjectRelatedExperience.endDate;
-
-        dataObjRelatedExperience = JSON.stringify(jobSeekerRelatedExperienceObj);
-        alert(dataObjRelatedExperience);
-        var apiUrlRelatedExperience = GetWebAPIURL() + '/api/SkillRelatedExperience';
-        //To insert data into scholarship table
-        $.ajax({
-            url: apiUrlRelatedExperience,
-            type: "POST",
-            data: dataObjRelatedExperience,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                relatedExperienceObj.isEdit('0');
-                relatedExperienceObj.Id(data);
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+        relatedExperienceObj.errorRelatedExperience.showAllMessages();
     }
+    
 }
+
 viewModel.cancelRelatedExperience = function (relatedExperienceObj) {
     jsonObjectRelatedExperienceObj = ko.toJS(relatedExperienceObj);
 
@@ -207,3 +281,9 @@ function convert(str) {
     return [mnth, day, date.getFullYear()].join("/");
 
 }
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});

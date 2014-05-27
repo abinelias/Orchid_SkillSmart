@@ -54,10 +54,12 @@ function createActivity(da) {
     self.JobSeekerId = ko.observable(userId);
     self.Id = ko.observable('');
     self.isEdit = ko.observable('0');
-    self.Activity = ko.observable('');
-    self.StartDate = ko.observable('');
-    self.EndDate = ko.observable('');
+    self.Activity = ko.observable('').extend({ required: { message: "Activity  required" } });
+    self.StartDate = ko.observable('').extend({ required: { message: "StartDate  required" } });
+    self.EndDate = ko.observable('').extend({ required: { message: "EndDate  required" } });
     self.deleteCheck = ko.observable('1');
+
+    self.errorActivity = ko.validation.group({ p1: self.Activity, p2: self.StartDate, p3: self.EndDate });
 
     if (da) {
         self.JobSeekerId(da.JobSeekerId);
@@ -84,64 +86,71 @@ viewModel.addFirstActivity = function () {
 }
 viewModel.saveActivities = function (activityObj) {
 
-    if (viewModel.activityCheck() == 1) {
-        document.getElementById("addMoreActivity").disabled = false;
-    }
-    var jsonObjectActivity = ko.toJS(activityObj);
-    //alert(convert(jsonObjectActivity.StartDate));
-    if (jsonObjectActivity.Id) {
-        var dataObjActivity;
-        var jobSeekerActivityObj = {}
-        jobSeekerActivityObj.JobSeekerId = jsonObjectActivity.JobSeekerId;
-        jobSeekerActivityObj.Activity = jsonObjectActivity.Activity;
-        jobSeekerActivityObj.StartDate = jsonObjectActivity.StartDate;
-        jobSeekerActivityObj.EndDate = jsonObjectActivity.EndDate;
 
-        dataObjActivity = JSON.stringify(jobSeekerActivityObj);
-        var apiUrlActivity = GetWebAPIURL() + '/api/ExtraCurricularActivity?Id=' + jsonObjectActivity.Id;
-        //To update Scholarship details
-        $.ajax({
-            url: apiUrlActivity,
-            type: "PUT",
-            data: dataObjActivity,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                activityObj.isEdit('0');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+    if (activityObj.Activity.isValid() && activityObj.StartDate.isValid() && activityObj.EndDate.isValid()) {
 
+        if (viewModel.activityCheck() == 1) {
+            document.getElementById("addMoreActivity").disabled = false;
+        }
+        var jsonObjectActivity = ko.toJS(activityObj);
+        //alert(convert(jsonObjectActivity.StartDate));
+        if (jsonObjectActivity.Id) {
+            var dataObjActivity;
+            var jobSeekerActivityObj = {}
+            jobSeekerActivityObj.JobSeekerId = jsonObjectActivity.JobSeekerId;
+            jobSeekerActivityObj.Activity = jsonObjectActivity.Activity;
+            jobSeekerActivityObj.StartDate = convert(jsonObjectActivity.StartDate);
+            jobSeekerActivityObj.EndDate = convert(jsonObjectActivity.EndDate);
+
+            dataObjActivity = JSON.stringify(jobSeekerActivityObj);
+            var apiUrlActivity = GetWebAPIURL() + '/api/ExtraCurricularActivity?Id=' + jsonObjectActivity.Id;
+            //To update Scholarship details
+            $.ajax({
+                url: apiUrlActivity,
+                type: "PUT",
+                data: dataObjActivity,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    activityObj.isEdit('0');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+
+        }
+        else {
+            var dataObjActivity;
+            var jobSeekerActivityObj = {}
+            jobSeekerActivityObj.JobSeekerId = jsonObjectActivity.JobSeekerId;
+            jobSeekerActivityObj.Activity = jsonObjectActivity.Activity;
+            jobSeekerActivityObj.StartDate = jsonObjectActivity.StartDate;
+            jobSeekerActivityObj.EndDate = jsonObjectActivity.EndDate;
+
+            dataObjActivity = JSON.stringify(jobSeekerActivityObj);
+            var apiUrlActivity = GetWebAPIURL() + '/api/ExtraCurricularActivity';
+            //To insert data into scholarship table
+            $.ajax({
+                url: apiUrlActivity,
+                type: "Post",
+                data: dataObjActivity,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    activityObj.isEdit('0');
+                    activityObj.Id(data);
+                    viewModel.activityCheck('1');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+
+        }
     }
     else {
-        var dataObjActivity;
-        var jobSeekerActivityObj = {}
-        jobSeekerActivityObj.JobSeekerId = jsonObjectActivity.JobSeekerId;
-        jobSeekerActivityObj.Activity = jsonObjectActivity.Activity;
-        jobSeekerActivityObj.StartDate = jsonObjectActivity.StartDate;
-        jobSeekerActivityObj.EndDate = jsonObjectActivity.EndDate;
-
-        dataObjActivity = JSON.stringify(jobSeekerActivityObj);
-        var apiUrlActivity = GetWebAPIURL() + '/api/ExtraCurricularActivity';
-        //To insert data into scholarship table
-        $.ajax({
-            url: apiUrlActivity,
-            type: "Post",
-            data: dataObjActivity,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                activityObj.isEdit('0');
-                activityObj.Id(data);
-                viewModel.activityCheck('1');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
-
+        activityObj.errorActivity.showAllMessages();
     }
 }
 viewModel.cancelActivities = function (activityObj) {
@@ -199,7 +208,7 @@ viewModel.deleteActivities = function (activityObj) {
 viewModel.clickButtonActivity = function () {
     document.getElementById("addMoreActivity").disabled = true;
     if (viewModel.btnActivity() == "Add More") {
-       
+
         var activity = new createActivity();
         activity.isEdit('1');
         activity.deleteCheck('0');
@@ -224,3 +233,9 @@ function convert(str) {
     return [mnth, day, date.getFullYear()].join("/");
 
 }
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});

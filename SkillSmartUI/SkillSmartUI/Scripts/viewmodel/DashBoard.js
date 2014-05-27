@@ -1,7 +1,7 @@
 ﻿var viewModel = {}
 $(document).ready(function () {
     $(function () {
-        ensureTemplates(["MessageCenter","JobsApplied","SkillList"]);
+        ensureTemplates(["MessageCenter", "JobsApplied", "SkillList", "JobsSaved"]);
     });
 
     function ensureTemplates(list) {

@@ -26,7 +26,6 @@ function getJobseekerSpecialityCourse() {
 }
 
 function initSpeciality() {
-
     viewModel.specialityCourse = ko.observableArray();
     viewModel.specialityCourseCheck = ko.observable('0');
     viewModel.specialityCourseButtonCheck = ko.observable('0');

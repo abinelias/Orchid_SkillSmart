@@ -109,7 +109,9 @@
     <Content Include="Scripts\JobSeeker\Education.js" />
     <Content Include="Scripts\JobSeeker\FilteredJob.js" />
     <Content Include="Scripts\JobSeeker\JobsApplied.js" />
+    <Content Include="Scripts\JobSeeker\JobsSaved.js" />
     <Content Include="Scripts\JobSeeker\Language.js" />
+    <Content Include="Scripts\JobSeeker\listSkill.js" />
     <Content Include="Scripts\JobSeeker\MessageCenter.js" />
     <Content Include="Scripts\JobSeeker\Notification.js" />
     <Content Include="Scripts\JobSeeker\PersonalInfo.js" />
@@ -141,6 +143,7 @@
     <Content Include="Scripts\viewmodel\advancedJobSearch.js" />
     <Content Include="Scripts\viewmodel\appliedJobs.js" />
     <Content Include="Scripts\viewmodel\DashBoard.js" />
+    <Content Include="Scripts\viewmodel\jobSeekerMessages.js" />
     <Content Include="Scripts\viewmodel\JobSeekerSkillList.js" />
     <Content Include="Scripts\viewmodel\myInformation.js" />
     <Content Include="Scripts\viewmodel\popupSkills.js" />
@@ -171,6 +174,8 @@
     <Content Include="Templates\JobSeeker\EditWorkExperience.html" />
     <Content Include="Templates\JobSeeker\JobsApplied.html" />
     <Content Include="Templates\JobSeeker\JobSearch.html" />
+    <Content Include="Templates\JobSeeker\JobSeekerMessageResponse.html" />
+    <Content Include="Templates\JobSeeker\JobsSaved.html" />
     <Content Include="Templates\JobSeeker\MessageCenter.html" />
     <Content Include="Templates\JobSeeker\NotificationPreferences.html" />
     <Content Include="Templates\JobSeeker\Reference.html" />
@@ -233,7 +238,7 @@
     <Content Include="Views\JobSeeker\AccountInformation.html" />
     <Content Include="Views\JobSeeker\AdvancedJobSearch.html" />
     <Content Include="Views\JobSeeker\AppliedJobs.html" />
-    <Content Include="Views\JobSeeker\DashBoard.html" />
+    <Content Include="Views\JobSeeker\JobSeekerMessages.html" />
     <Content Include="Views\JobSeeker\JobSeekerSkillList.html" />
     <Content Include="Views\JobSeeker\JobSeekerList.html" />
     <Content Include="Views\JobSeeker\MyInformtion.html" />

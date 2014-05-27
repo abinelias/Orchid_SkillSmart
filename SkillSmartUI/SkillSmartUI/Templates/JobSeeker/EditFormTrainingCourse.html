@@ -15,7 +15,13 @@
             </li>
             <li class="jobseeker_registration_outerli">
                 <ul class="jobseeker_registration_ul">
-                    <li class="jobseeker_additionalinformation_innerli"><input style="width:110px;" data-bind="wijcombobox: { selectedIndex: selectedIndexProgramType, data: $parent.dataProgramType }" /></li>
+                    <li class="jobseeker_additionalinformation_innerli"><input style="width:110px;" data-bind="wijcombobox: { selectedIndex: selectedIndexProgramType, data: $parent.dataProgramType }" />
+                        <!-- ko if: errorCheckProgramType() == '1' --> 
+                        
+                            <span class="validationMessage">select Degree</span>
+                       
+                        <!-- /ko -->
+                    </li>
                     <li class="jobseeker_myinformation_innerli" style="padding-top:10px;"><input type="checkbox" id="Currently_Enrolled" data-bind="wijcheckbox: { checked: currentlyEnrolled }" />Currently Enrolled</li>
                 </ul>
             </li>

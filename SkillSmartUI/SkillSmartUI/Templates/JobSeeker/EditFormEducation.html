@@ -28,7 +28,13 @@
             </li>
             <li class="jobseeker_registration_outerli">
                 <ul class="jobseeker_registration_ul">
-                    <li class="jobseeker_additionalinformation_innerli"><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexDegreeType, data: $parent.dataDegreeType }" /></li>
+                    <li class="jobseeker_additionalinformation_innerli"><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexDegreeType, data: $parent.dataDegreeType }" />
+                          <!-- ko if: errorCheckDegree() == '1' --> 
+                        
+                            <span class="validationMessage">select Degree</span>
+                       
+                        <!-- /ko -->
+                    </li>
                         <li class="jobseeker_myinformation_innerli" style="padding-top:10px;"><input type="text" id="Major_Focus" placeholder="Major Focus"  data-bind="wijtextbox: {}, value: majorFocus" /></li>
                 </ul>
             </li>
@@ -41,7 +47,7 @@
             <li class="jobseeker_registration_outerli">
                 <ul class="jobseeker_registration_ul">
                     <li class="jobseeker_additionalinformation_innerli"><input type="text" id="StartDateDegree" placeholder="Start Date"  data-bind="wijinputdate: { date: startDate, showTrigger: true }" /></li>
-                    <li class="jobseeker_myinformation_innerli"><!-- ko if: currentlyStudying()--> <input type="text"  placeholder="End Date"  value="present" disabled /><!-- /ko --> <!-- ko ifnot: currentlyStudying()--> <input type="text" id="EndDate" placeholder="End Date"  data-bind=" wijinputdate: { date: endDate, showTrigger: true }" /><!-- /ko --></li>
+                    <li class="jobseeker_myinformation_innerli"><!-- ko if: currentlyStudying()--> <input type="text"  placeholder="End Date"  value="present" disabled /><!-- /ko --> <!-- ko ifnot: currentlyStudying()--> <input type="text" id="education_endDate" placeholder="End Date"  data-bind=" wijinputdate: { date: endDate, showTrigger: true }" /><!-- /ko --></li>
                 </ul>
             </li>
              <li class="jobseeker_registration_outerli">

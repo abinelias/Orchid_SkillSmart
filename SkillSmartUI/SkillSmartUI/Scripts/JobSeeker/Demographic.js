@@ -44,8 +44,8 @@ function initDemographic()
     viewModel.birthMonthList = ko.observableArray();
     viewModel.birthYear = ko.observable();
     viewModel.birthYearList = ko.observableArray();*/
-    viewModel.gender = ko.observable();
-    viewModel.ethnicity = ko.observable();
+    viewModel.gender = ko.observable("male");
+    viewModel.ethnicity = ko.observable().extend({ required: { message: "Ethnicity Required" } });
 
    
 
@@ -89,6 +89,9 @@ function initDemographic()
    /* viewModel.birthday = ko.computed(function () {
         return viewModel.birthMonth() + " " + viewModel.birthDate() + ", " + viewModel.birthYear();
     }, viewModel);*/
+
+    viewModel.errorDemographic = ko.validation.group({ p1: viewModel.ethnicity });
+
 }
 var birthDay;
 var jobseekerGender;
@@ -109,106 +112,111 @@ viewModel.addADemographic = function () {
     this.jobseekerId(userId);
 }
 viewModel.saveDemographic = function () {
-    
-    var apiUrlAdditionalInfo = GetWebAPIURL() + '/api/AdditionalInformation/' + userId;
-    var dataObjAdditionalInfo;
-    //To get overview details
-    $.ajax({
-        url: apiUrlAdditionalInfo,
-        type: 'GET',
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            dataObjAdditionalInfo = data;
-        },
-        error: function (xhr, status, error) {
-            alert('Eroooror :' + status);
+    if (viewModel.ethnicity.isValid()) {
+        var apiUrlAdditionalInfo = GetWebAPIURL() + '/api/AdditionalInformation/' + userId;
+        var dataObjAdditionalInfo;
+        //To get overview details
+        $.ajax({
+            url: apiUrlAdditionalInfo,
+            type: 'GET',
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                dataObjAdditionalInfo = data;
+            },
+            error: function (xhr, status, error) {
+                alert('Eroooror :' + status);
+            }
+        });
+
+        var dataAdditionalInfoObject;
+        var jobSeekerAdditionalInfoEditObj = {}
+        var jsonObject = ko.toJS(viewModel);
+
+        if (dataObjAdditionalInfo) {
+            jobSeekerAdditionalInfoEditObj.JobSeekerId = userId;
+            jobSeekerAdditionalInfoEditObj.Title = dataObjAdditionalInfo.Title;
+            jobSeekerAdditionalInfoEditObj.Suffix = dataObjAdditionalInfo.Suffix;
+            jobSeekerAdditionalInfoEditObj.MiddleName = dataObjAdditionalInfo.MiddleName;
+            jobSeekerAdditionalInfoEditObj.PreferedName = dataObjAdditionalInfo.PreferedName;
+            jobSeekerAdditionalInfoEditObj.AddressLine1 = dataObjAdditionalInfo.AddressLine1;
+            jobSeekerAdditionalInfoEditObj.AddressLine2 = dataObjAdditionalInfo.AddressLine2;
+            jobSeekerAdditionalInfoEditObj.City = dataObjAdditionalInfo.City;
+            jobSeekerAdditionalInfoEditObj.StateId = dataObjAdditionalInfo.StateId;
+            jobSeekerAdditionalInfoEditObj.CountryId = dataObjAdditionalInfo.CountryId;
+            jobSeekerAdditionalInfoEditObj.ZipCode = dataObjAdditionalInfo.ZipCode;
+            jobSeekerAdditionalInfoEditObj.HomePhone = dataObjAdditionalInfo.HomePhone;
+            jobSeekerAdditionalInfoEditObj.MethodOfContact = dataObjAdditionalInfo.MethodOfContact;
+            jobSeekerAdditionalInfoEditObj.Citizenship = dataObjAdditionalInfo.Citizenship;
+            jobSeekerAdditionalInfoEditObj.Experience = dataObjAdditionalInfo.Experience;
+            if (dataObjAdditionalInfo.Notification)
+                jobSeekerAdditionalInfoEditObj.Notification = dataObjAdditionalInfo.Notification.toString();
+
+
+            jobSeekerAdditionalInfoEditObj.BirthDate = convert(viewModel.birthDate());
+            viewModel.birthDate(convert(viewModel.birthDate()));
+            /* jobSeekerAdditionalInfoEditObj.BirthMonth = jsonObject.birthMonth;
+             jobSeekerAdditionalInfoEditObj.BirthYear = jsonObject.birthYear;*/
+            jobSeekerAdditionalInfoEditObj.Ethinicity = jsonObject.ethnicity;
+            jobSeekerAdditionalInfoEditObj.Gender = jsonObject.gender;
+            dataAdditionalInfoObject = JSON.stringify(jobSeekerAdditionalInfoEditObj);
         }
-    });
+        else {
+            jobSeekerAdditionalInfoEditObj.JobSeekerId = userId;
+            jobSeekerAdditionalInfoEditObj.BirthDate = convert(viewModel.birthDate());
+            /*jobSeekerAdditionalInfoEditObj.BirthMonth = jsonObject.birthMonth;
+            jobSeekerAdditionalInfoEditObj.BirthYear = jsonObject.birthYear;*/
+            jobSeekerAdditionalInfoEditObj.Ethinicity = jsonObject.ethnicity;
+            jobSeekerAdditionalInfoEditObj.Gender = jsonObject.gender;
+            dataAdditionalInfoObject = JSON.stringify(jobSeekerAdditionalInfoEditObj);
+        }
 
-    var dataAdditionalInfoObject;
-    var jobSeekerAdditionalInfoEditObj = {}
-    var jsonObject = ko.toJS(viewModel);
+        if (jsonObject.accountInfoId) {
+            var apiUrlAdditionalInfo = GetWebAPIURL() + '/api/AdditionalInformation/' + jsonObject.accountInfoId;
+            //To update Overview table
+            $.ajax({
+                url: apiUrlAdditionalInfo,
+                type: "PUT",
+                data: dataAdditionalInfoObject,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    viewModel.isEditableDemographic(false);
+                    viewModel.btnDemographic("Edit");
+                    viewModel.demographicCheck('1');
 
-    if (dataObjAdditionalInfo) {
-        jobSeekerAdditionalInfoEditObj.JobSeekerId = userId;
-        jobSeekerAdditionalInfoEditObj.Title = dataObjAdditionalInfo.Title;
-        jobSeekerAdditionalInfoEditObj.Suffix = dataObjAdditionalInfo.Suffix;
-        jobSeekerAdditionalInfoEditObj.MiddleName = dataObjAdditionalInfo.MiddleName;
-        jobSeekerAdditionalInfoEditObj.PreferedName = dataObjAdditionalInfo.PreferedName;
-        jobSeekerAdditionalInfoEditObj.AddressLine1 = dataObjAdditionalInfo.AddressLine1;
-        jobSeekerAdditionalInfoEditObj.AddressLine2 = dataObjAdditionalInfo.AddressLine2;
-        jobSeekerAdditionalInfoEditObj.City = dataObjAdditionalInfo.City;
-        jobSeekerAdditionalInfoEditObj.StateId = dataObjAdditionalInfo.StateId;
-        jobSeekerAdditionalInfoEditObj.CountryId = dataObjAdditionalInfo.CountryId;
-        jobSeekerAdditionalInfoEditObj.ZipCode = dataObjAdditionalInfo.ZipCode;
-        jobSeekerAdditionalInfoEditObj.HomePhone = dataObjAdditionalInfo.HomePhone;
-        jobSeekerAdditionalInfoEditObj.MethodOfContact = dataObjAdditionalInfo.MethodOfContact;
-        jobSeekerAdditionalInfoEditObj.Citizenship = dataObjAdditionalInfo.Citizenship;
-        jobSeekerAdditionalInfoEditObj.Experience = dataObjAdditionalInfo.Experience;
-        if (dataObjAdditionalInfo.Notification)
-            jobSeekerAdditionalInfoEditObj.Notification = dataObjAdditionalInfo.Notification.toString();
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
 
-
-        jobSeekerAdditionalInfoEditObj.BirthDate = convert(viewModel.birthDate());
-        viewModel.birthDate(convert(viewModel.birthDate()));
-       /* jobSeekerAdditionalInfoEditObj.BirthMonth = jsonObject.birthMonth;
-        jobSeekerAdditionalInfoEditObj.BirthYear = jsonObject.birthYear;*/
-        jobSeekerAdditionalInfoEditObj.Ethinicity = jsonObject.ethnicity;
-        jobSeekerAdditionalInfoEditObj.Gender = jsonObject.gender;
-        dataAdditionalInfoObject = JSON.stringify(jobSeekerAdditionalInfoEditObj);
+        }
+        else {
+            var apiUrlAdditionalInfo = GetWebAPIURL() + '/api/AdditionalInformation/';
+            //To Isert details into overview table
+            $.ajax({
+                url: apiUrlAdditionalInfo,
+                type: "POST",
+                data: dataAdditionalInfoObject,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    viewModel.accountInfoId(data);
+                    viewModel.isEditableDemographic(false);
+                    viewModel.btnDemographic("Edit");
+                    //viewModel.overviewId(data);
+                    viewModel.demographicCheck('1');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
     }
     else {
-        jobSeekerAdditionalInfoEditObj.JobSeekerId = userId;
-        jobSeekerAdditionalInfoEditObj.BirthDate = convert(viewModel.birthDate());
-        /*jobSeekerAdditionalInfoEditObj.BirthMonth = jsonObject.birthMonth;
-        jobSeekerAdditionalInfoEditObj.BirthYear = jsonObject.birthYear;*/
-        jobSeekerAdditionalInfoEditObj.Ethinicity = jsonObject.ethnicity;
-        jobSeekerAdditionalInfoEditObj.Gender = jsonObject.gender;
-        dataAdditionalInfoObject = JSON.stringify(jobSeekerAdditionalInfoEditObj);
-    }
 
-    if (jsonObject.accountInfoId) {
-        var apiUrlAdditionalInfo = GetWebAPIURL() + '/api/AdditionalInformation/' + jsonObject.accountInfoId;
-        //To update Overview table
-        $.ajax({
-            url: apiUrlAdditionalInfo,
-            type: "PUT",
-            data: dataAdditionalInfoObject,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                viewModel.isEditableDemographic(false);
-                viewModel.btnDemographic("Edit");
-                viewModel.demographicCheck('1');
-
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
-
-    }
-    else {
-        var apiUrlAdditionalInfo = GetWebAPIURL() + '/api/AdditionalInformation/';
-        //To Isert details into overview table
-        $.ajax({
-            url: apiUrlAdditionalInfo,
-            type: "POST",
-            data: dataAdditionalInfoObject,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                viewModel.accountInfoId(data);
-                viewModel.isEditableDemographic(false);
-                viewModel.btnDemographic("Edit");
-                //viewModel.overviewId(data);
-                viewModel.demographicCheck('1');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+        viewModel.errorDemographic.showAllMessages();
     }
 }
 viewModel.cancelDemographic = function ()
@@ -231,3 +239,9 @@ function convert(str) {
         return [mnth, day, date.getFullYear()].join("/");
    
 }
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});

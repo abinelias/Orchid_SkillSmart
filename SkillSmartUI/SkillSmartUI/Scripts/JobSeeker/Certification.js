@@ -53,22 +53,24 @@ function certificationCreate(objCertification) {
     self.jobseekerId = ko.observable(userId);
     self.certificationId = ko.observable();
 
-    self.certificationName = ko.observable();
+    self.certificationName = ko.observable().extend({ required: { message: "certificationName required" } });
     self.certificationEnrolled = ko.observable();
-    self.certificationInstituion = ko.observable();
-    self.completedDate = ko.observable();
-    self.expireDate = ko.observable();
-    self.certificationDetails = ko.observable();
+    self.certificationInstituion = ko.observable().extend({ required: { message: "Instituion required" } });
+    self.completedDate = ko.observable().extend({ required: { message: "completedDate required" } });
+    self.expireDate = ko.observable().extend({ required: { message: "expireDate required" } });
+    self.certificationDetails = ko.observable().extend({ required: { message: "certificationDetails required" } });
     self.deleteCheck = ko.observable('1');
 
-    self.emailAddress = ko.observable();
-    self.phone = ko.observable();
-    self.address = ko.observable();
-    self.city = ko.observable();
-    self.state = ko.observable();
-    self.url = ko.observable();
+    self.emailAddress = ko.observable().extend({ required: { message: "email required" } });
+    self.phone = ko.observable().extend({ required: { message: "phone required" } });
+    self.address = ko.observable().extend({ required: { message: "address required" } });
+    self.city = ko.observable().extend({ required: { message: "city required" } });
+    self.state = ko.observable().extend({ required: { message: "state required" } });
+    self.url = ko.observable().extend({ required: { message: "Website required" } });
 
     self.isEditCertification = ko.observable('0');
+
+    self.errorCertification = ko.validation.group({ p1: self.certificationName, p2: self.certificationInstituion, p3: self.completedDate, p4: self.expireDate, p5: self.certificationDetails, p7: self.emailAddress, p8: self.phone, p9: self.address, p10: self.city, p11: self.state, p12: self.url });
     if (objCertification) {
 
         self.jobseekerId(objCertification.JobSeekerId);
@@ -90,107 +92,110 @@ function certificationCreate(objCertification) {
         self.isEditCertification('0');
     }
 }
+
 viewModel.saveCertification = function (certificationObj) {
+    if (certificationObj.certificationName.isValid() && certificationObj.certificationDetails.isValid() && certificationObj.certificationInstituion.isValid() && certificationObj.completedDate.isValid() && certificationObj.expireDate.isValid() && certificationObj.emailAddress.isValid() && certificationObj.phone.isValid() && certificationObj.address.isValid() && certificationObj.city.isValid() && certificationObj.state.isValid() && certificationObj.url.isValid()) {
+        if (viewModel.certificationButtonCheck() == 1) {
+            document.getElementById("addMoreCertification").disabled = false;
+        }
 
-    if (viewModel.certificationButtonCheck() == 1) {
-        document.getElementById("addMoreCertification").disabled = false;
-    }
+        var jsonObjectVM = ko.toJS(viewModel);
+        var jsonObjectCertification = ko.toJS(certificationObj);
 
-    var jsonObjectVM = ko.toJS(viewModel);
-    var jsonObjectCertification = ko.toJS(certificationObj);
+        if (jsonObjectCertification.certificationId) {
 
-    if (jsonObjectCertification.certificationId) {
+            var dataobjCertification;
+            var jobseekerCertificationObj = {}
+            jobseekerCertificationObj.JobSeekerId = jsonObjectCertification.jobseekerId;
+            jobseekerCertificationObj.CertificationName = jsonObjectCertification.certificationName;
+            jobseekerCertificationObj.CurrentlyEnrolled = jsonObjectCertification.certificationEnrolled;
+            jobseekerCertificationObj.InstitutionName = jsonObjectCertification.certificationInstituion;
+            jobseekerCertificationObj.ExpirationDate = convert(jsonObjectCertification.expireDate);
+            if (jsonObjectCertification.certificationEnrolled) {
+                jobseekerCertificationObj.CompletionDate = "present";
+                jsonObjectCertification.completedDate = "present";
+            }
+            else {
+                jobseekerCertificationObj.CompletionDate = convert(jsonObjectCertification.completedDate);
+            }
+            jobseekerCertificationObj.CertificationDetails = jsonObjectCertification.certificationDetails;
 
-        var dataobjCertification;
-        var jobseekerCertificationObj = {}
-        jobseekerCertificationObj.JobSeekerId = jsonObjectCertification.jobseekerId;
-        jobseekerCertificationObj.CertificationName = jsonObjectCertification.certificationName;
-        jobseekerCertificationObj.CurrentlyEnrolled = jsonObjectCertification.certificationEnrolled;
-        jobseekerCertificationObj.InstitutionName = jsonObjectCertification.certificationInstituion;
-        jobseekerCertificationObj.ExpirationDate = convert(jsonObjectCertification.expireDate);
-        if (jsonObjectCertification.certificationEnrolled) {
-            jobseekerCertificationObj.CompletionDate = "present";
-            jsonObjectCertification.completedDate = "present";
+            jobseekerCertificationObj.Email = jsonObjectCertification.emailAddress;
+            jobseekerCertificationObj.Phone = jsonObjectCertification.phone;
+            jobseekerCertificationObj.Address = jsonObjectCertification.address;
+            jobseekerCertificationObj.City = jsonObjectCertification.city;
+            jobseekerCertificationObj.State = jsonObjectCertification.state;
+            jobseekerCertificationObj.Website = jsonObjectCertification.url;
+
+            dataobjCertification = JSON.stringify(jobseekerCertificationObj);
+            var apiUrlCertification = GetWebAPIURL() + '/api/Certification?Id=' + jsonObjectCertification.certificationId;
+            var certificationObject;
+            //To update Certification
+            $.ajax({
+                url: apiUrlCertification,
+                type: "PUT",
+                data: dataobjCertification,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    certificationObj.isEditCertification('0');
+                    certificationObj.completedDate(convert(jsonObjectCertification.completedDate));
+                    certificationObj.expireDate(convert(jsonObjectCertification.expireDate));
+                }, error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
         }
         else {
-            jobseekerCertificationObj.CompletionDate = convert(jsonObjectCertification.completedDate);
-        }
-        jobseekerCertificationObj.CertificationDetails = jsonObjectCertification.certificationDetails;
-
-        jobseekerCertificationObj.Email = jsonObjectCertification.emailAddress;
-        jobseekerCertificationObj.Phone = jsonObjectCertification.phone;
-        jobseekerCertificationObj.Address = jsonObjectCertification.address;
-        jobseekerCertificationObj.City = jsonObjectCertification.city;
-        jobseekerCertificationObj.State = jsonObjectCertification.state;
-        jobseekerCertificationObj.Website = jsonObjectCertification.url;
-
-        dataobjCertification = JSON.stringify(jobseekerCertificationObj);
-        var apiUrlCertification = GetWebAPIURL() + '/api/Certification?Id=' + jsonObjectCertification.certificationId;
-        var certificationObject;
-        //To update Certification
-        $.ajax({
-            url: apiUrlCertification,
-            type: "PUT",
-            data: dataobjCertification,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                certificationObj.isEditCertification('0');
-                certificationObj.completedDate(convert(jsonObjectCertification.completedDate));
-                certificationObj.expireDate(convert(jsonObjectCertification.expireDate));
-            }, error: function (xhr, error) {
-                alert('Error :' + error);
+            var dataobjCertification;
+            var jobseekerCertificationObj = {}
+            jobseekerCertificationObj.JobSeekerId = jsonObjectVM.jobseekerId;
+            jobseekerCertificationObj.CertificationName = jsonObjectCertification.certificationName;
+            jobseekerCertificationObj.CurrentlyEnrolled = jsonObjectCertification.certificationEnrolled;
+            jobseekerCertificationObj.InstitutionName = jsonObjectCertification.certificationInstituion;
+            jobseekerCertificationObj.ExpirationDate = convert(jsonObjectCertification.expireDate);
+            if (jsonObjectCertification.certificationEnrolled) {
+                jobseekerCertificationObj.CompletionDate = "present";
+                jsonObjectCertification.completedDate = "present";
             }
-        });
+            else {
+                jobseekerCertificationObj.CompletionDate = convert(jsonObjectCertification.completedDate);
+            }
+            jobseekerCertificationObj.CertificationDetails = jsonObjectCertification.certificationDetails;
+
+            jobseekerCertificationObj.Email = jsonObjectCertification.emailAddress;
+            jobseekerCertificationObj.Phone = jsonObjectCertification.phone;
+            jobseekerCertificationObj.Address = jsonObjectCertification.address;
+            jobseekerCertificationObj.City = jsonObjectCertification.city;
+            jobseekerCertificationObj.State = jsonObjectCertification.state;
+            jobseekerCertificationObj.Website = jsonObjectCertification.url;
+
+            dataobjCertification = JSON.stringify(jobseekerCertificationObj);
+            var apiUrlCertification = GetWebAPIURL() + '/api/Certification';
+            //To create Certification
+            $.ajax({
+                url: apiUrlCertification,
+                type: "POST",
+                data: dataobjCertification,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    certificationObj.certificationId(data);
+                    certificationObj.isEditCertification('0');
+                    certificationObj.completedDate(convert(jsonObjectCertification.completedDate));
+                    certificationObj.expireDate(convert(jsonObjectCertification.expireDate));
+                    viewModel.certificationButtonCheck('1');
+
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
     }
     else {
-        var dataobjCertification;
-        var jobseekerCertificationObj = {}
-        jobseekerCertificationObj.JobSeekerId = jsonObjectVM.jobseekerId;
-        jobseekerCertificationObj.CertificationName = jsonObjectCertification.certificationName;
-        jobseekerCertificationObj.CurrentlyEnrolled = jsonObjectCertification.certificationEnrolled;
-        jobseekerCertificationObj.InstitutionName = jsonObjectCertification.certificationInstituion;
-        jobseekerCertificationObj.ExpirationDate = convert(jsonObjectCertification.expireDate);
-        if (jsonObjectCertification.certificationEnrolled) {
-            jobseekerCertificationObj.CompletionDate = "present";
-            jsonObjectCertification.completedDate = "present";
-        }
-        else {
-            jobseekerCertificationObj.CompletionDate = convert(jsonObjectCertification.completedDate);
-        }
-        jobseekerCertificationObj.CertificationDetails = jsonObjectCertification.certificationDetails;
-
-        jobseekerCertificationObj.Email = jsonObjectCertification.emailAddress;
-        jobseekerCertificationObj.Phone = jsonObjectCertification.phone;
-        jobseekerCertificationObj.Address = jsonObjectCertification.address;
-        jobseekerCertificationObj.City = jsonObjectCertification.city;
-        jobseekerCertificationObj.State = jsonObjectCertification.state;
-        jobseekerCertificationObj.Website = jsonObjectCertification.url;
-
-        dataobjCertification = JSON.stringify(jobseekerCertificationObj);
-        var apiUrlCertification = GetWebAPIURL() + '/api/Certification';
-        //To create Certification
-        $.ajax({
-            url: apiUrlCertification,
-            type: "POST",
-            data: dataobjCertification,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                certificationObj.certificationId(data);
-                certificationObj.isEditCertification('0');
-                certificationObj.completedDate(convert(jsonObjectCertification.completedDate));
-                certificationObj.expireDate(convert(jsonObjectCertification.expireDate));
-                viewModel.certificationButtonCheck('1');
-
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+        certificationObj.errorCertification.showAllMessages();
     }
-
-
 }
 
 viewModel.editCertificationDetails = function (certificationObj) {
@@ -285,3 +290,9 @@ function convert(str) {
         return [mnth, day, date.getFullYear()].join("/");
     }
 }
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});

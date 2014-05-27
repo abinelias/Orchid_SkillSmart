@@ -1,6 +1,10 @@
 ﻿var viewModel = {}
-var url = window.location.href;
-var userId = url.substring(url.lastIndexOf('=') + 1);
+
+var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+var userId = hashes[1].substring(7);
+var acquiredId = hashes[2].substring(11);
+var workHistoryId = hashes[3].substring(13);
+
 $(document).ready(function () {
 
     (function (ko, $) {
@@ -154,10 +158,10 @@ viewModel.saveSkills = function () {
     var jsonObject = ko.toJS(viewModel);
     var jobseekerAddSkillObj = {}
     jobseekerAddSkillObj.JobSeekerId = userId;
+    jobseekerAddSkillObj.SkillAcquiredId = acquiredId;
+    jobseekerAddSkillObj.SkillParentCollectionId = workHistoryId;
     jobseekerAddSkillObj.SkillMapId = jsonObject.selectedSkill.toString();
-
     dataobjAddSkill = JSON.stringify(jobseekerAddSkillObj);
-    alert(dataobjAddSkill);
     var apiUrlAddSkill = GetWebAPIURL() + '/api/JobSeekerSkillList/';
 
     $.ajax({
@@ -167,8 +171,7 @@ viewModel.saveSkills = function () {
         contentType: "application/json; charset=utf-8",
         async: false,
         success: function (data) {
-            alert("465156");
-            $(this).dialog('destroy');
+            $(dialog).dialog("close");
             
         },
         error: function (xhr, error) {

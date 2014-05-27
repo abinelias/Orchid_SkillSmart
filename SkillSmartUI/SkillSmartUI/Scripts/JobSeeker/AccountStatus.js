@@ -51,6 +51,8 @@ function getJobseekerAccountStatusOverView()
 
 function initAcountStatus()
 {
+    viewModel.errorCheckAccountStatus = ko.observable('0');
+
     viewModel.overviewId= ko.observable();
     viewModel.accountStatusCheck= ko.observable('0');
     viewModel.jobseekerId= ko.observable();
@@ -58,7 +60,7 @@ function initAcountStatus()
     viewModel.btnAccountStatus= ko.observable("Edit");
    
     viewModel.textCurrentStatus = ko.observable("");
-    viewModel.selectedIndexCurrentStatus = ko.observable(0);
+    viewModel.selectedIndexCurrentStatus = ko.observable(-1);
     viewModel.dataCurrentStatus = ko.observable(createListAccountStatus());
 
     var dataObjOverview = getJobseekerAccountStatusOverView();
@@ -70,7 +72,7 @@ function initAcountStatus()
         if (dataObjOverview.CurrentStatus) {
             for (da in dataObjCurrentStatus) {
                 if (dataObjOverview.CurrentStatus == dataObjCurrentStatus[da].Id) {
-                    viewModel.selectedIndexCurrentStatus(da);
+                    viewModel.selectedIndexCurrentStatus((parseInt(da) + 1));
                 }
 
             }
@@ -84,11 +86,14 @@ function initAcountStatus()
         return viewModel.dataCurrentStatus()[viewModel.selectedIndexCurrentStatus()].label;
 
     }, viewModel);
+
+    
 }
 
 function createListAccountStatus() {
     var dataObjCurrentStatus = getJobSeekerCurrentStatus();
     var list = [];
+    list.push({ label: "Select", value: "" });
     for (da in dataObjCurrentStatus) {
         list.push({
             label: dataObjCurrentStatus[da].Name,
@@ -112,89 +117,108 @@ viewModel.addAccountStatus = function () {
     this.jobseekerId(userId);
 }
 viewModel.saveAccountStatus = function () {
-   
-    var apiUrlOverview = GetWebAPIURL() + '/api/Overview/' + userId;
-    var dataObjOverview;
-    //To get overview details
-    $.ajax({
-        url: apiUrlOverview,
-        type: 'GET',
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            dataObjOverview = data;
-        },
-        error: function (xhr, status, error) {
-            alert('Eroooror :' + status);
+
+    if (viewModel.selectedIndexCurrentStatus() > 0) {
+        var apiUrlOverview = GetWebAPIURL() + '/api/Overview/' + userId;
+        var dataObjOverview;
+        //To get overview details
+        $.ajax({
+            url: apiUrlOverview,
+            type: 'GET',
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                dataObjOverview = data;
+            },
+            error: function (xhr, status, error) {
+                alert('Eroooror :' + status);
+            }
+        });
+
+        var dataObjMyInfo;
+        var jobSeekerMyInfoObj = {}
+        var jsonObject = ko.toJS(viewModel);
+
+        if (dataObjOverview) {
+            jobSeekerMyInfoObj.JobSeekerId = userId;
+            jobSeekerMyInfoObj.Summary = dataObjOverview.Summary;
+            jobSeekerMyInfoObj.Industry = dataObjOverview.Industry;
+            jobSeekerMyInfoObj.Speciality = dataObjOverview.Speciality;
+            jobSeekerMyInfoObj.SecurityClearanceId = dataObjOverview.SecurityClearanceId;
+            jobSeekerMyInfoObj.WillingToRelocateId = dataObjOverview.WillingToRelocateId;
+            jobSeekerMyInfoObj.CurrentStatus = viewModel.dataCurrentStatus()[viewModel.selectedIndexCurrentStatus()].value;
+            dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
         }
-    });
+        else {
+            jobSeekerMyInfoObj.JobSeekerId = userId;
+            jobSeekerMyInfoObj.CurrentStatus = viewModel.dataCurrentStatus()[viewModel.selectedIndexCurrentStatus()].value;
+            dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+        }
+        if (jsonObject.overviewId) {
+            var apiUrlAccountStatus = GetWebAPIURL() + '/api/Overview/' + jsonObject.overviewId;
+            //To update Overview table
+            $.ajax({
+                url: apiUrlAccountStatus,
+                type: "PUT",
+                data: dataObjMyInfo,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    viewModel.isEditableAccountStatus(false);
+                    viewModel.btnAccountStatus("Edit");
+                    viewModel.accountStatusCheck('1');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
 
-    var dataObjMyInfo;
-    var jobSeekerMyInfoObj = {}
-    var jsonObject = ko.toJS(viewModel);
-
-    if (dataObjOverview) {
-        jobSeekerMyInfoObj.JobSeekerId = userId;
-        jobSeekerMyInfoObj.Summary = dataObjOverview.Summary;
-        jobSeekerMyInfoObj.Industry = dataObjOverview.Industry;
-        jobSeekerMyInfoObj.Speciality = dataObjOverview.Speciality;
-        jobSeekerMyInfoObj.SecurityClearanceId = dataObjOverview.SecurityClearanceId;
-        jobSeekerMyInfoObj.WillingToRelocateId = dataObjOverview.WillingToRelocateId;
-        jobSeekerMyInfoObj.CurrentStatus = viewModel.dataCurrentStatus()[viewModel.selectedIndexCurrentStatus()].value;
-        dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+        }
+        else {
+            var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/';
+            //To Isert details into overview table
+            $.ajax({
+                url: apiUrlAboutMe,
+                type: "POST",
+                data: dataObjMyInfo,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    viewModel.isEditableAccountStatus(false);
+                    viewModel.btnAccountStatus("Edit");
+                    viewModel.overviewId(data);
+                    viewModel.accountStatusCheck('1');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
+        viewModel.errorCheckAccountStatus('0');
     }
     else {
-        jobSeekerMyInfoObj.JobSeekerId = userId;
-        jobSeekerMyInfoObj.CurrentStatus = viewModel.dataCurrentStatus()[viewModel.selectedIndexCurrentStatus()].value;
-        dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
-    }
-    if (jsonObject.overviewId) {
-        var apiUrlAccountStatus = GetWebAPIURL() + '/api/Overview/' + jsonObject.overviewId;
-        //To update Overview table
-        $.ajax({
-            url: apiUrlAccountStatus,
-            type: "PUT",
-            data: dataObjMyInfo,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                viewModel.isEditableAccountStatus(false);
-                viewModel.btnAccountStatus("Edit");
-                viewModel.accountStatusCheck('1');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+        if (viewModel.selectedIndexCurrentStatus() <= 0) {
+            viewModel.errorCheckAccountStatus('1');
+        }
+        else { viewModel.errorCheckAccountStatus('0'); }
 
-    }
-    else {
-        var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/';
-        //To Isert details into overview table
-        $.ajax({
-            url: apiUrlAboutMe,
-            type: "POST",
-            data: dataObjMyInfo,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                viewModel.isEditableAccountStatus(false);
-                viewModel.btnAccountStatus("Edit");
-                viewModel.overviewId(data);
-                viewModel.accountStatusCheck('1');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
     }
 }
 viewModel.cancelAccountStatus = function () {
+   
+    
     viewModel.selectedIndexCurrentStatus(accountStatus);
     viewModel.isEditableAccountStatus(false);
     viewModel.btnAccountStatus("Edit");
+    viewModel.errorCheckAccountStatus('0');
 }
 
 viewModel.whichTemplateToUseAccountStatus = function () {
     return viewModel.isEditableAccountStatus() ? "EditAccountStatus" : "ViewAccountStatus";
 }
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});

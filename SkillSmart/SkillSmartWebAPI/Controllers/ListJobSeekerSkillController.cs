@@ -75,6 +75,7 @@ namespace SkillSmartWebAPI.Controllers
 
                         jobSeekerskillObj.SkillMapId = jobseekerSkill.SkillMapId;
                         jobSeekerskillObj.AcquiredId = jobseekerSkill.SkillAcquiredId;
+                        jobSeekerskillObj.SkillParentCollectionId = jobseekerSkill.SkillParentCollectionId;
                         jobSeekerskillObj.SkillScore = jobseekerSkill.ProficiencyId;
                         jobSeekerskillObj.Id = jobseekerSkill.Id.ToString();
 

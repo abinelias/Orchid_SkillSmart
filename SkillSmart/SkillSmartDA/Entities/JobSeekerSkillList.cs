@@ -35,5 +35,11 @@ namespace SkillSmartMongoDA.Entities
         [BsonElement("SkillAcquiredId")]
         public string SkillAcquiredId { get; set; }
 
+        /// <summary>
+        /// SkillParentCollectionId
+        /// </summary>
+        [BsonElement("SkillParentCollectionId")]
+        public string SkillParentCollectionId { get; set; }
+
     }
 }

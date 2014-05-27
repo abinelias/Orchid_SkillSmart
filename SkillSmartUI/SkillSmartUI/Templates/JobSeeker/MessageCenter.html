@@ -4,13 +4,23 @@
     </ul>
 </div>
 <div id='Message' class='common_background' >
-    <div class="jobseeker_myinformation_list_tab_sub_div" data-bind="foreach: jobList">
+    <div class="jobseeker_myinformation_list_tab_sub_div" data-bind="foreach: messageList">
         <ul>
-            <li><label class="jobseeker_MessageEmployer" data-bind="text: employer"></label></li>                                    
+            <li><label class="jobseeker_MessageEmployer" data-bind="text: companyName"></label>
+                <a href="" data-bind="click: $parent.respondMessage"><img style="float:right;" src="/images/Orange_plusButton.png" /></a>
+            </li>                                    
             <li><label class="jobseeker_MessagePosition" data-bind="text: position"></label> | <label class="jobseeker_MessagePosition" data-bind="    text: place"></label></li>
-            <li><label class="jobseeker_MessagePosition">Date Posted:</label> <label  data-bind="text: datePosted"></label></li>    
+            <li><label class="jobseeker_MessageEmployer">Date Posted:</label> <label  data-bind="text: datePosted"></label>
+                <label style="float:right" data-bind="text: messageSentDate"></label>
+            </li>  
+            <li><label >From: </label><label data-bind="text: employer"></label><label style="margin-left:10px;">Subject: </label><label data-bind="    text: subject"></label></li>  
             <li class="marginclass"><label  data-bind="text: jobDescription"></label></li>
             <hr />   
         </ul>
+
+        <!-- ko if: btnrespondMessage() == '-' -->
+            <div id="personal-information" data-bind="template: { name: 'JobSeekerMessageResponse' }">               
+            </div>
+        <!-- /ko -->
     </div>
 </div>

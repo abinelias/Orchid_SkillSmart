@@ -77,7 +77,11 @@
         <li class='jobseeker_additionalinformation_city_outerli'>
             <ul class='jobseeker_additionalinformation_city_ul'>
                 <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='city' placeholder='City'  data-bind='wijtextbox: {}, value: city'/></li>
-                <li  class='jobseeker_myinformation_innerli'><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexCountry, data: dataCountry }" /></li>
+                <li  class='jobseeker_myinformation_innerli'><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexCountry, data: dataCountry }" />
+                     <!-- ko if: errorCheckCountry() == '1' -->
+                        <span class="validationMessage">select Country</span>
+                    <!-- /ko -->
+                </li>
                 <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexState, data: dataState }" /></li>
             </ul>
         </li>
@@ -90,7 +94,11 @@
         <li class='jobseeker_registration_outerli'>
             <ul class='jobseeker_registration_ul'>
                 <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='zip' placeholder='Zip'  maxlength='5' data-bind='wijtextbox: {}, value: zip' /></li>
-                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexCitizenship, data: dataCitizenship, }" /></li>
+                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexCitizenship, data: dataCitizenship, }" />
+                     <!-- ko if: errorCheckCitizenship() == '1' -->
+                        <span class="validationMessage">select Citizenship</span>
+                    <!-- /ko -->
+                </li>
             </ul>
         </li>
         <li class='jobseeker_registration_outerli'>

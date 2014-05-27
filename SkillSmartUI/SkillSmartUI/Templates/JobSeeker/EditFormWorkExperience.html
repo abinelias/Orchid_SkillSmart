@@ -46,7 +46,7 @@
             <li class="jobseeker_registration_outerli">
                 <ul class="jobseeker_registration_ul">
                     <li class="jobseeker_additionalinformation_innerli"><input type="text"  placeholder="Start Date"  data-bind="  wijinputdate: { date: startDate, showTrigger: true }"   /></li>
-                    <li class="jobseeker_myinformation_innerli"><!-- ko if: currentlyWorking()--> <input type="text"  placeholder="End Date"  value="present" data-bind="wijtextbox: {}" disabled /><!-- /ko --> <!-- ko ifnot: currentlyWorking()--><input id="end_Date" type="text"  placeholder="End Date" data-bind="wijinputdate: { date: endDate, showTrigger: true } " /><!-- /ko --></li>
+                    <li class="jobseeker_myinformation_innerli"><!-- ko if: currentlyWorking()--> <input type="text"  placeholder="End Date"  value="present" data-bind="wijtextbox: {}" disabled /><!-- /ko --> <!-- ko ifnot: currentlyWorking()--><input id="end_Date" type="text"  placeholder="End Date" data-bind="    wijinputdate: { date: endDate, showTrigger: true } " /><!-- /ko --></li>
                 </ul>
             </li>
             <li class="jobseeker_registration_outerli">
@@ -80,8 +80,20 @@
             </li>
             <li class="jobseeker_registration_outerli">
                 <ul class="jobseeker_registration_ul">
-                    <li class="jobseeker_additionalinformation_innerli"><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexIndustry, data: $parent.dataIndustry }" /></li>
-                    <li class="jobseeker_myinformation_innerli"><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexWorkType, data: $parent.dataWorkType }" /></li>
+                    <li class="jobseeker_additionalinformation_innerli"><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexIndustry, data: $parent.dataIndustry }" />
+                        <!-- ko if: errorCheckIndustry() == '1' --> 
+                        
+                            <span class="validationMessage">select Industry</span>
+                       
+                        <!-- /ko -->
+                    </li>
+                    <li class="jobseeker_myinformation_innerli"><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexWorkType, data: $parent.dataWorkType }" />
+                         <!-- ko if: errorCheckWork() == '1' -->
+                        
+                            <span class="validationMessage">select Work Type</span>
+                        
+                        <!-- /ko -->
+                    </li>
                 </ul>
             </li>
             <li class="jobseeker_registration_outerli">

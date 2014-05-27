@@ -9,7 +9,11 @@
         </li>
         <li class="jobseeker_registration_outerli">
             <ul class="jobseeker_registration_ul">
-                <li class="jobseeker_registration_innerli"><input id="Text1" data-bind="wijcombobox: { selectedIndex: selectedIndexCurrentStatus, text: textCurrentStatus, data: dataCurrentStatus, }" /></li>
+                <li class="jobseeker_registration_innerli"><input id="Text1" data-bind="wijcombobox: { selectedIndex: selectedIndexCurrentStatus, text: textCurrentStatus, data: dataCurrentStatus, }" />
+                     <!-- ko if: errorCheckAccountStatus() == '1' -->
+                        <span class="validationMessage">select Account Status</span>
+                    <!-- /ko -->
+                </li>
             </ul>
         </li>
         <li class="jobseeker_additionalinformation_city_outerli">

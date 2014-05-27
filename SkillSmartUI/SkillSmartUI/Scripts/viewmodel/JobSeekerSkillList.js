@@ -1,7 +1,7 @@
 ﻿
 var viewModel = {};
-var userId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
-
+var url = window.location.href;
+var userId = url.substring(url.lastIndexOf('=') + 1);
 function getJobseekerSkillReference() {
     var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference?jobSeekerId=' + userId;
     var dataObjSkillReference;
@@ -79,9 +79,9 @@ function getJobseekerSkillDetailsById(skillId) {
     return dataObjSkillDetails;
 }
 
-function AddSkills(userId) {
-    $("#ManageHoldingsFrame").attr('src', "/Views/JobSeeker/PopupSkills.html?&userid=" + userId);
-    $('#ManageHoldingsDiv').dialog(
+function AddSkills() {
+    $("#ManageHoldingsFrame").attr('src', "/Views/JobSeeker/PopupSkills.html?&userid=" + userId + "&acquiredId=" + '' + "&workHistoryId" + '');
+    var dialog = $('#ManageHoldingsDiv').dialog(
         {
             open: function () {
                 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").css("background-color", "#C4E1F1");
@@ -96,9 +96,9 @@ function AddSkills(userId) {
             closeOnEscape: true,
             close: function (event, ui) { $(this).dialog('destroy'); },
             buttons: {
-                'Close': function () {
-
+                'Close': function (ev, ui) {
                     $(this).dialog('destroy');
+                    window.location.reload()
                 }
             }
         });
@@ -130,7 +130,8 @@ $(document).ready(function () {
     var dataObjSkillRelatedExperience = getJobseekerSkillRelatedExperience();
 
     viewModel.categoryArray = ko.observableArray();
-   
+    viewModel.dataCompanyName = ko.observable(createListWorkHistory());
+
     var categoryId;
     var specialityId;
     var currentCategoryObj;
@@ -335,6 +336,7 @@ $(document).ready(function () {
         jobSeekerSkillProficiencyObj.SkillMapId = dataObjSkill.SkillMapId;
         jobSeekerSkillProficiencyObj.ExperienceId = dataObjSkill.ExperienceId;
         jobSeekerSkillProficiencyObj.SkillAcquiredId = dataObjSkill.SkillAcquiredId;
+        jobSeekerSkillProficiencyObj.SkillParentCollectionId = dataObjSkill.SkillParentCollectionId;
         jobSeekerSkillProficiencyObj.ProficiencyId = jsonObjectSkill.val;
 
         dataObjSkill = JSON.stringify(jobSeekerSkillProficiencyObj);
@@ -365,5 +367,6 @@ $(document).ready(function () {
     viewModel.courseLink = function (skillObj) {
         alert("Hello");
     }
+
 });
 //alert(viewModel.categoryArray()[1].categoryName());

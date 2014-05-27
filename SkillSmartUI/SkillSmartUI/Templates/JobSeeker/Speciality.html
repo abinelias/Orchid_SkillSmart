@@ -1,11 +1,10 @@
 ﻿
-<li>Competency</li>
-<li><label class="jobseeker_MessagePosition" data-bind="text: specialityName"></label>
+<li style ="font-size: 15px;">Competency: &nbsp<label class="jobseeker_MessagePosition" data-bind="text: specialityName"></label>
     <!-- ko if: btnSpecialityList() == '+' -->
-        <a href="#" data-bind="    click: $root.expandSpecialityDetails, value: btnSpecialityList" ><img style="margin-left:562px;" src="/images/Orange_plusButton.png" /></a>
+        <a href="#" data-bind="    click: $root.expandSpecialityDetails, value: btnSpecialityList" ><img style="margin-left:500px;" src="/images/Orange_plusButton.png" /></a>
     <!-- /ko -->
       <!-- ko if: btnSpecialityList() == '-' -->
-        <a href="#" data-bind="    click: $root.expandSpecialityDetails, value: btnSpecialityList" ><img style="margin-left:562px;" src="/images/grey_minusButton.png" /></a>
+        <a href="#" data-bind="    click: $root.expandSpecialityDetails, value: btnSpecialityList" ><img style="margin-left:500px;" src="/images/grey_minusButton.png" /></a>
     <!-- /ko -->
 
 </li>

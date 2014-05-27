@@ -1,6 +1,9 @@
 ﻿$(document).ready(function () {
     initAwards();
+
+
 });
+
 
 var url = window.location.href;
 var userId = url.substring(url.lastIndexOf('=') + 1);
@@ -30,6 +33,7 @@ function getJobseekerAwards() {
 
 function initAwards() {
 
+    //viewModel.displayErrorsAward = ko.observable('0');
     viewModel.awardCheck = ko.observable('0');
     viewModel.isEditableAward = ko.observable(false);
     viewModel.btnAward = ko.observable("Edit");
@@ -41,9 +45,13 @@ function initAwards() {
             viewModel.awardCheck('1');
             var award = new createAward(dataObjScholarShip[i]);
             viewModel.awardArray.push(award);
+
         }
     }
-   
+
+    // viewModel.displayErrorsAward(false);
+
+    //viewModel.displayErrorsAward = ko.observable(false);
 }
 
 function createAward(da) {
@@ -52,10 +60,12 @@ function createAward(da) {
     self.JobSeekerId = ko.observable(userId);
     self.Id = ko.observable('');
     self.isEdit = ko.observable('0');
-    self.Award = ko.observable('');
-    self.Organization = ko.observable('');
-    self.Description = ko.observable('');
+    self.Award = ko.observable().extend({ required: { message: "Award  required" } });
+    self.Organization = ko.observable('').extend({ required: { message: "Organization required." } });
+    self.Description = ko.observable('').extend({ required: { message: 'Description required' } });
     self.deleteCheck = ko.observable('1');
+    self.errorAward = ko.validation.group({ p1: self.Award, p2: self.Organization, p3: self.Description });
+
 
     if (da) {
         self.JobSeekerId(da.JobSeekerId);
@@ -80,65 +90,77 @@ viewModel.addFirstAward = function () {
     award.deleteCheck('0');
     viewModel.awardArray.push(award);
 }
+
 viewModel.saveAward = function (awardObj) {
-    if (viewModel.awardCheck() == 1) {
-        document.getElementById("addMoreAward").disabled = false;
-    }
-    var jsonObjectAward = ko.toJS(awardObj);
-    if (jsonObjectAward.Id) {
-        var dataObjAward;
-        var jobSeekerAwardObj = {}
-        jobSeekerAwardObj.JobSeekerId = jsonObjectAward.JobSeekerId;
-        jobSeekerAwardObj.ScholarshipOrganization = jsonObjectAward.Organization;
-        jobSeekerAwardObj.ScholarshipTitle = jsonObjectAward.Award;
-        jobSeekerAwardObj.ScholarshipDescription = jsonObjectAward.Description;
 
-        dataObjAward = JSON.stringify(jobSeekerAwardObj);
-        var apiUrlAward = GetWebAPIURL() + '/api/Scholarship?Id=' + jsonObjectAward.Id;
-        //To update Scholarship details
-        $.ajax({
-            url: apiUrlAward,
-            type: "PUT",
-            data: dataObjAward,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                awardObj.isEdit('0');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
 
+    if (awardObj.Organization.isValid() && awardObj.Award.isValid() && awardObj.Description.isValid()) {
+        if (viewModel.awardCheck() == 1) {
+            document.getElementById("addMoreAward").disabled = false;
+        }
+        var jsonObjectAward = ko.toJS(awardObj);
+        if (jsonObjectAward.Id) {
+            var dataObjAward;
+            var jobSeekerAwardObj = {}
+            jobSeekerAwardObj.JobSeekerId = jsonObjectAward.JobSeekerId;
+            jobSeekerAwardObj.ScholarshipOrganization = jsonObjectAward.Organization;
+            jobSeekerAwardObj.ScholarshipTitle = jsonObjectAward.Award;
+            jobSeekerAwardObj.ScholarshipDescription = jsonObjectAward.Description;
+
+            dataObjAward = JSON.stringify(jobSeekerAwardObj);
+            var apiUrlAward = GetWebAPIURL() + '/api/Scholarship?Id=' + jsonObjectAward.Id;
+            //To update Scholarship details
+            $.ajax({
+                url: apiUrlAward,
+                type: "PUT",
+                data: dataObjAward,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    awardObj.isEdit('0');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+
+        }
+        else {
+            var dataObjAward;
+            var jobSeekerAwardObj = {}
+            jobSeekerAwardObj.JobSeekerId = jsonObjectAward.JobSeekerId;
+            jobSeekerAwardObj.ScholarshipOrganization = jsonObjectAward.Organization;
+            jobSeekerAwardObj.ScholarshipTitle = jsonObjectAward.Award;
+            jobSeekerAwardObj.ScholarshipDescription = jsonObjectAward.Description;
+
+            dataObjAward = JSON.stringify(jobSeekerAwardObj);
+            var apiUrlAward = GetWebAPIURL() + '/api/Scholarship';
+            //To insert data into scholarship table
+            $.ajax({
+                url: apiUrlAward,
+                type: "Post",
+                data: dataObjAward,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    awardObj.isEdit('0');
+                    awardObj.Id(data);
+                    viewModel.awardCheck('1');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+
+        }
     }
     else {
-        var dataObjAward;
-        var jobSeekerAwardObj = {}
-        jobSeekerAwardObj.JobSeekerId = jsonObjectAward.JobSeekerId;
-        jobSeekerAwardObj.ScholarshipOrganization = jsonObjectAward.Organization;
-        jobSeekerAwardObj.ScholarshipTitle = jsonObjectAward.Award;
-        jobSeekerAwardObj.ScholarshipDescription = jsonObjectAward.Description;
-
-        dataObjAward = JSON.stringify(jobSeekerAwardObj);
-        var apiUrlAward = GetWebAPIURL() + '/api/Scholarship';
-        //To insert data into scholarship table
-        $.ajax({
-            url: apiUrlAward,
-            type: "Post",
-            data: dataObjAward,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                awardObj.isEdit('0');
-                awardObj.Id(data);
-                viewModel.awardCheck('1');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+        awardObj.errorAward.showAllMessages();
+        // viewModel.displayErrorsAward(true);
 
     }
+
+
 }
 viewModel.cancelAward = function (awardObj) {
     if (viewModel.awardCheck() == 1) {
@@ -211,3 +233,11 @@ viewModel.clickButtonAward = function () {
 viewModel.whichTemplateToUseAward = function () {
     return viewModel.isEditableAward() ? "EditAward" : "ViewAward";
 }
+
+
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: false,
+    insertMessages: true
+});

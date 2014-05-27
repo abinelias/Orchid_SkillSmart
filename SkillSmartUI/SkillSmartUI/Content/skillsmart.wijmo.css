@@ -1238,6 +1238,7 @@ div.wijmo-wijprogressbar-north {
 .ui-tabs-left .ui-tabs-nav li.ui-tabs-active {
 	border-right: medium none;
 	margin-bottom: 2px;
+
 }
 .ui-tabs-left .ui-tabs-nav {
 	padding: 0;
@@ -1272,6 +1273,7 @@ div.wijmo-wijprogressbar-north {
 .ui-tabs-right .ui-tabs-nav li.ui-tabs-active {
 	border-left: medium none;
 	margin-bottom: 2px;
+
 }
 .ui-tabs-right .ui-tabs-nav {
 	padding: 0.2em 0 0 0;
@@ -1378,7 +1380,6 @@ div.wijmo-wijprogressbar-north {
 	float: left;
 	padding: 12px 15px;
 	text-decoration: none;
-	color: #fff;
 }
 .ui-tabs .ui-tabs-nav li a:hover {
 	color: inherit;
@@ -1403,6 +1404,7 @@ div.wijmo-wijprogressbar-north {
 	font-weight: 300;
 	padding: 15px 20px;
 	font-size: 20px;
+    
 } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
 .ui-tabs .ui-tabs-panel {
 	display: block;
@@ -1746,6 +1748,12 @@ div.wijmo-wijprogressbar-north {
 .wijmo-wijmenu a.ui-state-default:link, .wijmo-wijmenu a.ui-state-default:visited, .wijmo-wijmenu a.ui-state-default:hover, .wijmo-wijmenu a.ui-state-default:active, .wijmo-wijmenu a.ui-state-hover:link, .wijmo-wijmenu a.ui-state-hover:visited, .wijmo-wijmenu a.ui-state-hover:hover, .wijmo-wijmenu a.ui-state-hover:active, .wijmo-wijmenu a.ui-state-active:link, .wijmo-wijmenu a.ui-state-active:visited, .wijmo-wijmenu a.ui-state-active:hover, .wijmo-wijmenu a.ui-state-active:active {
 	font-weight: 400;
 	border-style: solid;
+
+}
+
+ui-state-default ui-corner-top ui-tabs-selected ui-state-active {
+
+background-color:red;
 }
 .wijmo-wijmenu .wijmo-wijmenu-child .ui-state-hover {
 	font-weight: 400;
@@ -3476,7 +3484,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a {
 	text-decoration: none;
+   
 }
+
+
 .wijmo-wijribbon-disabled {
 	z-index: 990;
 }

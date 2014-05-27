@@ -31,7 +31,10 @@ skillsmart.model.jobseekerlist.initializeViewModel = function (dataObjJobseeker)
         person.MyJobSearchUrl = ko.computed(function () {
             return '/Views/JobSeeker/AdvancedJobSearch.html?userId=' + dataObjJobseeker[da].Id;
         }, this);
+        person.MySkillUrl = ko.computed(function () {
+            return '/Views/JobSeeker/JobSeekerSkillList.html?userId=' + dataObjJobseeker[da].Id;
+        }, this);
         viewModel.persons.push(person);
     }
     return viewModel;
-};
+}; 

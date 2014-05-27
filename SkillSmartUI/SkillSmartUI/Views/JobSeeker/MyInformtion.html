@@ -7,7 +7,7 @@
     <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
     <script src="/Scripts/vendor/jquery.viewloader.js"></script>
     <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
-    <script src="/Scripts/vendor/knockout.validation.js"></script>
+    
 
     <script src="/Scripts/jobseeker.js"></script>
     <script src="/Scripts/viewmodel/myInformation.js"></script>
@@ -38,7 +38,7 @@
     <!-- KnockoutJS for MVVM-->
     <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout-2.0.0.js"></script>
     <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout.wijmo.js"></script>    
-           <style>
+    <style>
         .wijmo-wijexpander .ui-expander-header .ui-icon {
             left: 60.5em;
             margin-top: -8px;
@@ -46,17 +46,22 @@
             top: 50%;
         }
     </style>
+    <script src="/Scripts/vendor/knockout.validation.js"></script>
     <link href="/Content/skillsmart.css" rel="stylesheet" />
     <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
     <link href="/Content/common.css" rel="stylesheet" />
     <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+   
 
 </head>
 <body>
+    <div id="ManageHoldingsDiv" style="text-align:left;vertical-align:middle;display:none;overflow:hidden;">
+        <iframe id="ManageHoldingsFrame" style="height:420px;width:905px;overflow:hidden;" ></iframe>
+    </div>
     <div id="header"></div>
         <div id="main-div">
             <div id="personal-information" data-bind="template: { name: 'PersonalInformation' }">               
-            </div>
+            </div>            
             <div id="AboutMe" data-bind="template: { name: 'AboutMePitch' }" >
             </div>
                 <div class="common_banner">
@@ -86,6 +91,8 @@
                     <div data-bind="template: { name: 'TrainingCourse' }"></div>
                 </div>
             </div>
+           
+           
             <div id="Awards" data-bind="template: { name: 'Award' }" >
             </div>
 

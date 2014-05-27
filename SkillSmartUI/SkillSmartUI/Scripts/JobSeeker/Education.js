@@ -57,13 +57,13 @@ function initEducation() {
     var dataDegreeTypeObj = getDegreeTypeLookup();
     viewModel.dataDegreeType = ko.observable(createListDegreeType());
 
- 
-  /*  viewModel.degree.push({ name: "Degree", id: "" });
-    for (da in dataDegreeTypeObj) {
-        viewModel.degree.push({ name: dataDegreeTypeObj[da].Name, id: dataDegreeTypeObj[da].Id });
-    }*/
 
-   
+    /*  viewModel.degree.push({ name: "Degree", id: "" });
+      for (da in dataDegreeTypeObj) {
+          viewModel.degree.push({ name: dataDegreeTypeObj[da].Name, id: dataDegreeTypeObj[da].Id });
+      }*/
+
+
 
     var dataobjEducation = getJobseekerEducation();
 
@@ -84,9 +84,10 @@ function initEducation() {
 
 
 function createListDegreeType() {
-   
+
     var dataDegreeTypeObj = getDegreeTypeLookup();
     var list = [];
+    list.push({ label: "Select", value: "" });
     for (da in dataDegreeTypeObj) {
         list.push({
             label: dataDegreeTypeObj[da].Name,
@@ -95,31 +96,34 @@ function createListDegreeType() {
     }
     return list;
 }
+
 var dataDegreeTypeObj = getDegreeTypeLookup();
 function educationCreate(objEducation) {
     var self = this;
-    self.universityName = ko.observable();
+    self.universityName = ko.observable().extend({ required: { message: "UniversityName required" } });
     self.degreeId = ko.observable();
-    self.startDate = ko.observable();
-    self.endDate = ko.observable();
-    self.universityLocation = ko.observable();
-    self.majorFocus = ko.observable();
+    self.startDate = ko.observable().extend({ required: { message: "Start Date required" } });
+    self.endDate = ko.observable().extend({ required: { message: "End Date required" } });
+    self.universityLocation = ko.observable().extend({ required: { message: "University Location required" } });
+    self.majorFocus = ko.observable().extend({ required: { message: "Focus required" } });
     self.deleteCheck = ko.observable('1');
     self.selectedIndexDegreeType = ko.observable(0);
 
     self.jobSeekerId = ko.observable(userId);
     self.isEditEducation = ko.observable('0');
-   
-    
 
     self.educationId = ko.observable('');
     self.currentlyStudying = ko.observable(false);
+
+    self.errorEducation = ko.validation.group({ p1: self.universityName, p2: self.startDate, p3: self.endDate, p4: self.majorFocus, p5: self.universityLocation });
+
+    self.errorCheckDegree = ko.observable('0');
     if (objEducation) {
         self.universityName(objEducation.InstitutionName);
         self.degreeId(objEducation.DegreeId);
         for (da in dataDegreeTypeObj) {
             if (objEducation.DegreeId == dataDegreeTypeObj[da].Id) {
-                self.selectedIndexDegreeType(da);
+                self.selectedIndexDegreeType((parseInt(da) + 1));
             }
         }
         self.startDate(objEducation.StartDate);
@@ -137,10 +141,16 @@ function educationCreate(objEducation) {
 
     }
     self.degreeName = ko.computed(function () {
-        
-         return viewModel.dataDegreeType()[self.selectedIndexDegreeType()].label;
+
+        return viewModel.dataDegreeType()[self.selectedIndexDegreeType()].label;
     }, this);
-  
+
+    self.currentlyStudying.subscribe(function (newValue) {
+        if (self.currentlyStudying() == true) {
+            $("#education_endDate").hide();
+
+        }
+    });
 }
 
 viewModel.addMoreEducation = function () {
@@ -152,7 +162,7 @@ viewModel.addMoreEducation = function () {
     viewModel.education.splice(0, 0, Education);
     viewModel.isEditableEducation(true);
 
- 
+
 }
 
 viewModel.addFirstEducation = function () {
@@ -191,100 +201,110 @@ viewModel.cancelEducation = function (educationObj) {
         viewModel.education.remove(educationObj);
     }
     SelectedEducationObj = "";
+    educationObj.errorCheckDegree('0');
 }
 
 viewModel.saveEducation = function (educationObj) {
+    if (educationObj.universityName.isValid() && educationObj.majorFocus.isValid() && educationObj.startDate.isValid() && educationObj.endDate.isValid() && educationObj.universityLocation.isValid() && educationObj.selectedIndexDegreeType() > 0) {
 
-    if (viewModel.educationButtonCheck() == 1) {
-        document.getElementById("addMoreEducation").disabled = false;
-    }
+        if (viewModel.educationButtonCheck() == 1) {
+            document.getElementById("addMoreEducation").disabled = false;
+        }
 
-    var jsonObjectEducation = ko.toJS(educationObj);
-    var jsonObjectVM = ko.toJS(viewModel);
+        var jsonObjectEducation = ko.toJS(educationObj);
+        var jsonObjectVM = ko.toJS(viewModel);
 
-    if (jsonObjectEducation.educationId) {
-        var dataobjEducation;
-        var jobseekerEducationObj = {}
-        jobseekerEducationObj.JobSeekerId = jsonObjectEducation.jobSeekerId;
-        jobseekerEducationObj.InstitutionName = jsonObjectEducation.universityName;
-        jobseekerEducationObj.DegreeId = viewModel.dataDegreeType()[educationObj.selectedIndexDegreeType()].value;
-        jobseekerEducationObj.StartDate = convert(jsonObjectEducation.startDate);
-        jobseekerEducationObj.EndDate = convert(jsonObjectEducation.endDate);
-        jobseekerEducationObj.MajorFocus = jsonObjectEducation.majorFocus;
-        jobseekerEducationObj.InstitutionLocation = jsonObjectEducation.universityLocation;
-        if (jsonObjectEducation.currentlyStudying) {
-            jobseekerEducationObj.EndDate = "present";
-            jsonObjectEducation.endDate = "present";
+        if (jsonObjectEducation.educationId) {
+            var dataobjEducation;
+            var jobseekerEducationObj = {}
+            jobseekerEducationObj.JobSeekerId = jsonObjectEducation.jobSeekerId;
+            jobseekerEducationObj.InstitutionName = jsonObjectEducation.universityName;
+            jobseekerEducationObj.DegreeId = viewModel.dataDegreeType()[educationObj.selectedIndexDegreeType()].value;
+            jobseekerEducationObj.StartDate = convert(jsonObjectEducation.startDate);
+            jobseekerEducationObj.EndDate = convert(jsonObjectEducation.endDate);
+            jobseekerEducationObj.MajorFocus = jsonObjectEducation.majorFocus;
+            jobseekerEducationObj.InstitutionLocation = jsonObjectEducation.universityLocation;
+            if (jsonObjectEducation.currentlyStudying) {
+                jobseekerEducationObj.EndDate = "present";
+                jsonObjectEducation.endDate = "present";
+            }
+            else {
+                jobseekerEducationObj.EndDate = convert(jsonObjectEducation.endDate);
+            }
+            dataobjEducation = JSON.stringify(jobseekerEducationObj);
+
+            var apiUrlEducation = GetWebAPIURL() + '/api/Education?Id=' + jsonObjectEducation.educationId;
+            //To update Education table
+            $.ajax({
+                url: apiUrlEducation,
+                type: "PUT",
+                data: dataobjEducation,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    educationObj.isEditEducation('0');
+                    educationObj.startDate(convert(jsonObjectEducation.startDate));
+                    educationObj.endDate(convert(jsonObjectEducation.endDate));
+                },
+                error: function (xhr, status, error) {
+                    alert('Error :' + status);
+                }
+            });
+
+
         }
         else {
+            var dataobjEducation;
+            var jobseekerEducationObj = {}
+            jobseekerEducationObj.JobSeekerId = jsonObjectVM.jobseekerId;
+            jobseekerEducationObj.InstitutionName = jsonObjectEducation.universityName;
+            jobseekerEducationObj.DegreeId = viewModel.dataDegreeType()[educationObj.selectedIndexDegreeType()].value;
+            jobseekerEducationObj.StartDate = convert(jsonObjectEducation.startDate);
             jobseekerEducationObj.EndDate = convert(jsonObjectEducation.endDate);
-        }
-        dataobjEducation = JSON.stringify(jobseekerEducationObj);
-
-        var apiUrlEducation = GetWebAPIURL() + '/api/Education?Id=' + jsonObjectEducation.educationId;
-        //To update Education table
-        $.ajax({
-            url: apiUrlEducation,
-            type: "PUT",
-            data: dataobjEducation,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                educationObj.isEditEducation('0');
-                educationObj.startDate(convert(jsonObjectEducation.startDate));
-                educationObj.endDate(convert(jsonObjectEducation.endDate));
-            },
-            error: function (xhr, status, error) {
-                alert('Error :' + status);
+            jobseekerEducationObj.MajorFocus = jsonObjectEducation.majorFocus;
+            jobseekerEducationObj.InstitutionLocation = jsonObjectEducation.universityLocation;
+            if (jsonObjectEducation.currentlyStudying) {
+                jobseekerEducationObj.EndDate = "present";
+                jsonObjectEducation.endDate = "present";
             }
-        });
+            else {
+                jobseekerEducationObj.EndDate = convert(jsonObjectEducation.endDate);
+            }
+            dataobjEducation = JSON.stringify(jobseekerEducationObj);
 
 
+            var apiUrlEducation = GetWebAPIURL() + '/api/Education';
+            //To create Education details
+            $.ajax({
+                url: apiUrlEducation,
+                type: "POST",
+                data: dataobjEducation,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    educationObj.educationId(data);
+                    educationObj.isEditEducation('0');
+                    educationObj.startDate(convert(jsonObjectEducation.startDate));
+                    educationObj.endDate(convert(jsonObjectEducation.endDate));
+                    viewModel.educationButtonCheck('1');
+
+
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
+        educationObj.errorCheckDegree('0');
     }
     else {
-        var dataobjEducation;
-        var jobseekerEducationObj = {}
-        jobseekerEducationObj.JobSeekerId = jsonObjectVM.jobseekerId;
-        jobseekerEducationObj.InstitutionName = jsonObjectEducation.universityName;
-        jobseekerEducationObj.DegreeId = viewModel.dataDegreeType()[educationObj.selectedIndexDegreeType()].value;
-        jobseekerEducationObj.StartDate = convert(jsonObjectEducation.startDate);
-        jobseekerEducationObj.EndDate = convert(jsonObjectEducation.endDate);
-        jobseekerEducationObj.MajorFocus = jsonObjectEducation.majorFocus;
-        jobseekerEducationObj.InstitutionLocation = jsonObjectEducation.universityLocation;
-        if (jsonObjectEducation.currentlyStudying) {
-            jobseekerEducationObj.EndDate = "present";
-            jsonObjectEducation.endDate = "present";
+        educationObj.errorEducation.showAllMessages();
+
+        if (educationObj.selectedIndexDegreeType() <= 0) {
+            educationObj.errorCheckDegree('1');
         }
-        else {
-            jobseekerEducationObj.EndDate = convert(jsonObjectEducation.endDate);
-        }
-        dataobjEducation = JSON.stringify(jobseekerEducationObj);
-
-
-        var apiUrlEducation = GetWebAPIURL() + '/api/Education';
-        //To create Education details
-        $.ajax({
-            url: apiUrlEducation,
-            type: "POST",
-            data: dataobjEducation,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                educationObj.educationId(data);
-                educationObj.isEditEducation('0');
-                educationObj.startDate(convert(jsonObjectEducation.startDate));
-                educationObj.endDate(convert(jsonObjectEducation.endDate));
-                viewModel.educationButtonCheck('1');
-
-
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+        else { educationObj.errorCheckDegree('0'); }
     }
-
-
 
 }
 
@@ -339,3 +359,9 @@ function convert(str) {
         return [mnth, day, date.getFullYear()].join("/");
     }
 }
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});

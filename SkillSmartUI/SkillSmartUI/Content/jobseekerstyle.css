@@ -246,7 +246,7 @@ font-weight:bold;
 }
 .jobseeker_MessagePosition {
 
-font-size:13px;
+font-size:20px;
 
 }
 .jobseeker_notification_ul {
@@ -279,7 +279,7 @@ float:left;width:676px;
     padding-bottom:20px;
 }
 .jobsApplied {
-    width:750px;
+    width:799px;
     overflow:hidden;
     margin:0px auto;
     background-color:white;

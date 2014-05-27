@@ -8,7 +8,6 @@
     <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
     <script src="/Scripts/vendor/jquery.viewloader.js"></script>
     <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
-    <script src="/Scripts/vendor/knockout.validation.js"></script>
     <script src="/Scripts/viewmodel/JobSeekerSkillList.js"></script>
 
     <script src="/Scripts/JobSeeker/SkillReference.js"></script>
@@ -43,6 +42,7 @@
             top: 50%;
         }
     </style>
+        <script src="/Scripts/vendor/knockout.validation.js"></script>
 
 </head>
 <body>
@@ -53,12 +53,12 @@
     <div id="main-div">
     <div class='common_banner'>
         <ul>
-            <li class='marginclass'> Skill <input type='button' onclick='AddSkills("d7cb31e2-2288-44f7-99af-f1a27fc8027a")' id='myButton' class='editbutton' value='Add More'  /></li>
+            <li class='marginclass'> Skill <input type='button' onclick='AddSkills()' id='myButton' class='editbutton' value='Add More'  /></li>
         </ul>
     </div>
     <div class="common_background"  data-bind=" foreach: categoryArray" >
         <div  data-bind="wijexpander: { expanded: false }">
-            <h5><li style="margin-left:10px;margin-top:10px;">Industry</li><label style="padding-bottom:12px;" class ="jobseekerSkillText" data-bind="text: categoryName"></h5>
+            <ul><li style ="font-weight: normal;">Industry: &nbsp<label class="jobseeker_MessagePosition" data-bind="text: categoryName"></label> </li></ul>
           
              <div   data-bind="  template: { name: 'Categories' }" ></div>
         </div>

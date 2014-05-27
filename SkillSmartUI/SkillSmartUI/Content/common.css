@@ -132,7 +132,7 @@
     background-color:#F0F8FF;    
     /*margin-left:550px;*/
     position:absolute;
-    right:50px;
+    right:72px;
     margin-top:10px;
    
 }
@@ -222,8 +222,10 @@ a
 }
 
 .validationMessage {
-    visibility:hidden;
-    font-size:0px;
+    /*visibility:hidden;
+    font-size:0px;*/
+
+    color:red;
 }
 .li_style 
 {
@@ -372,8 +374,8 @@ width:50px;height:50px;background-color:black;color:white;float:right;text-align
 	margin-left:25px; 
 	background: none; 
 	border-width: 0px; 
-    width:800px;
-    background-color:white;
+   /* width:800px;*/
+    /*background-color:white;*/
 
      font-family: 'Questrial', sans-serif;
     color: #6a747c;
@@ -603,7 +605,7 @@ textarea {
     background-color:#F2FAFE;
     display:block;
     width:33%;
-    height:87px;
+    height:55px;
     /*text-align:center;*/
     padding-top:15px;
     font-size:12px;
@@ -731,7 +733,14 @@ textarea {
 }
 
 .ListReference {
-     background-color:white;float:left;padding-left:10px;padding-top:10px; margin-bottom:10px;margin-left:10px; height:35px;
+     background-color:white;float:left;padding-left:10px;padding-top:10px; margin-bottom:10px;margin-left:10px; 
+     height:50px;
+}
+.ListReference_Label {
+ width:88%;float:left;
+}
+.ListReference_Button {
+    margin-left: 88%;
 }
 
 .spanNumber {

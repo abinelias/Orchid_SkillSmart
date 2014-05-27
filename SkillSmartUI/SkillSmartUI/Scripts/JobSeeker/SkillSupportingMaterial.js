@@ -21,11 +21,13 @@ function createSupportingMaterial(da) {
     self.Id = ko.observable('');
     self.JobSeekerId = ko.observable(userId);
     self.jobSeekerSkillId = ko.observable('');
-    self.title = ko.observable('');
-    self.webURL = ko.observable('');
-    self.description = ko.observable('');
+    self.title = ko.observable('').extend({ required: { message: "Title required" } });
+    self.webURL = ko.observable('').extend({ required: { message: "Wesite required" } });
+    self.description = ko.observable('').extend({ required: { message: "Description required" } });
     self.isEdit = ko.observable('0');
     self.deleteCheck = ko.observable('1');
+    self.errorSupporting = ko.validation.group({ p1: self.title, p2: self.webURL, p3: self.description});
+
     if (da) {
         self.Id(da.Id);
         self.JobSeekerId(da.JobSeekerId);
@@ -62,64 +64,69 @@ viewModel.editSupportingMaterialDetails = function (supportingMaterialObj) {
 }
 
 viewModel.saveSupportingMaterial = function (supportingMaterialObj) {
-    jsonObjectSupportingMaterial = ko.toJS(supportingMaterialObj);
-    if (jsonObjectSupportingMaterial.Id) {
-        alert("hi");
-        var dataObjSupportingMaterial;
-        var jobSeekerSupportingMaterialObj = {}
+    if (supportingMaterialObj.title.isValid() && supportingMaterialObj.webURL.isValid() && supportingMaterialObj.description.isValid()) {
+        jsonObjectSupportingMaterial = ko.toJS(supportingMaterialObj);
+        if (jsonObjectSupportingMaterial.Id) {
+            alert("hi");
+            var dataObjSupportingMaterial;
+            var jobSeekerSupportingMaterialObj = {}
 
-        jobSeekerSupportingMaterialObj.JobSeekerId = jsonObjectSupportingMaterial.JobSeekerId;
-        jobSeekerSupportingMaterialObj.JobSeekerSkillId = jsonObjectSupportingMaterial.jobSeekerSkillId;
-        jobSeekerSupportingMaterialObj.MaterialTitle = jsonObjectSupportingMaterial.title;
-        jobSeekerSupportingMaterialObj.WebsiteUrl = jsonObjectSupportingMaterial.webURL;
-        jobSeekerSupportingMaterialObj.Description = jsonObjectSupportingMaterial.description;
+            jobSeekerSupportingMaterialObj.JobSeekerId = jsonObjectSupportingMaterial.JobSeekerId;
+            jobSeekerSupportingMaterialObj.JobSeekerSkillId = jsonObjectSupportingMaterial.jobSeekerSkillId;
+            jobSeekerSupportingMaterialObj.MaterialTitle = jsonObjectSupportingMaterial.title;
+            jobSeekerSupportingMaterialObj.WebsiteUrl = jsonObjectSupportingMaterial.webURL;
+            jobSeekerSupportingMaterialObj.Description = jsonObjectSupportingMaterial.description;
 
-        dataObjSupportingMaterial = JSON.stringify(jobSeekerSupportingMaterialObj);
-        alert(dataObjSupportingMaterial);
-        var apiUrlSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial?Id=' + jsonObjectSupportingMaterial.Id;
-        //To update Scholarship details
-        $.ajax({
-            url: apiUrlSupportingMaterial,
-            type: "PUT",
-            data: dataObjSupportingMaterial,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                supportingMaterialObj.isEdit('0');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+            dataObjSupportingMaterial = JSON.stringify(jobSeekerSupportingMaterialObj);
+            alert(dataObjSupportingMaterial);
+            var apiUrlSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial?Id=' + jsonObjectSupportingMaterial.Id;
+            //To update Scholarship details
+            $.ajax({
+                url: apiUrlSupportingMaterial,
+                type: "PUT",
+                data: dataObjSupportingMaterial,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    supportingMaterialObj.isEdit('0');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
 
+        }
+        else {
+            var dataObjSupportingMaterial;
+            var jobSeekerSupportingMaterialObj = {}
+
+            jobSeekerSupportingMaterialObj.JobSeekerId = jsonObjectSupportingMaterial.JobSeekerId;
+            jobSeekerSupportingMaterialObj.JobSeekerSkillId = jsonObjectSupportingMaterial.jobSeekerSkillId;
+            jobSeekerSupportingMaterialObj.MaterialTitle = jsonObjectSupportingMaterial.title;
+            jobSeekerSupportingMaterialObj.WebsiteUrl = jsonObjectSupportingMaterial.webURL;
+            jobSeekerSupportingMaterialObj.Description = jsonObjectSupportingMaterial.description;
+
+            dataObjSupportingMaterial = JSON.stringify(jobSeekerSupportingMaterialObj);
+            var apiUrlSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial';
+            //To insert data into scholarship table
+            $.ajax({
+                url: apiUrlSupportingMaterial,
+                type: "POST",
+                data: dataObjSupportingMaterial,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    supportingMaterialObj.isEdit('0');
+                    supportingMaterialObj.Id(data);
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
     }
     else {
-        var dataObjSupportingMaterial;
-        var jobSeekerSupportingMaterialObj = {}
-
-        jobSeekerSupportingMaterialObj.JobSeekerId = jsonObjectSupportingMaterial.JobSeekerId;
-        jobSeekerSupportingMaterialObj.JobSeekerSkillId = jsonObjectSupportingMaterial.jobSeekerSkillId;
-        jobSeekerSupportingMaterialObj.MaterialTitle = jsonObjectSupportingMaterial.title;
-        jobSeekerSupportingMaterialObj.WebsiteUrl = jsonObjectSupportingMaterial.webURL;
-        jobSeekerSupportingMaterialObj.Description = jsonObjectSupportingMaterial.description;
-
-        dataObjSupportingMaterial = JSON.stringify(jobSeekerSupportingMaterialObj);
-        var apiUrlSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial';
-        //To insert data into scholarship table
-        $.ajax({
-            url: apiUrlSupportingMaterial,
-            type: "POST",
-            data: dataObjSupportingMaterial,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                supportingMaterialObj.isEdit('0');
-                supportingMaterialObj.Id(data);
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+        supportingMaterialObj.errorSupporting.showAllMessages();
     }
 }
 viewModel.cancelSupportingMaterial = function (supportingMaterialObj) {
@@ -154,6 +161,7 @@ viewModel.cancelSupportingMaterial = function (supportingMaterialObj) {
         viewModel.languageCheck('0');
         viewModel.isEditableLanguage(false);
     }*/
+
 }
 viewModel.deleteSupportingMaterial = function (supportingMaterialObj) {
     
@@ -190,3 +198,9 @@ viewModel.deleteSupportingMaterial = function (supportingMaterialObj) {
         }
     }
 }
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});

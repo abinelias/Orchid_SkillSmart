@@ -78,6 +78,7 @@ function createListProgramType() {
 
     var dataProgramTypeObj = getProgramTypeLookUp();
     var list = [];
+    list.push({ label: "Select", value: "" });
     for (da in dataProgramTypeObj) {
         list.push({
             label: dataProgramTypeObj[da].Name,
@@ -87,6 +88,7 @@ function createListProgramType() {
     return list;
 }
 var dataProgramTypeObj = getProgramTypeLookUp();
+
 function trainingCourseCreate(objTrainingCourse) {
 
     var self = this;
@@ -96,23 +98,25 @@ function trainingCourseCreate(objTrainingCourse) {
     self.selectedIndexProgramType = ko.observable(0);
 
     self.currentlyEnrolled = ko.observable();
-   
-    self.focus = ko.observable();
 
-    self.certificationInstituion = ko.observable();
-    self.completedDate = ko.observable();
-    self.expireDate = ko.observable();
-    self.certificationDetails = ko.observable();
+    self.focus = ko.observable().extend({ required: { message: "focus required" } });
+
+    self.certificationInstituion = ko.observable().extend({ required: { message: "Institution required" } });
+    self.completedDate = ko.observable().extend({ required: { message: "Completed Date Required " } });
+    self.expireDate = ko.observable().extend({ required: { message: "Expire Date Required " } });
+    self.certificationDetails = ko.observable().extend({ required: { message: "Certification Details Required " } });
     self.isEditTraining = ko.observable('0');
     self.deleteCheck = ko.observable('1');
 
-    self.emailAddress = ko.observable();
-    self.phone = ko.observable();
-    self.address = ko.observable();
-    self.city = ko.observable();
-    self.state = ko.observable();
-    self.url = ko.observable();
+    self.emailAddress = ko.observable().extend({ required: { message: "email required" }, pattern: { message: "please enter proper email", params: '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$' } });
+    self.phone = ko.observable().extend({ required: { message: "phone required" } });
+    self.address = ko.observable().extend({ required: { message: "address required" } });
+    self.city = ko.observable().extend({ required: { message: "city required" } });
+    self.state = ko.observable().extend({ required: { message: "state required" } });
+    self.url = ko.observable().extend({ required: { message: "Website required" } });
 
+    self.errorTrainingCourse = ko.validation.group({ p1: self.focus, p2: self.certificationInstituion, p3: self.completedDate, p4: self.expireDate, p5: self.certificationDetails, p7: self.emailAddress, p8: self.phone, p9: self.address, p10: self.city, p11: self.state, p12: self.url });
+    self.errorCheckProgramType = ko.observable('0');
     if (objTrainingCourse) {
         self.jobseekerId(objTrainingCourse.JobSeekerId);
 
@@ -120,7 +124,7 @@ function trainingCourseCreate(objTrainingCourse) {
         self.programTypeId(objTrainingCourse.ProgramTypeId);
         for (da in dataProgramTypeObj) {
             if (objTrainingCourse.ProgramTypeId == dataProgramTypeObj[da].Id) {
-                self.selectedIndexProgramType(da);
+                self.selectedIndexProgramType((parseInt(da) + 1));
             }
         }
         self.currentlyEnrolled(objTrainingCourse.CurrentlyEnrolled);
@@ -144,6 +148,7 @@ function trainingCourseCreate(objTrainingCourse) {
         return viewModel.dataProgramType()[self.selectedIndexProgramType()].label;
     }, this);
 }
+
 viewModel.addFirstTrainingCourse = function () {
     viewModel.trainingCheck('1');
     var TrainingCourse = new trainingCourseCreate();
@@ -158,7 +163,7 @@ viewModel.deleteTrainingCourse = function (trainingCourseObj) {
     var jsonObjectVM = ko.toJS(viewModel);
     var jsonObjectTrainingCourse = ko.toJS(trainingCourseObj);
     var deleteCourse = confirm("Do you want to delete!");
-    if (deleteCourse==true) {
+    if (deleteCourse == true) {
         if (jsonObjectTrainingCourse.trainingId) {
             var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?Id=' + jsonObjectTrainingCourse.trainingId;
             //To delete data from Training Course
@@ -186,108 +191,115 @@ viewModel.deleteTrainingCourse = function (trainingCourseObj) {
 }
 
 viewModel.saveTrainingCourse = function (trainingCourseObj) {
-    if (viewModel.trainingButtonCheck() == 1) {
-        document.getElementById("addMoreTrainingCourse").disabled = false;
-    }
-    var jsonObjectVM = ko.toJS(viewModel);
-    var jsonObjectTrainingCourse = ko.toJS(trainingCourseObj);
+    if (trainingCourseObj.focus.isValid() && trainingCourseObj.certificationInstituion.isValid() && trainingCourseObj.completedDate.isValid() && trainingCourseObj.expireDate.isValid() && trainingCourseObj.certificationDetails.isValid() && trainingCourseObj.emailAddress.isValid() && trainingCourseObj.phone.isValid() && trainingCourseObj.address.isValid() && trainingCourseObj.city.isValid() && trainingCourseObj.state.isValid() && trainingCourseObj.url.isValid() && trainingCourseObj.selectedIndexProgramType() > 0) {
+        if (viewModel.trainingButtonCheck() == 1) {
+            document.getElementById("addMoreTrainingCourse").disabled = false;
+        }
+        var jsonObjectVM = ko.toJS(viewModel);
+        var jsonObjectTrainingCourse = ko.toJS(trainingCourseObj);
 
-    if (jsonObjectTrainingCourse.trainingId) {
-        var dataobjTrainingCourse;
-        var jobseekerTrainingCourseObj = {}
-        jobseekerTrainingCourseObj.JobSeekerId = jsonObjectTrainingCourse.jobseekerId;
-        jobseekerTrainingCourseObj.ProgramTypeId = viewModel.dataProgramType()[trainingCourseObj.selectedIndexProgramType()].value;
-        jobseekerTrainingCourseObj.Focus = jsonObjectTrainingCourse.focus;
-        jobseekerTrainingCourseObj.CurrentlyEnrolled = jsonObjectTrainingCourse.currentlyEnrolled;
+        if (jsonObjectTrainingCourse.trainingId) {
+            var dataobjTrainingCourse;
+            var jobseekerTrainingCourseObj = {}
+            jobseekerTrainingCourseObj.JobSeekerId = jsonObjectTrainingCourse.jobseekerId;
+            jobseekerTrainingCourseObj.ProgramTypeId = viewModel.dataProgramType()[trainingCourseObj.selectedIndexProgramType()].value;
+            jobseekerTrainingCourseObj.Focus = jsonObjectTrainingCourse.focus;
+            jobseekerTrainingCourseObj.CurrentlyEnrolled = jsonObjectTrainingCourse.currentlyEnrolled;
 
-        jobseekerTrainingCourseObj.InstitutionName = jsonObjectTrainingCourse.certificationInstituion;
-        jobseekerTrainingCourseObj.ExpirationDate = convert(jsonObjectTrainingCourse.expireDate);
-        if (jsonObjectTrainingCourse.currentlyEnrolled) {
-            jobseekerTrainingCourseObj.CompletionDate = "present";
-            jsonObjectTrainingCourse.completedDate = "present";
+            jobseekerTrainingCourseObj.InstitutionName = jsonObjectTrainingCourse.certificationInstituion;
+            jobseekerTrainingCourseObj.ExpirationDate = convert(jsonObjectTrainingCourse.expireDate);
+            if (jsonObjectTrainingCourse.currentlyEnrolled) {
+                jobseekerTrainingCourseObj.CompletionDate = "present";
+                jsonObjectTrainingCourse.completedDate = "present";
+            }
+            else {
+                jobseekerTrainingCourseObj.CompletionDate = convert(jsonObjectTrainingCourse.completedDate);
+            }
+            jobseekerTrainingCourseObj.TrainingDetails = jsonObjectTrainingCourse.certificationDetails;
+
+            jobseekerTrainingCourseObj.Email = jsonObjectTrainingCourse.emailAddress;
+            jobseekerTrainingCourseObj.Phone = jsonObjectTrainingCourse.phone;
+            jobseekerTrainingCourseObj.Address = jsonObjectTrainingCourse.address;
+            jobseekerTrainingCourseObj.City = jsonObjectTrainingCourse.city;
+            jobseekerTrainingCourseObj.State = jsonObjectTrainingCourse.state;
+            jobseekerTrainingCourseObj.Website = jsonObjectTrainingCourse.url;
+
+            dataobjTrainingCourse = JSON.stringify(jobseekerTrainingCourseObj);
+            var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?Id=' + jsonObjectTrainingCourse.trainingId;
+            $.ajax({
+                url: apiUrlTrainingCourse,
+                type: "PUT",
+                data: dataobjTrainingCourse,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    trainingCourseObj.isEditTraining('0');
+                    trainingCourseObj.completedDate(convert(jsonObjectTrainingCourse.completedDate));
+                    trainingCourseObj.expireDate(convert(jsonObjectTrainingCourse.expireDate));
+                },
+                error: function (xhr, status, error) {
+                    alert('Error :' + status);
+                }
+            });
         }
         else {
-            jobseekerTrainingCourseObj.CompletionDate = convert(jsonObjectTrainingCourse.completedDate);
-        }
-        jobseekerTrainingCourseObj.TrainingDetails = jsonObjectTrainingCourse.certificationDetails;
+            var jobseekerTrainingCourseObj = {}
+            var dataobjTrainingCourse;
+            jobseekerTrainingCourseObj.JobSeekerId = jsonObjectVM.jobseekerId;
+            jobseekerTrainingCourseObj.ProgramTypeId = viewModel.dataProgramType()[trainingCourseObj.selectedIndexProgramType()].value;
+            jobseekerTrainingCourseObj.Focus = jsonObjectTrainingCourse.focus;
+            jobseekerTrainingCourseObj.CurrentlyEnrolled = jsonObjectTrainingCourse.currentlyEnrolled;
 
-        jobseekerTrainingCourseObj.Email = jsonObjectTrainingCourse.emailAddress;
-        jobseekerTrainingCourseObj.Phone = jsonObjectTrainingCourse.phone;
-        jobseekerTrainingCourseObj.Address = jsonObjectTrainingCourse.address;
-        jobseekerTrainingCourseObj.City = jsonObjectTrainingCourse.city;
-        jobseekerTrainingCourseObj.State = jsonObjectTrainingCourse.state;
-        jobseekerTrainingCourseObj.Website = jsonObjectTrainingCourse.url;
-
-        dataobjTrainingCourse = JSON.stringify(jobseekerTrainingCourseObj);
-        var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse?Id=' + jsonObjectTrainingCourse.trainingId;
-        $.ajax({
-            url: apiUrlTrainingCourse,
-            type: "PUT",
-            data: dataobjTrainingCourse,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                trainingCourseObj.isEditTraining('0');
-                trainingCourseObj.completedDate(convert(jsonObjectTrainingCourse.completedDate));
-                trainingCourseObj.expireDate(convert(jsonObjectTrainingCourse.expireDate));
-            },
-            error: function (xhr, status, error) {
-                alert('Error :' + status);
+            jobseekerTrainingCourseObj.InstitutionName = jsonObjectTrainingCourse.certificationInstituion;
+            if (jsonObjectTrainingCourse.currentlyEnrolled) {
+                jobseekerTrainingCourseObj.CompletionDate = "present";
+                jsonObjectTrainingCourse.completedDate = "present";
             }
-        });
+            else {
+                jobseekerTrainingCourseObj.CompletionDate = convert(jsonObjectTrainingCourse.completedDate);
+            }
+            jobseekerTrainingCourseObj.ExpirationDate = convert(jsonObjectTrainingCourse.expireDate);
+            jobseekerTrainingCourseObj.TrainingDetails = jsonObjectTrainingCourse.certificationDetails;
+
+            jobseekerTrainingCourseObj.Email = jsonObjectTrainingCourse.emailAddress;
+            jobseekerTrainingCourseObj.Phone = jsonObjectTrainingCourse.phone;
+            jobseekerTrainingCourseObj.Address = jsonObjectTrainingCourse.address;
+            jobseekerTrainingCourseObj.City = jsonObjectTrainingCourse.city;
+            jobseekerTrainingCourseObj.State = jsonObjectTrainingCourse.state;
+            jobseekerTrainingCourseObj.Website = jsonObjectTrainingCourse.url;
+
+            dataobjTrainingCourse = JSON.stringify(jobseekerTrainingCourseObj);
+
+            var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse';
+            //To create Training Course Details
+            $.ajax({
+                url: apiUrlTrainingCourse,
+                type: "POST",
+                data: dataobjTrainingCourse,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    trainingCourseObj.trainingId(data);
+                    trainingCourseObj.isEditTraining('0');
+                    trainingCourseObj.completedDate(convert(jsonObjectTrainingCourse.completedDate));
+                    trainingCourseObj.expireDate(convert(jsonObjectTrainingCourse.expireDate));
+                    viewModel.trainingButtonCheck('1');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
+        trainingCourseObj.errorCheckProgramType('0');
     }
+
     else {
-        var jobseekerTrainingCourseObj = {}
-        var dataobjTrainingCourse;
-        jobseekerTrainingCourseObj.JobSeekerId = jsonObjectVM.jobseekerId;
-        jobseekerTrainingCourseObj.ProgramTypeId = viewModel.dataProgramType()[trainingCourseObj.selectedIndexProgramType()].value;
-        jobseekerTrainingCourseObj.Focus = jsonObjectTrainingCourse.focus;
-        jobseekerTrainingCourseObj.CurrentlyEnrolled = jsonObjectTrainingCourse.currentlyEnrolled;
-
-        jobseekerTrainingCourseObj.InstitutionName = jsonObjectTrainingCourse.certificationInstituion;
-        if (jsonObjectTrainingCourse.currentlyEnrolled) {
-            jobseekerTrainingCourseObj.CompletionDate = "present";
-            jsonObjectTrainingCourse.completedDate = "present";
+        trainingCourseObj.errorTrainingCourse.showAllMessages();
+        if (trainingCourseObj.selectedIndexProgramType() <= 0) {
+            trainingCourseObj.errorCheckProgramType('1');
         }
-        else {
-            jobseekerTrainingCourseObj.CompletionDate = convert(jsonObjectTrainingCourse.completedDate);
-        }
-        jobseekerTrainingCourseObj.ExpirationDate = convert(jsonObjectTrainingCourse.expireDate);
-        jobseekerTrainingCourseObj.TrainingDetails = jsonObjectTrainingCourse.certificationDetails;
-
-        jobseekerTrainingCourseObj.Email = jsonObjectTrainingCourse.emailAddress;
-        jobseekerTrainingCourseObj.Phone = jsonObjectTrainingCourse.phone;
-        jobseekerTrainingCourseObj.Address = jsonObjectTrainingCourse.address;
-        jobseekerTrainingCourseObj.City = jsonObjectTrainingCourse.city;
-        jobseekerTrainingCourseObj.State = jsonObjectTrainingCourse.state;
-        jobseekerTrainingCourseObj.Website = jsonObjectTrainingCourse.url;
-
-        dataobjTrainingCourse = JSON.stringify(jobseekerTrainingCourseObj);
-
-        var apiUrlTrainingCourse = GetWebAPIURL() + '/api/TrainingCourse';
-        //To create Training Course Details
-        $.ajax({
-            url: apiUrlTrainingCourse,
-            type: "POST",
-            data: dataobjTrainingCourse,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                trainingCourseObj.trainingId(data);
-                trainingCourseObj.isEditTraining('0');
-                trainingCourseObj.completedDate(convert(jsonObjectTrainingCourse.completedDate));
-                trainingCourseObj.expireDate(convert(jsonObjectTrainingCourse.expireDate));
-                viewModel.trainingButtonCheck('1');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+        else { trainingCourseObj.errorCheckProgramType('0'); }
     }
-
-
-
-
 }
 
 var SelectedTrainingCourse;
@@ -316,6 +328,7 @@ viewModel.cancelTrainingCourse = function (trainingCourseObj) {
     else {
         viewModel.trainingCourse.remove(trainingCourseObj);
     }
+    trainingCourseObj.errorCheckProgramType('0');
 }
 
 viewModel.addMoreTrainingCourse = function () {
@@ -344,6 +357,8 @@ function convert(str) {
     }
 }
 
-
-
-
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});

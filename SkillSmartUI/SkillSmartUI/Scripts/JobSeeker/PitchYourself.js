@@ -4,7 +4,6 @@
 });
 var url = window.location.href;
 var userId = url.substring(url.lastIndexOf('=') + 1);
-//var userId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
 
 var selectedPitch;
 function getJobseekerPitch() {
@@ -31,13 +30,15 @@ function getJobseekerPitch() {
 
 
 function initAboutMe() {
+
+
     viewModel.myinfoid = ko.observable();
 
     viewModel.aboutMeCheck = ko.observable('0');
     viewModel.jobseekerId = ko.observable();
     viewModel.isEditableAboutMe = ko.observable(false);
     viewModel.btnAboutMe = ko.observable("Edit");
-    viewModel.summary = ko.observable().extend({ required: { message: "About me required" } });
+    viewModel.summary = ko.observable().extend({ required: { message: "Summary Required." } });
 
     var dataObjOverview = getJobseekerPitch();
     if (dataObjOverview) {
@@ -49,81 +50,97 @@ function initAboutMe() {
             viewModel.aboutMeCheck('1');
         }
     }
+    viewModel.displayErrorsAboutMe = ko.observable(false);
+    viewModel.errorsAboutMe = ko.validation.group({ p1: viewModel.summary });
+
 }
 
 viewModel.saveAboutMe = function () {
-    var dataObjOverview = getJobseekerPitch();
 
 
-    var dataObjMyInfo;
-    var jobSeekerMyInfoObj = {}
-    var jsonObject = ko.toJS(viewModel);
 
-    if (dataObjOverview) {
-        jobSeekerMyInfoObj.JobSeekerId = userId;
-        jobSeekerMyInfoObj.Summary = jsonObject.summary;
-        jobSeekerMyInfoObj.Industry = dataObjOverview.Industry;
-        jobSeekerMyInfoObj.Speciality = dataObjOverview.Speciality;
-        jobSeekerMyInfoObj.SecurityClearanceId = dataObjOverview.SecurityClearanceId;
-        jobSeekerMyInfoObj.WillingToRelocateId = dataObjOverview.WillingToRelocateId;
-        jobSeekerMyInfoObj.CurrentStatus = dataObjOverview.CurrentStatus;
-        dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
-    }
-    else {
-        jobSeekerMyInfoObj.JobSeekerId = userId;
-        jobSeekerMyInfoObj.CurrentStatus = jsonObject.accountStatusId;
-        dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
-    }
-    if (jsonObject.myinfoid) {
+    if (viewModel.summary.isValid()) {
+        alert("valid");
+        viewModel.displayErrorsAboutMe(false);
 
-        var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/' + jsonObject.myinfoid;
-        //To update Overview table
-        $.ajax({
-            url: apiUrlAboutMe,
-            type: "PUT",
-            data: dataObjMyInfo,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                viewModel.isEditableAboutMe(false);
-                viewModel.btnAboutMe("Edit");
-
-
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
-
-    }
-    else {
+        var dataObjOverview = getJobseekerPitch();
         var dataObjMyInfo;
         var jobSeekerMyInfoObj = {}
-        jobSeekerMyInfoObj.JobSeekerId = userId;
-        jobSeekerMyInfoObj.Summary = jsonObject.summary;
-        dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+        var jsonObject = ko.toJS(viewModel);
 
-        var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/';
-        //To Isert details into overview table
-        $.ajax({
-            url: apiUrlAboutMe,
-            type: "POST",
-            data: dataObjMyInfo,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                viewModel.isEditableAboutMe(false);
-                viewModel.btnAboutMe("Edit");
-                viewModel.myinfoid(data);
-                viewModel.aboutMeCheck('1');
+        if (dataObjOverview) {
+            jobSeekerMyInfoObj.JobSeekerId = userId;
+            jobSeekerMyInfoObj.Summary = jsonObject.summary;
+            jobSeekerMyInfoObj.Industry = dataObjOverview.Industry;
+            jobSeekerMyInfoObj.Speciality = dataObjOverview.Speciality;
+            jobSeekerMyInfoObj.SecurityClearanceId = dataObjOverview.SecurityClearanceId;
+            jobSeekerMyInfoObj.WillingToRelocateId = dataObjOverview.WillingToRelocateId;
+            jobSeekerMyInfoObj.CurrentStatus = dataObjOverview.CurrentStatus;
+            dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+        }
+        else {
+            jobSeekerMyInfoObj.JobSeekerId = userId;
+            jobSeekerMyInfoObj.CurrentStatus = jsonObject.accountStatusId;
+            dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+        }
+        if (jsonObject.myinfoid) {
 
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+            var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/' + jsonObject.myinfoid;
+            //To update Overview table
+            $.ajax({
+                url: apiUrlAboutMe,
+                type: "PUT",
+                data: dataObjMyInfo,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    viewModel.isEditableAboutMe(false);
+                    viewModel.btnAboutMe("Edit");
 
+
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+
+        }
+        else {
+            var dataObjMyInfo;
+            var jobSeekerMyInfoObj = {}
+            jobSeekerMyInfoObj.JobSeekerId = userId;
+            jobSeekerMyInfoObj.Summary = jsonObject.summary;
+            dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+
+            var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/';
+            //To Isert details into overview table
+            $.ajax({
+                url: apiUrlAboutMe,
+                type: "POST",
+                data: dataObjMyInfo,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    viewModel.isEditableAboutMe(false);
+                    viewModel.btnAboutMe("Edit");
+                    viewModel.myinfoid(data);
+                    viewModel.aboutMeCheck('1');
+
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+
+        }
     }
+    else {
+
+        viewModel.errorsAboutMe.showAllMessages();
+        viewModel.displayErrorsAboutMe(true);
+    }
+
+
 }
 viewModel.clickButtonAboutMe = function () {
 
@@ -148,4 +165,16 @@ viewModel.pitchYourself = function () {
     viewModel.aboutMeCheck('1');
     this.jobseekerId(userId);
 }
+
+
+//var errors = ko.validation.group(viewModel, { deep: true });
+
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true,
+    decorateElement: true,
+    errorElementClass: 'err',
+});
 

@@ -156,6 +156,7 @@ function getJobseekerAdditionalInformation()
 
 function initAcountDetails()
 {
+
     viewModel.yrExperience = ko.observable();
     var dataObjAdditionalInfo = getJobseekerAdditionalInformation();
 
@@ -195,7 +196,7 @@ function initAcountDetails()
     viewModel.middlename = ko.observable("");
     viewModel.lastname = ko.observable(dataObjJobSeeker.LastName).extend({ required: { message: "LastName required" } });
     viewModel.preferredname = ko.observable("");
-    viewModel.username = ko.observable('');
+    viewModel.username = ko.observable('').extend({ required: { message: "Username required" } });
 
 
     viewModel.addressline1 = ko.observable("").extend({ required: { message: "Address required" } });
@@ -207,19 +208,18 @@ function initAcountDetails()
     viewModel.citizenship = ko.observable("").extend({ required: { message: "citizenship required" } });
 
     viewModel.contact = ko.observable("email");
-
-   
-    
-    viewModel.password = ko.observable(dataObjJobSeeker.Password);
-    
   
-
+    viewModel.password = ko.observable(dataObjJobSeeker.Password).extend({ required: { message: "Password required" } });
+   
     viewModel.experience = ko.observable();
     viewModel.experienceList = ko.observableArray();
 
     viewModel.accountDetailsCheck = ko.observable('0');
     viewModel.isEditableAccountDetails = ko.observable(false);
     viewModel.btnAccountDetails = ko.observable("Edit");
+
+    viewModel.errorCheckCitizenship = ko.observable('0');
+    viewModel.errorCheckCountry = ko.observable('0');
 
     viewModel.experienceList.push({ name: "Select", id: "" });
     for (var i = 0; i < 100; i++) {
@@ -279,28 +279,28 @@ function initAcountDetails()
             if (dataObjAdditionalInfo.Citizenship) {
                 for (da in dataObjCitizenship) {
                     if (dataObjAdditionalInfo.Citizenship == dataObjCitizenship[da].Id) {
-                        viewModel.selectedIndexCitizenship(da);
+                        viewModel.selectedIndexCitizenship((parseInt(da) + 1));
                     }
                 }
             }
             if (dataObjAdditionalInfo.Title) {
                 for (da in dataTitleObj) {
                     if (dataObjAdditionalInfo.Title == dataTitleObj[da].Id) {
-                        viewModel.selectedIndexTitle(da);
+                        viewModel.selectedIndexTitle((parseInt(da) + 1));
                     }
                 }
             }
             if (dataObjAdditionalInfo.Suffix) {
                 for (da in dataObjSuffix) {
                     if (dataObjAdditionalInfo.Suffix == dataObjSuffix[da].Id) {
-                        viewModel.selectedIndexSuffix(da);
+                        viewModel.selectedIndexSuffix((parseInt(da) + 1));
                     }
                 }
             }
             if (dataObjAdditionalInfo.CountryId) {
                 for (da in dataObjCountry) {
                     if (dataObjAdditionalInfo.CountryId == dataObjCountry[da].Id) {
-                        viewModel.selectedIndexCountry(da);
+                        viewModel.selectedIndexCountry((parseInt(da) + 1));
                     }
                 }
             }
@@ -316,10 +316,17 @@ function initAcountDetails()
     viewModel.countryName = ko.computed(function () {
         return viewModel.dataCountry()[viewModel.selectedIndexCountry()].label;
     }, viewModel);
+
+    viewModel.errorAccountInformation = ko.validation.group({ p1: viewModel.firstname, p2: viewModel.lastname, p3: viewModel.addressline1, p4: viewModel.addressline2, p5: viewModel.city, p6: viewModel.zip, p7: viewModel.phonehome });
+    viewModel.errorLoginCredential = ko.validation.group({ p1: viewModel.username, p2: viewModel.password });
+    
+
 }
+
 function createListTitle() {
     var dataTitleObj = getTitleLookup();
     var list = [];
+    list.push({ label: "Select", value: "" });
     for (da in dataTitleObj) {
         list.push({
             label: dataTitleObj[da].Name,
@@ -332,6 +339,7 @@ function createListTitle() {
 function createListSuffix() {
     var dataObjSuffix = getSuffixLookup();
     var list = [];
+    list.push({ label: "Select", value: "" });
     for (da in dataObjSuffix) {
         list.push({
             label: dataObjSuffix[da].Name,
@@ -345,6 +353,7 @@ function createListCitizenship() {
    
     var dataObjCitizenship = getCitizenlookup();
     var list = [];
+    list.push({ label: "Select", value: "" });
     for (da in dataObjCitizenship) {
         list.push({
             label: dataObjCitizenship[da].Name,
@@ -358,6 +367,7 @@ function createListCountry() {
 
     var dataObjCountry = getCountryLookup();
     var list = [];
+    list.push({ label: "Select", value: "" });
     for (da in dataObjCountry) {
         list.push({
             label: dataObjCountry[da].Name,
@@ -385,14 +395,17 @@ viewModel.reset = function () {
     viewModel.isEditableAccountDetails(false);
     viewModel.iseditableLoginCredential(false);
     viewModel.btnAccountDetails("Edit");
+    viewModel.errorCheckCountry('0');
+    viewModel.errorCheckCitizenship('0');
 }
 viewModel.submit = function () {
-    
-  
-    var dataObjAdditionalInfo = getJobseekerAdditionalInformation();
-    
+
+    if (viewModel.firstname.isValid() && viewModel.lastname.isValid() && viewModel.addressline1.isValid() && viewModel.addressline2.isValid() && viewModel.city.isValid() && viewModel.zip.isValid() && viewModel.phonehome.isValid() && viewModel.selectedIndexCitizenship() > 0 && viewModel.selectedIndexCountry() > 0) {
+
+        var dataObjAdditionalInfo = getJobseekerAdditionalInformation();
+
         if (dataObjAdditionalInfo) {
-           // var url = window.location.href;
+            // var url = window.location.href;
             //var userId = url.substring(url.lastIndexOf('=') + 1);
             var jsonObject = ko.toJS(viewModel);
 
@@ -411,9 +424,9 @@ viewModel.submit = function () {
             jobSeekerAdditionalInfoEditObj.HomePhone = jsonObject.phonehome;
             jobSeekerAdditionalInfoEditObj.MethodOfContact = jsonObject.contact;
             jobSeekerAdditionalInfoEditObj.Citizenship = viewModel.dataCitizenship()[viewModel.selectedIndexCitizenship()].value;
-        
+
             jobSeekerAdditionalInfoEditObj.Experience = jsonObject.yrExperience;
-          
+
             if (dataObjAdditionalInfo.Notification)
                 jobSeekerAdditionalInfoEditObj.Notification = dataObjAdditionalInfo.Notification.toString();
 
@@ -473,8 +486,8 @@ viewModel.submit = function () {
 
         }
         else {
-           // var url = window.location.href;
-           // var userId = url.substring(url.lastIndexOf('=') + 1);
+            // var url = window.location.href;
+            // var userId = url.substring(url.lastIndexOf('=') + 1);
 
             var jsonObject = ko.toJS(viewModel);
 
@@ -543,7 +556,21 @@ viewModel.submit = function () {
                 }
             });
         }
-   
+        viewModel.errorCheckCitizenship('0');
+        viewModel.errorCheckCountry('0');
+    }
+    else {
+        viewModel.errorAccountInformation.showAllMessages();
+        if (viewModel.selectedIndexCitizenship() <= 0) {
+            viewModel.errorCheckCitizenship('1');
+        }
+        else { viewModel.errorCheckCitizenship('0'); }
+
+        if (viewModel.selectedIndexCountry() <= 0) {
+            viewModel.errorCheckCountry('1');
+        }
+        else { viewModel.errorCheckCountry('0'); }
+    }
 }
 
 viewModel.clickButtonAccount = function () {
@@ -571,35 +598,40 @@ viewModel.doneEditing = function ()
 }
 viewModel.updateLoginCredential = function ()
 {
-    var jsonObject = ko.toJS(viewModel);
-    var jobSeekerEditObj = {}
-    jobSeekerEditObj.FirstName = jsonObject.firstname;
-    jobSeekerEditObj.LastName = jsonObject.lastname;
-    jobSeekerEditObj.Email = jsonObject.email;
-    jobSeekerEditObj.Password = jsonObject.password;
-    jobSeekerEditObj.UserName = jsonObject.username;
-   
-    dataObjJobSeeker = JSON.stringify(jobSeekerEditObj);
-    var apiUrlJobSeekerEdit = GetWebAPIURL() + '/api/JobSeeker/' + userId;
-    var dataObjJobSeeker = JSON.stringify(jobSeekerEditObj);
+    if (viewModel.username.isValid() && viewModel.password.isValid()) {
+        var jsonObject = ko.toJS(viewModel);
+        var jobSeekerEditObj = {}
+        jobSeekerEditObj.FirstName = jsonObject.firstname;
+        jobSeekerEditObj.LastName = jsonObject.lastname;
+        jobSeekerEditObj.Email = jsonObject.email;
+        jobSeekerEditObj.Password = jsonObject.password;
+        jobSeekerEditObj.UserName = jsonObject.username;
 
-    //Updates Jobseekers
-    $.ajax({
-        url: apiUrlJobSeekerEdit,
-        type: "PUT",
-        data: dataObjJobSeeker,
-        contentType: "application/json; charset=utf-8",
-        async: false,
-        success: function (data) {            
-            
-        },
-        error: function (xhr, error) {
-            alert('Error :' + error);
-        }
-    });
+        dataObjJobSeeker = JSON.stringify(jobSeekerEditObj);
+        var apiUrlJobSeekerEdit = GetWebAPIURL() + '/api/JobSeeker/' + userId;
+        var dataObjJobSeeker = JSON.stringify(jobSeekerEditObj);
+
+        //Updates Jobseekers
+        $.ajax({
+            url: apiUrlJobSeekerEdit,
+            type: "PUT",
+            data: dataObjJobSeeker,
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
 
 
-    viewModel.iseditableLoginCredential(false);
+        viewModel.iseditableLoginCredential(false);
+    }
+    else {
+        viewModel.errorLoginCredential.showAllMessages();
+    }
 }
 viewModel.editLoginCredential = function ()
 {
@@ -608,4 +640,11 @@ viewModel.editLoginCredential = function ()
 viewModel.cancelLoginCredential = function ()
 {
     viewModel.iseditableLoginCredential(false);
+    viewModel.errorCheckCitizenship('0');
 }
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});
