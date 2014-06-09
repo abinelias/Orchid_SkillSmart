@@ -1,113 +1,122 @@
-﻿
-var url = window.location.href;
-var userId = url.substring(url.lastIndexOf('=') + 1);
-viewModel.searchJobs = function () {
-    worktype = [];
+﻿viewModel.searchJobs = function () {
+    employment = [];
     salary = [];
     industry = [];
     degree = [];
     carrierLevel = [];
     distance = [];
+
     viewModel.searchCriteria.removeAll();
 
-    if (viewModel.workTypeId() && viewModel.workTypeId() != "") {
+    if (viewModel.employmentTypeId() != "") {
+
         var createSearch = new createsearchCriteria(0);
         viewModel.searchCriteria.push(createSearch);
     }
-    if (viewModel.industryTypeId() && viewModel.industryTypeId() != "") {
+
+    if (viewModel.industryTypeId() != "") {
         var createSearch = new createsearchCriteria(1);
         viewModel.searchCriteria.push(createSearch);
     }
 
-    if (viewModel.salaryId() && viewModel.salaryId() != "") {
-        var createSearch = new createsearchCriteria(4);
-        viewModel.searchCriteria.push(createSearch);
-    }
-    if (viewModel.selectedIndexEducationLevel() && viewModel.selectedIndexEducationLevel() != "") {
+    if (viewModel.selectedIndexEducationLevel() > 0) {
         var createSearch = new createsearchCriteria(2);
         viewModel.searchCriteria.push(createSearch);
     }
-    if (viewModel.selectedIndexDistance() && viewModel.selectedIndexDistance() != -1) {
+
+    if (viewModel.selectedIndexDistance() > 0) {
         var createSearch = new createsearchCriteria(3);
         viewModel.searchCriteria.push(createSearch);
     }
-    if (viewModel.selectedIndexCarrierLevel() && viewModel.selectedIndexCarrierLevel() != -1) {
 
+    if (viewModel.salaryId() != "") {
+        var createSearch = new createsearchCriteria(4);
+        viewModel.searchCriteria.push(createSearch);
+    }
+
+    if (viewModel.selectedIndexCarrierLevel() > 0) {
         var createSearch = new createsearchCriteria(5);
         viewModel.searchCriteria.push(createSearch);
     }
+
     viewModel.jobCheck('1');
-    if (worktype.length != 0 || salary.length != 0 || industry.length != 0 || degree.length != 0 || carrierLevel.length != 0 || distance.length != 0) {
-        getFilteredJobsList()
+    if (employment.length != 0 || salary.length != 0 || industry.length != 0 || degree.length != 0 || carrierLevel.length != 0 || distance.length != 0) {
+        //initJobSkillScoreCalculation();
+        getFilteredJobsList();
     }
 }
 
-var dataobjJobList;
-function getFilteredJobsList() {
-    var dataObjFilter;
-    var JobFilter = {};
-    JobFilter.Salary = salary;
-    JobFilter.Industry = industry;
-    dataObjFilter = JSON.stringify(JobFilter);
+function createsearchCriteria(i) {
+    var self = this;
+    self.lookUpName = ko.observable('');
+    self.contentArray = ko.observableArray();
+    if (i == 0) {
+        if (viewModel.employmentTypeId() != "") {
 
-    var apiUrlJobFilter = GetWebAPIURL() + '/api/JobFilter?filter=' + dataObjFilter;
-
-
-    //To get Scholarship details
-    $.ajax({
-        url: apiUrlJobFilter,
-        type: 'GET',
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            dataobjJobList = data;
-            initJobsApplied();
-            viewModel.listJobs('1');
-        },
-        error: function (xhr, status, error) {
-            alert('Eroooror :' + status);
+            self.lookUpName('EmploymentType');
+            for (var i = 0; i < viewModel.employmentTypeId().length; i++) {
+                var addContent = new addContentForEmploymentType(i);
+                self.contentArray.push(addContent);
+            }
         }
-    });
+    }
+    else if (i == 1) {
+        if (viewModel.industryTypeId() != "") {
+            self.lookUpName('IndustryType');
+            for (var i = 0; i < viewModel.industryTypeId().length; i++) {
+                var addContentIndustry = new addContentForIndustry(i);
+                self.contentArray.push(addContentIndustry);
+            }
+        }
+    }
+    else if (i == 2) {
+        if (viewModel.selectedIndexEducationLevel() != -1) {
+            self.lookUpName('DegreeType');
+            var addContentDegreeType = new addContentForDegree(i);
+            self.contentArray.push(addContentDegreeType);
+        }
+    }
+    else if (i == 3) {
+        if (viewModel.selectedIndexDistance() != -1) {
+            self.lookUpName('Distance');
+            var addContentDistance = new addContentForDistance();
+            self.contentArray.push(addContentDistance);
+        }
+
+    }
+
+    else if (i == 4) {
+        if (viewModel.salaryId() != "") {
+            self.lookUpName('Salary');
+            for (var i = 0; i < viewModel.salaryId().length; i++) {
+                var addContentSalary = new addContentForSalary(i);
+                self.contentArray.push(addContentSalary);
+            }
+        }
+    }
+    else {
+        if (viewModel.selectedIndexCarrierLevel() != " ") {
+            self.lookUpName('CareerLevel');
+            var addContentCarrierLevel = new addContentForCarrierLevel();
+            self.contentArray.push(addContentCarrierLevel);
+        }
+    }
 }
 
-function getSkillList() {
-    var dataobjSkillList;
-    var apiUrlSkillList = GetWebAPIURL() + '/api/ListJobSkills';
-
-
-    //To get Job list 
-    $.ajax({
-        url: apiUrlSkillList,
-        type: 'GET',
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            dataobjSkillList = data;
-
-        },
-        error: function (xhr, status, error) {
-            alert('Erooororlang :' + status);
-        }
-    });
-    return dataobjSkillList;
-}
-
-var worktype = [];
-function addContentForWorkType(i) {
+var employment = [];
+function addContentForEmploymentType(i) {
     var self = this;
     self.lookUpId = ko.observable('');
-    //self.Name = ko.observable('');
 
     self.Name = ko.computed(function () {
-        for (var j = 0; j < viewModel.WorkType().length; j++) {
-            if (viewModel.WorkType()[j].id == viewModel.workTypeId()[i]) {
-                // alert(viewModel.WorkType()[j].name);
-                return viewModel.WorkType()[j].name;
+        for (var j = 0; j < viewModel.employmentType().length; j++) {
+            if (viewModel.employmentType()[j].id == viewModel.employmentTypeId()[i]) {
+                return viewModel.employmentType()[j].name;
             }
         }
     }, this);
-    self.lookUpId(viewModel.workTypeId()[i]);
-    worktype.push(viewModel.workTypeId()[i]);
+    self.lookUpId(viewModel.employmentTypeId()[i]);
+    employment.push(viewModel.employmentTypeId()[i]);
 }
 
 var salary = [];
@@ -155,11 +164,11 @@ function addContentForDegree(i) {
     }, this);
 
 
-    self.lookUpId(viewModel.dataEducationLevel()[viewModel.selectedIndexCarrierLevel()].value);
-    degree.push(viewModel.dataEducationLevel()[viewModel.selectedIndexCarrierLevel()].value);
+    self.lookUpId(viewModel.dataEducationLevel()[viewModel.selectedIndexEducationLevel()].value);
+    degree.push(viewModel.dataEducationLevel()[viewModel.selectedIndexEducationLevel()].value);
 }
 
-var carrierLevel =[];
+var carrierLevel = [];
 function addContentForCarrierLevel() {
     var self = this;
     self.lookUpId = ko.observable('');
@@ -185,13 +194,61 @@ function addContentForDistance() {
     distance.push(viewModel.dataDistance()[viewModel.selectedIndexDistance()].value);
 }
 
+function getFilteredJobsList() {
+    viewModel.jobs.removeAll();
+    var dataObjFilter;
+    var JobFilter = {};
+    JobFilter.Salary = salary;
+    JobFilter.Industry = industry;
+    JobFilter.EducationalLevel = degree;
+    JobFilter.EmployeementType = employment;
+    JobFilter.CarrierLevel = carrierLevel;
+    dataObjFilter = JSON.stringify(JobFilter);
+
+    var apiUrlJobFilter = GetWebAPIURL() + '/api/JobFilter?filter=' + dataObjFilter;
+
+    //To get Scholarship details
+    $.ajax({
+        url: apiUrlJobFilter,
+        type: 'GET',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+
+            initJobsApplied(data);
+            viewModel.listJobs('1');
+        },
+        error: function (xhr, status, error) {
+            alert('Eroooror :' + status);
+        }
+    });
+}
+
+function getSkillList() {
+    var dataobjSkillList;
+    var apiUrlSkillList = GetWebAPIURL() + '/api/ListJobSkills';
+
+
+    //To get Job list 
+    $.ajax({
+        url: apiUrlSkillList,
+        type: 'GET',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            dataobjSkillList = data;
+
+        },
+        error: function (xhr, status, error) {
+            alert('Erooororlang :' + status);
+        }
+    });
+    return dataobjSkillList;
+}
 
 var dataobjSkillList = getSkillList();
-var dataobjJobList = getJobsList();
-function initJobsApplied() {
-    
-    viewModel.jobs = ko.observableArray();
 
+function initJobsApplied(dataobjJobList) {
     if (dataobjJobList) {
         for (var i = 0; i < dataobjJobList.length; i++) {
             var listJob = new createJobList(dataobjJobList[i]);
@@ -231,3 +288,42 @@ function createJobList(objJobs) {
     }
 }
 
+function getJobSeekerAppliedJobs() {
+    var apiUrlJobSeekerAppliedJobs = GetWebAPIURL() + '/api/JobSeekerAppliedJobs/';
+    var dataObjJobSeekerAppliedJobs;
+
+    $.ajax({
+        url: apiUrlJobSeekerAppliedJobs,
+        type: 'GET',
+        async: false,
+        headers: app.securityHeaders(),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            dataObjJobSeekerAppliedJobs = data;
+        },
+        error: function (xhr, status, error) {
+            alert('Error :' + status);
+        }
+    });
+    return dataObjJobSeekerAppliedJobs;
+}
+
+function getJobSeekerSavedJobs() {
+    var apiUrlJobSeekerSavedJobs = GetWebAPIURL() + '/api/JobSeekerSavedJobs/';
+    var dataObjJobSeekerSavedJobs;
+
+    $.ajax({
+        url: apiUrlJobSeekerSavedJobs,
+        type: 'GET',
+        async: false,
+        headers: app.securityHeaders(),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            dataObjJobSeekerSavedJobs = data;
+        },
+        error: function (xhr, status, error) {
+            alert('Error :' + status);
+        }
+    });
+    return dataObjJobSeekerSavedJobs;
+}

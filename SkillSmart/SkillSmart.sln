@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillSmart", "SkillSmart\SkillSmart.csproj", "{7DBFA55C-5CBB-4086-93D4-AB19B435DE1C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillSmartMongoDA", "SkillSmartDA\SkillSmartMongoDA.csproj", "{0D2CFACE-3A3D-4803-8A05-9CD4A7444F35}"
@@ -12,6 +14,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillSmartTest", "SkillSmartTest\SkillSmartTest.csproj", "{248CCA87-DCED-44F3-BEE9-CFFA36AB1E0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillSmartSqlDA", "SkillSmartSqlDA\SkillSmartSqlDA.csproj", "{DF74C88F-F093-4519-A9FE-ABCDA325B92A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.AspNet.Identity", "MongoDB.AspNet.Identity\MongoDB.AspNet.Identity.csproj", "{0FF87680-235F-4231-8302-9BF6FCAC7476}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGMProfile", "..\MGMProfile\MGMProfile.csproj", "{23C7ABFB-8AA3-4EA3-AC2D-3DDFF9934625}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillSmartUI", "..\SkillSmartUI\SkillSmartUI\SkillSmartUI.csproj", "{6E1BE578-F8AA-4EA5-95B8-B399E3382C37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +51,18 @@ Global
 		{DF74C88F-F093-4519-A9FE-ABCDA325B92A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF74C88F-F093-4519-A9FE-ABCDA325B92A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF74C88F-F093-4519-A9FE-ABCDA325B92A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF87680-235F-4231-8302-9BF6FCAC7476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF87680-235F-4231-8302-9BF6FCAC7476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF87680-235F-4231-8302-9BF6FCAC7476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF87680-235F-4231-8302-9BF6FCAC7476}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23C7ABFB-8AA3-4EA3-AC2D-3DDFF9934625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23C7ABFB-8AA3-4EA3-AC2D-3DDFF9934625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23C7ABFB-8AA3-4EA3-AC2D-3DDFF9934625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23C7ABFB-8AA3-4EA3-AC2D-3DDFF9934625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E1BE578-F8AA-4EA5-95B8-B399E3382C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E1BE578-F8AA-4EA5-95B8-B399E3382C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E1BE578-F8AA-4EA5-95B8-B399E3382C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E1BE578-F8AA-4EA5-95B8-B399E3382C37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

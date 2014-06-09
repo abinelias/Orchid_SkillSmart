@@ -1,12 +1,8 @@
 ﻿$(document).ready(function () {
-
+    
     initWorkExperience();
-
+ 
 });
-
-var url = window.location.href;
-var userId = url.substring(url.lastIndexOf('=') + 1);
-
 
 function getIndustryTypeLookup() {
     var apiUrlIndustryType = GetWebAPIURL() + '/api/Lookup/?name=IndustryType';
@@ -17,6 +13,7 @@ function getIndustryTypeLookup() {
         url: apiUrlIndustryType,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         success: function (data) {
             dataIndustryTypeObj = data;
 
@@ -37,6 +34,7 @@ function getWorkTypeLookup() {
         url: apiUrlWorkType,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         success: function (data) {
             dataWorkTypeObj = data;
 
@@ -50,7 +48,7 @@ function getWorkTypeLookup() {
 
 function getJobseekerWorkExperience() {
     var dataobjWorkExpereince;
-    var apiUrlWorkExperience = GetWebAPIURL() + '/api/WorkHistory?jobSeekerId=' + userId;
+    var apiUrlWorkExperience = GetWebAPIURL() + '/api/WorkHistory/';
 
 
     //To get workhistory details from workhistory table
@@ -58,6 +56,7 @@ function getJobseekerWorkExperience() {
         url: apiUrlWorkExperience,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataobjWorkExpereince = data;
@@ -68,7 +67,6 @@ function getJobseekerWorkExperience() {
     });
     return dataobjWorkExpereince;
 }
-
 function initWorkExperience() {
 
 
@@ -140,18 +138,18 @@ function workHistoryCreate(objWork) {
     self.currentPosition = ko.observable('').extend({ required: { message: "Current Position  required" } });
     self.startDate = ko.observable('').extend({ required: { message: "startDate  required" } });
     self.endDate = ko.observable('').extend({ required: { message: "endDate  required" } });
-    self.companyLocation = ko.observable('').extend({ required: { message: "companyLocation required" } });
-    self.currentSalary = ko.observable('').extend({ required: { message: "currentSalary required" } });
-    self.salaryType = ko.observable('');
+    self.companyLocation = ko.observable('').extend({ required: { message: "Company Location required" } });
+    self.currentSalary = ko.observable('').extend({ required: { message: "CurrentSalary required" } });
+    self.salaryType = ko.observable('Annually');
     self.selectedIndexIndustry = ko.observable(0).extend({ required: { message: "select industry  required" } });
     self.selectedIndexWorkType = ko.observable(0).extend({ required: { message: "select work  required" } });
 
-    self.jobDescription = ko.observable('').extend({ required: { message: "jobDescription required" } });
-    self.jobSeekerId = ko.observable(userId);
+    self.jobDescription = ko.observable('').extend({ required: { message: "Job Description required" } });
+    self.jobSeekerId = ko.observable();
     self.isEditWork = ko.observable('0');
 
     self.deleteCheck = ko.observable('1');
-
+    self.btnSkill = ko.observable('+');
 
 
     self.workHistoryId = ko.observable('');
@@ -171,7 +169,6 @@ function workHistoryCreate(objWork) {
         self.salaryType(objWork.SalaryType);
 
         self.jobDescription(objWork.JobDuties);
-        self.jobSeekerId(objWork.JobSeekerId);
         self.workHistoryId(objWork.Id);
 
         for (da in dataIndustryTypeObj) {
@@ -203,6 +200,7 @@ function workHistoryCreate(objWork) {
 
         }
     });
+
 }
 
 viewModel.addfirstWorkExp = function () {
@@ -221,26 +219,29 @@ viewModel.addMoreWorkHistory = function () {
     workhistory.isEditWork('1');
     workhistory.deleteCheck('0');
     viewModel.workHistory.splice(0, 0, workhistory);
-    document.getElementById("addMoreWorkHistory").disabled = true;
+    //document.getElementById("addMoreWorkHistory").disabled = true;
+
+    viewModel.workButtonCheck(0);
 
 }
 
 viewModel.saveWorkExperience = function (workExperienceobj) {
-    if (workExperienceobj.companyName.isValid() && workExperienceobj.companyLocation.isValid() && workExperienceobj.currentPosition.isValid() && workExperienceobj.startDate.isValid() && workExperienceobj.endDate.isValid() && workExperienceobj.jobDescription.isValid() && workExperienceobj.selectedIndexWorkType() > 0 && workExperienceobj.selectedIndexWorkType() > 0) {
-        if (viewModel.workButtonCheck() == 1) {
-            document.getElementById("addMoreWorkHistory").disabled = false;
-        }
-
+   
+    if (workExperienceobj.companyName.isValid() && workExperienceobj.companyLocation.isValid() && workExperienceobj.currentPosition.isValid() && workExperienceobj.startDate.isValid()  && workExperienceobj.jobDescription.isValid() && workExperienceobj.selectedIndexWorkType() > 0 && workExperienceobj.selectedIndexWorkType() > 0) {
+        
+        viewModel.workButtonCheck(1);
+       
+        
         var jsonObjectWorkExperience = ko.toJS(workExperienceobj);
         var jsonObjectVM = ko.toJS(viewModel);
 
         if (jsonObjectWorkExperience.workHistoryId) {
             var dataobjWorkExpereince;
             var jobseekerworkExperienceObj = {}
-            jobseekerworkExperienceObj.JobSeekerId = jsonObjectWorkExperience.jobSeekerId;
             jobseekerworkExperienceObj.CompanyName = jsonObjectWorkExperience.companyName;
             jobseekerworkExperienceObj.EndingPosition = jsonObjectWorkExperience.currentPosition;
             jobseekerworkExperienceObj.StartDate = convert(jsonObjectWorkExperience.startDate);
+            jobseekerworkExperienceObj.EndDate = convert(jsonObjectWorkExperience.endDate);
 
             jobseekerworkExperienceObj.CompanyLocation = jsonObjectWorkExperience.companyLocation;
             jobseekerworkExperienceObj.EndingSalary = jsonObjectWorkExperience.currentSalary;
@@ -252,43 +253,47 @@ viewModel.saveWorkExperience = function (workExperienceobj) {
             if (jsonObjectWorkExperience.currentlyWorking) {
 
                 jobseekerworkExperienceObj.EndDate = "present";
-                workExperienceobj.endDate = "present";
-
+                jsonObjectWorkExperience.endDate = "present";
             }
             else {
+                
                 jobseekerworkExperienceObj.EndDate = convert(jsonObjectWorkExperience.endDate);
             }
+            
+            
             dataobjWorkExpereince = JSON.stringify(jobseekerworkExperienceObj);
 
 
-            var apiUrlWorkExperience = GetWebAPIURL() + '/api/WorkHistory?Id=' + jsonObjectWorkExperience.workHistoryId;
+        var apiUrlWorkExperience = GetWebAPIURL() + '/api/WorkHistory?Id=' + jsonObjectWorkExperience.workHistoryId;
 
-            //To update Workhistory table
-            $.ajax({
-                url: apiUrlWorkExperience,
-                type: "PUT",
-                data: dataobjWorkExpereince,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    workExperienceobj.isEditWork('0');
-                    workExperienceobj.startDate(convert(jsonObjectWorkExperience.startDate));
-                    workExperienceobj.endDate(convert(jsonObjectWorkExperience.endDate));
+        //To update Workhistory table
+        $.ajax({
+            url: apiUrlWorkExperience,
+            type: "PUT",
+            data: dataobjWorkExpereince,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                workExperienceobj.isEditWork('0');
+                workExperienceobj.startDate(convert(jsonObjectWorkExperience.startDate));
+                workExperienceobj.endDate(convert(jsonObjectWorkExperience.endDate));
 
 
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
-        }
-        else {
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
+    }
+    else {
             var dataobjWorkExpereince;
             var jobseekerworkExperienceObj = {}
-            jobseekerworkExperienceObj.JobSeekerId = jsonObjectVM.jobseekerId;
             jobseekerworkExperienceObj.CompanyName = jsonObjectWorkExperience.companyName;
             jobseekerworkExperienceObj.EndingPosition = jsonObjectWorkExperience.currentPosition;
             jobseekerworkExperienceObj.StartDate = convert(jsonObjectWorkExperience.startDate);
+            jobseekerworkExperienceObj.EndDate = convert(jsonObjectWorkExperience.endDate);
+
             jobseekerworkExperienceObj.CompanyLocation = jsonObjectWorkExperience.companyLocation;
             jobseekerworkExperienceObj.EndingSalary = jsonObjectWorkExperience.currentSalary;
             jobseekerworkExperienceObj.SalaryType = jsonObjectWorkExperience.salaryType;
@@ -297,33 +302,34 @@ viewModel.saveWorkExperience = function (workExperienceobj) {
             jobseekerworkExperienceObj.IndustryId = viewModel.dataIndustry()[workExperienceobj.selectedIndexIndustry()].value;
             if (jsonObjectWorkExperience.currentlyWorking) {
                 jobseekerworkExperienceObj.EndDate = "present";
-                workExperienceobj.endDate = "present";
+                jsonObjectWorkExperience.endDate = "present";
             }
             else {
                 jobseekerworkExperienceObj.EndDate = convert(jsonObjectWorkExperience.endDate);
             }
 
             dataobjWorkExpereince = JSON.stringify(jobseekerworkExperienceObj);
-            var apiUrlWorkExperience = GetWebAPIURL() + '/api/WorkHistory/';
+        var apiUrlWorkExperience = GetWebAPIURL() + '/api/WorkHistory/';
 
-            //To create WorkHistory table
-            $.ajax({
-                url: apiUrlWorkExperience,
-                type: "POST",
-                data: dataobjWorkExpereince,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    workExperienceobj.workHistoryId(data);
-                    workExperienceobj.isEditWork('0');
-                    workExperienceobj.startDate(convert(jsonObjectWorkExperience.startDate));
-                    workExperienceobj.endDate(convert(jsonObjectWorkExperience.endDate));
-                    viewModel.workButtonCheck('1');
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
+        //To create WorkHistory table
+        $.ajax({
+            url: apiUrlWorkExperience,
+            type: "POST",
+            data: dataobjWorkExpereince,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                workExperienceobj.workHistoryId(data);
+                workExperienceobj.isEditWork('0');
+                workExperienceobj.startDate(convert(jsonObjectWorkExperience.startDate));
+                workExperienceobj.endDate(convert(jsonObjectWorkExperience.endDate));
+                viewModel.workButtonCheck('1');
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
         }
         workExperienceobj.errorCheckWork('0');
         workExperienceobj.errorCheckIndustry('0');
@@ -342,57 +348,64 @@ viewModel.saveWorkExperience = function (workExperienceobj) {
     }
 }
 
-var SelectedWorkExperienceobj;
+var SelectedWorkExperience = [];
 
 viewModel.cancelWorkExperience = function (workExperienceobj) {
 
-
-    if (viewModel.workButtonCheck() == 1) {
-        document.getElementById("addMoreWorkHistory").disabled = false;
-    }
-    else {
-        viewModel.workCheck('0');
-    }
     var jsonObjectworkExperience = ko.toJS(workExperienceobj);
     if (jsonObjectworkExperience.workHistoryId) {
-        workExperienceobj.companyName(SelectedWorkExperienceobj.companyName);
-        workExperienceobj.currentPosition(SelectedWorkExperienceobj.currentPosition);
-        workExperienceobj.selectedIndexIndustry(selectedIndustry);
-        workExperienceobj.selectedIndexWorkType(selectedWork);
-        workExperienceobj.companyLocation(SelectedWorkExperienceobj.companyLocation);
-        workExperienceobj.jobDescription(SelectedWorkExperienceobj.jobDescription);
-        workExperienceobj.salaryType(SelectedWorkExperienceobj.salaryType);
-        workExperienceobj.currentSalary(SelectedWorkExperienceobj.currentSalary);
-        workExperienceobj.startDate(SelectedWorkExperienceobj.startDate);
-        workExperienceobj.endDate(SelectedWorkExperienceobj.endDate);
+
         workExperienceobj.isEditWork('0');
     }
     else {
         viewModel.workHistory.remove(workExperienceobj);
     }
-    SelectedWorkExperienceobj = "";
+
+    if (viewModel.workHistory().length == 0) {
+        viewModel.workCheck('0');
+    }
+    else {
+        viewModel.workButtonCheck(1);
+    }
     workExperienceobj.errorCheckWork('0');
     workExperienceobj.errorCheckIndustry('0');
+
+    for (var i = 0; i < SelectedWorkExperience.length; i++) {
+
+        if (SelectedWorkExperience[i].workHistoryId == workExperienceobj.workHistoryId()) {
+
+            workExperienceobj.companyName(SelectedWorkExperience[i].companyName);
+            workExperienceobj.currentPosition(SelectedWorkExperience[i].currentPosition);
+            workExperienceobj.selectedIndexIndustry(SelectedWorkExperience[i].selectedIndexIndustry);
+            workExperienceobj.selectedIndexWorkType(SelectedWorkExperience[i].selectedIndexWorkType);
+            workExperienceobj.companyLocation(SelectedWorkExperience[i].companyLocation);
+            workExperienceobj.jobDescription(SelectedWorkExperience[i].jobDescription);
+            workExperienceobj.salaryType(SelectedWorkExperience[i].salaryType);
+            workExperienceobj.currentSalary(SelectedWorkExperience[i].currentSalary);
+            workExperienceobj.startDate(SelectedWorkExperience[i].startDate);
+            workExperienceobj.endDate(SelectedWorkExperience[i].endDate);
+        }
+
+    }
 }
-var selectedIndustry;
-var selectedWork;
+
 viewModel.editWorkHistoryDetails = function (workExperienceobj) {
-    selectedIndustry = workExperienceobj.selectedIndexIndustry();
-    selectedWork = workExperienceobj.selectedIndexWorkType();
 
-    SelectedWorkExperienceobj = ko.toJS(workExperienceobj);
 
+    var SelectedWorkExperienceobj = ko.toJS(workExperienceobj);
+    SelectedWorkExperience.push(SelectedWorkExperienceobj);
     workExperienceobj.isEditWork('1');
     workExperienceobj.deleteCheck('1');
 }
+
 
 viewModel.deleteWorkExperience = function (workExperienceobj) {
     var jsonObjectWorkExperience = ko.toJS(workExperienceobj);
     var jsonObjectVM = ko.toJS(viewModel);
 
-
+   
     var deleteWork = confirm("Do you want to delete!");
-
+   
     if (deleteWork == true) {
 
         if (jsonObjectWorkExperience.workHistoryId) {
@@ -400,6 +413,7 @@ viewModel.deleteWorkExperience = function (workExperienceobj) {
             $.ajax({
                 url: apiUrlWorkExperience,
                 type: "DELETE",
+                headers: app.securityHeaders(),
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (data) {
@@ -420,22 +434,38 @@ viewModel.deleteWorkExperience = function (workExperienceobj) {
     }
 }
 
+
+viewModel.expandWorkSkill = function (workExperienceobj) {
+    if (workExperienceobj.btnSkill() == '+') {
+        workExperienceobj.btnSkill('-');
+    }
+    else {
+        workExperienceobj.btnSkill('+');
+    }
+}
+
 function convert(str) {
 
     if (str == 'present') {
         return str;
     }
     else {
+
         var date = new Date(str),
             mnth = ("0" + (date.getMonth() + 1)).slice(-2),
             day = ("0" + date.getDate()).slice(-2);
         return [mnth, day, date.getFullYear()].join("/");
     }
 }
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true
+});
 
-function AddSkills(workHistoryId, acquiredId, userId) {
-    //  alert(userId);
-    $("#ManageHoldingsFrame").attr('src', "/Views/JobSeeker/PopupSkills.html?&userid=" + userId + "&acquiredId=" + acquiredId + "&workHistoryId" + workHistoryId);
+function AddSkills(workHistoryId, acquiredId) {
+  //  alert(userId);
+    $("#ManageHoldingsFrame").attr('src', "/Views/JobSeeker/PopupSkills.html?&acquiredId=" + acquiredId + "&workHistoryId" + workHistoryId);
     $('#ManageHoldingsDiv').dialog(
         {
             open: function () {
@@ -451,18 +481,12 @@ function AddSkills(workHistoryId, acquiredId, userId) {
             closeOnEscape: true,
             close: function (event, ui) { $(this).dialog('destroy'); },
             buttons: {
-                'Close': function () {
-
+                'Close': function (ev, ui) {
                     $(this).dialog('destroy');
+                    window.location.reload()
                 }
             }
         });
 
     $("#ManageHoldingsFrame").show();
 }
-
-ko.validation.init({
-    registerExtenders: true,
-    messagesOnModified: true,
-    insertMessages: true
-});

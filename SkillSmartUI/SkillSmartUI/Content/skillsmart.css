@@ -34,13 +34,19 @@ html[xmlns] .clearfix {
 h1 {
 	font-family: 'Questrial', Arial, sans-serif;
 	font-weight: 300;
+	font-size: 2em;
+}
+
+.fa {
+	font-size: 1em;
+	color: #3b3f42;
 }
 
 .box-header {
 	color: #fff;
-	background: url(images/bkgd-header.png) repeat scroll 0 0 #4a5155;
+	background: url(/images/bkgd-header.png) repeat scroll 0 0 #4a5155;
 	width: 97%;
-	padding: 15px;
+	padding: 15px 14px;
 	margin: 0;
 	border-radius: 2px 2px 0px 0px;
 	-moz-border-radius: 2px 2px 0px 0px;
@@ -68,7 +74,7 @@ h1 {
 }
 
 .box-stripe {
-	background: url(images/bkgd-body.png) repeat scroll 0 0 #fff;
+	background: url(/images/bkgd-body.png) repeat scroll 0 0 #fff;
 	padding: 0 15px 15px;
 	width: 97%;
 }
@@ -86,7 +92,7 @@ section.box a.first {
 }
 
 #container {
-	background: url(images/bkgd-body.png) repeat scroll 0 0 #fff;
+	background: url(/images/bkgd-body.png) repeat scroll 0 0 #fff;
 	width: 100%;
 	margin: 0 auto;
 	height: auto;
@@ -148,7 +154,7 @@ section.box a.first {
 	display: inline-block;
 	float: left;
 	border-left:1px solid #f4f4f5;
-	padding: 44px 28px 32px;
+	padding: 44px 26px 32px;
 }
 
 #nav ul.menu li a {
@@ -242,7 +248,7 @@ section.box a.first {
 }
 
 #backTop .gutter {
-	background: url(images/bkgd-backtop.png) 50% 100% no-repeat transparent;
+	background: url(/images/bkgd-backtop.png) 50% 100% no-repeat transparent;
 	height: 20px;
 	display: block;
 	margin: 0;
@@ -370,6 +376,7 @@ section.box a.first {
 	width: 30%;
 	display: block;
 	float: left;
+	padding-top: 10px;
 }
 
 #footerSocial ul.menu {
@@ -384,11 +391,13 @@ section.box a.first {
 	padding: 0 12px;
 }
 
-#footerSocial ul.menu li a {
+#footerSocial ul.menu li a, #footerSocial .fa {
 	text-decoration: none;
 	color: #bbbdbf;
 	display: block;
 }
+
+
 
 #footerCopyright {
 	width: 70%;
@@ -402,3 +411,4 @@ section.box a.first {
 	color: #737678;
 	text-align: right;
 }
+

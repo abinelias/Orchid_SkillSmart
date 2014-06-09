@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE HTML>
  <!-- ko if: isEditWork() == '1' -->
-<div class="common_tab_background">
+
 
     <div id="Edit_WorkExperience" class="tab_savebackground_div">
         <ul>
@@ -110,13 +110,13 @@
                 </li>
             <li class="jobseeker_additionalinformation_city_outerli">
                 <ul class="jobseeker_additionalinformation_city_ul" >
-                    <li class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="save_workExperience" class="savebutton" value="Save" data-bind="click: $parent.saveWorkExperience" /></li>
-                    <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel_workExperience" class="cancelbutton" value="Cancel" data-bind="click: $parent.cancelWorkExperience" /></li>
-                    <!-- ko if: deleteCheck() == '1' --><li ><input type="button" id="delete_workExperience" class="deletebutton" value="Delete" data-bind="click: $parent.deleteWorkExperience" /></li><!-- /ko -->
+                    <li ><a class="btn btn-blue first" href="" id="save_workExperience" data-bind="click: $parent.saveWorkExperience" >Save</a></li>
+                    <li ><a class="btn btn-ltgray" href=""  id="cancel_workExperience"   data-bind="click: $parent.cancelWorkExperience" >Cancel</a></li>
+                    <!-- ko if: deleteCheck() == '1' --><li ><a class="btn btn-red" style="float:right;" href="" id="delete_workExperience" data-bind="click: $parent.deleteWorkExperience" >Delete</a></li><!-- /ko -->
                 </ul>
             </li>
         </ul>
     </div>
-</div>
+
 
 <!-- /ko -->

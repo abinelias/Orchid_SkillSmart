@@ -12,10 +12,13 @@
     <script src="/Scripts/vendor/jquery.viewloader.js"></script>
     <script src="/Scripts/vendor/jquery-ui.js"></script>
     <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
-   
+    
     <script src="/Scripts/Common.js"></script>
     <script src="/Scripts/jobseeker.js"></script>
     <script src="/Scripts/viewmodel/appliedJobs.js"></script>
+
+    <script src="/Scripts/Auth/app.datamodel.js"></script>
+    <script src="/Scripts/Auth/app.viewmodel.js"></script>
 
     <!-- jQuery -->
    <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
@@ -35,26 +38,33 @@
     <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout.wijmo.js"></script>    
        
    
-     <script src="/Scripts/vendor/knockout.validation.js"></script>
     <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
    
-
+    <script src="/Scripts/vendor/knockout.validation.js"></script>
 
 </head>
 <body>
-    <div id="header"></div>
-    <div id="main-div">
-        <div class="common_banner">
-            <div class="common_bannerStyle">
-                <ul><li>Apply</li></ul>
-            </div>
+    <div id="container">
+        <div id="wrapHeader">
+            <div id="header"></div>
         </div>
+    <div id="main-div">
+        <section class="sectionModified box box-white">
+                         <h1 class="box-header">
+            
+                Apply</h1>
+            
+        
         <section class="common_background" data-bind="template: { name: 'ViewJob' }"></section>
         <section class="common_background" data-bind="template: { name: 'EditFormAccountDetails' }"></section>
         <section class="common_background" data-bind="template: { name: 'CoverLetter' }"></section>
         <section class="common_background">
-        <li class='jobseeker_myinformation_buttonli'><input type="button" value="Submit Application" class="submitbutton" data-bind="click:submitApplication" /></li></section>
+        <li class='jobseeker_myinformation_buttonli'><a class="bton btn-orange" href="" data-bind="click:submitApplication" >Submit Application</a></li></section>
+    </section>
     </div>
-    <div id="footer"></div>
+    </div>
+    <div id="wrapFooter">
+        <div id="footer"></div>
+    </div>
 </body>
 </html>

@@ -15,6 +15,7 @@ function getDegreeTypeLookup() {
         url: apiUrlDegreeType,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         success: function (data) {
             dataDegreeTypeObj = data;
 
@@ -28,7 +29,7 @@ function getDegreeTypeLookup() {
 
 function getJobseekerEducation() {
 
-    var apiUrlEducation = GetWebAPIURL() + '/api/Education?jobSeekerId=' + userId;
+    var apiUrlEducation = GetWebAPIURL() + '/api/Education/';
     var dataobjEducation;
 
     //To get Education details 
@@ -36,6 +37,7 @@ function getJobseekerEducation() {
         url: apiUrlEducation,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataobjEducation = data;
@@ -46,7 +48,6 @@ function getJobseekerEducation() {
     });
     return dataobjEducation;
 }
-
 function initEducation() {
 
     viewModel.degree = ko.observableArray();
@@ -100,7 +101,7 @@ function createListDegreeType() {
 var dataDegreeTypeObj = getDegreeTypeLookup();
 function educationCreate(objEducation) {
     var self = this;
-    self.universityName = ko.observable().extend({ required: { message: "UniversityName required" } });
+    self.universityName = ko.observable().extend({ required: { message: "University Name required" } });
     self.degreeId = ko.observable();
     self.startDate = ko.observable().extend({ required: { message: "Start Date required" } });
     self.endDate = ko.observable().extend({ required: { message: "End Date required" } });
@@ -109,9 +110,10 @@ function educationCreate(objEducation) {
     self.deleteCheck = ko.observable('1');
     self.selectedIndexDegreeType = ko.observable(0);
 
-    self.jobSeekerId = ko.observable(userId);
+    self.jobSeekerId = ko.observable();
     self.isEditEducation = ko.observable('0');
 
+    self.btnEducationSkill = ko.observable('+');
     self.educationId = ko.observable('');
     self.currentlyStudying = ko.observable(false);
 
@@ -131,7 +133,6 @@ function educationCreate(objEducation) {
         self.universityLocation(objEducation.InstitutionLocation);
         self.majorFocus(objEducation.MajorFocus);
 
-        self.jobSeekerId(objEducation.JobSeekerId);
         self.educationId(objEducation.Id);
 
         self.isEditEducation('0');
@@ -154,7 +155,9 @@ function educationCreate(objEducation) {
 }
 
 viewModel.addMoreEducation = function () {
-    document.getElementById("addMoreEducation").disabled = true;
+
+    viewModel.educationButtonCheck('0');
+    // document.getElementById("addMoreEducation").disabled = true;
     var Education = new educationCreate();
     Education.isEditEducation('1');
 
@@ -176,40 +179,51 @@ viewModel.addFirstEducation = function () {
 
 }
 
-var SelectedEducationObj;
+var SelectedEducation = [];
 
 viewModel.cancelEducation = function (educationObj) {
 
-    if (viewModel.educationButtonCheck() == 1) {
-        document.getElementById("addMoreEducation").disabled = false;
-    }
-    else {
-        viewModel.educationCheck('0');
-    }
+
+
     educationObj.isEditEducation('0');
     var jsonObjectEducation = ko.toJS(educationObj);
     if (jsonObjectEducation.educationId) {
-        educationObj.universityName(SelectedEducationObj.universityName);
-        educationObj.universityLocation(SelectedEducationObj.universityLocation);
-        educationObj.majorFocus(SelectedEducationObj.majorFocus);
-        educationObj.startDate(SelectedEducationObj.startDate);
-        educationObj.endDate(SelectedEducationObj.endDate);
-        educationObj.selectedIndexDegreeType(selectedDegree);
+
         educationObj.isEditEducation('0');
     }
     else {
         viewModel.education.remove(educationObj);
     }
-    SelectedEducationObj = "";
+
+    if (viewModel.education().length == 0) {
+        viewModel.educationCheck('0');
+    }
+    else {
+        viewModel.educationButtonCheck('1');
+    }
+
     educationObj.errorCheckDegree('0');
+
+    for (var i = 0; i < SelectedEducation.length; i++) {
+        if (SelectedEducation[i].educationId == educationObj.educationId()) {
+            educationObj.universityName(SelectedEducation[i].universityName);
+            educationObj.universityLocation(SelectedEducation[i].universityLocation);
+            educationObj.majorFocus(SelectedEducation[i].majorFocus);
+            educationObj.startDate(SelectedEducation[i].startDate);
+            educationObj.endDate(SelectedEducation[i].endDate);
+            educationObj.selectedIndexDegreeType(SelectedEducation[i].selectedIndexDegreeType);
+        }
+
+    }
 }
 
 viewModel.saveEducation = function (educationObj) {
-    if (educationObj.universityName.isValid() && educationObj.majorFocus.isValid() && educationObj.startDate.isValid() && educationObj.endDate.isValid() && educationObj.universityLocation.isValid() && educationObj.selectedIndexDegreeType() > 0) {
 
-        if (viewModel.educationButtonCheck() == 1) {
+    if (educationObj.universityName.isValid() && educationObj.majorFocus.isValid() && educationObj.startDate.isValid()  && educationObj.universityLocation.isValid() && educationObj.selectedIndexDegreeType() > 0) {
+        viewModel.educationButtonCheck('1');
+        /*if (viewModel.educationButtonCheck() == 1) {
             document.getElementById("addMoreEducation").disabled = false;
-        }
+        }*/
 
         var jsonObjectEducation = ko.toJS(educationObj);
         var jsonObjectVM = ko.toJS(viewModel);
@@ -217,7 +231,6 @@ viewModel.saveEducation = function (educationObj) {
         if (jsonObjectEducation.educationId) {
             var dataobjEducation;
             var jobseekerEducationObj = {}
-            jobseekerEducationObj.JobSeekerId = jsonObjectEducation.jobSeekerId;
             jobseekerEducationObj.InstitutionName = jsonObjectEducation.universityName;
             jobseekerEducationObj.DegreeId = viewModel.dataDegreeType()[educationObj.selectedIndexDegreeType()].value;
             jobseekerEducationObj.StartDate = convert(jsonObjectEducation.startDate);
@@ -233,27 +246,28 @@ viewModel.saveEducation = function (educationObj) {
             }
             dataobjEducation = JSON.stringify(jobseekerEducationObj);
 
-            var apiUrlEducation = GetWebAPIURL() + '/api/Education?Id=' + jsonObjectEducation.educationId;
-            //To update Education table
-            $.ajax({
-                url: apiUrlEducation,
-                type: "PUT",
-                data: dataobjEducation,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    educationObj.isEditEducation('0');
-                    educationObj.startDate(convert(jsonObjectEducation.startDate));
-                    educationObj.endDate(convert(jsonObjectEducation.endDate));
-                },
-                error: function (xhr, status, error) {
-                    alert('Error :' + status);
-                }
-            });
+        var apiUrlEducation = GetWebAPIURL() + '/api/Education?Id=' + jsonObjectEducation.educationId;
+        //To update Education table
+        $.ajax({
+            url: apiUrlEducation,
+            type: "PUT",
+            data: dataobjEducation,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                educationObj.isEditEducation('0');
+                educationObj.startDate(convert(jsonObjectEducation.startDate));
+                educationObj.endDate(convert(jsonObjectEducation.endDate));
+            },
+            error: function (xhr, status, error) {
+                alert('Error :' + status);
+            }
+        });
 
 
-        }
-        else {
+    }
+    else {
             var dataobjEducation;
             var jobseekerEducationObj = {}
             jobseekerEducationObj.JobSeekerId = jsonObjectVM.jobseekerId;
@@ -273,27 +287,28 @@ viewModel.saveEducation = function (educationObj) {
             dataobjEducation = JSON.stringify(jobseekerEducationObj);
 
 
-            var apiUrlEducation = GetWebAPIURL() + '/api/Education';
-            //To create Education details
-            $.ajax({
-                url: apiUrlEducation,
-                type: "POST",
-                data: dataobjEducation,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    educationObj.educationId(data);
-                    educationObj.isEditEducation('0');
-                    educationObj.startDate(convert(jsonObjectEducation.startDate));
-                    educationObj.endDate(convert(jsonObjectEducation.endDate));
-                    viewModel.educationButtonCheck('1');
+        var apiUrlEducation = GetWebAPIURL() + '/api/Education';
+        //To create Education details
+        $.ajax({
+            url: apiUrlEducation,
+            type: "POST",
+            data: dataobjEducation,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                educationObj.educationId(data);
+                educationObj.isEditEducation('0');
+                educationObj.startDate(convert(jsonObjectEducation.startDate));
+                educationObj.endDate(convert(jsonObjectEducation.endDate));
+                viewModel.educationButtonCheck('1');
 
 
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
         }
         educationObj.errorCheckDegree('0');
     }
@@ -306,6 +321,15 @@ viewModel.saveEducation = function (educationObj) {
         else { educationObj.errorCheckDegree('0'); }
     }
 
+}
+
+viewModel.expandEducationSkill = function (educationObj) {
+    if (educationObj.btnEducationSkill() == '+') {
+        educationObj.btnEducationSkill('-');
+    }
+    else {
+        educationObj.btnEducationSkill('+');
+    }
 }
 
 viewModel.deleteEducation = function (educationObj) {
@@ -322,6 +346,7 @@ viewModel.deleteEducation = function (educationObj) {
             $.ajax({
                 url: apiUrlEducation,
                 type: "DELETE",
+                headers: app.securityHeaders(),
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (data) {
@@ -341,27 +366,46 @@ viewModel.deleteEducation = function (educationObj) {
         }
     }
 }
-var selectedDegree;
+
 viewModel.editEducationDetails = function (educationObj) {
-    selectedDegree = educationObj.selectedIndexDegreeType();
-    SelectedEducationObj = ko.toJS(educationObj);
+
+    var SelectedEducationObj = ko.toJS(educationObj);
+
+    SelectedEducation.push(SelectedEducationObj);
     educationObj.isEditEducation('1');
     educationObj.deleteCheck('1');
 }
-function convert(str) {
-    if (str == 'present') {
-        return str;
-    }
-    else {
-        var date = new Date(str),
-            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-            day = ("0" + date.getDate()).slice(-2);
-        return [mnth, day, date.getFullYear()].join("/");
-    }
-}
-
 ko.validation.init({
     registerExtenders: true,
     messagesOnModified: true,
     insertMessages: true
 });
+
+
+function AddEducationSkills(educationId, acquiredId) {
+    // alert(JOBSEEKERID);
+    $("#ManageHoldingsFrame").attr('src', "/Views/JobSeeker/PopupSkills.html?&acquiredId=" + acquiredId + "&workHistoryId" + educationId);
+    $('#ManageHoldingsDiv').dialog(
+        {
+            open: function () {
+                $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").css("background-color", "#C4E1F1");
+            },
+            width: 750,
+            minWidth: 700,
+            minHeight: 380,
+            modal: true,
+            hideTitleBar: false,
+            resizable: true,
+            title: "Add Skill",
+            closeOnEscape: true,
+            close: function (event, ui) { $(this).dialog('destroy'); },
+            buttons: {
+                'Close': function () {
+                    window.location.reload();
+                    $(this).dialog('destroy');
+                }
+            }
+        });
+
+    $("#ManageHoldingsFrame").show();
+}

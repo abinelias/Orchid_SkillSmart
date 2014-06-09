@@ -1,7 +1,17 @@
-﻿
-<div style="padding-top:15px;"><li><!-- ko if: workButtonCheck() == '1' --><input  type="button" id="addMoreWorkHistory" class="editbutton" value="Add More" data-bind="click: addMoreWorkHistory" /><!-- /ko --></li></div>
-<div id="WorkExperience"  >
-    
-    <div data-bind="   template: { name: 'EditWorkExperience' }"></div>
+﻿<div  class="myInformation_tab_WhiteBackground">
+    <div style="padding-top:15px;">
+        <div class="common_bannerStyle">
+            <label class="myInformation_WorkHistory_Label">Job History</label>
+        </div>
+        <div class="common_banner_ButtonStyle">
         
+        <li><!-- ko if: workButtonCheck() == '1' --><a href="" class="butn butn-dkgray"  id="addMoreWorkHistory"  data-bind="click: addMoreWorkHistory" ><i class="fa fa-plus"></i>&nbsp Add More</a><!-- /ko --></li>
+            </div>
+        </div>
+<br /><br />
+    <div id="WorkExperience"  >
+    
+        <div data-bind="   template: { name: 'EditWorkExperience' }"></div>
+        
+    </div>
 </div>

@@ -38,12 +38,19 @@
     
 </head>
 <body>
-    <div id="header"></div>
-    <div id="main-div">
-    
-     <div id="personal-information" data-bind="template: { name: 'MessageCenter' }">               
+    <div id="container">
+        <div id="wrapHeader">
+            <div id="header"></div>
+        </div>
+        <div id="content">
+            <div id="main-div">    
+                <section class="sectionModified box box-white" data-bind="template: { name: 'MessageCenter' }">               
+                </section>
+            </div>
+        </div>
+        <div id="wrapFooter">
+            <div id="footer"></div> 
         </div>
     </div>
-    <div id="footer"></div> 
 </body>
 </html>

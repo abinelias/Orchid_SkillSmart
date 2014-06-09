@@ -6,7 +6,7 @@
         Awards, Webpage etc.
     </li>
     <li class="jobseeker_myinformation_buttonli">
-        <input type="button" id="add-allocades" class="submitbutton" value="Add Reference" data-bind='click: $root.addFirstSupportingMaterial' />
+        <a class="bton btn-orange" href="" data-bind='click: $root.addFirstSupportingMaterial' >Add Reference</a>
     </li>
 <!-- /ko -->
 
@@ -15,12 +15,12 @@
         <ul  class="jobseeker_list_li_ul"  data-bind="foreach: supportingMaterialArray">
             <li >
                 <div  class="ListReference">
-                    <div class="ListReference_Label">
+                    <div class="ListLanguage_Label">
                         <div ><label class="jobseeker_Reference" data-bind="    text: title"></label></div>
-                        <div><label data-bind="    text: description"></label></div>
+                        <div style="width:-moz-max-content;"><label data-bind="    text: description"></label></div>
                     </div>
-                    <div class="ListReference_Button">
-                        <button class="delete_skillButton" data-bind = "click: $parent.deleteSupportingMaterial" >X</button>
+                    <div class="ListLanguage_Button">
+                        <button class="delete_LanguageButton" data-bind = "click: $parent.deleteSupportingMaterial" ><i class="fa fa-times fa-lg"></i></button>
                     </div>
                 </div>     
             </li>

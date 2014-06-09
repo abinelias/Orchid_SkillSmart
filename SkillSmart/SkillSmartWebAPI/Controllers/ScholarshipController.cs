@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
@@ -15,9 +17,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all Scholarship of jobseeker related to an education details
         /// </summary>
         /// <returns>list of Scholarship</returns>
-        public IEnumerable<Scholarship> GetAll(string jobSeekerId)
+        public IEnumerable<Scholarship> GetAll()
         {
-            return ServiceFactory.GetJobSeekerScholarship().GetAllScholarshipById(jobSeekerId);
+            return ServiceFactory.GetJobSeekerScholarship().GetAllScholarshipById(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>
@@ -36,9 +38,9 @@ namespace SkillSmartWebAPI.Controllers
         /// <param name="scholarshipObj">scholarship Object</param>
         public string Post(Scholarship scholarshipObj)
         {
-           
-                ServiceFactory.GetJobSeekerScholarship().Create(scholarshipObj);
-                return scholarshipObj.Id.ToString();
+            scholarshipObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+            ServiceFactory.GetJobSeekerScholarship().Create(scholarshipObj);
+            return scholarshipObj.Id.ToString();
             
         }
 
@@ -51,6 +53,8 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                scholarshipObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+                scholarshipObj.Id = new Guid(id);
                 scholarshipObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerScholarship().Update(scholarshipObj);
             }

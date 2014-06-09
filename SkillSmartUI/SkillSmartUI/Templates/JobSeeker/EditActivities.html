@@ -1,5 +1,5 @@
 ﻿
-<ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: activitiesArray">
+<li  data-bind="foreach: activitiesArray">
     <!-- ko if: isEdit() == '0' -->
         <div data-bind="template: { name: 'ActivityList' }">
         </div>
@@ -9,5 +9,9 @@
         <div class="add_div" data-bind="template: { name: 'EditFormActivities' }">
         </div>
     <!-- /ko -->
-</ul>
+</li>
+
+<li class="jobseeker_myinformation_buttonli">
+        <a class="btn btn-blue first" href="" data-bind="click: doneEditingActivities">I'm done Editing this section </a>
+</li>
        

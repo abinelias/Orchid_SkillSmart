@@ -1,11 +1,9 @@
-﻿<div class='common_banner'>
-   <div class="common_bannerStyle">
-        <ul><li> Account Status</li></ul>
-    </div>
-
-   <div class="common_banner_ButtonStyle">
-        <li class='marginclass'> <!-- ko if: accountStatusCheck() == '1' --><!-- ko if: btnAccountStatus() == 'Edit' --> <a class="butn butn-dkgray" href="" data-bind='click: clickButtonAccountStatus, value: btnAccountStatus' >Edit</a><!-- /ko --><!-- /ko --></li>
-    </div>
+﻿<div>
+    <h1 class="box-header">
+        Account Status
+        <!-- ko if: accountStatusCheck() == '1' --><!-- ko if: btnAccountStatus() == 'Edit' --> <a class="butn butn-dkgray" href="" data-bind='click: clickButtonAccountStatus, value: btnAccountStatus' ><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a><!-- /ko --><!-- /ko -->
+        <a href="javascript:void(0);" title="Lorem ipsum"><i class="fa fa-question-circle"></i></a>
+    </h1>
 </div>
 <div id='show_aboutme_div' class='common_background'>
     <ul data-bind='    template: { name: whichTemplateToUseAccountStatus }'></ul>

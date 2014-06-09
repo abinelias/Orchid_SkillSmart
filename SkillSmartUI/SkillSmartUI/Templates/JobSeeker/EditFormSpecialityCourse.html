@@ -1,5 +1,5 @@
 ﻿ <!-- ko if: isEditSpecialityCourse() == '1' -->
-<div class="common_tab_background">
+<div class="common_tabSpecialityCourse_background">
     <div id="Edit_Education" class="tab_savebackground_div">
         <ul>
             <li>
@@ -26,14 +26,14 @@
             </li>
             <li class="jobseeker_registration_outerli">
                 <ul class="jobseeker_registration_ul">
-                    <li class="jobseeker_registration_innerli"><input type="text" placeholder="Course Description"  data-bind="wijtextbox: {}, value: specialityCourseDescription" /></li>
+                    <li class="jobseeker_registration_innerli"><textarea placeholder="Course Description"  data-bind="wijtextbox: {}, value: specialityCourseDescription" ></textarea></li>
                 </ul>
             </li>                                                                            
             <li class="jobseeker_additionalinformation_city_outerli">
                 <ul class="jobseeker_additionalinformation_city_ul" >
-                    <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button"  class="savebutton" value="Save" data-bind="click: $parent.saveSpecialityCourse" /></li>
-                    <li class="jobseeker_myinformation_innerli"><input type="button" class="cancelbutton" value="Cancel" data-bind="click: $parent.cancelSpecialityCourse" /></li>
-                    <!-- ko if: deleteCheck() == '1' --><li ><input type="button" class="deletebutton" value="Delete" data-bind="click: $parent.deleteSpecialityCourse" /></li><!-- /ko -->
+                    <li  ><a class="btn btn-blue first" href="" data-bind="click: $parent.saveSpecialityCourse" >Save</a></li>
+                    <li ><a class="btn btn-ltgray" href="" data-bind="click: $parent.cancelSpecialityCourse" >Cancel</a></li>
+                    <!-- ko if: deleteCheck() == '1' --><li ><a class="btn btn-red" style="float:right;" href="" data-bind="click: $parent.deleteSpecialityCourse" >Delete</a></li><!-- /ko -->
                 </ul>
             </li>                        
         </ul>

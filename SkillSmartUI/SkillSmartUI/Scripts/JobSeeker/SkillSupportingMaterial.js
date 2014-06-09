@@ -19,18 +19,16 @@ viewModel.addFirstSupportingMaterial = function (supportingMaterialObj) {
 function createSupportingMaterial(da) {
     var self = this;
     self.Id = ko.observable('');
-    self.JobSeekerId = ko.observable(userId);
     self.jobSeekerSkillId = ko.observable('');
     self.title = ko.observable('').extend({ required: { message: "Title required" } });
     self.webURL = ko.observable('').extend({ required: { message: "Wesite required" } });
     self.description = ko.observable('').extend({ required: { message: "Description required" } });
     self.isEdit = ko.observable('0');
     self.deleteCheck = ko.observable('1');
-    self.errorSupporting = ko.validation.group({ p1: self.title, p2: self.webURL, p3: self.description});
+    self.errorSupporting = ko.validation.group({ p1: self.title, p2: self.webURL, p3: self.description });
 
     if (da) {
         self.Id(da.Id);
-        self.JobSeekerId(da.JobSeekerId);
         self.jobSeekerSkillId(da.JobSeekerSkillId);
         self.title(da.MaterialTitle);
         self.webURL(da.WebsiteUrl);
@@ -71,7 +69,6 @@ viewModel.saveSupportingMaterial = function (supportingMaterialObj) {
             var dataObjSupportingMaterial;
             var jobSeekerSupportingMaterialObj = {}
 
-            jobSeekerSupportingMaterialObj.JobSeekerId = jsonObjectSupportingMaterial.JobSeekerId;
             jobSeekerSupportingMaterialObj.JobSeekerSkillId = jsonObjectSupportingMaterial.jobSeekerSkillId;
             jobSeekerSupportingMaterialObj.MaterialTitle = jsonObjectSupportingMaterial.title;
             jobSeekerSupportingMaterialObj.WebsiteUrl = jsonObjectSupportingMaterial.webURL;
@@ -79,50 +76,51 @@ viewModel.saveSupportingMaterial = function (supportingMaterialObj) {
 
             dataObjSupportingMaterial = JSON.stringify(jobSeekerSupportingMaterialObj);
             alert(dataObjSupportingMaterial);
-            var apiUrlSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial?Id=' + jsonObjectSupportingMaterial.Id;
-            //To update Scholarship details
-            $.ajax({
-                url: apiUrlSupportingMaterial,
-                type: "PUT",
-                data: dataObjSupportingMaterial,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    supportingMaterialObj.isEdit('0');
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
+        var apiUrlSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial?Id=' + jsonObjectSupportingMaterial.Id;
+        //To update Scholarship details
+        $.ajax({
+            url: apiUrlSupportingMaterial,
+            type: "PUT",
+            data: dataObjSupportingMaterial,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                supportingMaterialObj.isEdit('0');
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
 
-        }
-        else {
+    }
+    else {
             var dataObjSupportingMaterial;
             var jobSeekerSupportingMaterialObj = {}
 
-            jobSeekerSupportingMaterialObj.JobSeekerId = jsonObjectSupportingMaterial.JobSeekerId;
             jobSeekerSupportingMaterialObj.JobSeekerSkillId = jsonObjectSupportingMaterial.jobSeekerSkillId;
             jobSeekerSupportingMaterialObj.MaterialTitle = jsonObjectSupportingMaterial.title;
             jobSeekerSupportingMaterialObj.WebsiteUrl = jsonObjectSupportingMaterial.webURL;
             jobSeekerSupportingMaterialObj.Description = jsonObjectSupportingMaterial.description;
 
             dataObjSupportingMaterial = JSON.stringify(jobSeekerSupportingMaterialObj);
-            var apiUrlSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial';
-            //To insert data into scholarship table
-            $.ajax({
-                url: apiUrlSupportingMaterial,
-                type: "POST",
-                data: dataObjSupportingMaterial,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    supportingMaterialObj.isEdit('0');
-                    supportingMaterialObj.Id(data);
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
+        var apiUrlSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial';
+        //To insert data into scholarship table
+        $.ajax({
+            url: apiUrlSupportingMaterial,
+            type: "POST",
+            data: dataObjSupportingMaterial,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                supportingMaterialObj.isEdit('0');
+                supportingMaterialObj.Id(data);
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
         }
     }
     else {
@@ -135,7 +133,7 @@ viewModel.cancelSupportingMaterial = function (supportingMaterialObj) {
     if (jsonObjectSupportingMaterialObj.Id) {
         supportingMaterialObj.isEdit('0');
 
-       
+
         supportingMaterialObj.title(currentSupportingMaterial.title);
         supportingMaterialObj.webURL(currentSupportingMaterial.webURL);
         supportingMaterialObj.description(currentSupportingMaterial.description);
@@ -176,6 +174,7 @@ viewModel.deleteSupportingMaterial = function (supportingMaterialObj) {
             $.ajax({
                 url: apiUrlSupportingMaterial,
                 type: "DELETE",
+                headers: app.securityHeaders(),
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (data) {

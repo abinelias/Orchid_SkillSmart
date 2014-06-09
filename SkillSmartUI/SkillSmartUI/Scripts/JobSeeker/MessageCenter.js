@@ -2,10 +2,9 @@
     initMessageCenter();
 });
 
-var userId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
 function getJobSeekerMessageList()
 {
-    var apiUrlMessage = GetWebAPIURL() + '/api/ListJobSeekerMessage?jobSeekerId=' + userId;
+    var apiUrlMessage = GetWebAPIURL() + '/api/ListJobSeekerMessage/';
     var dataJobSeekerMessageObj;
 
     //TO get details of worktype lookup details

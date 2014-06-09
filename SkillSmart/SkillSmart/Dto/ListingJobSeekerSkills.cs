@@ -4,7 +4,7 @@ using System.Web.Script.Serialization;
 using System.ComponentModel.DataAnnotations;
 namespace SkillSmart.Dto
 {
-    public class ListingJobSeekerSkills 
+    public class ListingJobSeekerSkills
     {
 
         [Required(ErrorMessage = "SkillName Required")]
@@ -35,7 +35,7 @@ namespace SkillSmart.Dto
         public string SkillParentCollectionId { get; set; }
 
         [Required(ErrorMessage = "SkillName Required")]
-        public string SkillScore { get; set; }
+        public int SkillScore { get; set; }
 
         [Required(ErrorMessage = "SkillName Required")]
         public string Id { get; set; }

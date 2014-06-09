@@ -1,5 +1,5 @@
 ﻿
-<ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: awardArray">
+<li  data-bind="foreach: awardArray">
     <!-- ko if: isEdit() == '0' -->
         <div data-bind="template: { name: 'AwardList' }">
         </div>
@@ -9,5 +9,7 @@
         <div class="add_div" data-bind="template: { name: 'EditFormAward' }">
         </div>
     <!-- /ko -->
-</ul>
-       
+</li>
+    <li class="jobseeker_myinformation_buttonli">
+        <a class="btn btn-blue first" href="" data-bind="click: doneEditingAwards">I'm done Editing this section </a>
+    </li>

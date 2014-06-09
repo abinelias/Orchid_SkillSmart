@@ -1,19 +1,21 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
     public class ListJobSeekerMessageController : ApiController
     {
-        public IEnumerable<SkillSmart.Dto.ListJobSeekerMessage> GetAll(string jobSeekerId)
+        public IEnumerable<SkillSmart.Dto.ListJobSeekerMessage> GetAll()
         {
-            var allJobSeekerMessages = ServiceFactory.GetJobSekerMessages().GetAllJobSeekerMessages(jobSeekerId);
+            var allJobSeekerMessages = ServiceFactory.GetJobSekerMessages().GetAllJobSeekerMessages(SkillsmartUser.GuidStr(HttpContext.Current.User));
             var allCompanyList = ServiceFactory.GetCompany().GetAll();
             var allEmployerList = ServiceFactory.GetEmployers().GetAll();
             var allJobList = ServiceFactory.GetJobsList().GetAll();

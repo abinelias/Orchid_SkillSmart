@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
@@ -15,9 +17,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all education ddetails of the jobseeker
         /// </summary>
         /// <returns>Jobseeker education list</returns>
-        public IEnumerable<Education> GetAll(string jobSeekerId)
+        public IEnumerable<Education> GetAll()
         {
-            return ServiceFactory.GetJobSeekerEducation().GetAllEducationById(jobSeekerId);
+            return ServiceFactory.GetJobSeekerEducation().GetAllEducationById(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>
@@ -36,9 +38,9 @@ namespace SkillSmartWebAPI.Controllers
         /// <param name="jobSeekerEducationObj">Education details object</param>
         public string Post(Education jobSeekerEducationObj)
         {
-           
-                ServiceFactory.GetJobSeekerEducation().Create(jobSeekerEducationObj);
-                return jobSeekerEducationObj.Id.ToString();
+            jobSeekerEducationObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+            ServiceFactory.GetJobSeekerEducation().Create(jobSeekerEducationObj);
+            return jobSeekerEducationObj.Id.ToString();
         }
 
         /// <summary>
@@ -50,6 +52,8 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                jobSeekerEducationObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+                jobSeekerEducationObj.Id = new Guid(id);
                 jobSeekerEducationObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerEducation().Update(jobSeekerEducationObj);
             }

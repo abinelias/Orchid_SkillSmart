@@ -52,7 +52,7 @@ $(document).ready(function () {
 
     $(function () {
 
-        ensureTemplates(["JobSearch", "JobsApplied", "SkillList"]);
+        ensureTemplates(["JobSearch", "JobsList", "SkillList"]);
 
     });
 
@@ -72,6 +72,7 @@ $(document).ready(function () {
         });
     }
     initAdvancedJobSearch();
+    initJobSkillScoreCalculation();
 });
 
 function getIndustryTypeLookup() {
@@ -94,7 +95,7 @@ function getIndustryTypeLookup() {
     return dataIndustryTypeObj;
 }
 
-function getWorkTypeLookup() {
+function getEmploymentLookup() {
     var apiUrlWorkType = GetWebAPIURL() + '/api/Lookup/?name=WorkType';
     var dataWorkTypeObj;
 
@@ -197,13 +198,14 @@ function getCarrierLevelLookup() {
 function getSavedJobSearch() {
 
 
-    var apiUrlgetSavedJobs = GetWebAPIURL() + '/api/SavedJobSearch?jobSeekerId=' + userId;
+    var apiUrlgetSavedJobs = GetWebAPIURL() + '/api/SavedJobSearch/';
     var dataSavedJobSearchObj;
     //To get Languages from Language table
     $.ajax({
         url: apiUrlgetSavedJobs,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
 
@@ -218,17 +220,20 @@ function getSavedJobSearch() {
 }
 
 function initAdvancedJobSearch() {
-
     viewModel.savedApplyCheck = ko.observable('0');
     viewModel.saveSearchCheck = ko.observable('0');
     viewModel.applyCheck = ko.observable('0');
     viewModel.listJobs = ko.observable('0');
+
     viewModel.industryType = ko.observableArray();
-    viewModel.WorkType = ko.observableArray();
+
+    viewModel.employmentType = ko.observableArray();
+    viewModel.employmentTypeId = ko.observableArray();
+
+
     viewModel.salary = ko.observableArray();
 
     viewModel.industryTypeId = ko.observableArray();
-    viewModel.workTypeId = ko.observableArray();
     viewModel.degreeId = ko.observable();
     viewModel.distanceId = ko.observable();
     viewModel.salaryId = ko.observableArray();
@@ -255,6 +260,10 @@ function initAdvancedJobSearch() {
 
     viewModel.searchName = ko.observable();
 
+    viewModel.jobs = ko.observableArray();
+    var dataObjJobSeeker = getHeaderDetails();
+    viewModel.firstname = ko.observable(dataObjJobSeeker.FirstName);
+    viewModel.lastname = ko.observable(dataObjJobSeeker.LastName);
 
     var dataSalaryObj = getSalaryLookup();
     for (da in dataSalaryObj) {
@@ -266,10 +275,10 @@ function initAdvancedJobSearch() {
         viewModel.industryType.push({ name: dataIndustryTypeObj[da].Name, id: dataIndustryTypeObj[da].Id });
     }
 
-    var dataWorkTypeObj = getWorkTypeLookup();
-    viewModel.WorkType.push({ name: "All", id: "" });
-    for (da in dataWorkTypeObj) {
-        viewModel.WorkType.push({ name: dataWorkTypeObj[da].Name, id: dataWorkTypeObj[da].Id });
+    var dataEmploymentObj = getEmploymentLookup();
+    viewModel.employmentType.push({ name: "All", id: "" });
+    for (da in dataEmploymentObj) {
+        viewModel.employmentType.push({ name: dataEmploymentObj[da].Name, id: dataEmploymentObj[da].Id });
     }
 
 
@@ -329,7 +338,7 @@ function initAdvancedJobSearch() {
                 var getEmployeementType = dataSaveSearchObj.EmployeementType;
                 var notification = getEmployeementType.split(',');
                 for (var index = 0; index < notification.length; index++) {
-                    viewModel.workTypeId.push(notification[index]);
+                    viewModel.employmentTypeId.push(notification[index]);
                 }
 
 
@@ -354,6 +363,7 @@ function initAdvancedJobSearch() {
             }
         }
     });
+
 }
 
 function createListDistance() {
@@ -399,6 +409,19 @@ function createListEducationLevel() {
         list.push({
             label: dataDegreeTypeObj[da].Name,
             value: dataDegreeTypeObj[da].Id
+        });
+    }
+    return list;
+}
+
+function createListSearch() {
+    var dataSavedJobSearchObj = getSavedJobSearch()
+    var list = [];
+
+    for (da in dataSavedJobSearchObj) {
+        list.push({
+            label: dataSavedJobSearchObj[da].SearchName,
+            value: dataSavedJobSearchObj[da].Id
         });
     }
     return list;
@@ -476,39 +499,78 @@ function createListSearch() {
 }
 
 viewModel.applyJobs = function (objExpand) {
-    window.location = "AppliedJobs.html?userId=" + userId + "&jobId=" + objExpand.jobId;
+
+    var jobApplyCheck = 1;
+    var dataObjJobSeekerAppliedJobs = getJobSeekerAppliedJobs();
+    if (dataObjJobSeekerAppliedJobs.length != 0) {
+
+        for (var i = 0; i < dataObjJobSeekerAppliedJobs.length; i++) {
+            if (objExpand.jobId == dataObjJobSeekerAppliedJobs[i].JobId) {
+                alert("Job already applied");
+                jobApplyCheck = 0;
+                break;
+            }
+
+        }
+    }
+    else {
+
+        jobApplyCheck = 1;
+    }
+    if (jobApplyCheck == 1) {
+
+        window.location = "AppliedJobs.html?&jobId=" + objExpand.jobId;
+
+    }
+
 }
 
 viewModel.saveJobs = function (objExpand) {
-    alert(userId);
-    var today = new Date();
-    var monthtext = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var jobSavedCheck = 1;
+    var dataObjJobSeekerSavedJobs = getJobSeekerSavedJobs();
+    if (dataObjJobSeekerSavedJobs.length != 0) {
+        for (var i = 0; i < dataObjJobSeekerSavedJobs.length; i++) {
+            if (objExpand.jobId == dataObjJobSeekerSavedJobs[i].JobId) {
+                alert("Job already Saved");
+                jobSavedCheck = 0;
+                break;
+            }
 
-    var dataObjSavedJobs;
-    var jobSeekerSavedJobsObj = {}
-    jobSeekerSavedJobsObj.JobId = objExpand.jobId;
-    jobSeekerSavedJobsObj.JobSeekerId = userId
-    jobSeekerSavedJobsObj.DateApplied = monthtext[today.getMonth()] + today.getDate() + ',' + today.getFullYear();
-
-
-    dataObjSavedJobs = JSON.stringify(jobSeekerSavedJobsObj);
-    var apiUrlSaveJob = GetWebAPIURL() + '/api/JobSeekerSavedJobs/';
-
-
-    //To create additional information of jobseeker
-    $.ajax({
-        url: apiUrlSaveJob,
-        type: "POST",
-        data: dataObjSavedJobs,
-        contentType: "application/json; charset=utf-8",
-        async: false,
-        success: function (data) {
-            alert("job Saved Successfully");
-        },
-        error: function (xhr, error) {
-            alert('Error :' + error);
         }
-    });
+    }
+    else {
+        jobSavedCheck = 1;
+    }
+    if (jobSavedCheck == 1) {
+
+        var today = new Date();
+        var monthtext = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        var dataObjSavedJobs;
+        var jobSeekerSavedJobsObj = {}
+        jobSeekerSavedJobsObj.JobId = objExpand.jobId;
+        jobSeekerSavedJobsObj.DateApplied = monthtext[today.getMonth()] + today.getDate() + ',' + today.getFullYear();
+
+
+        dataObjSavedJobs = JSON.stringify(jobSeekerSavedJobsObj);
+        var apiUrlSaveJob = GetWebAPIURL() + '/api/JobSeekerSavedJobs/';
+
+
+        //To create additional information of jobseeker
+        $.ajax({
+            url: apiUrlSaveJob,
+            type: "POST",
+            data: dataObjSavedJobs,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                alert("job Saved Successfully");
+            },
+            error: function (xhr, error) {
+            }
+        });
+    }
 }
 
 viewModel.deleteWork = function (objWork) {
@@ -516,54 +578,85 @@ viewModel.deleteWork = function (objWork) {
 
     viewModel.searchCriteria.remove(objWork);
 
-    if (objWork.lookUpName() == 'WorkType') {
-
-        viewModel.workTypeId([""]);
+    if (objWork.lookUpName() == 'EmploymentType') {
+        viewModel.employmentTypeId([""]);
     }
-
     if (objWork.lookUpName() == 'IndustryType') {
         viewModel.industryTypeId([""]);
     }
     if (objWork.lookUpName() == 'DegreeType') {
-        viewModel.degreeId('');
+        viewModel.selectedIndexEducationLevel(0);
     }
     if (objWork.lookUpName() == 'Distance') {
-
-        viewModel.distanceId('');
-
+        viewModel.selectedIndexDistance(0);
     }
     if (objWork.lookUpName() == 'Salary') {
         viewModel.salaryId([""]);
     }
     if (objWork.lookUpName() == 'CareerLevel') {
-        viewModel.careerLevelId('');
+        viewModel.selectedIndexCarrierLevel(0);
     }
-
-
 }
 
 viewModel.deleteSingleSelect = function (objsingleSelect) {
+    var da = 0;
+    var res = '';
+    var temp = '';
     $.each(viewModel.searchCriteria(), function () {
-        //alert(this.contentArray(objsingleSelect).Name);
-        this.contentArray.remove(objsingleSelect)
-        // alert(this.contentArray[objsingleSelect].Name);
+        res = this.contentArray.remove(objsingleSelect);
+        if (res.length > 0) {
+            if (viewModel.searchCriteria()[da].lookUpName() == 'EmploymentType') {
+                viewModel.employmentTypeId.remove(objsingleSelect.lookUpId());
+                temp = viewModel.searchCriteria()[da];
+                viewModel.searchCriteria.remove(temp);
+                if (viewModel.employmentTypeId().length > 0) {
+                    var createSearch = new createsearchCriteria(0);
+                    viewModel.searchCriteria.splice(0, 0, createSearch);
+                }
+            }
+            else if (viewModel.searchCriteria()[da].lookUpName() == 'IndustryType') {
+                viewModel.industryTypeId.remove(objsingleSelect.lookUpId());
+                temp = viewModel.searchCriteria()[da];
+                viewModel.searchCriteria.remove(temp);
+                if (viewModel.industryTypeId().length > 0) {
+                    var createSearch = new createsearchCriteria(1);
+                    viewModel.searchCriteria.splice(1, 0, createSearch);
+                }
+            }
+            else if (viewModel.searchCriteria()[da].lookUpName() == 'Salary') {
+                viewModel.salaryId.remove(objsingleSelect.lookUpId());
+                temp = viewModel.searchCriteria()[da];
+                viewModel.searchCriteria.remove(temp);
+                if (viewModel.salaryId().length > 0) {
+                    var createSearch = new createsearchCriteria(4);
+                    viewModel.searchCriteria.splice(4, 0, createSearch);
+                }
+            }
+            else if (viewModel.searchCriteria()[da].lookUpName() == 'DegreeType') {
+                temp = viewModel.searchCriteria()[da];
+                viewModel.searchCriteria.remove(temp);
+                viewModel.selectedIndexEducationLevel(0);
+            }
+
+            else if (viewModel.searchCriteria()[da].lookUpName() == 'CareerLevel') {
+                temp = viewModel.searchCriteria()[da];
+                viewModel.searchCriteria.remove(temp);
+                viewModel.selectedIndexCarrierLevel(0);
+            }
+
+            else if (viewModel.searchCriteria()[da].lookUpName() == 'Distance') {
+                temp = viewModel.searchCriteria()[da];
+                viewModel.searchCriteria.remove(temp);
+                viewModel.selectedIndexDistance(0);
+            }
+        }
+        da++
     });
-
-
-    /* $.each(viewModel.searchCriteria(), function () {
-         alert(this.contentArray(objsingleSelect).Name);
-         /*if (this.contentArray() == "")
-         {
- 
-             alert("empty");
-             viewModel.searchCriteria.remove(this.contentArray());
-         }
-     });*/
 }
 
 viewModel.saveSearch = function () {
     viewModel.saveSearchCheck('1');
-    worktype = [];
+    employment = [];
     salary = [];
     industry = [];
     degree = [];
@@ -571,7 +664,7 @@ viewModel.saveSearch = function () {
     distance = [];
     viewModel.searchCriteria.removeAll();
 
-    if (viewModel.workTypeId() && viewModel.workTypeId() != "") {
+    if (viewModel.employmentTypeId() && viewModel.employmentTypeId() != "") {
         var createSearch = new createsearchCriteria(0);
         viewModel.searchCriteria.push(createSearch);
     }
@@ -598,21 +691,18 @@ viewModel.saveSearch = function () {
         viewModel.searchCriteria.push(createSearch);
     }
     if (viewModel.searchName()) {
-
-
         var jobSeekerSaveSearchObj = {}
         var jsonObject = ko.toJS(viewModel);
-        jobSeekerSaveSearchObj.JobSeekerId = userId;
         jobSeekerSaveSearchObj.SearchName = jsonObject.searchName;
 
-        jobSeekerSaveSearchObj.EmployeementType = jsonObject.workTypeId.toString();
+        jobSeekerSaveSearchObj.EmployeementType = jsonObject.employmentTypeId.toString();
         jobSeekerSaveSearchObj.Industry = jsonObject.industryTypeId.toString();
         jobSeekerSaveSearchObj.carrierLevel = viewModel.dataCarrierLevel()[viewModel.selectedIndexCarrierLevel()].value;
         jobSeekerSaveSearchObj.EducationLevel = viewModel.dataEducationLevel()[viewModel.selectedIndexEducationLevel()].value;
         jobSeekerSaveSearchObj.Distance = viewModel.dataDistance()[viewModel.selectedIndexDistance()].value;
         jobSeekerSaveSearchObj.Salary = jsonObject.salaryId.toString();
         var dataObjJobSeekerSaveSearch = JSON.stringify(jobSeekerSaveSearchObj);
-        alert(dataObjJobSeekerSaveSearch);
+        //alert(dataObjJobSeekerSaveSearch);
 
         var apiUrlSavedJobSearch = GetWebAPIURL() + '/api/SavedJobSearch/';
 
@@ -621,6 +711,7 @@ viewModel.saveSearch = function () {
             url: apiUrlSavedJobSearch,
             type: "POST",
             data: dataObjJobSeekerSaveSearch,
+            headers: app.securityHeaders(),
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function (data) {
@@ -632,6 +723,6 @@ viewModel.saveSearch = function () {
         });
     }
     else {
-        alert("test1");
+        alert("Enter Name to save search");
     }
 }

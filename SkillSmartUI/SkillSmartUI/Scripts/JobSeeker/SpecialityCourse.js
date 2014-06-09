@@ -2,18 +2,18 @@
     initSpeciality();
 });
 
-var url = window.location.href;
-var userId = url.substring(url.lastIndexOf('=') + 1);
-//var userId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
+
 
 function getJobseekerSpecialityCourse() {
-    var apiUrlSpecialityCourse = GetWebAPIURL() + 'api/SpecialityCourse?jobSeekerId=' + userId;
+    var apiUrlSpecialityCourse = GetWebAPIURL() + 'api/SpecialityCourse/';
     var dataobjSpecialityCourse;
     //To get Education details 
     $.ajax({
         url: apiUrlSpecialityCourse,
         type: 'GET',
         async: false,
+        contentType: "application/json; charset=utf-8",
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataobjSpecialityCourse = data;
@@ -45,7 +45,6 @@ function initSpeciality() {
 
         }
     }
-
 }
 
 
@@ -53,21 +52,19 @@ function initSpeciality() {
 var dataDegreeTypeObj = getDegreeTypeLookup();
 function specialityCourseCreate(objSpecialityCourse) {
     var self = this;
-    self.jobSeekerId = ko.observable(userId);
+    self.jobSeekerId = ko.observable();
     self.specialityCourseId = ko.observable('');
-    self.specialityCourseName = ko.observable();
-    self.specialityCourseDescription = ko.observable();
+    self.specialityCourseName = ko.observable().extend({ required: { message: "Speciality Course required" } });
+    self.specialityCourseDescription = ko.observable().extend({ required: { message: "Description required" } });
 
     self.deleteCheck = ko.observable('1');
     self.isEditSpecialityCourse = ko.observable('0');
 
+    self.errorSpecialityCourse = ko.validation.group({ p1: self.specialityCourseName, p2: self.specialityCourseDescription });
     if (objSpecialityCourse) {
         self.specialityCourseName(objSpecialityCourse.CourseName);
         self.specialityCourseDescription(objSpecialityCourse.CourseDescription);
-
-        self.jobSeekerId(objSpecialityCourse.JobSeekerId);
         self.specialityCourseId(objSpecialityCourse.Id);
-
     }
 }
 
@@ -94,7 +91,6 @@ viewModel.addFirstSpecialityCourse = function () {
 var SelectedSpecialityCourseObj;
 
 viewModel.cancelSpecialityCourse = function (specialityCourseObj) {
-    alert("cancel");
     if (viewModel.specialityCourseButtonCheck() == 1) {
         document.getElementById("addMoreSpecialityCourse").disabled = false;
     }
@@ -116,75 +112,74 @@ viewModel.cancelSpecialityCourse = function (specialityCourseObj) {
 }
 
 viewModel.saveSpecialityCourse = function (specialityCourseObj) {
+    if (specialityCourseObj.specialityCourseName.isValid() && specialityCourseObj.specialityCourseDescription.isValid()) {
 
-    alert("save");
+       
 
-    if (viewModel.specialityCourseButtonCheck() == 1) {
-        document.getElementById("addMoreSpecialityCourse").disabled = false;
-    }
+        var jsonObjectSpecialityCourse = ko.toJS(specialityCourseObj);
 
-    var jsonObjectSpecialityCourse = ko.toJS(specialityCourseObj);
+        if (jsonObjectSpecialityCourse.specialityCourseId) {
+            var dataobjSpecialityCourse;
+            var jobseekerSpecialityCourseObj = {}
+            jobseekerSpecialityCourseObj.CourseName = jsonObjectSpecialityCourse.specialityCourseName;
+            jobseekerSpecialityCourseObj.CourseDescription = jsonObjectSpecialityCourse.specialityCourseDescription;
 
-    if (jsonObjectSpecialityCourse.specialityCourseId) {
-        var dataobjSpecialityCourse;
-        var jobseekerSpecialityCourseObj = {}
-        jobseekerSpecialityCourseObj.JobSeekerId = jsonObjectSpecialityCourse.jobSeekerId;
-        jobseekerSpecialityCourseObj.CourseName = jsonObjectSpecialityCourse.specialityCourseName;
-        jobseekerSpecialityCourseObj.CourseDescription = jsonObjectSpecialityCourse.specialityCourseDescription;
+            dataobjSpecialityCourse = JSON.stringify(jobseekerSpecialityCourseObj);
 
-        dataobjSpecialityCourse = JSON.stringify(jobseekerSpecialityCourseObj);
-
-        var apiUrlSpecialityCourse = GetWebAPIURL() + '/api/SpecialityCourse?Id=' + jsonObjectSpecialityCourse.specialityCourseId;;
-        //To update Education table
-        $.ajax({
-            url: apiUrlSpecialityCourse,
-            type: "PUT",
-            data: dataobjSpecialityCourse,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                specialityCourseObj.isEditSpecialityCourse('0');
-            },
-            error: function (xhr, status, error) {
-                alert('Error :' + status);
-            }
-        });
+            var apiUrlSpecialityCourse = GetWebAPIURL() + '/api/SpecialityCourse?Id=' + jsonObjectSpecialityCourse.specialityCourseId;;
+            //To update Education table
+            $.ajax({
+                url: apiUrlSpecialityCourse,
+                type: "PUT",
+                data: dataobjSpecialityCourse,
+                headers: app.securityHeaders(),
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    specialityCourseObj.isEditSpecialityCourse('0');
+                },
+                error: function (xhr, status, error) {
+                    alert('Error :' + status);
+                }
+            });
 
 
+        }
+        else {
+            var dataobjSpecialityCourse;
+            var jobseekerSpecialityCourseObj = {}
+            jobseekerSpecialityCourseObj.CourseName = jsonObjectSpecialityCourse.specialityCourseName;
+            jobseekerSpecialityCourseObj.CourseDescription = jsonObjectSpecialityCourse.specialityCourseDescription;
+
+            dataobjSpecialityCourse = JSON.stringify(jobseekerSpecialityCourseObj);
+
+
+            var apiUrlSpecialityCourse = GetWebAPIURL() + '/api/SpecialityCourse/';
+            //To create Education details
+            $.ajax({
+                url: apiUrlSpecialityCourse,
+                type: "POST",
+                data: dataobjSpecialityCourse,
+                headers: app.securityHeaders(),
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    specialityCourseObj.specialityCourseId(data);
+                    specialityCourseObj.isEditSpecialityCourse('0');
+                    viewModel.specialityCourseButtonCheck('1');
+                },
+                error: function (xhr, error) {
+                    alert('Error :' + error);
+                }
+            });
+        }
     }
     else {
-        var dataobjSpecialityCourse;
-        var jobseekerSpecialityCourseObj = {}
-        jobseekerSpecialityCourseObj.JobSeekerId = jsonObjectSpecialityCourse.jobSeekerId;
-        jobseekerSpecialityCourseObj.CourseName = jsonObjectSpecialityCourse.specialityCourseName;
-        jobseekerSpecialityCourseObj.CourseDescription = jsonObjectSpecialityCourse.specialityCourseDescription;
-
-        dataobjSpecialityCourse = JSON.stringify(jobseekerSpecialityCourseObj);
-
-
-        var apiUrlSpecialityCourse = GetWebAPIURL() + '/api/SpecialityCourse';
-        //To create Education details
-        $.ajax({
-            url: apiUrlSpecialityCourse,
-            type: "POST",
-            data: dataobjSpecialityCourse,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (data) {
-                specialityCourseObj.specialityCourseId(data);
-                specialityCourseObj.isEditSpecialityCourse('0');
-                viewModel.specialityCourseButtonCheck('1');
-            },
-            error: function (xhr, error) {
-                alert('Error :' + error);
-            }
-        });
+        specialityCourseObj.errorSpecialityCourse.showAllMessages();
     }
 }
 
 viewModel.deleteSpecialityCourse = function (specialityCourseObj) {
-
-    alert("delete");
     var jsonObjectSpecialityCourse = ko.toJS(specialityCourseObj);
 
     var SpecialityCourseDelete = confirm("Do you want to delete!");
@@ -196,6 +191,7 @@ viewModel.deleteSpecialityCourse = function (specialityCourseObj) {
             $.ajax({
                 url: apiUrlSpecialityCourse,
                 type: "DELETE",
+                headers: app.securityHeaders(),
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (data) {

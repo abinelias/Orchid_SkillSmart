@@ -1,4 +1,6 @@
 ﻿<!-- ko if: activityCheck() == '0' -->
+<section class="sectionModified box-white">
+
     <li class="jobseeker_myinformation_descriptionli">
         What do you like to do when you're not working?
     </li>
@@ -6,11 +8,13 @@
         Soccer,marathon,cycling,drawing,reading,etc.
     </li>
     <li class="jobseeker_myinformation_buttonli">
-        <input type="button" id="add-activities" class="submitbutton" value='Add Activities' data-bind='click: addFirstActivity' />
+        <a class="bton btn-orange" href=""id="add-activities" data-bind='click: addFirstActivity'>Add Activities</a>
     </li>
+</section>
 <!-- /ko -->
 
 <!-- ko if: activitiesArray -->
+
     <li class="jobseeker_myinformation_language_list_li_ul">
         <ul  class="jobseeker_list_li_ul"  data-bind="foreach: activitiesArray">
             <li>
@@ -19,7 +23,7 @@
                        <label class="jobseeker_Reference" data-bind="    text: Activity"></label>                      
                     </div>
                     <div class="ListActivity_Button">
-                        <button class="delete_LanguageButton" data-bind = "click: $parent.deleteActivities" >X</button>
+                        <button class="delete_LanguageButton" data-bind = "click: $parent.deleteActivities" ><i class="fa fa-times fa-lg"></i></button>
                     </div>
                 </div>
             </li>
@@ -27,6 +31,7 @@
 
        
     </li>
+
 <!-- /ko -->
 
 

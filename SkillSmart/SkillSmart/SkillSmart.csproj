@@ -54,6 +54,7 @@
     <Compile Include="Base\Services\IEmployerMessages.cs" />
     <Compile Include="Base\Services\IEmployerService.cs" />
     <Compile Include="Base\Services\IExtraCurricularActivityService.cs" />
+    <Compile Include="Base\Services\IJobPrerequisiteService.cs" />
     <Compile Include="Base\Services\IJobSeekerAppliedJobsService.cs" />
     <Compile Include="Base\Services\IJobSeekerMessages.cs" />
     <Compile Include="Base\Services\IJobSeekerSavedJobsService.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Base\Services\IEntityService.cs" />
     <Compile Include="Base\Services\IJobSeekerService.cs" />
     <Compile Include="Base\Services\IOverviewService.cs" />
+    <Compile Include="Base\Services\IPrerequisiteService.cs" />
     <Compile Include="Base\Services\IRelatedExperienceService.cs" />
     <Compile Include="Base\Services\ISavedJobSearch.cs" />
     <Compile Include="Base\Services\IScholarshipService.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Dto\EmployerMessage.cs" />
     <Compile Include="Dto\ExtraCurricularActivity.cs" />
     <Compile Include="Dto\JobFilter.cs" />
+    <Compile Include="Dto\JobPrerequisite.cs" />
     <Compile Include="Dto\JobSeekerAppliedJobs.cs" />
     <Compile Include="Dto\JobSeekerMessage.cs" />
     <Compile Include="Dto\JobSeekerSavedJobs.cs" />
@@ -100,6 +103,7 @@
     <Compile Include="Dto\LookupDto.cs" />
     <Compile Include="Dto\JobSeeker.cs" />
     <Compile Include="Dto\Overview.cs" />
+    <Compile Include="Dto\Prerequisite.cs" />
     <Compile Include="Dto\RelatedExperience.cs" />
     <Compile Include="Dto\SavedJobSearch.cs" />
     <Compile Include="Dto\Scholarship.cs" />

@@ -5,10 +5,10 @@
             <div class="skill_Slider">                  
                 <label style="margin-left:10px;" data-bind="text: skillName"></label>
                  
-                <a href  data-bind="    click: $root.expandSkillDetails"><img src="/images/Down_Arrow_Icon.png"</a>                  
-                <a href=""  data-bind=" click: $root.deleteSkillDetails"><img style="float:right;" src="/images/delete_icon.png" /></a>
-                <a href="" data-bind=" click: $root.courseLink"><img style="float:right;"src="/images/book_Icon.jpg" /></a>
-                <a href="" data-bind=" click: $root.expandSkillDetails"> <img style="float:right;" src="/images/EditObjectButton.png" /></a>
+                <a href  data-bind="    click: $root.expandSkillDetails"><i class="fa fa-chevron-down"></i></a>                  
+                <a href=""  data-bind=" click: $root.deleteSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a>
+                <a href="" data-bind=" click: $root.courseLink"><i style="float:right;padding-left:6px;" class="fa fa-book"></i></a>
+                <a href="" data-bind=" click: $root.expandSkillDetails"> <i style="float:right;padding-left:7px;" class="fa fa-pencil"></i></a>
                 
                 <hr size="1" width="95%" /> 
                 <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:98%"></div>
@@ -22,18 +22,18 @@
 <!-- /ko -->
 
 <!-- ko if: btnSkillList() == '-' -->
-<div class="editForm_div">
+<div class="editForm_Skilldiv">
     <div class="container">
         <ul>       
             <li>
                 <div >                  
                     <label style="margin-left:10px;" data-bind="text: skillName"></label>
-                    <a href="" data-bind="    click: $root.expandSkillDetails" ><img src="/images/Up_Arrow_Icon.png" /></a> 
-                    <a href=""  data-bind=" click: $root.deleteSkillDetails"><img style="float:right;" src="/images/delete_icon.png" /></a> 
-                    <a href="" data-bind=" click: $root.courseLink"><img style="float:right;"src="/images/book_Icon.jpg" /></a>
+                    <a href="" data-bind="    click: $root.expandSkillDetails" ><i class="fa fa-chevron-down"></i></a> 
+                    <a href=""  data-bind=" click: $root.deleteSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a> 
+                    <a href="" data-bind=" click: $root.courseLink"><i style="float:right;padding-left:6px;" class="fa fa-book"></i></a>
                     <hr size="1" width="98%" /> 
                     <div  style="width:40%;float:left;">
-                        <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }" style="width:91%"></div>
+                        <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:91%"></div>
                         <div style="padding-top:2%;">
                             <span style="padding-right:6%;padding-left:3%">0</span><span class="spanNumber">1</span><span class="spanNumber">2</span><span class="spanNumber">3</span><span class="spanNumber">4</span><span class="spanNumber">5</span><span class="spanNumber">6</span><span class="spanNumber">7</span><span class="spanNumber">8</span><span style="padding-right:3%">9</span><span>10</span>
                         </div>
@@ -50,15 +50,15 @@
         </ul>
     </div>
 </div>
-<div class="editForm_div">
+<div class="editForm_Skilldiv">
     <div id="Refcvberence" data-bind="template: { name: 'Reference' }" >
     </div>
 </div>
-<div class="editForm_div">
+<div class="editForm_Skilldiv">
     <div id="fggj" data-bind="template: { name: 'SupportingMaterial' }" >
     </div>
 </div>
-<div class="editForm_div">
+<div class="editForm_Skilldiv">
     <div id="Div1" data-bind="template: { name: 'RelatedExperience' }" >
     </div>
 </div>

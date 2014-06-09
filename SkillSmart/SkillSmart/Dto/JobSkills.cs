@@ -21,8 +21,18 @@ namespace SkillSmart.Dto
         /// <summary>
         /// SkillScore
         /// </summary>
-        public string SkillScore { get; set; }
+        public int SkillScore { get; set; }
 
-        
+        /// <summary>
+        /// SkillImportance
+        /// </summary>
+        public int SkillImportance { get; set; }
+
+        /// <summary>
+        /// SkillExperience
+        /// </summary>
+        public int SkillExperience { get; set; }
+
+
     }
 }

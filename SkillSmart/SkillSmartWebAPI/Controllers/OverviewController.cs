@@ -1,13 +1,16 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
+   [Authorize]
     public class OverviewController : ApiController
     {
         /// <summary>
@@ -15,17 +18,19 @@ namespace SkillSmartWebAPI.Controllers
         /// </summary>
         /// <param name="id">jobseekerId</param>
         /// <returns>jobseeker overview object</returns>
-        public Overview Get(string id)
+        public Overview Get()
         {
-            return ServiceFactory.GetJobSeekerOverview().GetById(id);
+            var ovrvw = ServiceFactory.GetJobSeekerOverview().GetById(SkillsmartUser.GuidStr(HttpContext.Current.User));
+            return ovrvw;
         }
-
+      
         /// <summary>
         /// To create a jobseeker overview
         /// </summary>
         /// <param name="jobSeekerObj">jobseeker overview object</param>
         public string Post(Overview jobSeekerOverviewObj)
         {
+             jobSeekerOverviewObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
              ServiceFactory.GetJobSeekerOverview().Create(jobSeekerOverviewObj);
              return jobSeekerOverviewObj.Id.ToString();
         }
@@ -39,6 +44,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                jobSeekerOverviewObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
                 jobSeekerOverviewObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerOverview().Update(jobSeekerOverviewObj);
             }

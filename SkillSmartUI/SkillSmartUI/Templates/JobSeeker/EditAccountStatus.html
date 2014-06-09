@@ -1,15 +1,16 @@
 ﻿<div class="add_div">
     <ul>
         <li><input type='hidden'  data-bind='value: jobseekerId' /></li>
-        <li><input type='hidden'  data-bind='value: overviewId' /></li>
+        <li><input type="hidden"  data-bind='value: overviewId' /></li>
         <li class="jobseeker_registration_outerli">
             <ul class="jobseeker_registration_ul">
-                <li class="jobseeker_registration_innerli"><label>Current Status</label></li>
+                <li class="jobseeker_registration_innerli"><label>Current Status</label><sup>*</sup></li>
             </ul>
         </li>
         <li class="jobseeker_registration_outerli">
             <ul class="jobseeker_registration_ul">
-                <li class="jobseeker_registration_innerli"><input id="Text1" data-bind="wijcombobox: { selectedIndex: selectedIndexCurrentStatus, text: textCurrentStatus, data: dataCurrentStatus, }" />
+                <li class="jobseeker_registration_innerli">
+                    <select multiple="multiple"  data-bind="multiSelectCheck: true, options: $root.currentStatus, optionsText: 'name', optionsValue: 'id', selectedOptions: currentStatusId"></select> 
                      <!-- ko if: errorCheckAccountStatus() == '1' -->
                         <span class="validationMessage">select Account Status</span>
                     <!-- /ko -->

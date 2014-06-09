@@ -68,7 +68,7 @@ namespace SkillSmart.Dto
         /// ZipCode
         /// </summary>
         [Required(ErrorMessage = "ZipCode Required")]
-        public string ZipCode { get; set; }
+        public int ZipCode { get; set; }
 
         /// <summary>
         /// Citizenship
@@ -127,7 +127,7 @@ namespace SkillSmart.Dto
         /// ExperienceId
         /// </summary>
         [Required(ErrorMessage = "Experience Required")]
-        public string Experience { get; set; }
+        public int Experience { get; set; }
 
         /// <summary>
         /// RaceId

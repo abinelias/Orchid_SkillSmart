@@ -1,24 +1,20 @@
-﻿<div data-bind='if: industriesTextbox'>
-    <li class='jobseeker_myinformation_personalcontainer_outerli'>
-        <ul class='jobseeker_myinformation_personalcontainer_ul'>
-            <li class='jobseeker_myinformation_innerli' ><label>Industries</label></li>
-            <li class='jobseeker_myinformation_innerli' ><label>Specialities</label></li>
-            <li class='jobseeker_myinformation_innerli'><label>Security Clearance</label></li>
-            <li class='jobseeker_myinformation_innerli' ><label>Willing to relocate</label></li>
+﻿<div data-bind='if: specialityTextbox'>
+    
+            <li class='jobSeeker_PersonalInformation_li' ><label class="personalInformation_Header">Industries</label></li>
+            <li class='jobSeeker_PersonalInformation_li' ><label class="personalInformation_Header">Specialities</label></li>
+            <li class='jobSeeker_PersonalInformation_li'><label class="personalInformation_Header">Security Clearance</label></li>
+            <li class='jobSeeker_PersonalInformation_li' ><label class="personalInformation_Header">Willing to relocate</label></li>
 
-        </ul>
-    </li>
-    <li class='jobseeker_myinformation_personalcontainer_outerli'>
-        <ul class='jobseeker_myinformation_personalcontainer_ul'>
-            <li class='jobseeker_myinformation_innerli' ><label id='industries-label' data-bind='    text: industriesTextbox'></label></li>
-            <li class='jobseeker_myinformation_innerli' ><label id='speciality-label' data-bind='    text: specialityTextbox'></label></li>
-            <li class='jobseeker_myinformation_innerli' ><label id='SecurityCleareanceLabel-label' data-bind='    text: SecurityCleareanceLabel'></label></li>
-            <li class='jobseeker_myinformation_innerli' ><label id='WillingToRelocateLabel-label' data-bind='    text: WillingToRelocateLabel'></label></li>
+        
 
-        </ul>
+            <li class='jobSeeker_PersonalInformation_li' ><label id='industries-label' class="personalInformationLabel" data-bind='    text: IndustryName'></label></li>
+            <li class='jobSeeker_PersonalInformation_li' ><label id='speciality-label' class="personalInformationLabel" data-bind='    text: specialityTextbox'></label></li>
+            <li class='jobSeeker_PersonalInformation_li' ><label id='SecurityCleareanceLabel-label'class="personalInformationLabel" data-bind='    text: SecurityCleareanceLabel'></label></li>
+            <li class='jobSeeker_PersonalInformation_li' ><label id='WillingToRelocateLabel-label' class="personalInformationLabel" data-bind='    text: WillingToRelocateLabel'></label></li>
+
         </div>
-<div data-bind='ifnot: industriesTextbox'>
+<div data-bind='ifnot: specialityTextbox'>
     <li class='jobseeker_myinformation_descriptionli'>Tell us about yourself!</li>
     <li class='jobseeker_myinformation_exampleli' >Say something about your industries,specialities,etc.</li>
-    <li class='jobseeker_myinformation_buttonli'><input type='button' id='Add_First_personalInformation' class='submitbutton' value='Add Information' data-bind='    click: addFirstPersonalInformation' /></li>
+    <li class='jobseeker_myinformation_buttonli'><a class="bton btn-orange" href="" id='Add_First_personalInformation'  data-bind='    click: addFirstPersonalInformation' >Add Information</a></li>
 </div>

@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
@@ -25,9 +27,9 @@ namespace SkillSmartWebAPI.Controllers
         /// </summary>
         /// <param name="id">workhistoryid</param>
         /// <returns>work history object</returns>
-        public JobSkills Get(string id)
+        public JobSkills Get() //string id)
         {
-            return ServiceFactory.GetJobSkills().GetById(id);
+            return ServiceFactory.GetJobSkills().GetById(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>

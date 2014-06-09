@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
@@ -14,9 +16,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all skills of the jobseeker
         /// </summary>
         /// <returns>JobseekerSkillList Object</returns>
-        public IEnumerable<JobSeekerSkillList> GetAll(string jobSeekerId)
+        public IEnumerable<JobSeekerSkillList> GetAll()
         {
-            return ServiceFactory.GetJobSeekerSkillList().GetAllJobseekerListById(jobSeekerId);
+            return ServiceFactory.GetJobSeekerSkillList().GetAllJobseekerListById(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>
@@ -51,6 +53,7 @@ namespace SkillSmartWebAPI.Controllers
 
                 for (int i = 0; i < skillMapIdList.Length; i++)
                 {
+                    jobSeekerSkillObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
                     jobSeekerSkillObj.SkillMapId = skillMapIdList[i];
                     ServiceFactory.GetJobSeekerSkillList().Create(jobSeekerSkillObj);
                 }
@@ -68,6 +71,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                jobSeekerSkillObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
                 jobSeekerSkillObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerSkillList().Update(jobSeekerSkillObj);
             }

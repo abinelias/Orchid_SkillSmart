@@ -4,10 +4,11 @@
 });
 var url = window.location.href;
 var userId = url.substring(url.lastIndexOf('=') + 1);
+//var userId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
 
 var selectedPitch;
 function getJobseekerPitch() {
-    var apiUrlOverview = GetWebAPIURL() + '/api/Overview/' + userId;
+  var apiUrlOverview = GetWebAPIURL() + 'api/Overview/'; // + userId;
     var dataObjOverview;
 
     //To get overview details
@@ -15,6 +16,7 @@ function getJobseekerPitch() {
         url: apiUrlOverview,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjOverview = data;
@@ -60,7 +62,7 @@ viewModel.saveAboutMe = function () {
 
 
     if (viewModel.summary.isValid()) {
-        alert("valid");
+        
         viewModel.displayErrorsAboutMe(false);
 
         var dataObjOverview = getJobseekerPitch();
@@ -85,52 +87,48 @@ viewModel.saveAboutMe = function () {
         }
         if (jsonObject.myinfoid) {
 
-            var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/' + jsonObject.myinfoid;
-            //To update Overview table
-            $.ajax({
-                url: apiUrlAboutMe,
-                type: "PUT",
-                data: dataObjMyInfo,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    viewModel.isEditableAboutMe(false);
-                    viewModel.btnAboutMe("Edit");
+         var apiUrlAboutMe = GetWebAPIURL() + 'api/Overview/' + jsonObject.myinfoid;
+        //To update Overview table
+        $.ajax({
+            url: apiUrlAboutMe,
+            type: "PUT",
+            data: dataObjMyInfo,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                viewModel.isEditableAboutMe(false);
+                viewModel.btnAboutMe("Edit");
 
 
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
+            },
+            error: function (xhr, error) {
+                alert('Errrrrrrror :' + error);
+            }
+        });
 
-        }
-        else {
-            var dataObjMyInfo;
-            var jobSeekerMyInfoObj = {}
-            jobSeekerMyInfoObj.JobSeekerId = userId;
-            jobSeekerMyInfoObj.Summary = jsonObject.summary;
-            dataObjMyInfo = JSON.stringify(jobSeekerMyInfoObj);
+    }
+    else {
+        var apiUrlAboutMe = GetWebAPIURL() + 'api/Overview/';
+        //To Isert details into overview table
+        $.ajax({
+            url: apiUrlAboutMe,
+            type: "POST",
+            data: dataObjMyInfo,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                viewModel.isEditableAboutMe(false);
+                viewModel.btnAboutMe("Edit");
+                viewModel.myinfoid(data);
+                viewModel.aboutMeCheck('1');
 
-            var apiUrlAboutMe = GetWebAPIURL() + '/api/Overview/';
-            //To Isert details into overview table
-            $.ajax({
-                url: apiUrlAboutMe,
-                type: "POST",
-                data: dataObjMyInfo,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    viewModel.isEditableAboutMe(false);
-                    viewModel.btnAboutMe("Edit");
-                    viewModel.myinfoid(data);
-                    viewModel.aboutMeCheck('1');
-
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
 
         }
     }
@@ -152,9 +150,10 @@ viewModel.cancelAboutMe = function () {
 
     if (aboutObj.myinfoid) {
         viewModel.summary(selectedPitch.Summary);
-        viewModel.isEditableAboutMe(false);
+        
         viewModel.btnAboutMe("Edit");
     }
+    viewModel.isEditableAboutMe(false);
 }
 viewModel.whichTemplateToUseAboutMe = function () {
     return viewModel.isEditableAboutMe() ? "EditAboutMe" : "ViewAboutMe";

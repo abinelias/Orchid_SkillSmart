@@ -1,15 +1,25 @@
 ﻿<div class="jobseeker_myinformation_list_tab_main_div">
     <div class="jobseeker_myinformation_list_tab_sub_div">
-        <li ><label class="jobseeker_myinformation_list_tab_workExperience_label"  data-bind="text: companyName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editWorkHistoryDetails">Edit</button></li>                                           
+        <li ><label class="jobseeker_myinformation_list_tab_workExperience_label"  data-bind="text: companyName"></label><a class="butn butn-white" href="" data-bind="    click: $parent.editWorkHistoryDetails"><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a></li>                                           
         <li ><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: currentPosition"></label></li>
         <li ><label  data-bind="text: startDate"></label> - <label data-bind="    text: endDate"></label> / <label  data-bind="    text: companyLocation"></label></li>                                                                                  
-        <hr />
+        <hr size="1" />
         <li ><label class="jobseeker_myinformation_list_tab_label">Salary: </label><label  data-bind="text: currentSalary"></label> <label data-bind="    text: salaryType"></label></li>
         <li ><label class="jobseeker_myinformation_list_tab_label">Employment Type: </label><label  data-bind="text: workTypeName"></label></li>
         <li ><label class="jobseeker_myinformation_list_tab_label">Industries: </label><label  data-bind="text: industryTypeName"></label></li>
         <li ><label class="jobseeker_myinformation_list_tab_label">Job Duties: </label><label  data-bind="text: jobDescription"></label></li>
-        <hr />    
-        <li class='marginclass'> Skill <button onclick='AddSkills(this.value, "63ac0887-82d4-43c6-8914-af47af0fab18")' id='myButton' data-bind="value: workHistoryId" class="related_skillButton" value='Add More'>+</button></li>
+        <hr size="1" />    
+        <li class='marginclass'> Skill 
+            <!-- ko if: btnSkill() == '+' -->
+                <a href="" data-bind="click: $root.expandWorkSkill, value: btnSkill"><i class="fa fa-plus-circle fa-2x" style="margin-left:721px;"></i></a>
+            <!-- /ko -->
+            <!-- ko if: btnSkill() == '-' -->
+                <a href="" data-bind="click: $root.expandWorkSkill, value: btnSkill"><i class="fa fa-minus-circle fa-2x" style="margin-left:721px;"></i></a>
+            <!-- /ko -->
+           
+        </li>
+      <!-- ko if: btnSkill() == '-' -->
+         <button class="butn butn-dkgray" style="margin-top:5px;"  onclick='AddSkills(this.value, "63ac0887-82d4-43c6-8914-af47af0fab18")' id='myButton' data-bind="value: workHistoryId" ><i class="fa fa-plus"></i>&nbsp Add More</button>
         <div  data-bind=" foreach: viewModel.categoryArray" >
             <div  data-bind=" foreach: specialityArray" >
                 <div  data-bind=" foreach: skillArray" >
@@ -19,13 +29,13 @@
                                 <div class="container">
                                     <ul>       
                                         <li>
-                                            <div class="skill_Slider">                  
+                                            <div class="skill_Slider_MyInformation">                  
                                                 <label style="margin-left:10px;" data-bind="text: skillName"></label>
                  
-                                                <a href  data-bind="    click: $root.expandSkillDetails"><img src="/images/Down_Arrow_Icon.png"</a>                  
-                                                <a href=""  data-bind=" click: $root.deleteSkillDetails"><img style="float:right;" src="/images/delete_icon.png" /></a>
-                                                <a href="" data-bind=" click: $root.courseLink"><img style="float:right;"src="/images/book_Icon.jpg" /></a>
-                                                <a href="" data-bind=" click: $root.expandSkillDetails"> <img style="float:right;" src="/images/EditObjectButton.png" /></a>
+                                                <a href  data-bind="    click: $root.expandSkillDetails"><i class="fa fa-chevron-down"></i></a>                  
+                                                <a href=""  data-bind=" click: $root.deleteSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a>
+                                                <a href="" data-bind=" click: $root.courseLink"><i style="float:right;padding-left:6px;" class="fa fa-book"></i></a>
+                                                <a href="" data-bind=" click: $root.expandSkillDetails"> <i style="float:right;padding-left:7px;" class="fa fa-pencil"></i></a>
                 
                                                 <hr size="1" width="95%" /> 
                                                 <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:98%"></div>
@@ -37,6 +47,7 @@
                                     </ul>
                                 </div>
                             <!-- /ko -->
+                    <br /><br />
                             <!-- ko if: btnSkillList() == '-' -->
                                 <div class="editForm_div">
                                     <div class="container">
@@ -44,9 +55,9 @@
                                             <li>
                                                 <div >                  
                                                     <label style="margin-left:10px;" data-bind="text: skillName"></label>
-                                                    <a href="" data-bind="    click: $root.expandSkillDetails" ><img src="/images/Up_Arrow_Icon.png" /></a> 
-                                                    <a href=""  data-bind=" click: $root.deleteSkillDetails"><img style="float:right;" src="/images/delete_icon.png" /></a> 
-                                                    <a href="" data-bind=" click: $root.courseLink"><img style="float:right;"src="/images/book_Icon.jpg" /></a>
+                                                    <a href="" data-bind="    click: $root.expandSkillDetails" ><i class="fa fa-chevron-down"></i></a> 
+                                                    <a href=""  data-bind=" click: $root.deleteSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a> 
+                                                    <a href="" data-bind=" click: $root.courseLink"><i style="float:right;padding-left:6px;" class="fa fa-book"></i></a>
                                                     <hr size="1" width="98%" /> 
                                                     <div  style="width:40%;float:left;">
                                                         <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }" style="width:91%"></div>
@@ -86,5 +97,6 @@
                 </div>
             </div>
         </div>
+        <!-- /ko -->
     </div>
 </div>

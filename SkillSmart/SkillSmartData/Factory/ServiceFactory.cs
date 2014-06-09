@@ -223,7 +223,7 @@ namespace SkillSmartData.Factory
             ILookupService<LookupDto> serviceObj = null;
             switch (sectionHandler.ConnectionStringName)
             {
-                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new LookupService(DatabaseFactory.CreateMongoDatabase(), collectionName );
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new LookupService(DatabaseFactory.CreateMongoDatabase(), collectionName);
                     break;
                 default: serviceObj = new LookupService(DatabaseFactory.CreateMongoDatabase(), collectionName);
                     break;
@@ -395,6 +395,32 @@ namespace SkillSmartData.Factory
                 case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new EmployerService(DatabaseFactory.CreateMongoDatabase());
                     break;
                 default: serviceObj = new EmployerService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IPrerequisiteService<Prerequisite> GetPrerequisite()
+        {
+            IPrerequisiteService<Prerequisite> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new PrerequisiteService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new PrerequisiteService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IJobPrerequisiteService<JobPrerequisite> GetJobPrerequisite()
+        {
+            IJobPrerequisiteService<JobPrerequisite> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new JobPrerequisiteService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new JobPrerequisiteService(DatabaseFactory.CreateMongoDatabase());
                     break;
             }
             return serviceObj;

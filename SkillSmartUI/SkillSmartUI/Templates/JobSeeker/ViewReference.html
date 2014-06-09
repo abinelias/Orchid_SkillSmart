@@ -6,7 +6,7 @@
         Supervisor, collabarator, co worker etc
     </li>
     <li class="jobseeker_myinformation_buttonli">
-        <input type="button" id="add-allocades" class="submitbutton" value="Add Reference" data-bind='click: $root.addFirstReference' />
+         <a class="bton btn-orange" href="" data-bind='click: $root.addFirstReference' >Add Reference</a>
     </li>
 <!-- /ko -->
 
@@ -16,11 +16,11 @@
             <li class="jobseekerSkillRelatedExperience_li">                                             
                 <div  class="ListReference">
                     <div class="ListLanguage_Label">
-                        <div style="width:-moz-max-content;"><label class="jobseeker_Reference" data-bind="    text: firstName"></label></div>
+                        <div ><label class="jobseeker_Reference" data-bind="    text: firstName"></label></div>
                         <div style="width:-moz-max-content;" ><label data-bind="    text: position"></label></div>
                     </div>
                     <div class="ListLanguage_Button">
-                        <button class="delete_skillButton" data-bind = "click: $parent.deleteReference" >X</button>
+                        <button class="delete_LanguageButton" data-bind = "click: $parent.deleteReference" ><i class="fa fa-times fa-lg"></i></button>
                     </div>
                 </div>                     
             </li>

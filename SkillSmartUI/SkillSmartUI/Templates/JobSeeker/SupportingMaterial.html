@@ -1,7 +1,9 @@
 ﻿<div >
-    
-        <ul><li><label style="font-size:15px;">Suppoting Material</label>
-            <!-- ko if: supportingMaterialCheck() == '1' --><input type='button' id='addMoreLanguage' class='individual_editbuttonSkill'  data-bind='click: $root.clickButtonSkillSupportingMaterial, value: btnSupportingMaterial'  /><!-- /ko --></li>
+        <ul><li><label style="font-size:15px;">Supporting Material</label>
+            <!-- ko if: supportingMaterialCheck() == '1' -->
+                <!-- ko if: btnSupportingMaterial() == 'Add More' --><a class="butn butn-white" style="margin-right:5px;" href=""   data-bind='click: $root.clickButtonSkillSupportingMaterial, value: btnSupportingMaterial'  ><i class="fa fa-plus"></i>&nbsp Add More</a><!-- /ko -->
+                <!-- ko if: btnSupportingMaterial() == 'Edit' --><a class="butn butn-white" style="margin-right:5px;" href=""   data-bind='click: $root.clickButtonSkillSupportingMaterial, value: btnSupportingMaterial'  ><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a><!-- /ko -->
+            <!-- /ko --></li>
         <hr size="1" />
         </ul>
 </div>

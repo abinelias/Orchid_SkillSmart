@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>   
+    <title>JobSeeker Registration</title>
+    <link rel="stylesheet" href="/Content/common.css" />  
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+    <link href="/Content/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+  <link rel="stylesheet" href="/content/skillsmart.css" />
+    <script src="/Scripts/Common.js"></script>
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+    <script src="/Scripts/vendor/knockout.validation.js"></script>
+    <script src="/Scripts/vendor/jquery-ui.js"></script>
+    <script src="/Scripts/viewmodel/skillsmart.model.jobseekerregistration.js"></script>
+    <script src="/Scripts/viewmediator/skillsmart.mediator.jobseekerregistration.js"></script>  
+    <script src="/Scripts/vendor/knockout.validation.debug.js"></script>  
+    <script src="/Scripts/vendor/knockout.mapping-latest.js"></script>
+  <script src="/Scripts/jobseeker.js"></script>
+    <script>
+        $(document).ready(function () {
+            if (typeof (skillsmart) == 'undefined') skillsmart = {}
+            if (typeof (skillsmart.model) == 'undefined') skillsmart.model = {}
+            if (typeof (skillsmart.mediator) == 'undefined') skillsmart.mediator = {}
+
+            function InitializeApplication() {
+                $(document).viewloader({
+                    logLevel: "debug",
+                    success: function (successfulResolution) {
+                        InitializeViewMediators();
+                    },
+                    error: function (failedResolution) {
+                        alert(failedResolution);
+                    }
+                });
+            }
+            function InitializeViewMediators() {
+                skillsmart.mediator.jobseekerregistration.createViewMediator();
+                skillsmart.mediator.jobseekerregistration.setupViewDataBindings();
+            }
+            InitializeApplication();
+        });
+    </script>
+</head>
+<body>
+    <div id="outer_container" >       
+        <div id="header">
+        </div> 
+        <div id="jobseeker_registration_signup_div"><h3>Sign Up</h3></div>          
+        <div id="jobseeker-registration">
+            <h4>Enter your details below to create an account.</h4>
+             <ul data-bind="foreach: errors, visible: displayErrors() && errors().length > 0">
+                <li data-bind="text: $data"></li>
+            </ul>
+            <ul>
+                <li  class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">                
+                        <li class="jobseeker_registration_innerli"><input type="text" id="first-name" class="inputs" placeholder="First name" /></li>
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_registration_innerli"><input type="text" id="last-name" class="inputs" placeholder ="Last name" /></li>
+                    </ul>
+                </li>                         
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_registration_innerli"><input type="text" id="email-address" class="inputs" placeholder="Email" /></li>
+                    </ul>
+                </li>      
+                <li  class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_registration_innerli"><input type="password" id="password" class="inputs" placeholder="Password"  /></li>
+                    </ul>
+                </li>
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_registration_innerli"><input type="password" id="confirm-password" class="inputs" placeholder="Confirm password" /></li>
+                    </ul>
+                </li>       
+                <li class="jobseeker_registration_outerli">
+                    <ul class="jobseeker_registration_ul">
+                        <li class="jobseeker_registration_innerli"><input type="button" id="submit-button" value="Create Account" class="submitbutton"  /></li>                
+                    </ul>
+                </li>
+              <li class="jobseeker_registration_outerli">
+                <ul class="jobseeker_registration_ul">
+                  <li class="jobseeker_registration_innerli">
+                    <h4>Or sign-in using an existing account.</h4>
+                    <input type="button" id="linked-button" value="Linked In" class="submitbutton" /><br />
+                    <input type="button" id="facebook-button" value="Facebook" class="submitbutton" /><br />
+                    <input type="button" id="googleplus-button" value="Google+" class="submitbutton" />
+
+                  </li>
+                </ul>
+              </li>
+            </ul>
+        </div>
+      <div id="footer"></div>
+    </div>
+</body>
+</html>

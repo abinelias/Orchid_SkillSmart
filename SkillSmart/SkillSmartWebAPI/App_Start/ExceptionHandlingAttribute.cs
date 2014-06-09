@@ -12,6 +12,8 @@ namespace SkillSmartWebAPI
     {
         public override void OnException(HttpActionExecutedContext context)
         {
+          return; // Not sure what's going on here yet
+
             if (context.Exception is Exception)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)

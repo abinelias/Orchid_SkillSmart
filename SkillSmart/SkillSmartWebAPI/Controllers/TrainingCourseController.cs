@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
@@ -15,9 +17,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all training course details of the jobseeker
         /// </summary>
         /// <returns>list of jobseeker training course</returns>
-        public IEnumerable<TrainingCourse> GetJobSeekerTrainingCourseById(string jobSeekerId)
+        public IEnumerable<TrainingCourse> GetJobSeekerTrainingCourseById()
         {
-            return ServiceFactory.GetJobSeekerTrainingCourse().GetJobSeekerTrainingCourseById(jobSeekerId);
+            return ServiceFactory.GetJobSeekerTrainingCourse().GetJobSeekerTrainingCourseById(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>
@@ -36,9 +38,9 @@ namespace SkillSmartWebAPI.Controllers
         /// <param name="jobSeekerTrainingCourseObj">trainingcourseobject</param>
         public string Post(TrainingCourse jobSeekerTrainingCourseObj)
         {
-           
-                ServiceFactory.GetJobSeekerTrainingCourse().Create(jobSeekerTrainingCourseObj);
-                return jobSeekerTrainingCourseObj.Id.ToString();
+            jobSeekerTrainingCourseObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+            ServiceFactory.GetJobSeekerTrainingCourse().Create(jobSeekerTrainingCourseObj);
+            return jobSeekerTrainingCourseObj.Id.ToString();
         }
 
         /// <summary>
@@ -50,6 +52,8 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                jobSeekerTrainingCourseObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+                jobSeekerTrainingCourseObj.Id = new Guid(id);
                 jobSeekerTrainingCourseObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerTrainingCourse().Update(jobSeekerTrainingCourseObj);
             }

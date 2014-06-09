@@ -71,7 +71,7 @@ namespace SkillSmartMongoDA.Entities
         /// ZipCode
         /// </summary>
         [BsonElement("ZipCode")]
-        public string ZipCode { get; set; }
+        public int ZipCode { get; set; }
 
         /// <summary>
         /// Citizenship
@@ -137,7 +137,7 @@ namespace SkillSmartMongoDA.Entities
         /// ExperienceId
         /// </summary>
         [BsonElement("Experience")]
-        public string Experience { get; set; }
+        public int Experience { get; set; }
 
         /// <summary>
         /// RaceId

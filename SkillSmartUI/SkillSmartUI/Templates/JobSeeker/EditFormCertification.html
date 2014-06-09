@@ -1,5 +1,5 @@
 ﻿ <!-- ko if: isEditCertification() == '1' -->
-<div class="common_tab_background">
+
     <div id="Edit_Certification" class="tab_savebackground_div">
             <ul>
             <li>
@@ -15,19 +15,42 @@
             </li>
             <li class="jobseeker_registration_outerli">
                 <ul class="jobseeker_registration_ul">
-                    <li class="jobseeker_additionalinformation_innerli"><input type="text" id="Certification_Name" placeholder="Certification" class="inputs" data-bind="wijtextbox: {}, value: certificationName" /></li>
+                    <li class="jobseeker_additionalinformation_innerli"><input type="text" id="Certification_Name" placeholder="Certification" data-bind="wijtextbox: {}, value: certificationName" /></li>
                     <li  class="jobseeker_myinformation_innerli"><input type="checkbox" id="Certification_currently_Enrolled"  data-bind="wijcheckbox: { checked: certificationEnrolled }"/>Currently Enrolled</li>
                 </ul>
             </li>
+                <li class="jobseeker_registration_outerli">
+    <ul class="jobseeker_registration_ul">
+        <li class="jobseeker_additionalinformation_innerli"><label>Institution</label></li>                                               
+    </ul>
+</li> 
+<li class="jobseeker_registration_outerli">
+    <ul class="jobseeker_registration_ul">
+        <li class="jobseeker_additionalinformation_innerli"><input type="text" id="Certification_Institution" placeholder="Institution/Association"  data-bind="wijtextbox: {}, value: certificationInstituion" /></li>                                               
+    </ul>
+</li>
+<li class="jobseeker_registration_outerli">
+    <ul class="jobseeker_registration_ul">                                                
+        <li class="jobseeker_additionalinformation_innerli"><label>Completion Date</label></li>
+        <li class="jobseeker_myinformation_innerli"><label>Expire Date</label></li>
+    </ul>
+</li>
+
+<li class="jobseeker_registration_outerli">
+    <ul class="jobseeker_registration_ul">           
+        <li class="jobseeker_additionalinformation_innerli"> <!-- ko if: certificationEnrolled()--><input type="text"  placeholder="End Date"  value="present" data-bind="wijtextbox: {}" disabled /><!-- /ko --> <!-- ko ifnot: certificationEnrolled()--> <input type="text" id="certification_endDate" placeholder=" Completed Date"  data-bind="    wijinputdate: { date: completedDate, showTrigger: true } " /><!-- /ko --></li>
+        <li class="jobseeker_myinformation_innerli"><input type="text" id="expires" placeholder="Expires"  data-bind="wijinputdate: { date: expireDate, showTrigger: true } " /></li>
+    </ul>
+</li>
            <li data-bind="template: { name: 'CommonTemplateCourse' }"></li>                                                                                                       
             <li class="jobseeker_additionalinformation_city_outerli">
                 <ul class="jobseeker_additionalinformation_city_ul" >
-                    <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="save_certification" class="savebutton" value="Save" data-bind="click: $parent.saveCertification" /></li>
-                    <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel_certification" class="cancelbutton" value="Cancel" data-bind="click: $parent.cancelCertification" /></li>
-                   <!-- ko if: deleteCheck() == '1' --> <li><input type="button" id="delete_certification" class="deletebutton" value="Delete" data-bind="click: $parent.deleteCertification" /></li><!-- /ko -->
+                    <li><a class="btn btn-blue first" href=""  data-bind="click: $parent.saveCertification" >Save</a></li>
+                    <li><a class="btn btn-ltgray" href=""  data-bind="click: $parent.cancelCertification" >Cancel</a></li>
+                   <!-- ko if: deleteCheck() == '1' --> <li><a class="btn btn-red" style="float:right;" href="" data-bind="click: $parent.deleteCertification" >Delete</a></li><!-- /ko -->
                 </ul>
             </li>                       
         </ul>                                
     </div>
-</div>
+
 <!-- /ko -->

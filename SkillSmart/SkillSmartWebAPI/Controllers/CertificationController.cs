@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
@@ -15,9 +17,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all certifications of jobseeker
         /// </summary>
         /// <returns>Certification list of jobseeker</returns>
-        public IEnumerable<Certification> GetJobSeekerCertificationById(string jobSeekerId)
+        public IEnumerable<Certification> GetJobSeekerCertificationById()
         {
-            return ServiceFactory.GetJobSeekerCertification().GetJobSeekerCertificationById(jobSeekerId);
+            return ServiceFactory.GetJobSeekerCertification().GetJobSeekerCertificationById(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>
@@ -36,9 +38,9 @@ namespace SkillSmartWebAPI.Controllers
         /// <param name="jobSeekerCertificationObj">certification object</param>
         public string Post(Certification jobSeekerCertificationObj)
         {
-           
-                ServiceFactory.GetJobSeekerCertification().Create(jobSeekerCertificationObj);
-                return jobSeekerCertificationObj.Id.ToString();
+            jobSeekerCertificationObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+            ServiceFactory.GetJobSeekerCertification().Create(jobSeekerCertificationObj);
+            return jobSeekerCertificationObj.Id.ToString();
         }
 
         /// <summary>
@@ -50,6 +52,8 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                jobSeekerCertificationObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+                jobSeekerCertificationObj.Id = new Guid(id);
                 jobSeekerCertificationObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerCertification().Update(jobSeekerCertificationObj);
             }

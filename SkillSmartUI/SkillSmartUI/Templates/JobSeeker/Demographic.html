@@ -1,10 +1,10 @@
-﻿<div class='common_banner'>
-   <div class="common_bannerStyle">
-        <ul><li> Demographic Information</li></ul>
-    </div>
-    <div class="common_banner_ButtonStyle">
-        <li class='marginclass'>  <!-- ko if: demographicCheck() == '1' --><!-- ko if: btnDemographic() == 'Edit' --> <a class="butn butn-dkgray" href="" data-bind='click: clickButtonDemographic, value: btnDemographic' >Edit</a><!-- /ko --><!-- /ko --></li>
-    </div>
+﻿<div>
+    <h1 class="box-header"> Demographic Information
+        <!-- ko if: demographicCheck() == '1' --><!-- ko if: btnDemographic() == 'Edit' --> <a class="butn butn-dkgray" href="" data-bind='click: clickButtonDemographic, value: btnDemographic' ><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a><!-- /ko --><!-- /ko -->
+    <a href="javascript:void(0);" title="Lorem ipsum"><i class="fa fa-question-circle"></i></a>
+    </h1>
+
+    
 </div>
 <div id='show_aboutme_div' class='common_background'>
     <ul data-bind='    template: { name: whichTemplateToUseDemographic }'></ul>

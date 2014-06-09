@@ -21,6 +21,18 @@ namespace SkillSmartMongoDA.Entities
         /// SkillScore
         /// </summary>
         [BsonElement("SkillScore")]
-        public string SkillScore { get; set; }
+        public int SkillScore { get; set; }
+
+        /// <summary>
+        /// SkillImportance
+        /// </summary>
+        [BsonElement("SkillImportance")]
+        public int SkillImportance { get; set; }
+
+        /// <summary>
+        /// SkillExperience
+        /// </summary>
+        [BsonElement("SkillExperience")]
+        public int SkillExperience { get; set; }
     }
 }

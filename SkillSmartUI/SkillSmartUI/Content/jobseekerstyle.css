@@ -1,7 +1,9 @@
 ﻿.jobseeker_additionalinformation_innerli 
 {
-    width:230px;
     float:left;
+   width: 30%;
+    display: block;
+    margin: 0 12px 0 0;
 }
 
 .jobseeker_additionalinformation_innerli_save_button 
@@ -20,14 +22,13 @@
 }
 .jobseeker_additionalinformation_city_outerli 
 {
-    width:630px;
+    width:97%;
     float:left;
-    /*padding-top:10px;*/
-    padding-top:5px;
 }
 .jobseeker_additionalinformation_city_ul 
 {
-    width:630px;
+    width:100%;
+    margin-top: 15px;
 }
 #jobseeker_list_accountdetails_banner_div {
     height:50px;
@@ -45,7 +46,7 @@
 }
 .jobseeker_registration_ul 
 {
-    width:600px;
+    width:100%;
     float:left;
 }
 .jobseeker_registration_innerli 
@@ -71,8 +72,7 @@
 }
 .jobseeker_list_li_ul 
 {
-    width:600px;
-    float:left;
+    width:100%;
 }
 .jobseeker_list_innerli
 {
@@ -102,57 +102,52 @@
 }
 .jobseeker_myinformation_innerli 
 {
-   width:150px;
+   width:25%;
    float:left;
-   
-   padding-bottom:5px; 
-}
+   }
 .jobseeker_myinformation_personalcontainer_outerli 
 {
 
-    width:700px;float:left;
-    /*padding-top:10px;
-    padding-bottom:10px;*/
-      padding-top:5px;
-    padding-bottom:5px;
+    width:100%;
+    float:left;
 }
 .jobseeker_myinformation_personalcontainer_ul 
 {
 
-    width:700px;float:left;
+    width:100%;
+    float:left;
     
 }
 #myinformation-div 
 {
-    height:50px;
-    width:800px;
+    width:100%;
     background-color:#F0F8FF;
     margin:0 auto;
 }
 #jobseeker-myinformation-div {
     overflow:auto;
-    width:800px;
+    width:100%;
     margin:0 auto;
     background-color:white;
 }
 #personal_information-banner-div 
 {
     height:50px;
-    width:800px;
+    width:100%;
     margin:10px auto;
     background-color:#333333; 
     position:relative;
 }
 #personal-container 
 {
-    width:800px;
+    width:96%;
     overflow:auto;
     margin:0px auto;
     background-color:white;
 }
 #edit-personal-information
 {
-    width:800px;
+    width:100%;
     overflow:auto;
     margin:0px auto;
     background-color:white;
@@ -171,24 +166,25 @@
 {
     text-align:center;
     padding-top:10px;
+    margin-left:328px;
+    margin-bottom:40px;
 }
 .jobseeker_myinformation_select 
 {
-    /*height:28px;*/
-    width:200px;
+    
     margin-top:10px;    
     margin-bottom:10px;
 
 }
 .jobseeker_myinformation_edit_personal_li {
 
-    width:700px;
+    width:100%;
     float:left;
     padding-top:10px;
 }
 .jobseeker_myinformation_edit_personal_ul {
 
-    width:700px;
+    width:100%;
     float:left;
  
 }
@@ -196,43 +192,50 @@
 .jobseeker_myinformation_list_tab_main_div 
 {
 
-    overflow:auto;
+   overflow:auto;
     border-style:solid;
-    border-width:1px;  
-    width:740px;
-    margin-top:35px;
+    border-width:1px; 
+    border-color:#E0E0E0; 
+    width:842px;
+    margin-top:37px;
     font-family: 'Questrial', sans-serif; 
     color: #6a747c;
+
+    background-color:#E7EFF1;
+    margin-left:10px;
+    margin-bottom:10px;
 }
 .jobseeker_myinformation_list_tab_sub_div 
 {
-
-    margin:10px;
+    
+    padding:20px;
 }
 .jobseeker_myinformation_list_tab_workExperience_label {
-    font-size:large;
+    font-size:2em;
+    color: #3b3f42;
 }
 .jobseeker_myinformation_list_tab_label {
-    font-size:medium;
+    font-size:1.2em;
+    color: #3b3f42;
 }
 .jobseeker_myinformation_language_list_li_ul {
-    width:650px;
+    width:100%;
     float:left;
-
+    padding: 0;
 }
 .jobseeker_myinformation_language_list_inner_li {
-    width:200px;
+   
     float:left;
     font-size:15px;
 }
 .jobseeker_demographic_innerli 
 {
-   width:105px;
+  
    float:left;    
 }
 .jobseeker_demographicDay_innerli 
 {
-    width:75px;
+   
     float:left;
 }
 .jobseeker_Notification_innerli {
@@ -241,49 +244,63 @@ float:right;
 
 .jobseeker_MessageEmployer {
 
-font-size:15px;
-font-weight:bold;
+font-size:2em;
+font-weight:300;
+color: #3b3f42;
 }
 .jobseeker_MessagePosition {
 
-font-size:20px;
+font-size:1.5em;
+color: #7b7d7f
+}
 
+.details_section_title {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    color: #3b3f42;
 }
 .jobseeker_notification_ul {
- width:730px;
+ width:98%;
     float:left;
+    font-size: 1.5em;
 }
 
 .jobseeker_AppliedJobs_ul_li {
-float:left;width:676px;
-
+float:left;
+width: 100%;
+padding: 0;
 }
 .jobseeker_noOfJobs {
-    width:10px;
-    height:10px;
     text-align:center;
-    background-color:orange;
+    background: none repeat scroll 0 0 #f47d31;
+    color: #fff;
+    border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    padding: 2px 3px;
+    margin: 0 0 0 1px;
+}
+
+label.jobseeker_noOfJobs {
+    font-size: 0.8em;
 }
 .jobseekerList
 {
-   width:120px;
    float:left;
 }
 #jobs_div 
 {
-    overflow:auto;
-    width:845px;
-    
-    margin:0 auto;
-
+   overflow:auto;
+    width:100%;
+    margin:30px auto 0;
     padding-bottom:20px;
 }
 .jobsApplied {
-    width:799px;
+    width:100%;
     overflow:hidden;
     margin:0px auto;
-    background-color:white;
-    
+    background: none repeat scroll 0 0 white;
+    margin-top:20px;
 
 }
 .jobseekerSkillText {
@@ -297,8 +314,57 @@ float:left;width:676px;
 float:left;margin-left:10px;
 }
 .jobseeker_Reference {
-
-font-size:16px;
-color:#007dc3;
+width: 100%;
+font-size:1.4em;
+color:#6a747c;
 float:left;
+margin-right: 8px;
+}
+
+.jobseeker_Jobsearch_innerli 
+{
+    width:280px;
+    float:left;
+}
+.jobSeeker_PersonalInformation_li {
+float:left;
+width: 25%;
+}
+.jobseeker_message_outerli 
+{
+    width:770px;
+    float:left;
+    /*padding-top:10px;*/
+    padding-top:5px;
+    margin-bottom:10px;
+}
+
+div.jobseeker_myinformation_list_tab_sub_div .container ul {
+    padding: 0;
+     border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border: 1px solid #dfe5e7;
+}
+
+.skill_Slider label {
+color: #3b3f42;
+font-size: 1.2em;
+}
+
+.jobSeeker_PersonalInformation_li label, .jobseeker_myinformation_innerli label {
+    text-transform: uppercase;
+}
+
+.profileImg img {
+width: 129px;
+padding: 10px;
+border: 1px solid #efefef;
+display: block;
+float: left;
+margin-right: 15px;
+}
+
+li.jobseeker_additionalinformation_innerli .fa {
+    padding-right: 5px;
 }

@@ -1,9 +1,8 @@
 ﻿var viewModel = {}
 
 var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-var userId = hashes[1].substring(7);
-var acquiredId = hashes[2].substring(11);
-var workHistoryId = hashes[3].substring(13);
+var acquiredId = hashes[1].substring(11);
+var workHistoryId = hashes[2].substring(13);
 
 $(document).ready(function () {
 
@@ -72,6 +71,8 @@ function getCategoryList()
         url: apiUrlCategory,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
+        contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataCategoryObj = data;
 
@@ -115,6 +116,8 @@ function initPopUpSkills()
                 url: apiUrlSpeciality,
                 type: 'GET',
                 async: false,
+                headers: app.securityHeaders(),
+                contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     viewModel.speciality([]);
                     viewModel.speciality.push({ name: "Speciality", id: "" });
@@ -141,6 +144,8 @@ function initPopUpSkills()
                 url: apiUrlSkill,
                 type: 'GET',
                 async: false,
+                headers: app.securityHeaders(),
+                contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     viewModel.skill([]);
                     for (keySkill in data) {
@@ -154,20 +159,20 @@ function initPopUpSkills()
         }
     });
 }
+
 viewModel.saveSkills = function () {
     var jsonObject = ko.toJS(viewModel);
     var jobseekerAddSkillObj = {}
-    jobseekerAddSkillObj.JobSeekerId = userId;
     jobseekerAddSkillObj.SkillAcquiredId = acquiredId;
     jobseekerAddSkillObj.SkillParentCollectionId = workHistoryId;
     jobseekerAddSkillObj.SkillMapId = jsonObject.selectedSkill.toString();
     dataobjAddSkill = JSON.stringify(jobseekerAddSkillObj);
     var apiUrlAddSkill = GetWebAPIURL() + '/api/JobSeekerSkillList/';
-
     $.ajax({
         url: apiUrlAddSkill,
         type: "POST",
         data: dataobjAddSkill,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         async: false,
         success: function (data) {
@@ -178,5 +183,4 @@ viewModel.saveSkills = function () {
             alert('Error :' + error);
         }
     });
-
 }

@@ -1,4 +1,5 @@
 ﻿<ul>
+    <li><input type="hidden"  data-bind='value: additionalinfoid' /></li>
             <li class='jobseeker_registration_outerli'>
             <ul class='jobseeker_registration_ul'>
                 <li  class='jobseeker_myinformation_innerli'><label>Title</label></li>
@@ -51,7 +52,7 @@
         <li class='jobseeker_registration_outerli'><ul class='jobseeker_registration_ul'><li  class='jobseeker_myinformation_innerli'><label>Years of experience</label><sup>*</sup></li></ul></li>
         <li class='jobseeker_registration_outerli'>
             <ul class='jobseeker_registration_ul'>
-                <li  class='jobseeker_additionalinformation_liwidth'><input type="text" id="numinput" data-bind="    wijinputnumber: {value:yrExperience, showSpinner: true }"/></li>
+                <li  class='jobseeker_additionalinformation_liwidth'><input type="text" id="numinput" data-bind="    wijinputnumber: { value: yrExperience, showSpinner: true, decimalPlaces: 0, minValue: 0,  maxValue: 100,    }"/></li>
             </ul>
         </li>
 

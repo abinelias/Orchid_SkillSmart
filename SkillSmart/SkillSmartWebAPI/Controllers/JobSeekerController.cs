@@ -7,28 +7,39 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web;
+using SkillSmartWebAPI.Models;
 
 namespace SkillSmartWebAPI.Controllers
 {
+    [Authorize]
     public class JobSeekerController : ApiController
     {
         /// <summary>
         /// To get all jobseekers list
         /// </summary>
         /// <returns>List of jobseekers</returns>
-        public IEnumerable<JobSeeker> GetAll()
+        /*
+        [Route("/AllSeekers")]
+        public IEnumerable<JobSeeker> GetAllSeekers()
         {
             return ServiceFactory.GetJobSeeker().GetJobSeekerList(100, 0);
         }
-
+        */
         /// <summary>
         /// To get a jobseeker details using id
         /// </summary>
         /// <param name="id">JobSeekerId</param>
         /// <returns>An object of a JobSeeker</returns>
-        public JobSeeker Get(string id)
+        public JobSeeker Get()
         {
-            return ServiceFactory.GetJobSeeker().GetById(id);
+          string fname, lname, email;
+          SkillsmartUser.GetUserInfo(HttpContext.Current.User, out fname, out lname, out email);
+          return new JobSeeker
+          {
+            Email = email,
+            LastName = lname,
+            FirstName = fname
+          };
         }
 
         /// <summary>
@@ -55,7 +66,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
-                jobSeekerObj.Id = new Guid(id);
+              jobSeekerObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeeker().Update(jobSeekerObj);
             }
             catch (Exception exp){}

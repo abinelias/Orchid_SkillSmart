@@ -52,7 +52,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
-                skillAliasObj.Id = new Guid(id);
+              skillAliasObj.Id = new Guid(id);
                 ServiceFactory.GetSkillAlias().Update(skillAliasObj);
             }
             catch (Exception exp){}

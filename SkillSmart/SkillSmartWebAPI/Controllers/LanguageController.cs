@@ -1,11 +1,14 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+
 namespace SkillSmartWebAPI.Controllers
 {
     public class LanguageController : ApiController
@@ -15,9 +18,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all languages of jobseeker
         /// </summary>
         /// <returns>jobseeker languages list</returns>
-        public IEnumerable<Language> GetAll(string jobSeekerId)
+        public IEnumerable<Language> GetAll()
         {
-            return ServiceFactory.GetJobSeekerLanguage().GetAllLanguagesById(jobSeekerId);
+            return ServiceFactory.GetJobSeekerLanguage().GetAllLanguagesById(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>
@@ -36,6 +39,7 @@ namespace SkillSmartWebAPI.Controllers
         /// <param name="jobSeekerObj"></param>
         public string Post(Language jobSeekerObj)
         {
+            jobSeekerObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
             ServiceFactory.GetJobSeekerLanguage().Create(jobSeekerObj);
             return jobSeekerObj.Id.ToString();
         }
@@ -49,6 +53,8 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                jobSeekerObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+                jobSeekerObj.Id = new Guid(id);
                 jobSeekerObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerLanguage().Update(jobSeekerObj);
             }

@@ -1,10 +1,12 @@
-﻿<div class="common_banner">
-       <div class="common_bannerStyle">
-        <ul><li>Languages</li></ul>
-     </div>
-    <div class="common_banner_ButtonStyle">
-        <li class="marginclass"><!-- ko if: languageCheck() == '1' --><input type='button' id='addMoreLanguage' class='editbutton' value='Edit' data-bind='click: clickButtonLanguage, value: btnLanguage' /><!-- /ko --></li>
-    </div>
+﻿<div>
+    <h1 class="box-header"> Languages
+        <!-- ko if: languageCheck() == '1' -->
+            <!-- ko if: btnLanguage() == 'Edit' --><a class="butn butn-dkgray" href="" data-bind='click: clickButtonLanguage, value: btnLanguage' ><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a><!-- /ko -->
+            <!-- ko if: btnLanguage() == 'Add More' -->
+                <!-- ko if: addMoreLanguageCheck() == '1' --><a class="butn butn-dkgray" href="" data-bind='click: clickButtonLanguage, value: btnLanguage' ><i class="fa fa-plus"></i>&nbsp Add More</a>  <!-- /ko -->
+            <!-- /ko -->
+        <!-- /ko -->
+    </h1>
 </div>
 
 <div id='show_language_div' class='common_background'>

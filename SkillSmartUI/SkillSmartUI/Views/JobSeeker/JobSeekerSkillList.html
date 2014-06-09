@@ -10,6 +10,11 @@
     <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
     <script src="/Scripts/viewmodel/JobSeekerSkillList.js"></script>
 
+
+  <script src="/Scripts/Auth/app.datamodel.js"></script>
+  <script src="/Scripts/Auth/app.viewmodel.js"></script>
+  
+  
     <script src="/Scripts/JobSeeker/SkillReference.js"></script>
     <script src="/Scripts/JobSeeker/SkillSupportingMaterial.js"></script>
     <script src="/Scripts/JobSeeker/RelatedExperience.js"></script>
@@ -44,26 +49,37 @@
     </style>
         <script src="/Scripts/vendor/knockout.validation.js"></script>
 
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="ManageHoldingsDiv" style="text-align:left;vertical-align:middle;display:none;overflow:hidden;">
         <iframe id="ManageHoldingsFrame" style="height:420px;width:905px;overflow:hidden;" ></iframe>
     </div>
-    <div id="header"></div>
-    <div id="main-div">
-    <div class='common_banner'>
-        <ul>
-            <li class='marginclass'> Skill <input type='button' onclick='AddSkills()' id='myButton' class='editbutton' value='Add More'  /></li>
-        </ul>
-    </div>
-    <div class="common_background"  data-bind=" foreach: categoryArray" >
-        <div  data-bind="wijexpander: { expanded: false }">
-            <ul><li style ="font-weight: normal;">Industry: &nbsp<label class="jobseeker_MessagePosition" data-bind="text: categoryName"></label> </li></ul>
-          
-             <div   data-bind="  template: { name: 'Categories' }" ></div>
+    <div id="container">
+        <div id="wrapHeader">
+            <div id="header"></div>
         </div>
-    </div>
-    </div>
-    <div id="footer"></div> 
+        <div id="content">
+            <div id="main-div">
+                <section class="sectionModified box box-white">
+                    <h1 class="box-header">
+                          Skill 
+                        <button class="butn butn-dkgray"  onclick='AddSkills()' id='myButton' ><i class="fa fa-plus"></i>&nbsp Add More</button>
+                    </h1>               
+                    <div  data-bind=" foreach: categoryArray" >
+                        <div  data-bind="wijexpander: { expanded: false }">
+                            <ul><li style ="font-weight: normal;">Industry: &nbsp<label class="jobseeker_MessagePosition" data-bind="text: categoryName"></label> </li></ul>
+          
+                             <div   data-bind="  template: { name: 'Categories' }" ></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div id="wrapFooter">
+            <div id="footer"></div>
+        </div>
+    </div> 
 </body>
 </html>

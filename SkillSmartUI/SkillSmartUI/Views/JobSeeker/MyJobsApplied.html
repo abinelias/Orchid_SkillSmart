@@ -2,11 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>MyJobs Applied</title>
-
-
-
-
-        <link rel="stylesheet" href="/Content/common.css" />
+    <link rel="stylesheet" href="/Content/common.css" />
     <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
     <link href="/Content/skillsmart.css" rel="stylesheet" />
 
@@ -18,6 +14,10 @@
     <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
     <script src="/Scripts/vendor/knockout.validation.js"></script>
     <script src="/Scripts/Common.js"></script>
+    
+    <script src="/Scripts/Auth/app.datamodel.js"></script>
+ <script src="/Scripts/Auth/app.viewmodel.js"></script>
+  
     <script src="/Scripts/jobseeker.js"></script>
     <script src="/Scripts/viewmodel/DashBoard.js"></script>
     <script src="/Scripts/JobSeeker/JobsApplied.js"></script>
@@ -43,33 +43,46 @@
     <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
         <style>
         .wijmo-wijexpander .ui-expander-header .ui-icon {
-            left: 60.5em;
+            left: 75.5em;
             margin-top: -8px;
             position: absolute;
             top: 50%;
         }
+         li.ui-tabs-selected a {
+            background-color: #E7EFF1;
+            }
+
+
     </style>
 
 </head>
 <body>
-     <div id="header"></div>
-    <div id="jobs_div">
-        <div id="tabs" data-bind="wijtabs: {}">
-            <ul>
-                <li><a href="#tabs-1">Jobs Applied to <label class="jobseeker_noOfJobs" data-bind="text: noOfJobs"></label></a></li>
-                <li><a href="#tabs-2">Saved Jobs <label class="jobseeker_noOfJobs" data-bind="text: noOfSavedJobs"></label></a></li>
-                <li><a href="#tabs-3">Suggested Jobs</a></li>
-            </ul>
-            <div id="tabs-1">
-                <div  data-bind="template: { name: 'JobsApplied' }">               
-                </div>
-            </div>
-            <div id="tabs-2">
-                <div  data-bind="template: { name: 'JobsSaved' }">               
+    <div id="container">
+        <div id="wrapHeader">
+            <div id="header"></div>
+        </div>
+        <div id="content">
+            <div id="jobs_div">
+                <div id="tabs" data-bind="wijtabs: {}">
+                    <ul>
+                        <li><a href="#tabs-1">Jobs Applied to <label class="jobseeker_noOfJobs" data-bind="text: noOfJobs"></label></a></li>
+                        <li><a href="#tabs-2">Saved Jobs <label class="jobseeker_noOfJobs" data-bind="text: noOfSavedJobs"></label></a></li>
+                        <li><a href="#tabs-3">Suggested Jobs</a></li>
+                    </ul>
+                    <div id="tabs-1">
+                        <div  data-bind="template: { name: 'JobsApplied' }">               
+                        </div>
+                    </div>
+                    <div id="tabs-2">
+                        <div  data-bind="template: { name: 'JobsSaved' }">               
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div id="wrapFooter">
+            <div id="footer"></div> 
+        </div>
     </div>
-    <div id="footer"></div> 
 </body>
 </html>

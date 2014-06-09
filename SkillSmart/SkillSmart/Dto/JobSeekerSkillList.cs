@@ -24,7 +24,7 @@ namespace SkillSmart.Dto
         /// ProficiencyId
         /// </summary>
         [Required(ErrorMessage = "ProficiencyId Required")]
-        public string ProficiencyId { get; set; }
+        public int ProficiencyId { get; set; }
 
         /// <summary>
         /// ExperienceId

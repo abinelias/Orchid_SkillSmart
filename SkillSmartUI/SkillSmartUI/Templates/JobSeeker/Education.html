@@ -1,18 +1,19 @@
-﻿
-<div style="padding-top:15px;"><li><!-- ko if: educationButtonCheck() == '1' --><input  type="button" id="addMoreEducation" class="editbutton" value="Add More" data-bind="click: addMoreEducation" /><!-- /ko --></li></div>
+﻿<div  class="myInformation_tab_WhiteBackground">
+    <div style="padding-top:15px;"><li><!-- ko if: educationButtonCheck() == '1' --><a href="" class="butn butn-dkgray" id="addMoreEducation"  data-bind="click: addMoreEducation" ><i class="fa fa-plus"></i>&nbsp Add More</a><!-- /ko --></li></div>
 
-<div id="Education" >
-    <div data-bind="    template: { name: 'EditEducation' }"></div>
-</div>
+    <div id="Education" >
+        <div data-bind="    template: { name: 'EditEducation' }"></div>
+    </div>
 
 
-<div  data-bind="wijexpander: { expanded: false }">
-    <h4>Speciality Course</h4>
-    <div>
-        <div style="padding-top:15px;"><li><!-- ko if: specialityCourseButtonCheck() == '1' --><input  type="button" id="addMoreSpecialityCourse" class="editbutton" value="Add More" data-bind="click: addMoreSpecialityCourse" /><!-- /ko --></li></div>
+    <div  data-bind="wijexpander: { expanded: false }">
+        <h4>Speciality Course</h4>
+        <div>
+            <div style="padding-top:15px;"><li><!-- ko if: specialityCourseButtonCheck() == '1' --><a href="" class="butn butn-dkgray" id="addMoreSpecialityCourse"  data-bind="click: addMoreSpecialityCourse" ><i class="fa fa-plus"></i>&nbsp Add More</a><!-- /ko --></li></div>
 
-        <div id="Div1" >
-            <div data-bind="    template: { name: 'EditSpecialityCourse' }"></div>
+            <div id="Div1" >
+                <div data-bind="    template: { name: 'EditSpecialityCourse' }"></div>
+            </div>
         </div>
     </div>
 </div>

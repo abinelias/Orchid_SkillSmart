@@ -38,7 +38,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
-                ServiceFactory.GetLookupService("EmployerSize").Create(lookupObj);
+                ServiceFactory.GetLookupService("DegreeType").Create(lookupObj);
             }
             catch (Exception ex) { }
         }

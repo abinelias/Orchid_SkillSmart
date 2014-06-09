@@ -21,7 +21,7 @@ namespace SkillSmartMongoDA.Entities
         /// ProficiencyId
         /// </summary>
         [BsonElement("ProficiencyId")]
-        public string ProficiencyId { get; set; }
+        public int ProficiencyId { get; set; }
 
         /// <summary>
         /// ExperienceId

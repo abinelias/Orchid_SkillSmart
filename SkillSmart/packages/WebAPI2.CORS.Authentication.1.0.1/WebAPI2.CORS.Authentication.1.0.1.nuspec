@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>WebAPI2.CORS.Authentication</id>
+    <version>1.0.1</version>
+    <authors>Blaise Liu</authors>
+    <owners>Blaise Liu</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Enable CORS Authentication for a WebAPI project</description>
+    <summary>Build a WebAPI project first. Then NuGet this package to enable CORS Authentication.</summary>
+    <copyright>2013</copyright>
+    <language>en-US</language>
+    <tags>WebAPI CORS Authentication</tags>
+    <dependencies>
+      <dependency id="Microsoft.Owin.Cors" version="2.0.2" />
+    </dependencies>
+  </metadata>
+</package>

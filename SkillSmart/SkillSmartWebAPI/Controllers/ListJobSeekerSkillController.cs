@@ -1,20 +1,22 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
     public class ListJobSeekerSkillController : ApiController
     {
 
-        public IEnumerable<SkillSmart.Dto.ListingJobSeekerSkills> GetAll(string jobSeekerId)
+        public IEnumerable<SkillSmart.Dto.ListingJobSeekerSkills> GetAll()
         {
-            var alljobSeekerSkills = ServiceFactory.GetJobSeekerSkillList().GetAllJobseekerListById(jobSeekerId);
+            var alljobSeekerSkills = ServiceFactory.GetJobSeekerSkillList().GetAllJobseekerListById(SkillsmartUser.GuidStr(HttpContext.Current.User));
             var allCategory = ServiceFactory.GetCategory().GetAllCategory();
             var allSkillList = ServiceFactory.GetSkill().GetAll();
             var allSkillMap = ServiceFactory.GetSkillMap().GetAllSkillMap();
@@ -30,11 +32,11 @@ namespace SkillSmartWebAPI.Controllers
                         var specialityId = skillMap.CategoryId;
                         var skillId = skillMap.SkillId;
 
-                        var specialityName ="";
+                        var specialityName = "";
                         var categoryId = "";
                         var categoryName = "";
                         var skillName = "";
- 
+
                         foreach (Category category in allCategory)
                         {
                             if (category.Id.ToString() == specialityId)
@@ -81,10 +83,10 @@ namespace SkillSmartWebAPI.Controllers
 
                         jobSeekerskillList.Add(jobSeekerskillObj);
                         break;
-                    }       
+                    }
                 }
             }
-            return jobSeekerskillList.OrderBy(p=>p.CategoryName).ThenBy(p=>p.SpecialityName);
+            return jobSeekerskillList.OrderBy(p => p.CategoryName).ThenBy(p => p.SpecialityName);
         }
 
         public HttpResponseMessage Options()

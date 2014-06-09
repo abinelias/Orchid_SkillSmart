@@ -42,6 +42,12 @@ namespace SkillSmartMongoDA.Entities
         public string Description { get; set; }
 
         /// <summary>
+        /// Phone
+        /// </summary>
+        [BsonElement("Phone")]
+        public string Phone { get; set; }
+
+        /// <summary>
         /// MethodOfContact
         /// </summary>
         [BsonElement("MethodOfContact")]

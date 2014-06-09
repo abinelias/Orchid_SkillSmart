@@ -3,12 +3,10 @@
     initNotification();
 });
 
-var url = window.location.href;
-var userId = url.substring(url.lastIndexOf('=') + 1);
 
 function getAdditionalInformation() {
 
-    var apiUrlAdditionalInfo = GetWebAPIURL() + '/api/AdditionalInformation/' + userId;
+  var apiUrlAdditionalInfo = GetWebAPIURL() + 'api/AdditionalInformation/'; // + userId;
     var dataObjAdditionalInfo;
 
     //TO get Jobseeker addtional information
@@ -16,6 +14,7 @@ function getAdditionalInformation() {
         url: apiUrlAdditionalInfo,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjAdditionalInfo = data;
@@ -27,8 +26,9 @@ function getAdditionalInformation() {
     return dataObjAdditionalInfo;
 }
 
-function initNotification()
-{
+function initNotification() {
+    viewModel.additionalinfoid = ko.observable();
+
     viewModel.btnNotification = ko.observable("Edit");
     viewModel.notificationCheck = ko.observable('0');
     viewModel.isEditableNotification = ko.observable(false);
@@ -37,36 +37,35 @@ function initNotification()
     viewModel.course = ko.observable(false);
     viewModel.message = ko.observable(false);
 
-  
+
     var dataObjAdditionalInfo = getAdditionalInformation();
 
     if (dataObjAdditionalInfo) {
+        viewModel.additionalinfoid(dataObjAdditionalInfo.Id);
         if (dataObjAdditionalInfo.Notification) {
             viewModel.notificationCheck('1');
-            var getNotification = dataObjAdditionalInfo.Notification;            
+            var getNotification = dataObjAdditionalInfo.Notification;
             var notification = getNotification.split(',');
-              
-               
-                if (notification[0] == "true") {                    
-                    viewModel.jobs(true);
-                }
-                if (notification[1] == "true") {                   
-                    viewModel.course(true);
-                }
-                if (notification[2] == "true") {                    
-                    viewModel.message(true);
-                }
-                if (notification[0] == "false" && notification[1] == "false" && notification[2] == "false") {
-                    viewModel.notificationCheck('0');
-                }
-            
+
+
+            if (notification[0] == "true") {
+                viewModel.jobs(true);
+            }
+            if (notification[1] == "true") {
+                viewModel.course(true);
+            }
+            if (notification[2] == "true") {
+                viewModel.message(true);
+            }
+            if (notification[0] == "false" && notification[1] == "false" && notification[2] == "false") {
+                viewModel.notificationCheck('0');
+            }
+
         }
     }
-    
 }
 
-viewModel.setPreferences = function ()
-{
+viewModel.setPreferences = function () {
     viewModel.btnNotification("Submit");
     viewModel.isEditableNotification(true);
 
@@ -74,15 +73,14 @@ viewModel.setPreferences = function ()
 viewModel.saveNotification = function ()
 {
     var notificationPreference = viewModel.jobs() + "," + viewModel.course() + "," + viewModel.message();
-   
-   
+
+
     var dataObjAdditionalInfo = getAdditionalInformation();
     var jsonObject = ko.toJS(viewModel);
 
     if (dataObjAdditionalInfo) {
 
         var jobSeekerAdditionalInfoEditObj = {}
-        jobSeekerAdditionalInfoEditObj.JobSeekerId = userId;
         jobSeekerAdditionalInfoEditObj.Title = dataObjAdditionalInfo.Title;
         jobSeekerAdditionalInfoEditObj.Suffix = dataObjAdditionalInfo.Suffix;
         jobSeekerAdditionalInfoEditObj.MiddleName = dataObjAdditionalInfo.MiddleName;
@@ -99,17 +97,16 @@ viewModel.saveNotification = function ()
         jobSeekerAdditionalInfoEditObj.Experience = dataObjAdditionalInfo.Experience;
 
         jobSeekerAdditionalInfoEditObj.BirthDate = dataObjAdditionalInfo.BirthDate;
-        /*jobSeekerAdditionalInfoEditObj.BirthMonth = dataObjAdditionalInfo.BirthMonth;
-        jobSeekerAdditionalInfoEditObj.BirthYear = dataObjAdditionalInfo.BirthYear;*/
+        
         jobSeekerAdditionalInfoEditObj.Ethinicity = dataObjAdditionalInfo.Ethinicity;
         jobSeekerAdditionalInfoEditObj.Gender = dataObjAdditionalInfo.Gender;
 
         jobSeekerAdditionalInfoEditObj.Notification = notificationPreference;
 
-        
+
         var getNotification = jobSeekerAdditionalInfoEditObj.Notification;
         var notification = getNotification.split(',');
-       
+
         if (notification[0] == "true") {
             viewModel.jobs(true);
         }
@@ -119,15 +116,15 @@ viewModel.saveNotification = function ()
         if (notification[2] == "true") {
             viewModel.message(true);
         }
-       
  
-        var apiUrlAdditionalInfoEdit = GetWebAPIURL() + '/api/AdditionalInformation/' + dataObjAdditionalInfo.Id;
+        var apiUrlAdditionalInfoEdit = GetWebAPIURL() + 'api/AdditionalInformation/' + dataObjAdditionalInfo.Id;
         var dataObjAdditionalInfoEdit = JSON.stringify(jobSeekerAdditionalInfoEditObj);
 
         $.ajax({
             url: apiUrlAdditionalInfoEdit,
             type: "PUT",
             data: dataObjAdditionalInfoEdit,
+            headers: app.securityHeaders(),
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function (data) {
@@ -139,16 +136,13 @@ viewModel.saveNotification = function ()
                 alert('Error :' + error);
             }
         });
-       
-        if (notification[0] == "false" && notification[1] == "false" && notification[2] == "false")
-        {
+
+        if (notification[0] == "false" && notification[1] == "false" && notification[2] == "false") {
             viewModel.notificationCheck('0');
         }
     }
-    else
-    {
+    else {
         var jobSeekerAdditionalInfoEditObj = {}
-        jobSeekerAdditionalInfoEditObj.JobSeekerId = userId;
         jobSeekerAdditionalInfoEditObj.Notification = notificationPreference;
 
         var getNotification = jobSeekerAdditionalInfoEditObj.Notification;
@@ -162,16 +156,18 @@ viewModel.saveNotification = function ()
         if (notification[2] == "true") {
             viewModel.message(true);
         }
-      
+
         var dataObjAdditionalInfoEdit = JSON.stringify(jobSeekerAdditionalInfoEditObj);
-        var apiUrlAdditionalInfo = GetWebAPIURL() + '/api/AdditionalInformation/';
+        var apiUrlAdditionalInfo = GetWebAPIURL() + 'api/AdditionalInformation/';
         $.ajax({
             url: apiUrlAdditionalInfo,
             type: "POST",
             data: dataObjAdditionalInfoEdit,
+            headers: app.securityHeaders(),
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function (data) {
+                viewModel.additionalinfoid(data);
                 viewModel.isEditableNotification(false);
                 viewModel.notificationCheck('1');
                 viewModel.btnNotification("Edit");
@@ -183,20 +179,17 @@ viewModel.saveNotification = function ()
         if (notification[0] == "false" && notification[1] == "false" && notification[2] == "false") {
             viewModel.notificationCheck('0');
         }
-       
     }
-    
-
 }
-viewModel.cancelNotification = function ()
-{
+
+
+viewModel.cancelNotification = function () {
     viewModel.isEditableNotification(false);
     viewModel.btnNotification("Edit");
     //viewModel.notificationCheck('1');
 }
 
-viewModel.clickButtonNotification = function ()
-{
+viewModel.clickButtonNotification = function () {
     viewModel.btnNotification("Submit");
     //viewModel.notificationCheck('0');
     viewModel.isEditableNotification(true);

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Jobseeker DashBoard</title>
+    <link rel="stylesheet" href="/Content/common.css" />
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+    <link href="/Content/skillsmart.css" rel="stylesheet" />
+
+    <script src="/Scripts/Common.js"></script>
+
+  <script src="/Scripts/Auth/app.datamodel.js"></script>
+  <script src="/Scripts/Auth/app.viewmodel.js"></script>
+
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+    <script src="/Scripts/vendor/knockout.validation.js"></script>
+
+
+    <script src="/Scripts/jobseeker.js"></script>
+    <script src="/Scripts/JobSeeker/MessageCenter.js"></script>
+    <script src="/Scripts/viewmodel/DashBoard.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+    <div id="main-div">
+    
+     <div id="personal-information" data-bind="template: { name: 'MessageCenter' }">               
+        </div>
+    </div>
+    <div id="footer"></div> 
+</body>
+</html>

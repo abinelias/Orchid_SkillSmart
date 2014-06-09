@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace SkillSmartWebAPI.Controllers
@@ -16,9 +18,10 @@ namespace SkillSmartWebAPI.Controllers
         /// </summary>
         /// <param name="id">jobseeker id</param>
         /// <returns>jobseeker additional information object</returns>
-        public AdditionalInformation Get(string id)
+        public AdditionalInformation Get() //string id)
         {
-            return ServiceFactory.GetJobSeekerAdditionalInformation().GetById(id);
+            var additionalInfo = ServiceFactory.GetJobSeekerAdditionalInformation().GetById(SkillsmartUser.GuidStr(HttpContext.Current.User));
+            return additionalInfo;
         }
 
         /// <summary>
@@ -27,7 +30,7 @@ namespace SkillSmartWebAPI.Controllers
         /// <param name="jobSeekerObj">Additional information object</param>
         public string Post(AdditionalInformation jobSeekerObjAdditionalInfo)
         {
-            
+            jobSeekerObjAdditionalInfo.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
             ServiceFactory.GetJobSeekerAdditionalInformation().Create(jobSeekerObjAdditionalInfo);
             return jobSeekerObjAdditionalInfo.Id.ToString();
         }
@@ -41,6 +44,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                jobSeekerObjAdditionalInfo.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
                 jobSeekerObjAdditionalInfo.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerAdditionalInformation().Update(jobSeekerObjAdditionalInfo);
             }

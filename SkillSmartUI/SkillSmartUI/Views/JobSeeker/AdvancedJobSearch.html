@@ -10,6 +10,10 @@
     <script src="/Scripts/jobseeker.js"></script>
     <script src="/Scripts/viewmodel/advancedJobSearch.js"></script>
     <script src="/Scripts/JobSeeker/FilteredJob.js"></script>
+    <script src="/Scripts/JobSeeker/SkillScoreCalculation.js"></script>
+    
+    <script src="/Scripts/Auth/app.datamodel.js"></script>
+    <script src="/Scripts/Auth/app.viewmodel.js"></script>
 
     <!--jQuery References-->
     <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
@@ -35,7 +39,7 @@
 
     <style>
         .wijmo-wijexpander .ui-expander-header .ui-icon {
-            left: 66.5em;
+            left: 77.5em;
             margin-top: -8px;
             position: absolute;
             top: 50%;
@@ -44,23 +48,33 @@
             width: 185.667px;
         }
     </style>
-
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-    <div id="header"></div>
-    <div id="main-div">
-        <div class="common_banner">
-            <div class="common_bannerStyle">
-                <ul><li>Search Jobs</li></ul>
+    <div id="container">
+        <div id="wrapHeader">
+            <div id="header"></div>
+        </div>
+        <div id="content">
+            <div id="main-div">
+                <section class="sectionModified box box-white">
+                    <h1 class="box-header">
+                         Search Jobs 
+                    </h1>                
+                    <section>
+                        <div class="common_background"  data-bind="template: { name: 'JobSearch' }">               
+                        </div>  
+                        <!-- ko if: listJobs() == '1' -->
+                        <div  data-bind="template: { name: 'JobsList' }">               
+                        </div>   
+                        <!-- /ko -->  
+                    </section>
+                </section>
             </div>
         </div>
-        <div class="common_background"  data-bind="template: { name: 'JobSearch' }">               
-        </div>  
-        <!-- ko if: listJobs() == '1' -->
-        <div  data-bind="template: { name: 'JobsApplied' }">               
-        </div>   
-        <!-- /ko -->  
+        <div id="wrapFooter">
+            <div id="footer"></div>
+        </div>
     </div>
-    <div id="footer"></div>
 </body>
 </html>

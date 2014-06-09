@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\common.css" />
     <Content Include="Content\jobseekerstyle.css" />
     <Content Include="Content\jquery-ui.css" />
@@ -64,6 +65,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\skillsmart.css" />
     <Content Include="Content\skillsmart.wijmo.css" />
+    <Content Include="Content\styles.css" />
     <Content Include="images\avatar.jpg" />
     <Content Include="images\bkgd-backtop.png" />
     <Content Include="images\bkgd-body.png" />
@@ -82,22 +84,41 @@
     <Content Include="images\googleplus.png" />
     <Content Include="images\grey_minusButton.png" />
     <Content Include="images\icon_small_mail.png" />
+    <Content Include="images\info-1.png" />
+    <Content Include="images\info-2.png" />
+    <Content Include="images\info-3.png" />
     <Content Include="images\linkedin.png" />
     <Content Include="images\logo.jpg" />
+    <Content Include="images\MGM\header.png" />
     <Content Include="images\minus.png" />
     <Content Include="images\Orange_plusButton.png" />
     <Content Include="images\plus.png" />
+    <Content Include="images\powered.png" />
+    <Content Include="images\select-arrow.png" />
+    <Content Include="images\slide-1.png" />
+    <Content Include="images\slide-2.png" />
     <Content Include="images\small-tick.png" />
     <Content Include="images\small_globe.jpg" />
     <Content Include="images\small_x.png" />
     <Content Include="images\ss-logo.png" />
+    <Content Include="images\ss_btm.png" />
+    <Content Include="images\ss_btm_small.png" />
     <Content Include="images\Telephone-icon.png" />
     <Content Include="images\twitter.png" />
     <Content Include="images\ui-icons_dark_256x240.png" />
     <Content Include="images\ui-icons_white_256x240.png" />
     <Content Include="images\Up_Arrow_Icon.png" />
     <Content Include="Scripts\application.js" />
-    <Content Include="Scripts\branding.js" />
+    <Content Include="Scripts\auth\ajaxPrefilters.js" />
+    <Content Include="Scripts\auth\app.datamodel.js" />
+    <Content Include="Scripts\auth\app.viewmodel.js" />
+    <Content Include="Scripts\auth\home.viewmodel.js" />
+    <Content Include="Scripts\auth\login.viewmodel.js" />
+    <Content Include="Scripts\auth\manage.viewmodel.js" />
+    <Content Include="Scripts\auth\register.viewmodel.js" />
+    <Content Include="Scripts\auth\registerExternal.viewmodel.js" />
+    <Content Include="Scripts\auth\userInfo.viewmodel.js" />
+    <Content Include="Scripts\auth\_run.js" />
     <Content Include="Scripts\Common.js" />
     <Content Include="Scripts\jobseeker.js" />
     <Content Include="Scripts\JobSeeker\AccountDetails.js" />
@@ -118,11 +139,15 @@
     <Content Include="Scripts\JobSeeker\PitchYourself.js" />
     <Content Include="Scripts\JobSeeker\RelatedExperience.js" />
     <Content Include="Scripts\JobSeeker\SkillReference.js" />
+    <Content Include="Scripts\JobSeeker\SkillScoreCalculation.js" />
     <Content Include="Scripts\JobSeeker\SkillSupportingMaterial.js" />
     <Content Include="Scripts\JobSeeker\SpecialityCourse.js" />
     <Content Include="Scripts\JobSeeker\TrainingCourse.js" />
     <Content Include="Scripts\JobSeeker\WorkExperience.js" />
     <Content Include="Scripts\jquery.multiselect.js" />
+    <Content Include="Scripts\landingpage.js" />
+    <Content Include="Scripts\MGM\mgm.profilevm.js" />
+    <Content Include="Scripts\vendor\bootstrap.min.js" />
     <Content Include="Scripts\vendor\infuser.js" />
     <Content Include="Scripts\vendor\jquery-1.10.2.min.js" />
     <Content Include="Scripts\vendor\jquery-ui.js" />
@@ -134,9 +159,10 @@
     <Content Include="Scripts\vendor\knockout.validation.js" />
     <Content Include="Scripts\vendor\knoclout.mapping-latest.debug.js" />
     <Content Include="Scripts\vendor\koExternalTemplateEngine-amd.js" />
+    <Content Include="Scripts\vendor\modernizr-2.7.2.js" />
+    <Content Include="Scripts\vendor\respond.min.js" />
     <Content Include="Scripts\vendor\switchBinding.js" />
     <Content Include="Scripts\vendor\TrafficCop.js" />
-    <Content Include="Scripts\vendor\WjiKnockout.js" />
     <Content Include="Scripts\viewmediator\skillsmart.mediator.jobseekerlist.js" />
     <Content Include="Scripts\viewmodel\aboutMe.js" />
     <Content Include="Scripts\viewmodel\accountInformation.js" />
@@ -148,6 +174,7 @@
     <Content Include="Scripts\viewmodel\myInformation.js" />
     <Content Include="Scripts\viewmodel\popupSkills.js" />
     <Content Include="Scripts\viewmodel\skillsmart.model.jobseekerlist.js" />
+    <Content Include="skillsmart.html" />
     <Content Include="Templates\JobSeeker\AccountDetail.html" />
     <Content Include="Templates\JobSeeker\AccountDetailsEditLoginCredentials.html" />
     <Content Include="Templates\JobSeeker\AccountDetailsViewLoginCredentials.html" />
@@ -175,6 +202,7 @@
     <Content Include="Templates\JobSeeker\JobsApplied.html" />
     <Content Include="Templates\JobSeeker\JobSearch.html" />
     <Content Include="Templates\JobSeeker\JobSeekerMessageResponse.html" />
+    <Content Include="Templates\JobSeeker\JobsList.html" />
     <Content Include="Templates\JobSeeker\JobsSaved.html" />
     <Content Include="Templates\JobSeeker\MessageCenter.html" />
     <Content Include="Templates\JobSeeker\NotificationPreferences.html" />
@@ -238,20 +266,23 @@
     <Content Include="Views\JobSeeker\AccountInformation.html" />
     <Content Include="Views\JobSeeker\AdvancedJobSearch.html" />
     <Content Include="Views\JobSeeker\AppliedJobs.html" />
+    <Content Include="Views\JobSeeker\DashBoard.html" />
     <Content Include="Views\JobSeeker\JobSeekerMessages.html" />
     <Content Include="Views\JobSeeker\JobSeekerSkillList.html" />
     <Content Include="Views\JobSeeker\JobSeekerList.html" />
     <Content Include="Views\JobSeeker\MyInformtion.html" />
     <Content Include="Views\JobSeeker\MyJobsApplied.html" />
     <Content Include="Views\JobSeeker\PopupSkills.html" />
+    <Content Include="Views\JobSeeker\Registration.html" />
+    <Content Include="Views\JobSeeker\Account.html" />
     <Content Include="Views\JobSeeker\test.html" />
+    <Content Include="MGMProfile.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="images\.DS_Store" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

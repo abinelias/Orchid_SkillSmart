@@ -4,7 +4,7 @@ using System.Web.Script.Serialization;
 using System.ComponentModel.DataAnnotations;
 namespace SkillSmart.Dto
 {
-    public class ListJobSkills 
+    public class ListJobSkills
     {
         public string JobId { get; set; }
 
@@ -14,7 +14,9 @@ namespace SkillSmart.Dto
 
         public string SkillName { get; set; }
 
-        public string SkillScore { get; set; }
+        public int SkillScore { get; set; }
+
+        public int SkillImportance { get; set; }
 
         public string Id { get; set; }
     }

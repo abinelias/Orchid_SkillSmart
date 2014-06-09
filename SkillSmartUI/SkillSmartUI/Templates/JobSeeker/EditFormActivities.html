@@ -16,7 +16,7 @@
     <li class="jobseeker_registration_outerli">
         <ul class="jobseeker_registration_ul">
             <li class="jobseeker_registration_innerli">
-                <input type="text" id="hobbies" placeholder="Activities" class="inputs" data-bind= "wijtextbox: {}, value: Activity" />
+                <input type="text" id="hobbies" placeholder="Activities"  data-bind= "wijtextbox: {}, value: Activity" />
             </li>
         </ul>
     </li>
@@ -36,24 +36,119 @@
     </li>
     <li class="jobseeker_registration_outerli">
         <ul class="jobseeker_registration_ul">
-            <li class="jobseeker_registration_innerli">
+            <li class="jobseeker_additionalinformation_innerli">
             <label>End Date</label>
             </li>
+            
         </ul>
     </li>
    <li class="jobseeker_registration_outerli">
         <ul class="jobseeker_registration_ul">
-            <li class="jobseeker_registration_innerli">
-                <input type="text" id="EndDate" placeholder="End Date" data-bind= " wijinputdate: { date: EndDate, showTrigger: true }" />
+            <li class="jobseeker_additionalinformation_innerli">
+                <!-- ko if: current()--> <input type="text"  placeholder="End Date"  value="present" data-bind="wijtextbox: {}" disabled /><!-- /ko -->  <!-- ko ifnot: current()--><input type="text" id="activity_EndDate" placeholder="End Date" data-bind= "    wijinputdate: { date: EndDate, showTrigger: true }" /><!-- /ko -->
             </li>
+            <li class="jobseeker_myinformation_innerli"><input id="checkbox1" type="checkbox" data-bind="wijcheckbox: { checked: current }" /> Current</li>
         </ul>
    </li>
     <li class="jobseeker_additionalinformation_city_outerli">
         <ul class="jobseeker_additionalinformation_city_ul" >
             <li><a class="btn btn-blue first" href="" data-bind = "click: $parent.saveActivities">Save</a></li>
             <li ><a class="btn btn-ltgray" href="" data-bind = "click: $parent.cancelActivities">Cancel</a></li>
-           <!-- ko if: deleteCheck() == '1' --> <li><a class="btn btn-red" href="" data-bind = "click: $parent.deleteActivities" >Delete</a></li><!-- /ko -->
+           <!-- ko if: deleteCheck() == '1' --> <li><a class="btn btn-red" style="float:right;" href="" data-bind = "click: $parent.deleteActivities" >Delete</a></li><!-- /ko -->
         </ul>
     </li>
-</ul>
+    
+ </ul>
+<div style="margin-top:200px"></div>
+<br /><br />
+
+<li class='marginclass'> Skill 
+    <!-- ko if: btnActivitySkill() == '+' -->
+        <a href="" data-bind="click: $root.expandActivitySkill, value: btnActivitySkill"><i class="fa fa-plus-circle fa-2x" style="margin-left:610px;"></i></a>
+    <!-- /ko -->
+    <!-- ko if: btnActivitySkill() == '-' -->
+        <a href="" data-bind="click: $root.expandActivitySkill, value: btnActivitySkill"><i class="fa fa-minus-circle fa-2x" style="margin-left:610px;"></i></a>
+    <!-- /ko -->
+</li>
+<hr size="1" width="99%"/>
+<!-- ko if: btnActivitySkill() == '-' -->
+        <button class="butn butn-dkgray" style="margin-top:5px;"  onclick='AddActivitySkills(this.value, "ce47cb3f-9fc2-4acb-822d-45335cb17ec3")' id='myButton' data-bind="value: Id" ><i class="fa fa-plus"></i>&nbsp Add More</button>
+        <div  data-bind=" foreach: viewModel.categoryArray" >
+            <div  data-bind=" foreach: specialityArray" >
+                <div  data-bind=" foreach: skillArray" >
+                    <!-- ko if: SkillAcquiredId() == 'ce47cb3f-9fc2-4acb-822d-45335cb17ec3' -->
+                        <!-- ko if: SkillParentId() == $parents[2].Id() -->
+                            <!-- ko if: btnSkillList() == '+' -->
+                                <div class="container">
+                                    <ul>       
+                                        <li>
+                                            <div class="skill_Slider_Activities">                  
+                                                <label style="margin-left:10px;" data-bind="text: skillName"></label>
+                 
+                                               <a href  data-bind="    click: $root.expandSkillDetails"><i class="fa fa-chevron-down"></i></a>                  
+                                                <a href=""  data-bind=" click: $root.deleteSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a>
+                                                <a href="" data-bind=" click: $root.courseLink"><i style="float:right;padding-left:6px;" class="fa fa-book"></i></a>
+                                                <a href="" data-bind=" click: $root.expandSkillDetails"> <i style="float:right;padding-left:7px;" class="fa fa-pencil"></i></a>
+                                                <hr size="1" width="95%" /> 
+                                                <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:225px;"></div>
+                                                <div style="padding-top:2%;">
+                                                <span style="padding-right:6%;padding-left:3%">0</span><span class="spanNumber">1</span><span class="spanNumber">2</span><span class="spanNumber">3</span><span class="spanNumber">4</span><span class="spanNumber">5</span><span class="spanNumber">6</span><span class="spanNumber">7</span><span class="spanNumber">8</span><span style="padding-right:3%">9</span><span>10</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <!-- /ko -->
+                    <br /><br />
+                            <!-- ko if: btnSkillList() == '-' -->
+                                <div class="editForm_div">
+                                    <div class="container">
+                                        <ul>       
+                                            <li>
+                                                <div >                  
+                                                    <label style="margin-left:10px;" data-bind="text: skillName"></label>
+                                                    <a href="" data-bind="    click: $root.expandSkillDetails" ><i class="fa fa-chevron-down"></i></a> 
+                                                    <a href=""  data-bind=" click: $root.deleteSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a> 
+                                                    <a href="" data-bind=" click: $root.courseLink"><i style="float:right;padding-left:6px;" class="fa fa-book"></i></a>
+                                                    <hr size="1" width="98%" /> 
+                                                    <div  style="width:40%;float:left;">
+                                                        <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:91%"></div>
+                                                        <div style="padding-top:2%;">
+                                                            <span style="padding-right:6%;padding-left:3%">0</span><span class="spanNumber">1</span><span class="spanNumber">2</span><span class="spanNumber">3</span><span class="spanNumber">4</span><span class="spanNumber">5</span><span class="spanNumber">6</span><span class="spanNumber">7</span><span class="spanNumber">8</span><span style="padding-right:3%">9</span><span>10</span>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                                <div style="margin-left: 45%">
+                                                    <!-- ko if: validationFactor() >= '3' --> <div style="width:50px;background-color:darkolivegreen;height:30px;color:white;text-align:center;padding-top:10px;">HIGH</div> <!-- /ko -->
+                                                    <!-- ko if: validationFactor() == '2' --> <div style="width:50px;background-color:lightgoldenrodyellow;height:30px;color:black;text-align:center;padding-top:10px;">MEDIUM</div> <!-- /ko -->
+                                                    <!-- ko if: validationFactor() == '1' --> <div style="width:50px;background-color:lightgoldenrodyellow;height:30px;color:black;text-align:center;padding-top:10px;">MEDIUM</div> <!-- /ko -->
+                                                    <!-- ko if: validationFactor() == '0' --> <div style="width:50px;background-color:red;height:30px;color:white;text-align:center;padding-top:10px;">LOW</div> <!-- /ko -->
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="editForm_div">
+                                    <div id="Refcvberence" data-bind="template: { name: 'Reference' }" >
+                                    </div>
+                                </div>
+                                <div class="editForm_div">
+                                    <div id="fggj" data-bind="template: { name: 'SupportingMaterial' }" >
+                                    </div>
+                                </div>
+                                <div class="editForm_div">
+                                    <div id="Div1" data-bind="template: { name: 'RelatedExperience' }" >
+                                    </div>
+                                </div>
+
+                            <!-- /ko -->
+                        <!-- /ko -->
+                    <!-- /ko -->
+                    
+                </div>
+            </div>
+        </div>  
+        <!-- /ko -->
+   
 <!-- /ko -->

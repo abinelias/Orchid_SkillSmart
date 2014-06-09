@@ -1,5 +1,5 @@
 ﻿ <!-- ko if: isEditEducation() == '1' -->
-<div class="common_tab_background">
+
     <div id="Edit_Education" class="tab_savebackground_div">
         <ul>
             <li>
@@ -35,7 +35,7 @@
                        
                         <!-- /ko -->
                     </li>
-                        <li class="jobseeker_myinformation_innerli" style="padding-top:10px;"><input type="text" id="Major_Focus" placeholder="Major Focus"  data-bind="wijtextbox: {}, value: majorFocus" /></li>
+                        <li class="jobseeker_myinformation_innerli" ><input type="text" id="Major_Focus" placeholder="Major Focus"  data-bind="wijtextbox: {}, value: majorFocus" /></li>
                 </ul>
             </li>
              <li class="jobseeker_registration_outerli">
@@ -62,12 +62,12 @@
             </li>                                                                            
             <li class="jobseeker_additionalinformation_city_outerli">
                 <ul class="jobseeker_additionalinformation_city_ul" >
-                    <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="save_Education" class="savebutton" value="Save" data-bind="click: $parent.saveEducation" /></li>
-                    <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel_Education" class="cancelbutton" value="Cancel" data-bind="click: $parent.cancelEducation" /></li>
-                    <!-- ko if: deleteCheck() == '1' --><li ><input type="button" id="delete_Education" class="deletebutton" value="Delete" data-bind="click: $parent.deleteEducation" /></li><!-- /ko -->
+                    <li ><a class="btn btn-blue first" href="" data-bind="click: $parent.saveEducation" >Save</a></li>
+                    <li><a class="btn btn-ltgray" href=""  data-bind="click: $parent.cancelEducation" >Cancel</a></li>
+                    <!-- ko if: deleteCheck() == '1' --><li ><a class="btn btn-red" style="float:right;" href="" data-bind="click: $parent.deleteEducation" >Delete</a></li><!-- /ko -->
                 </ul>
             </li>                        
         </ul>
     </div>
-</div>
+
 <!-- /ko -->

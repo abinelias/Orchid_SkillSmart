@@ -9,3 +9,26 @@ D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmart\bin\Debug\AutoMapper.dll
 D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmart\obj\Debug\SkillSmart.dll
 D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmart\obj\Debug\SkillSmart.pdb
 D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmart\obj\Debug\SkillSmart.csprojResolveAssemblyReference.cache
+D:\Projects\Skill\SkillSmart\SkillSmart\bin\Debug\SkillSmart.dll
+D:\Projects\Skill\SkillSmart\SkillSmart\bin\Debug\SkillSmart.pdb
+D:\Projects\Skill\SkillSmart\SkillSmart\bin\Debug\AutoMapper.dll
+D:\Projects\Skill\SkillSmart\SkillSmart\obj\Debug\SkillSmart.dll
+D:\Projects\Skill\SkillSmart\SkillSmart\obj\Debug\SkillSmart.pdb
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmart\bin\Debug\SkillSmart.dll
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmart\bin\Debug\SkillSmart.pdb
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmart\bin\Debug\AutoMapper.dll
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmart\obj\Debug\SkillSmart.csprojResolveAssemblyReference.cache
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmart\obj\Debug\SkillSmart.dll
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmart\obj\Debug\SkillSmart.pdb
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmart\bin\Debug\SkillSmart.dll
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmart\bin\Debug\SkillSmart.pdb
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmart\bin\Debug\AutoMapper.dll
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmart\obj\Debug\SkillSmart.csprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmart\obj\Debug\SkillSmart.dll
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmart\obj\Debug\SkillSmart.pdb
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmart\bin\Debug\SkillSmart.dll
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmart\bin\Debug\SkillSmart.pdb
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmart\bin\Debug\AutoMapper.dll
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmart\obj\Debug\SkillSmart.csprojResolveAssemblyReference.cache
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmart\obj\Debug\SkillSmart.dll
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmart\obj\Debug\SkillSmart.pdb

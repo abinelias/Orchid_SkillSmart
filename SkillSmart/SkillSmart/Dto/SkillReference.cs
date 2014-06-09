@@ -34,6 +34,11 @@ namespace SkillSmart.Dto
         public string Position { get; set; }
 
         /// <summary>
+        /// Phone
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
         /// Description
         /// </summary>
         public string Description { get; set; }

@@ -1,4 +1,5 @@
 ﻿<!-- ko if: languageCheck() == '0' -->
+<section class="sectionModified box-white">
     <li class="jobseeker_myinformation_descriptionli">
             Tell us about Languages known to you.
     </li>
@@ -6,11 +7,13 @@
         English,Spanish, French,etc.
     </li>
     <li class="jobseeker_myinformation_buttonli">
-        <input type="button" id="Add_first_language" class="submitbutton" value="Add Languages" data-bind='click: addFirstLanguage'/>
+        <a class="bton btn-orange" href="" id="Add_first_language"  data-bind='click: addFirstLanguage'>Add Languages</a>
     </li>
+    </section>
 <!-- /ko -->
 
 <!-- ko if: languages -->
+
     <li class="jobseeker_myinformation_language_list_li_ul">
         <ul class="jobseeker_myinformation_language_list_li_ul"  data-bind="foreach: languages">
             <li >
@@ -20,7 +23,7 @@
                        <label data-bind="    text: ProfociencyName"></label>
                     </div>
                     <div class="ListLanguage_Button">
-                        <button class="delete_LanguageButton" data-bind = "click: $parent.deleteLanguage" >X</button>
+                        <button class="delete_LanguageButton" data-bind = "click: $parent.deleteLanguage" ><i class="fa fa-times fa-lg"></i></button>
                     </div>
                 </div>
             </li>
@@ -28,6 +31,5 @@
         </ul>
         
     </li>
-
 <!-- /ko -->
 

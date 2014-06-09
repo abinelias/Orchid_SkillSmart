@@ -1,8 +1,99 @@
 ﻿<div class="jobseeker_myinformation_list_tab_main_div">
     <div class="jobseeker_myinformation_list_tab_sub_div">
-        <li><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: certificationName"></label><button class="individual_editbutton_tab" data-bind="    click: $parent.editCertificationDetails">Edit</button></li>                                    
+        <li><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: certificationName"></label><a class="butn butn-white" href="" data-bind="    click: $parent.editCertificationDetails"><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a></li>                                    
         <li><label class="jobseeker_myinformation_list_tab_workExperience_label" data-bind="text: certificationInstituion"></label></li>
         <li><label  data-bind="text: completedDate"></label> - <label  data-bind="    text: expireDate"></label></li>    
         <li><label  data-bind="text: certificationDetails"></label></li>
+         <hr size="1" /> 
+        <li class='marginclass'> Skill 
+
+           <!-- ko if: btnCertificationSkill() == '+' -->
+                <a href="" data-bind="click: $root.expandCertificationSkill, value: btnCertificationSkill"><i class="fa fa-plus-circle fa-2x" style="margin-left:721px;"></i></a>
+            <!-- /ko -->
+            <!-- ko if: btnCertificationSkill() == '-' -->
+                <a href="" data-bind="click: $root.expandCertificationSkill, value: btnCertificationSkill"><i class="fa fa-minus-circle fa-2x" style="margin-left:721px;"></i></a>
+            <!-- /ko -->
+            
+
+        </li>
+        <!-- ko if: btnCertificationSkill() == '-' -->
+        <button class="butn butn-dkgray" style="margin-top:5px;"  onclick='AddCertificationSkills(this.value, "1ed99362-0976-48d3-b0bb-76ba4269b1d6")' id='myButton' data-bind="value: certificationId" ><i class="fa fa-plus"></i>&nbsp Add More</button>
+        <div  data-bind=" foreach: viewModel.categoryArray" >
+            <div  data-bind=" foreach: specialityArray" >
+                <div  data-bind=" foreach: skillArray" >
+                    <!-- ko if: SkillAcquiredId() == '1ed99362-0976-48d3-b0bb-76ba4269b1d6' -->
+                        <!-- ko if: SkillParentId() == $parents[2].certificationId() -->
+                            <!-- ko if: btnSkillList() == '+' -->
+                                <div class="container">
+                                    <ul>       
+                                        <li>
+                                            <div class="skill_Slider_MyInformation">                  
+                                                <label style="margin-left:10px;" data-bind="text: skillName"></label>
+                 
+                                                <a href  data-bind="    click: $root.expandSkillDetails"><i class="fa fa-chevron-down"></i></a>                  
+                                                <a href=""  data-bind=" click: $root.deleteSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a>
+                                                <a href="" data-bind=" click: $root.courseLink"><i style="float:right;padding-left:6px;" class="fa fa-book"></i></a>
+                                                <a href="" data-bind=" click: $root.expandSkillDetails"> <i style="float:right;" class="fa fa-pencil"></i></a>
+                                                <hr size="1" width="95%" /> 
+                                                <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:95%;"></div>
+                                                <div style="padding-top:2%;">
+                                                <span style="padding-right:6%;padding-left:3%">0</span><span class="spanNumber">1</span><span class="spanNumber">2</span><span class="spanNumber">3</span><span class="spanNumber">4</span><span class="spanNumber">5</span><span class="spanNumber">6</span><span class="spanNumber">7</span><span class="spanNumber">8</span><span style="padding-right:3%">9</span><span>10</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <!-- /ko -->
+                    <br /><br />
+                            <!-- ko if: btnSkillList() == '-' -->
+                                <div class="editForm_div">
+                                    <div class="container">
+                                        <ul>       
+                                            <li>
+                                                <div >                  
+                                                    <label style="margin-left:10px;" data-bind="text: skillName"></label>
+                                                    <a href="" data-bind="    click: $root.expandSkillDetails" ><i class="fa fa-chevron-down"></i></a> 
+                                                    <a href=""  data-bind=" click: $root.deleteSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a> 
+                                                    <a href="" data-bind=" click: $root.courseLink"><i style="float:right;padding-left:6px;" class="fa fa-book"></i></a>
+                                                    <hr size="1" width="98%" /> 
+                                                    <div  style="width:40%;float:left;">
+                                                        <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:91%"></div>
+                                                        <div style="padding-top:2%;">
+                                                            <span style="padding-right:6%;padding-left:3%">0</span><span class="spanNumber">1</span><span class="spanNumber">2</span><span class="spanNumber">3</span><span class="spanNumber">4</span><span class="spanNumber">5</span><span class="spanNumber">6</span><span class="spanNumber">7</span><span class="spanNumber">8</span><span style="padding-right:3%">9</span><span>10</span>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                                <div style="margin-left: 45%">
+                                                    <!-- ko if: validationFactor() >= '3' --> <div style="width:50px;background-color:darkolivegreen;height:30px;color:white;text-align:center;padding-top:10px;">HIGH</div> <!-- /ko -->
+                                                    <!-- ko if: validationFactor() == '2' --> <div style="width:50px;background-color:lightgoldenrodyellow;height:30px;color:black;text-align:center;padding-top:10px;">MEDIUM</div> <!-- /ko -->
+                                                    <!-- ko if: validationFactor() == '1' --> <div style="width:50px;background-color:lightgoldenrodyellow;height:30px;color:black;text-align:center;padding-top:10px;">MEDIUM</div> <!-- /ko -->
+                                                    <!-- ko if: validationFactor() == '0' --> <div style="width:50px;background-color:red;height:30px;color:white;text-align:center;padding-top:10px;">LOW</div> <!-- /ko -->
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="editForm_div">
+                                    <div id="Refcvberence" data-bind="template: { name: 'Reference' }" >
+                                    </div>
+                                </div>
+                                <div class="editForm_div">
+                                    <div id="fggj" data-bind="template: { name: 'SupportingMaterial' }" >
+                                    </div>
+                                </div>
+                                <div class="editForm_div">
+                                    <div id="Div1" data-bind="template: { name: 'RelatedExperience' }" >
+                                    </div>
+                                </div>
+
+                            <!-- /ko -->
+                        <!-- /ko -->
+                    <!-- /ko -->
+                    
+                </div>
+            </div>
+        </div> 
+        <!-- /ko -->                 
     </div>
 </div>

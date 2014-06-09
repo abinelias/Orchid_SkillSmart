@@ -10,6 +10,10 @@
     
 
     <script src="/Scripts/jobseeker.js"></script>
+    
+        <script src="/Scripts/Auth/app.datamodel.js"></script>
+    <script src="/Scripts/Auth/app.viewmodel.js"></script>
+    
     <script src="/Scripts/viewmodel/myInformation.js"></script>
     <script src="/Scripts/JobSeeker/PersonalInfo.js"></script>
     <script src="/Scripts/JobSeeker/PitchYourself.js"></script>
@@ -22,9 +26,18 @@
     <script src="/Scripts/JobSeeker/Awards.js"></script>
     <script src="/Scripts/JobSeeker/Activities.js"></script>
     <script src="/Scripts/JobSeeker/Language.js"></script>
+    <script src="/Scripts/JobSeeker/listSkill.js"></script>
+    <script src="/Scripts/JobSeeker/RelatedExperience.js"></script>
+    <script src="/Scripts/JobSeeker/SkillReference.js"></script>
+    <script src="/Scripts/JobSeeker/SkillSupportingMaterial.js"></script>
+
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- Multi-select widget (not Wijmo control)-->
+    <script src="/Scripts/jquery.multiselect.js"></script>
+    <link href="/Content/jquery.multiselect.css" rel="stylesheet" />
+
     <!-- Wijmo CSS and script -->
     <link type="text/css" href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" title="metro-jqueryui" />
     
@@ -45,6 +58,35 @@
             position: absolute;
             top: 50%;
         }
+        #tabs-1 {
+           width:873px;            
+        }
+        #tabs-2 {
+           width:873px;            
+        }
+        #tabs-3 {
+           width:873px;            
+        }
+        #tabs-4 {
+           width:873px;            
+        }
+        #tabs {
+          border-style:solid;border-width:1px;border-color:#E7EFF1;
+         border-right-style:none;
+         margin-left:20px;
+         margin-top:20px;
+         margin-bottom:20px;
+            
+        }
+          li.ui-tabs-selected a {
+            background: url(/images/bkgd-body.png) repeat scroll 0 0 #fff;
+            }
+          .ui-tabs .ui-tabs-panel {
+             background: url(/images/bkgd-body.png) repeat scroll 0 0 #fff !important;
+             
+        }
+
+
     </style>
     <script src="/Scripts/vendor/knockout.validation.js"></script>
     <link href="/Content/skillsmart.css" rel="stylesheet" />
@@ -52,56 +94,67 @@
     <link href="/Content/common.css" rel="stylesheet" />
     <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
    
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 <body>
     <div id="ManageHoldingsDiv" style="text-align:left;vertical-align:middle;display:none;overflow:hidden;">
         <iframe id="ManageHoldingsFrame" style="height:420px;width:905px;overflow:hidden;" ></iframe>
     </div>
-    <div id="header"></div>
-        <div id="main-div">
-            <div id="personal-information" data-bind="template: { name: 'PersonalInformation' }">               
-            </div>            
-            <div id="AboutMe" data-bind="template: { name: 'AboutMePitch' }" >
-            </div>
-                <div class="common_banner">
-                <div class="common_bannerStyle">
-                    <ul><li> Professional Experience </li></ul>
-                </div>
-            </div>
-            <div id="tabs" data-bind="wijtabs: {}">             
-                <ul>
-                    <li><a href="#tabs-1">Work Experience</a></li>
-                    <li><a href="#tabs-2">Education</a></li>
-                    <li><a href="#tabs-3">Certifications</a></li>
-                    <li><a href="#tabs-4">Courses</a></li>
-                </ul>
-                <div id="tabs-1" >
-                    <div id="WorkExperienceInsertionDiv" data-bind="template: { name: 'WorkExperience' }" >            
-                    </div>                     
-                </div>
-                    <div id="tabs-2">
-                    <div id="EducationInsertionDetailsDiv" data-bind="template: { name: 'Education' }" >            
-                    </div>   
-                </div>
-                <div id="tabs-3">
-                    <div data-bind="template: { name: 'Certification' }"></div>
-                </div>
-                <div id="tabs-4">
-                    <div data-bind="template: { name: 'TrainingCourse' }"></div>
-                </div>
-            </div>
-           
-           
-            <div id="Awards" data-bind="template: { name: 'Award' }" >
-            </div>
+    <div id="container">
+        <div id="wrapHeader">
+            <div id="header"></div>
+        </div>
+        <div id="content">
+            <div id="main-div">
+                <section class="sectionModified box box-white" data-bind="template: { name: 'PersonalInformation' }">               
+                </section>            
+                <section class="sectionModified box box-white" data-bind="template: { name: 'AboutMePitch' }" >
+                </section>
+                
+                
+                    <section class="sectionModified box box-white">
+                         <h1 class="box-header">Professional Experience</h1>
+                        <div id="tabs" style="width:850px;"  data-bind="wijtabs: {}">  
+                                 
+                            <ul>
+                                <li><a href="#tabs-1">Work Experience</a></li>
+                                <li><a href="#tabs-2">Education</a></li>
+                                <li><a href="#tabs-3">Certifications</a></li>
+                                <li><a href="#tabs-4">Courses</a></li>
+                            </ul>
+                            
+                            <div id="tabs-1" >
+                                <div id="WorkExperienceInsertionDiv" data-bind="template: { name: 'WorkExperience' }" >            
+                                </div>                     
+                            </div>
+                                <div id="tabs-2">
+                                <div id="EducationInsertionDetailsDiv" data-bind="template: { name: 'Education' }" >            
+                                </div>   
+                            </div>
+                            <div id="tabs-3">
+                                <div data-bind="template: { name: 'Certification' }"></div>
+                            </div>
+                            <div id="tabs-4">
+                                <div data-bind="template: { name: 'TrainingCourse' }"></div>
+                            </div>
+                                  
+                        </div>
+                    </section>
+                
+                <section class="sectionModified box box-white" data-bind="template: { name: 'Award' }" >
+                </section>
 
-            <div id="Activity" data-bind="template: { name: 'Activities' }" >
-            </div>
+                <section  class="sectionModified box box-white"  data-bind="template: { name: 'Activities' }" >
+                </section>
 
-            <div id="Language" data-bind="template: { name: 'Languages' }" >
+                <section  class="sectionModified box box-white"  data-bind="template: { name: 'Languages' }" >
+                </section>
             </div>
         </div>
-    <div id="footer"></div> 
+        <div id="wrapFooter">
+            <div id="footer"></div> 
+        </div>
+    </div>
 </body>
 </html>

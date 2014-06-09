@@ -1,13 +1,13 @@
 ﻿<li class="jobseeker_additionalinformation_innerli">
-    <span class="skill_List" >
+    <div class="skill_List" >
         <div class="common_SkillStyle" >
-            <label class="left_Margin" data-bind="text: skillName"></label><hr size="1" width="88%">
-            <div class="left_Margin"><a href="#">Improve this skill</a></div>
-            <div class="left_Margin"><a href="#"> See jobs that require this skill</a></div>
+            <label class="skill_box_title" data-bind="text: skillName"></label>
+            <div class="skill_box_link"><a class="improve" href="#">Improve this skill</a></div>
+            <div class="skill_box_link"><a class="see-all-jobs" href="#"> See jobs that require this skill</a></div>
         </div>
-        <div class="common_Skill_ListStyle">
-            <div class="skill_Score">Skill Score <label  data-bind=" text: skillScore"></label>
+        <div class="common_Skill_ListStyle_small">
+            <div class="skill_Score_small"><div class="skill_Score_title">Skill Score</div><label class="skill_Score_small_value" data-bind=" text: skillScore"></label>
             </div>
         </div>
-    </span>
+    </div>
 </li>

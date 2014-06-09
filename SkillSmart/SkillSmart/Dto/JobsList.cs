@@ -54,6 +54,11 @@ namespace SkillSmart.Dto
         public string JobSalary { get; set; }
 
         /// <summary>
+        /// JobType
+        /// </summary>
+        public string JobType { get; set; }
+
+        /// <summary>
         /// JobDescription
         /// </summary>
         public string JobDescription { get; set; }

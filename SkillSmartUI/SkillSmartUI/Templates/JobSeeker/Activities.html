@@ -1,10 +1,13 @@
-﻿<div class="common_banner">
-     <div class="common_bannerStyle">
-        <ul><li>Activities, Extracurriculars & Hobbies</li></ul>
-     </div>
-    <div class="common_banner_ButtonStyle">
-        <li class="marginclass"><!-- ko if: activityCheck() == '1' --><input type='button' id="addMoreActivity" class='editbutton' value='Edit' data-bind='click: clickButtonActivity, value: btnActivity' /><!-- /ko --></li>
-    </div>
+﻿<div >
+      <h1 class="box-header">
+       Activities, Extracurriculars & Hobbies
+        <!-- ko if: activityCheck() == '1' -->
+            <!-- ko if: btnActivity() == 'Edit' --><a class="butn butn-dkgray" href=""  data-bind='click: clickButtonActivity, value: btnActivity' ><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a><!-- /ko -->
+            <!-- ko if: btnActivity() == 'Add More' -->
+                <!-- ko if: addMoreActivityCheck() == '1' --><a class="butn butn-dkgray" href=""  data-bind='click: clickButtonActivity, value: btnActivity' ><i class="fa fa-plus"></i>&nbsp Add More</a>  <!-- /ko -->
+            <!-- /ko -->
+         <!-- /ko -->
+     </h1>
 </div>
 
 <div id='show_activity_div' class='common_background'>

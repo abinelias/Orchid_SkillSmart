@@ -1,34 +1,34 @@
 ﻿<div>
     <div id='Message' class='jobsApplied' >
         <div class="jobseeker_myinformation_list_tab_sub_div" data-bind="foreach: savedJobs">
-            <li style="float:right"><label>Date Applied:</label><label  data-bind="text: dateApplied"></label> | <label>Status:</label><label  data-bind="    text: jobStatus"></label> |   <div class="skill_Score">Skill Score 72</div></li>
+            <li style="float:right"><label class="post-stat">Date Applied:</label><label  class="post-stat-value" data-bind="text: dateApplied"></label><label class="post-stat">Status:</label><label  class="post-stat-value last" data-bind="    text: jobStatus"></label><div class="skill_Score"><div class="skill_Score_title">Skill Score</div><div class="skill_Score_value">72</div></div></li>
             <li><label class="jobseeker_MessageEmployer" data-bind="text: jobPosition"></label></li>     
                                            
             <li><label class="jobseeker_MessagePosition" data-bind="text: employerName"></label> , <label class="jobseeker_MessagePosition" data-bind="    text: companyLocation"></label></li>
-            <li><label > Posted:</label> <label  data-bind="text: datePosted"></label> | <label > Views:</label> <label  data-bind="    text: jobViews"></label> | <label > Applicants:</label> <label  data-bind="    text: applicants"></label> | <label > Average Applicant skill score:</label> <label  data-bind="    text: applicantsSkillScore"></label></li> 
+            <li><label class="job-stat first"> Posted:</label> <label class="job-stat-value" data-bind="text: datePosted"></label><label class="job-stat"> Views:</label><label class="job-stat-value" data-bind="    text: jobViews"></label><label class="job-stat"> Applicants:</label><label class="job-stat-value" data-bind="    text: applicants"></label><label class="job-stat" > Average Applicant skill score:</label> <label class="job-stat-value last" data-bind="    text: applicantsSkillScore"></label></li> 
             <hr size="1" />          
             
             <div data-bind="wijexpander: { expanded: false }">
                 <h4>Details</h4>
                 <div>
-                    <li class="marginclass"><label class="jobseeker_MessagePosition">Salary</label></li>
+                    <li class="marginclass"><label class="details_section_title">Salary</label></li>
                     <li><label  data-bind="text: salaryRange"></label></li>
 
-                    <li class="marginclass"><label class="jobseeker_MessagePosition">Description</label></li>
+                    <li class="marginclass"><label class="details_section_title">Description</label></li>
                     <li><label  data-bind="text: jobDescription"></label></li>
-                    <li class="marginclass"><label class="jobseeker_MessagePosition">Prerequisites</label></li>
+                    <li class="marginclass"><label class="details_section_title">Prerequisites</label></li>
                     <section data-bind="foreach: prerequisites"> 
-                        <ul ><li style="list-style-type:square;" ><label  data-bind="text: designExperience"></label></li></ul>
+                        <ul class="prerequisites"><li><label  data-bind="text: designExperience"></label></li></ul>
                     </section>
 
-                    <li class="marginclass"><label class="jobseeker_MessagePosition">Required Skills</label></li>
+                    <li class="marginclass"><label class="details_section_title">Required Skills</label></li>
                     <li class="jobseeker_AppliedJobs_ul_li">
                         <ul class="jobseeker_AppliedJobs_ul_li" data-bind="foreach: requiredSkills"> 
                             <li data-bind="    template: { name: 'SkillList' }"></li>
                         </ul>
                     </li>
-                    <!-- ko if: viewModel.applyCheck() == '0' --><li><input type="button" class="submitbutton" value="Apply" data-bind="click: $root.applyJobs" /></li><!-- /ko -->
-                    <!-- ko if: viewModel.savedApplyCheck() == '0' --><li><input type="button" class="submitbutton" value="Save Job" data-bind="click: $root.saveJobs" /></li><!-- /ko -->
+                    <li><a class="bton btn-orange" href="" data-bind="click: $root.applyJobs" >Apply</a></li>
+                    <!-- ko if: viewModel.savedApplyCheck() == '0' --><li><a class="bton btn-orange" href=""  data-bind="click: $root.saveJobs" >Save Job</a></li><!-- /ko -->
                 </div>
             </div>
         </div>

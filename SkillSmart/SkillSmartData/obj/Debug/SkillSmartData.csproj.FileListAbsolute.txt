@@ -22,3 +22,59 @@ D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartData\bin\Debug\SkillSmart.pdb
 D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.csprojResolveAssemblyReference.cache
 D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.dll
 D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.pdb
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\SkillSmartData.dll
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\SkillSmartData.pdb
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\AutoMapper.dll
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Driver.dll
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\SkillSmart.dll
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\SkillSmartMongoDA.dll
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Bson.dll
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\SkillSmartMongoDA.pdb
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\SkillSmart.pdb
+D:\Projects\Skill\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.csprojResolveAssemblyReference.cache
+D:\Projects\Skill\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.dll
+D:\Projects\Skill\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.pdb
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Driver.xml
+D:\Projects\Skill\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Bson.xml
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\SkillSmartData.dll
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\SkillSmartData.pdb
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\AutoMapper.dll
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Bson.dll
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Driver.dll
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\SkillSmart.dll
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\SkillSmartMongoDA.dll
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\SkillSmartMongoDA.pdb
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\SkillSmart.pdb
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Bson.xml
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Driver.xml
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.csprojResolveAssemblyReference.cache
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.dll
+C:\Dev Projects\Skillsmart\Skillsmart\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.pdb
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmartData.dll
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmartData.pdb
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\AutoMapper.dll
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Bson.dll
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Driver.dll
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmart.dll
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmartMongoDA.dll
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmartMongoDA.pdb
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmart.pdb
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Bson.xml
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Driver.xml
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.csprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.dll
+C:\Users\user\Desktop\skillsmart-192bd68\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.pdb
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmartData.dll
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmartData.pdb
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\AutoMapper.dll
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Bson.dll
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Driver.dll
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmart.dll
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmartMongoDA.dll
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmartMongoDA.pdb
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\SkillSmart.pdb
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Bson.xml
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Driver.xml
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.csprojResolveAssemblyReference.cache
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.dll
+D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.pdb

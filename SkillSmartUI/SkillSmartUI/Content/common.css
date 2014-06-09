@@ -8,7 +8,7 @@
     width:40%;float:left;
 }
 .common_banner_ButtonStyle {
-    margin-left: 88%
+    margin-left: 70%
 }
 
 .common_SkillStyle {
@@ -28,9 +28,9 @@
 #main-div 
 {
     overflow:auto;
-    width:845px;
-    background-color:#F0F8FF;
-    margin:0 auto;
+    width:1000px;
+    background-color:#E7EFF1;
+    margin:35px auto;
 
     padding-bottom:20px;
 }
@@ -162,6 +162,8 @@ li {
 .marginclass 
 {
     padding-top:10px;
+    font-size: 1.5em;
+    color: #6a747c;
 }
 
 #outer_container 
@@ -206,7 +208,7 @@ body {
  font-size: 11px;
 }
 
-.tab_style {
+/*.tab_style {
  background:white;
  font-family: 'Questrial', sans-serif;
  color: #6a747c;
@@ -219,7 +221,7 @@ a
 {
     color:black;
     text-decoration:none;
-}
+}*/
 
 .validationMessage {
     /*visibility:hidden;
@@ -256,7 +258,7 @@ a
 .common_banner 
 {
     height:50px;
-    width:800px;
+    width:100%;
     margin: auto;
     margin-top:10px;
     background-color:#333333; 
@@ -266,15 +268,19 @@ a
 }
 .common_background
 {
-    width:800px;
+    width:90%;
     overflow:hidden;
-    margin:0px auto;
-    background-color:white;
-    
+    margin:0px auto;    
+    padding: 10px 15px 15px;
+     background-color:white;
+}
+
+.common_background ul {
+    padding: 0;
 }
 .myJobs
 {
-    width:800px;
+    width:100%;
     overflow:hidden;
     margin:0px auto;
     background-color:white;
@@ -283,24 +289,25 @@ a
 }
 .common_tab_background
 {
-    width:750px;
+    width:96%;
     overflow:auto;
     margin:0px auto;
     background-color:white;
     
 }
 .add_div {
-     width:740px;
+     width:96%;
     overflow:auto;
-    background-color:#F0F8FF;
-    margin-top:10px;
+    background: none repeat scroll 0 0 #E7EFF1;
+    padding: 13px;
 }
 .tab_savebackground_div {
-     width:720px;
-    overflow:auto;
+     width:800px;
+    overflow:hidden;
     margin:0px auto;
-    background-color:#F0F8FF;
+   background-color:#E7EFF1;
     margin-top:40px;
+    margin-bottom:25px;
 }
 /*#aboutme 
 {
@@ -328,6 +335,138 @@ a
     color: #6a747c;
    
 }
+
+.skill_box_title {
+    color: #3b3f42;
+    margin: 0 0 10px 11px;
+    border-bottom: 1px solid #dbdee0;
+    width: 83%;
+    display: block;
+    padding: 0 0 2px;
+}
+
+.skill_box_link {
+display: block;
+padding-left: 11px;
+}
+
+.skill_box_link a {
+    color: #3b3f42;
+    text-decoration: none;
+}
+
+.skill_box_link a.improve:before {
+    font-family: 'FontAwesome';
+    content: '';
+    display: inline-block;
+    padding: 0 5px 0 0;
+}
+
+.skill_box_link a.see-all-jobs:before {
+    font-family: 'FontAwesome';
+    content: '';
+    display: inline-block;
+    padding: 0 5px 0 0;
+}
+
+.skill_Score {
+background:none repeat scroll 0 0 #3b3f42;
+width: 57px;
+height: 32px;
+color:#fff;
+float:right;
+text-align:center;
+padding:22px 7px 2px;
+position: relative;
+top: -38px;
+margin-left: 10px;
+}
+
+.skill_Score_title {
+text-transform: uppercase;
+font-size: .8em;
+color: #bbbdbf;
+}
+
+.skill_Score_value {
+font-size: 2em;
+margin-top: 2px;
+color: #fff;
+}
+
+.skill_Score:after {
+content: url(/images/ss_btm.png);
+display: block;
+width: 71px;
+height: 15px;
+position: relative;
+left: -7px;
+}
+
+.skill_Score_small {
+background:none repeat scroll 0 0 #3b3f42;
+width: 34px;
+height: 54px;
+color:#fff;
+float:right;
+text-align:center;
+padding:8px 7px 0;
+position: relative;
+top: -69px;
+right: 8px;
+margin-left: 10px;
+}
+
+.skill_Score_small_title {
+text-transform: uppercase;
+font-size: .8em;
+color: #bbbdbf;
+}
+
+.skill_Score_small_value {
+font-size: 2em;
+line-height: 1.1em;
+margin-top: 0;
+color: #fff;
+}
+
+.skill_Score_small:after {
+content: url(/images/ss_btm_small.png);
+display: block;
+width: 34px;
+height: 11px;
+position: relative;
+left: -7px;
+}
+
+label.post-stat, label.job-stat {
+font-size: 1em;
+display: inline-block;
+padding: 0 3px 0 5px;
+}
+
+label.post-stat-value, label.job-stat-value {
+    font-size: 1em;
+    color: #7a8084;
+    display: inline-block;
+    padding: 0 5px 0 0;
+border-right: 1px solid #bcbdbe;
+line-height: 1em;
+}
+
+label.post-stat, label.post-stat-value {
+    text-transform: uppercase;
+}
+
+label.first {
+    padding-left: 0;
+}
+
+label.last {
+    border: 0;
+}
+
+
 .common_textarea:focus
 { 
     border-color: black; 
@@ -344,24 +483,15 @@ a
     font-size:12px;
     margin-bottom:10px;
 }
-.skill_List
-{
-    background-color:#F2FAFE;
-    display:block;
-    width:220px;
-    height:80px;
-    /*text-align:center;*/
-    padding-top:15px;
-    font-size:12px;
-    margin-bottom:10px;
-}
+
 .left_Margin {
 margin-left:10px;
 }
-.skill_Score {
+/*.skill_Score {
 
-width:50px;height:50px;background-color:black;color:white;float:right;text-align:center;
-}
+width:50px;height:53px;background-color:black;color:white;float:right;text-align:center;
+padding-top:10px;
+}*/
 #awards-description 
 {
     height:100px;
@@ -370,17 +500,18 @@ width:50px;height:50px;background-color:black;color:white;float:right;text-align
 }
 
 
-#tabs { 
-	margin-left:25px; 
-	background: none; 
+/*#tabs {
+    margin-left: 25px;
+
+	/*background: none; 
 	border-width: 0px; 
-   /* width:800px;*/
+   /* width:100%;*/
     /*background-color:white;*/
 
-     font-family: 'Questrial', sans-serif;
+    /* font-family: 'Questrial', sans-serif;
     color: #6a747c;
-} 
-#tabs .ui-tabs-nav { 
+} */
+/*#tabs .ui-tabs-nav { 
 	padding-left: 0px; 
 	background: transparent; 
 	border-width: 0px 0px 1px 0px; 
@@ -394,13 +525,15 @@ width:50px;height:50px;background-color:black;color:white;float:right;text-align
 	border-width: 0px 1px 1px 1px; 
 
      
-}
+}*/
 
 ul li a {
     /*background-color: #0094ff;*/
     /*height:30px;*/
 }
-ul li a:focus {background-color: white;}
+
+
+    
 
 .jobseeker_list_a 
 {
@@ -410,7 +543,7 @@ ul li a:focus {background-color: white;}
 }
 
 .myinformation {
-    height:50px;width:800px;background-color:#F0F8FF;margin:0 auto;
+    height:50px;width:100%;background-color:#F0F8FF;margin:0 auto;
     color:black;
 }
 
@@ -422,18 +555,6 @@ ul li a:focus {background-color: white;}
    display: block;
    height: 0;
    clear: both;
-}
-
-
-#wrapFooter {
-	background: none repeat scroll 0 0 #6a747c;
-	width: 98%;
-}
-
-#footer {
-	width: 98%;
-	margin: 0 auto;
-	padding: 30px 0;
 }
 
 .footerLeft {
@@ -504,12 +625,6 @@ ul li a:focus {background-color: white;}
 #wrapHeader {
  background: none repeat scroll 0 0 #FFFFFF;
  width: 100%;
-}
-
-#header {
- width: 92%;
- margin: 0 auto;
- padding: 0;
 }
 
 #logo {
@@ -590,27 +705,36 @@ textarea {
 }
 .skill_List
 {
-    background-color:#F2FAFE;
+   background: rgba(241,245,247,1);
+    /* Old Browsers */background: -moz-linear-gradient(top, rgba(241,245,247,1) 0%, rgba(233,237,239,1) 77%, rgba(230,235,237,1) 100%);
+     /* FF3.6+ */background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(241,245,247,1)), color-stop(77%, rgba(233,237,239,1)), color-stop(100%, rgba(230,235,237,1)));
+    /* Chrome,Safari4+  */background: -webkit-linear-gradient(top, rgba(241,245,247,1) 0%, rgba(233,237,239,1) 77%, rgba(230,235,237,1) 100%);
+     /* Chrome10+,Safari5.1+ */background: -o-linear-gradient(top, rgba(241,245,247,1) 0%, rgba(233,237,239,1) 77%, rgba(230,235,237,1) 100%);
+     /* Opera 11.10+ */background: -ms-linear-gradient(top, rgba(241,245,247,1) 0%, rgba(233,237,239,1) 77%, rgba(230,235,237,1) 100%);
+     /* IE 10+ */background: linear-gradient(to bottom, rgba(241,245,247,1) 0%, rgba(233,237,239,1) 77%, rgba(230,235,237,1) 100%);
+    /* W3C */filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f5f7', endColorstr='#e6ebed', GradientType=0 );
+    /* IE6-9 */
+    border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border: 1px sold #e3e3e3;
     display:block;
-    width:220px;
-    height:80px;
-    /*text-align:center;*/
-    padding-top:15px;
+    width:100%;
+    height:70px;
+    padding: 6px 0 10px;
     font-size:12px;
     margin-bottom:10px;
+    float: left;
 }
 
 .skill_Slider
 {
-    background-color:#F2FAFE;
+    background-color:#E7EFF1;
     display:block;
     width:33%;
-    height:55px;
-    /*text-align:center;*/
-    padding-top:15px;
+    padding:15px;
     font-size:12px;
     margin-bottom:10px;
-    padding-bottom:10px;
 }
 .RelatedExperience_label 
 {
@@ -626,9 +750,9 @@ textarea {
     width:-moz-max-content;
 }
 .editForm_div {
-     width:710px;
+     width:691px;
     overflow:hidden;
-    background-color:#F0F8FF;
+    background-color:#E7EFF1;
     
     margin-right:10px;
 }
@@ -679,15 +803,14 @@ textarea {
     /*margin-right:20px;*/
 }
 .delete_LanguageButton {
-    width:15px;
-    height:15px;
+    width:20px;
+    height:20px;
     font-size:10px;
     border-style:none;
     float:right;
     border-radius:20px;
     border-radius: 50%;
-    line-height:20px;
-    background-color:#E7EFF1;
+    background:none repeat scroll 0 0 transparent;
     /*margin-right:20px;*/
 }
 
@@ -716,14 +839,22 @@ textarea {
     width:-moz-max-content;
 }
 .ListActivity {
-     background-color:#E7EFF1;float:left;padding-left:10px;padding-top:10px; margin-bottom:10px;margin-left:10px; height:35px;
+     background: none repeat scroll 0 0 #E7EFF1;
+     float:left;
+     padding: 10px;
+     margin:0 0 10px 10px;
+     border-bottom: 3px solid #e2e6e8;
+     border-radius: 2px;
+     min-width:18%;
 }
 
 .ListActivity_Label {
- width:88%;float:left;
+    display: block;
+    float:left;
 }
 .ListActivity_Button {
-    margin-left: 88%;
+    display: block;
+    float: right;
 }
 .ListLanguage_Label {
  width:80%;float:left;
@@ -733,8 +864,13 @@ textarea {
 }
 
 .ListReference {
-     background-color:white;float:left;padding-left:10px;padding-top:10px; margin-bottom:10px;margin-left:10px; 
-     height:50px;
+     background: none repeat scroll 0 0 white;
+     float:left;
+     padding: 10px;
+     margin:0 0 10px 10px;
+     border-bottom: 3px solid #e2e6e8;
+     border-radius: 2px;
+     min-width:18%;
 }
 .ListReference_Label {
  width:88%;float:left;
@@ -745,4 +881,137 @@ textarea {
 
 .spanNumber {
     padding-right:6%;
+}
+
+.individual_editbutton_SpecialityCourse
+ {
+    width:50px;
+    height:30px;
+    border-style:none;
+    background-color:#F0F8FF;    
+    /*margin-left:550px;*/
+    position:absolute;
+    right:72px;
+    margin-bottom:10px;
+
+   
+}
+
+.related_skill_WorkExperience_Button {
+    width:27px;
+    height:40px;
+    font-size:10px;
+    border-style:none;
+    float:right;
+    border-radius:20px;
+    border-radius: 50%;
+    line-height:20px;
+    background-color:white;
+    font-size:large;
+}
+
+.deletebutton_RelatedExperience {
+
+    width:60px;
+    height:30px;
+    border-style:none;
+    background-color:red;
+    color:white;
+    float:right;
+    margin-right:95px;
+    margin-bottom:10px;
+}
+.tab_addmorebutton 
+{
+    float:right;
+    width:90px;
+    height:30px;
+    border-style:none;
+    background-color:#999999;
+    color:white;
+    margin-top:5px;
+    margin-right:10px;
+}
+.common_tabSpecialityCourse_background
+{
+    width:800px;
+    overflow:auto;
+    margin:0px auto;
+    background-color:white;    
+}
+
+.sectionModified {
+	display: block;
+	/*float: left;*/
+	clear: both;
+	width: 94%;
+    margin:25px auto;
+}
+
+.jobseeker_list_li_ul li {
+    float: left;
+    display: block;
+    width: auto;
+}
+.personalInformationLabel {
+    color:#626262;
+    font-size:14px;
+}
+.personalInformation_Header {
+    color: #6A747C;
+    font-size:12px;
+}
+
+.skill_Slider_MyInformation
+{
+    background-color:white;
+    display:block;
+    width:33%;
+    height:55px;
+    /*text-align:center;*/
+    padding-top:15px;
+    font-size:12px;
+    margin-bottom:10px;
+    padding-bottom:10px;
+}
+.myInformation_tab_WhiteBackground {
+   border-style:solid;border-width:1px;border-color:#E7EFF1;width:866px; overflow:hidden;
+    margin: 0px auto;
+    background-color: white;
+    padding-bottom:10px;
+}
+.myInformation_WorkHistory_Label {
+    font-size: 18px;
+    padding-left: 10px;
+}
+
+.skill_Slider_Activities
+{
+    background-color:#E7EFF1;
+    display:block;
+    width:33%;
+    height:55px;
+    /*text-align:center;*/
+    padding-top:15px;
+    font-size:12px;
+    margin-bottom:10px;
+    padding-bottom:10px;
+}
+
+.editForm_Skilldiv {
+     width:894px;
+    overflow:hidden;
+    background-color:#E7EFF1;
+    
+    margin-left:10px;
+}
+ul.prerequisites {
+    padding: 0;
+}
+ul.prerequisites li:before {
+    font-family: 'FontAwesome';
+    font-size: 0.7em;
+    content: '';
+    display: inline-block;
+    padding: 0 5px 0 0;
 }

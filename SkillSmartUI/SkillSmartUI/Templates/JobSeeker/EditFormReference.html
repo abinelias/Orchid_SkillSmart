@@ -59,29 +59,27 @@
         </ul>
     </li>
 
-    <li  class='jobseeker_registration_outerli'>
-        <ul class='jobseeker_registration_ul'>
-            <li class='jobseeker_myinformation_innerli'>
-                <label>Contact Method<sup>*</sup></label>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Contact Information</label>
             </li>
         </ul>
-    </li> 
-    <li class='jobseeker_registration_outerli'>
-        <ul class='jobseeker_registration_ul'>
-            <li class='jobseeker_additionalinformation_preferredmethod_innerli'>
-                <input type='radio' name='contact' value='phone' class='contact' data-bind='checked: contactMethod'/>Phone
-            </li>
-            <li class='jobseeker_additionalinformation_preferredmethod_innerli'>
-                <input type='radio' name='contact' value='email' class='contact' data-bind='checked: contactMethod'/>Email
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="reference_Phone" placeholder="Phone or Email"  data-bind= "wijtextbox: {}, value: referenceContact" />
             </li>
         </ul>
     </li>
 
+    
     <li class="jobseeker_additionalinformation_city_outerli">
         <ul class="jobseeker_additionalinformation_city_ul" >
-            <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="submit-awards" class="savebutton" value="Save" data-bind = "click: $root.saveReference" /></li>
-            <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel-awards" class="cancelbutton" value="Cancel" data-bind = "click: $root.cancelReference" /></li>
-            <!-- ko if: deleteCheck() == '1' --><li><input type="button" id="delete-awards" class="deletebutton" value="Delete" data-bind = "click: $root.deleteReference" /></li><!-- /ko -->
+            <li><a class="btn btn-blue first" href="" data-bind = "click: $root.saveReference" >Save</a></li>
+            <li><a class="btn btn-ltgray" href="" data-bind = "click: $root.cancelReference">Cancel</a></li>
+            <!-- ko if: deleteCheck() == '1' --><li><a class="btn btn-red" style="margin-left:324px;" href="" data-bind = "click: $root.deleteReference" >Delete</a></li><!-- /ko -->
         </ul>
     </li>
 </ul>

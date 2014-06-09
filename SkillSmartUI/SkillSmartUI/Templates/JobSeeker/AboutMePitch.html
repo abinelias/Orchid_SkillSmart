@@ -1,10 +1,7 @@
-﻿<div class='common_banner'>
-    <div class="common_bannerStyle">
-        <ul><li>  About Me </li></ul>
-    </div>
-    <div class="common_banner_ButtonStyle">
-        <li class='marginclass'><!-- ko if: aboutMeCheck() == '1' --><!-- ko if: btnAboutMe() == 'Edit' --> <a class="butn butn-dkgray" href="" data-bind='click: clickButtonAboutMe, value: btnAboutMe' >Edit</a><!-- /ko --><!-- /ko --></li>
-    </div>
+﻿<div>
+    <h1 class="box-header"> About Me     
+        <!-- ko if: aboutMeCheck() == '1' --><!-- ko if: btnAboutMe() == 'Edit' --> <a class="butn butn-dkgray" href="" data-bind='click: clickButtonAboutMe, value: btnAboutMe' ><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a><!-- /ko --><!-- /ko -->
+    </h1>
 </div>
 <div id='show_aboutme_div' class='common_background'>
     <ul data-bind='    template: { name: whichTemplateToUseAboutMe }'></ul>

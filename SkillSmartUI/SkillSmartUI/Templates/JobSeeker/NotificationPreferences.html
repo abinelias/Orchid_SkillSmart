@@ -1,10 +1,7 @@
-﻿<div class="common_banner">
-   <div class="common_bannerStyle">
-        <ul><li>Notification Preferences</li></ul>
-    </div>
-    <div class="common_banner_ButtonStyle">
-        <li class='marginclass'><!-- ko if: notificationCheck() == '1' --><!-- ko if: btnNotification() == 'Edit' --><a class="butn butn-dkgray" href="" data-bind="click: clickButtonNotification, value: btnNotification">Edit</a><!-- /ko --><!-- /ko --></li>
-    </div>    
+﻿<div>
+    <h1 class="box-header">
+        Notification Preferences  
+       <!-- ko if: notificationCheck() == '1' --><!-- ko if: btnNotification() == 'Edit' --><a class="butn butn-dkgray" href="" data-bind="click: clickButtonNotification, value: btnNotification"><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a><!-- /ko --><!-- /ko -->
 </div>
 <div id='show_account_details_div' class='common_background'>
     <ul data-bind="    template: { name: whichTemplateToUseNotification }"></ul>

@@ -2,13 +2,14 @@
 var userId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
 
 function getJobseekerSkillReference() {
-    var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference?jobSeekerId=' + userId;
+    var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference/';
     var dataObjSkillReference;
     //To get Languages from Language table
     $.ajax({
         url: apiUrlSkillReference,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjSkillReference = data;
@@ -21,13 +22,14 @@ function getJobseekerSkillReference() {
 }
 
 function getJobseekerSkillSupportingMaterial() {
-    var apiUrlSkillSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial?jobSeekerId=' + userId;
+    var apiUrlSkillSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial/';
     var dataObjSkillSupportingMaterial;
     //To get Languages from Language table
     $.ajax({
         url: apiUrlSkillSupportingMaterial,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjSkillSupportingMaterial = data;
@@ -40,13 +42,14 @@ function getJobseekerSkillSupportingMaterial() {
 }
 
 function getJobseekerSkillRelatedExperience() {
-    var apiUrlRelatedExperience = GetWebAPIURL() + '/api/SkillRelatedExperience?jobSeekerId=' + userId;
+    var apiUrlRelatedExperience = GetWebAPIURL() + '/api/SkillRelatedExperience/';
     var dataObjSkillRelatedExperience;
     //To get Languages from Language table
     $.ajax({
         url: apiUrlRelatedExperience,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjSkillRelatedExperience = data;
@@ -83,13 +86,15 @@ function getJobseekerSkillDetailsById(skillId) {
 $(document).ready(function () {
 
     var dataJobSeekerSkillListObj;
-    var apiUrlJobSeekerSkillLists = GetWebAPIURL() + '/api/ListJobSeekerSkill?jobSeekerId=' + userId;
+    var apiUrlJobSeekerSkillLists = GetWebAPIURL() + '/api/ListJobSeekerSkill/';
 
     //To get JobSeekerSkillList
     $.ajax({
         url: apiUrlJobSeekerSkillLists,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
+        contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataJobSeekerSkillListObj = data;
 
@@ -299,6 +304,7 @@ $(document).ready(function () {
                 url: apiUrlSkill,
                 type: "PUT",
                 data: dataObjSkill,
+                headers: app.securityHeaders(),
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (data) {

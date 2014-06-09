@@ -33,11 +33,13 @@
     <Reference Include="AutoMapper">
       <HintPath>..\..\Utilities\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Bson">
-      <HintPath>..\..\Utilities\MongoDB.Bson.dll</HintPath>
+    <Reference Include="MongoDB.Bson, Version=1.9.1.221, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\mongocsharpdriver.1.9.1\lib\net35\MongoDB.Bson.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver">
-      <HintPath>..\..\Utilities\MongoDB.Driver.dll</HintPath>
+    <Reference Include="MongoDB.Driver, Version=1.9.1.221, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\mongocsharpdriver.1.9.1\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -57,6 +59,7 @@
     <Compile Include="Entities\Employer.cs" />
     <Compile Include="Entities\EmployerMessage.cs" />
     <Compile Include="Entities\ExtraCurricularActivity.cs" />
+    <Compile Include="Entities\JobPrerequisite.cs" />
     <Compile Include="Entities\JobSeeker.cs" />
     <Compile Include="Entities\JobSeekerAppliedJobs.cs" />
     <Compile Include="Entities\JobSeekerMessage.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Entities\LookupEntity.cs" />
     <Compile Include="Entities\MongoEntity.cs" />
     <Compile Include="Entities\Overview.cs" />
+    <Compile Include="Entities\Prerequisite.cs" />
     <Compile Include="Entities\RelatedExperience.cs" />
     <Compile Include="Entities\SavedJobSearch.cs" />
     <Compile Include="Entities\Scholarship.cs" />
@@ -88,6 +92,7 @@
     <Compile Include="Services\EmployerMessageService.cs" />
     <Compile Include="Services\EmployerService.cs" />
     <Compile Include="Services\ExtraCurricularActivityService.cs" />
+    <Compile Include="Services\JobPrerequisiteService.cs" />
     <Compile Include="Services\JobSeekerAppliedJobsService.cs" />
     <Compile Include="Services\JobSeekerMessageService.cs" />
     <Compile Include="Services\JobSeekerSavedJobsService.cs" />
@@ -100,6 +105,7 @@
     <Compile Include="Services\EntityService.cs" />
     <Compile Include="Services\JobSeekerService.cs" />
     <Compile Include="Services\OverviewService.cs" />
+    <Compile Include="Services\PrerequisiteService.cs" />
     <Compile Include="Services\SavedJobSearchService.cs" />
     <Compile Include="Services\ScholarshipService.cs" />
     <Compile Include="Services\SkillAliasService.cs" />
@@ -118,6 +124,9 @@
       <Project>{7dbfa55c-5cbb-4086-93d4-ab19b435de1c}</Project>
       <Name>SkillSmart</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

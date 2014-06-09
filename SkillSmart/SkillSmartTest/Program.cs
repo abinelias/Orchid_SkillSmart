@@ -11,11 +11,11 @@ namespace SkillSmartTest
     {
         public static void Main(string[] args)
         {
-            JobSeekerMessageController controller = new JobSeekerMessageController();
+            LookupController controller = new LookupController();
 
 
 
-            //List<SkillSmart.Dto.JobSeekerMessage> jobSeekerList = controller.GetAll("d7cb31e2-2288-44f7-99af-f1a27fc8027a").ToList<SkillSmart.Dto.JobSeekerMessage>();
+            List<SkillSmart.Dto.LookupDto> jobSeekerList = controller.GetAll("SkillAcquired").ToList<SkillSmart.Dto.LookupDto>();
             /*  if (jobSeekerList.Count >= 0)
               {
 
@@ -29,20 +29,16 @@ namespace SkillSmartTest
                  controller.Put(jobSeeker.Id.ToString(), jobSeeker);   
              }  
 
-           */
-
-
-            JobSeekerMessage company = new JobSeekerMessage();
-            company.JobSeekerId = "d7cb31e2-2288-44f7-99af-f1a27fc8027a";
-            company.CompanyId = "50535a0e-0dae-4772-ad7f-d8737223fbdd";
-            company.EmployerId = "7a126dae-fa6c-45b5-bc0e-3e8289e9a356";
-            company.JobId = "d290d009-f473-4e53-8f73-8c5381931cd6";
-            company.Subject = "Call Letter";
-            company.Message = "Come and join on Aug 1St";
            
-            controller.Post(company); 
+           
+
+            LookupDto company = new LookupDto();
+            company.Name = "Certificate";
             
-             
+
+            controller.Post(company); 
+             */
+
 
 
             //List<LookupDto> jobSeekerList2 = controller.GetAll("SecurityClearance").ToList<LookupDto>();

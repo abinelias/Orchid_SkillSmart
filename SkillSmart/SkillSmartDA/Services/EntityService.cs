@@ -40,7 +40,6 @@ namespace SkillSmartMongoDA.Services
             return this.MongoCollection.FindOne(entityQuery);
         }
 
-
         public void Delete(T entity)
         {
             var entityQuery = Query<T>.EQ(e => e.Id, entity.Id);

@@ -1,4 +1,5 @@
-﻿
-<div style="padding-top:15px;"><!-- ko if: certificationButtonCheck() == '1' --><li><input  type="button" id="addMoreCertification" class="editbutton" value="Add More"  data-bind="click: addMoreCertification"/></li><!-- /ko --></div>
-    <div data-bind="    template: { name: 'EditCertification' }">
-    </div>
+﻿<div class="myInformation_tab_WhiteBackground">
+    <div style="padding-top:15px;"><!-- ko if: certificationButtonCheck() == '1' --><li><a href="" class="butn butn-dkgray" id="addMoreCertification"  data-bind="click: addMoreCertification"><i class="fa fa-plus"></i>&nbsp Add More</a></li><!-- /ko --></div>
+        <div data-bind="    template: { name: 'EditCertification' }">
+        </div>
+</div>

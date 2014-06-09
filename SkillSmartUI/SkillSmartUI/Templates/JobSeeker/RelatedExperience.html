@@ -1,8 +1,10 @@
-﻿<div >
-    
+﻿<div >    
         <ul><li><label style="font-size:15px;">Related Experience</label>
     
-       <!-- ko if: relatedExperienceCheck() == '1' --><input type='button' id='addMoreLanguage' class='individual_editbuttonSkill'  data-bind='click: $root.clickButtonSkillRelatedExperience, value: btnRelatedExperience'  /><!-- /ko --></li>
+       <!-- ko if: relatedExperienceCheck() == '1' -->
+            <!-- ko if: btnRelatedExperience() == 'Add More' --><a class="butn butn-white" style="margin-right:5px;" href="" data-bind='click: $root.clickButtonSkillRelatedExperience, value: btnRelatedExperience'><i class="fa fa-plus"></i>&nbsp Add More</a><!-- /ko -->
+            <!-- ko if: btnRelatedExperience() == 'Edit' --><a class="butn butn-white" style="margin-right:5px;" href="" data-bind='click: $root.clickButtonSkillRelatedExperience, value: btnRelatedExperience'><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a><!-- /ko -->
+        <!-- /ko --></li>
     <hr size="1" />
         </ul>
 </div>

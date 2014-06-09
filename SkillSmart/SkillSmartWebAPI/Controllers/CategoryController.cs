@@ -51,7 +51,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
-                categoryObj.Id = new Guid(id);
+              categoryObj.Id = new Guid(id);
                 ServiceFactory.GetCategory().Update(categoryObj);
             }
             catch (Exception exp){}

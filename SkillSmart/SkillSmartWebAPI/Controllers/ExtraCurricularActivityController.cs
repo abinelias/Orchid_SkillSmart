@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
@@ -15,9 +17,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all extra Curricular activities of jobseeker related to an education details
         /// </summary>
         /// <returns>ExtraCurricular Activity List</returns>
-        public IEnumerable<ExtraCurricularActivity> GetAllExtraCurricularActivityById(string jobSeekerId)
+        public IEnumerable<ExtraCurricularActivity> GetAllExtraCurricularActivityById()
         {
-            return ServiceFactory.GetJobSeekerExtraCurricularActivityService().GetAllExtraCurricularActivityById(jobSeekerId);
+            return ServiceFactory.GetJobSeekerExtraCurricularActivityService().GetAllExtraCurricularActivityById(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>
@@ -36,7 +38,7 @@ namespace SkillSmartWebAPI.Controllers
         /// <param name="extraCurricularActivityObj">extraCurricularActivity Object</param>
         public string Post(ExtraCurricularActivity extraCurricularActivityObj)
         {
-            
+            extraCurricularActivityObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
             ServiceFactory.GetJobSeekerExtraCurricularActivityService().Create(extraCurricularActivityObj);
             return extraCurricularActivityObj.Id.ToString();
         }
@@ -50,6 +52,8 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                extraCurricularActivityObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+                extraCurricularActivityObj.Id = new Guid(id);
                 extraCurricularActivityObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerExtraCurricularActivityService().Update(extraCurricularActivityObj);
             }

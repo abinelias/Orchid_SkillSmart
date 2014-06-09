@@ -16,6 +16,8 @@ function getSecurityClearanceLookup() {
         url: apiUrlSecurityCleareance,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
+        contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataSecurityCleareanceObj = data;
         },
@@ -36,6 +38,8 @@ function getWillingToRelocateLookup() {
         url: apiUrlWillingToRelocate,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
+        contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataWillingToRelocate = data;
 
@@ -50,7 +54,7 @@ function getWillingToRelocateLookup() {
 
 var selectedPersonalObj;
 function getJobseekerPersonalInfo() {
-    var apiUrlOverview = GetWebAPIURL() + '/api/Overview/' + userId;
+  var apiUrlOverview = GetWebAPIURL() + 'api/Overview/'; // + userId;
     var dataObjOverview;
 
     //To get overview details
@@ -58,6 +62,7 @@ function getJobseekerPersonalInfo() {
         url: apiUrlOverview,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjOverview = data;
@@ -75,6 +80,7 @@ function initpersonal() {
 
     viewModel.errorCheckSecurity = ko.observable('0');
     viewModel.errorCheckRelocate = ko.observable('0');
+    viewModel.errorCheckIndustry = ko.observable('0');
 
     viewModel.myinfoid = ko.observable();
     viewModel.personalCheck = ko.observable('0');
@@ -83,14 +89,22 @@ function initpersonal() {
     viewModel.btnPersonal = ko.observable("Edit");
 
 
-    viewModel.industriesTextbox = ko.observable().extend({ required: { message: "Enter Industry" } });
-    viewModel.specialityTextbox = ko.observable().extend({ required: { message: "Enter Speciality" } });
+    // viewModel.industriesTextbox = ko.observable().extend({ required: { message: "Industry required" } });
+    viewModel.specialityTextbox = ko.observable().extend({ required: { message: "Speciality required" } });
 
+    viewModel.industryTypeId = ko.observableArray();
+    viewModel.industryType = ko.observableArray();
+    viewModel.IndustryName = ko.observableArray();
 
-    viewModel.selectedIndexSecurity = ko.observable(-1);
+    var dataIndustryTypeObj = getIndustryTypeLookup();
+    for (da in dataIndustryTypeObj) {
+        viewModel.industryType.push({ name: dataIndustryTypeObj[da].Name, id: dataIndustryTypeObj[da].Id });
+    }
+
+    viewModel.selectedIndexSecurity = ko.observable(0);
     viewModel.dataSecurity = ko.observable(createListSecurity());
 
-    viewModel.selectedIndexRelocate = ko.observable(-1).extend({ required: { message: "Select Willing to relocate" } });
+    viewModel.selectedIndexRelocate = ko.observable(0).extend({ required: { message: "Select Willing to relocate" } });
     viewModel.dataRelocate = ko.observable(createListRelocate());
 
     var dataSecurityCleareanceObj = getSecurityClearanceLookup();
@@ -101,12 +115,13 @@ function initpersonal() {
 
     var dataObjOverview = getJobseekerPersonalInfo();
     if (dataObjOverview) {
+
         viewModel.myinfoid(dataObjOverview.Id);
         viewModel.jobseekerId(dataObjOverview.JobSeekerId);
         if (dataObjOverview.Speciality) {
-            viewModel.industriesTextbox(dataObjOverview.Industry);
+            //viewModel.industriesTextbox(dataObjOverview.Industry);
             viewModel.specialityTextbox(dataObjOverview.Speciality);
-
+            //viewModel.industryTypeId(dataObjOverview.Industry);
             viewModel.personalCheck('1');
             if (dataObjOverview.SecurityClearanceId) {
                 for (da in dataSecurityCleareanceObj) {
@@ -124,7 +139,25 @@ function initpersonal() {
                     }
                 }
             }
+
+
+            if (dataObjOverview.Industry) {
+
+                var getIndustryType = dataObjOverview.Industry;
+                var getIndustryId = getIndustryType.split(',');
+                for (var index = 0; index < getIndustryId.length; index++) {
+
+                    viewModel.industryTypeId.push(getIndustryId[index]);
+
+                }
+
+                //viewModel.accountStatusCheck('1');
+                getIndustryName(dataObjOverview.Industry);
+            }
+
         }
+
+
 
     }
 
@@ -137,11 +170,40 @@ function initpersonal() {
         return viewModel.dataRelocate()[viewModel.selectedIndexRelocate()].label;
     }, this);
 
+    /* viewModel.industriesTextbox = ko.computed(function () {
+         for (var j = 0; j < viewModel.industryType().length; j++) {
+             if (viewModel.industryTypeId() == viewModel.industryType()[j].id)
+                 return viewModel.industryType()[j].name;
+         }
+     }, viewModel);*/
+
     viewModel.displayErrorsPersonal = ko.observable(false);
-    viewModel.errorPersonalInformation = ko.validation.group({ p1: viewModel.industriesTextbox, p2: viewModel.specialityTextbox });
-   
+    viewModel.errorPersonalInformation = ko.validation.group({ p2: viewModel.specialityTextbox });
 
 
+
+}
+
+function getIndustryName(Industry) {
+
+
+    viewModel.IndustryName.removeAll();
+    //var dataObjOverview = getJobseekerPersonalInfo();
+    //var getIndustryType = Industry;
+    var getIndustryId = Industry.split(',');
+
+    for (var j = 0; j < viewModel.industryType().length; j++) {
+        for (var index = 0; index < getIndustryId.length; index++) {
+
+            if (viewModel.industryType()[j].id == getIndustryId[index]) {
+
+                viewModel.IndustryName.push(viewModel.industryType()[j].name);
+
+            }
+        }
+    }
+
+    return viewModel.IndustryName();
 }
 
 function createListSecurity() {
@@ -171,10 +233,12 @@ function createListRelocate() {
 viewModel.whichTemplateToUsePersonal = function () {
     return viewModel.isEditablePersonal() ? "EditPersonalInformation" : "ViewPersonalInformation";
 }
+
+
 viewModel.savePersonal = function () {
 
 
-    if (viewModel.industriesTextbox.isValid() && viewModel.specialityTextbox.isValid() && viewModel.selectedIndexSecurity() > 0 && viewModel.selectedIndexRelocate() > 0) {
+    if (viewModel.industryTypeId()!="" && viewModel.specialityTextbox.isValid() && viewModel.selectedIndexSecurity() > 0 && viewModel.selectedIndexRelocate() > 0) {
 
 
         var dataObjOverview = getJobseekerPersonalInfo();
@@ -188,7 +252,7 @@ viewModel.savePersonal = function () {
             jobSeekerMyInfoObj.Summary = dataObjOverview.Summary;
             jobSeekerMyInfoObj.CurrentStatus = dataObjOverview.CurrentStatus;
 
-            jobSeekerMyInfoObj.Industry = jsonObject.industriesTextbox;
+            jobSeekerMyInfoObj.Industry = jsonObject.industryTypeId.toString();
             jobSeekerMyInfoObj.Speciality = jsonObject.specialityTextbox;
             jobSeekerMyInfoObj.SecurityClearanceId = viewModel.dataSecurity()[viewModel.selectedIndexSecurity()].value;
             jobSeekerMyInfoObj.WillingToRelocateId = viewModel.dataRelocate()[viewModel.selectedIndexRelocate()].value;
@@ -197,7 +261,7 @@ viewModel.savePersonal = function () {
         }
         else {
             jobSeekerMyInfoObj.JobSeekerId = userId;
-            jobSeekerMyInfoObj.Industry = jsonObject.industriesTextbox;
+            jobSeekerMyInfoObj.Industry = jsonObject.industryTypeId.toString();
             jobSeekerMyInfoObj.Speciality = jsonObject.specialityTextbox;
             jobSeekerMyInfoObj.SecurityClearanceId = viewModel.dataSecurity()[viewModel.selectedIndexSecurity()].value;
             jobSeekerMyInfoObj.WillingToRelocateId = viewModel.dataRelocate()[viewModel.selectedIndexRelocate()].value;
@@ -208,45 +272,52 @@ viewModel.savePersonal = function () {
 
         if (jsonObject.myinfoid) {
 
-            var apiUrlMyInfoUpdate = GetWebAPIURL() + '/api/Overview/' + jsonObject.myinfoid;
-            //To update overview table
-            $.ajax({
-                url: apiUrlMyInfoUpdate,
-                type: "PUT",
-                data: dataObjMyInfo,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
+      var apiUrlMyInfoUpdate = GetWebAPIURL() + 'api/Overview/' + jsonObject.myinfoid;
+        //To update overview table
+        $.ajax({
+            url: apiUrlMyInfoUpdate,
+            type: "PUT",
+            data: dataObjMyInfo,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
 
-                    viewModel.btnPersonal("Edit");
-                    viewModel.isEditablePersonal(false);
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
-        }
-        else {
+                viewModel.btnPersonal("Edit");
+                viewModel.isEditablePersonal(false);
+                getIndustryName(jobSeekerMyInfoObj.Industry);
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
+    }
+    else {
 
-            var apiUrlMyInfoUpdate = GetWebAPIURL() + '/api/Overview/';
-            //To insert details into Overview table
+        var apiUrlMyInfoUpdate = GetWebAPIURL() + '/api/Overview/';
+        //To insert details into Overview table
 
-            $.ajax({
-                url: apiUrlMyInfoUpdate,
-                type: "POST",
-                data: dataObjMyInfo,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    location.reload();
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
-        }
+        $.ajax({
+            url: apiUrlMyInfoUpdate,
+            type: "POST",
+            data: dataObjMyInfo,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                viewModel.myinfoid(data);
+                viewModel.btnPersonal("Edit");
+                viewModel.isEditablePersonal(false);
+                getIndustryName(jobSeekerMyInfoObj.Industry);
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
+    }
         viewModel.errorCheckSecurity('0');
         viewModel.errorCheckRelocate('0');
+        viewModel.errorCheckIndustry('0');
     }
     else {
 
@@ -261,6 +332,12 @@ viewModel.savePersonal = function () {
             viewModel.errorCheckSecurity('1');
         }
         else { viewModel.errorCheckSecurity('0'); }
+
+        if (viewModel.industryTypeId() == "") {
+            viewModel.errorCheckIndustry('1');
+        }
+        else { viewModel.errorCheckIndustry('0'); }
+
     }
 
 
@@ -270,14 +347,16 @@ viewModel.cancelPersonal = function () {
     personalObj = ko.toJS(viewModel);
 
     if (personalObj.myinfoid) {
-        viewModel.industriesTextbox(selectedPersonalObj.Industry);
+        // viewModel.industriesTextbox(selectedPersonalObj.Industry);
         viewModel.specialityTextbox(selectedPersonalObj.Speciality);
         viewModel.selectedIndexSecurity(selectedSecurity);
         viewModel.selectedIndexRelocate(selectedRelocate);
-
-        viewModel.isEditablePersonal(false);
         viewModel.btnPersonal("Edit");
+
     }
+    viewModel.isEditablePersonal(false);
+
+
     viewModel.errorCheckSecurity('0');
     viewModel.errorCheckRelocate('0');
 }

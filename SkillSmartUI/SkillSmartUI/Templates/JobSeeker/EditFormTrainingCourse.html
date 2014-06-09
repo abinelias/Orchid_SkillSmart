@@ -1,5 +1,5 @@
 ﻿ <!-- ko if: isEditTraining() == '1' -->
-<div class="common_tab_background">
+
     <div id="Edit_TrainingCourse" class="tab_savebackground_div">
         <ul>
             <li>
@@ -22,7 +22,7 @@
                        
                         <!-- /ko -->
                     </li>
-                    <li class="jobseeker_myinformation_innerli" style="padding-top:10px;"><input type="checkbox" id="Currently_Enrolled" data-bind="wijcheckbox: { checked: currentlyEnrolled }" />Currently Enrolled</li>
+                    <li class="jobseeker_myinformation_innerli" ><input type="checkbox" id="Currently_Enrolled" data-bind="wijcheckbox: { checked: currentlyEnrolled }" />Currently Enrolled</li>
                 </ul>
             </li>
             <li class="jobseeker_registration_outerli">
@@ -32,19 +32,42 @@
             </li>
             <li class="jobseeker_registration_outerli">
                 <ul class="jobseeker_registration_ul">
-                    <li class="jobseeker_registration_innerli"><input type="text" id="Focus" placeholder="Focus" class="inputs" data-bind="wijtextbox: {}, value: focus" /></li>
+                    <li class="jobseeker_registration_innerli"><input type="text" id="Focus" placeholder="Focus" data-bind="wijtextbox: {}, value: focus" /></li>
                 </ul>
             </li>
+            <li class="jobseeker_registration_outerli">
+    <ul class="jobseeker_registration_ul">
+        <li class="jobseeker_additionalinformation_innerli"><label>Institution</label></li>                                               
+    </ul>
+</li> 
+<li class="jobseeker_registration_outerli">
+    <ul class="jobseeker_registration_ul">
+        <li class="jobseeker_additionalinformation_innerli"><input type="text" id="Certification_Institution" placeholder="Institution/Association"  data-bind="wijtextbox: {}, value: certificationInstituion" /></li>                                               
+    </ul>
+</li>
+<li class="jobseeker_registration_outerli">
+    <ul class="jobseeker_registration_ul">                                                
+        <li class="jobseeker_additionalinformation_innerli"><label>Completion Date</label></li>
+        <li class="jobseeker_myinformation_innerli"><label>Expire Date</label></li>
+    </ul>
+</li>
+
+<li class="jobseeker_registration_outerli">
+    <ul class="jobseeker_registration_ul">                                                
+        <li class="jobseeker_additionalinformation_innerli"><!-- ko if: currentlyEnrolled()--><input type="text"  placeholder="End Date"  value="present" data-bind="wijtextbox: {}" disabled /><!-- /ko --> <!-- ko ifnot: currentlyEnrolled()--> <input type="text" id="training_endDate" placeholder=" Completed Date"  data-bind="    wijinputdate: { date: completedDate, showTrigger: true } " /><!-- /ko --></li>
+        <li class="jobseeker_myinformation_innerli"><input type="text" id="expires" placeholder="Expires"  data-bind="wijinputdate: { date: expireDate, showTrigger: true } " /></li>
+    </ul>
+</li>
                       <li data-bind="template: { name: 'CommonTemplateCourse' }"></li>                                                                                                       
 
             <li class="jobseeker_additionalinformation_city_outerli">
                 <ul class="jobseeker_additionalinformation_city_ul" >
-                    <li class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="Save_TrainingCourse" class="savebutton" value="Save" data-bind="click: $parent.saveTrainingCourse" /></li>
-                    <li class="jobseeker_myinformation_innerli"><input type="button" id="Cancel_TrainingCourse" class="cancelbutton" value="Cancel" data-bind="click: $parent.cancelTrainingCourse" /></li>
-                  <!-- ko if: deleteCheck() == '1' -->  <li><input type="button" id="Delete_TrainingCourse" class="deletebutton" value="Delete" data-bind="click: $parent.deleteTrainingCourse" /></li><!-- /ko -->
+                    <li><a class="btn btn-blue first" href=""  data-bind="click: $parent.saveTrainingCourse" >Save</a></li>
+                    <li><a class="btn btn-ltgray" href=""  data-bind="click: $parent.cancelTrainingCourse" >Cancel</a></li>
+                  <!-- ko if: deleteCheck() == '1' -->  <li><a class="btn btn-red" style="float:right;" href=""  data-bind="click: $parent.deleteTrainingCourse" >Delete</a></li><!-- /ko -->
                 </ul>
             </li>                        
         </ul>
     </div>
-</div>
+
 <!-- /ko -->

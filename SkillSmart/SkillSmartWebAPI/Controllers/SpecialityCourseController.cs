@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
@@ -15,9 +17,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all speciality course of the jobseeker for a particular education
         /// </summary>
         /// <returns>SpecialityCourse list</returns>
-        public IEnumerable<SpecialityCourse> GetAllSpecialityCourseById(String jobSeekerId)
+        public IEnumerable<SpecialityCourse> GetAllSpecialityCourseById()
         {
-            return ServiceFactory.GetJobSeekerSpecialityCourse().GetAllSpecialityCourseById(jobSeekerId);
+            return ServiceFactory.GetJobSeekerSpecialityCourse().GetAllSpecialityCourseById(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>
@@ -36,6 +38,7 @@ namespace SkillSmartWebAPI.Controllers
         /// <param name="specialityCourseObj">SpecialityCourse Object</param>
         public string Post(SpecialityCourse specialityCourseObj)
         {
+             specialityCourseObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
              ServiceFactory.GetJobSeekerSpecialityCourse().Create(specialityCourseObj);
              return specialityCourseObj.Id.ToString();
         }
@@ -49,6 +52,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                specialityCourseObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
                 specialityCourseObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerSpecialityCourse().Update(specialityCourseObj);
             }

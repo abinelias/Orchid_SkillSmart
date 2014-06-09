@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
@@ -15,9 +17,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all jobseeker work history
         /// </summary>
         /// <returns>List of all work history of jobseeker</returns>
-        public IEnumerable<WorkHistory> GetJobSeekerWorkHistoryById(String jobSeekerId)
+        public IEnumerable<WorkHistory> GetJobSeekerWorkHistoryById()
         {
-            return ServiceFactory.GetJobSeekerWorkHistory().GetJobSeekerWorkHistoryById(jobSeekerId);
+            return ServiceFactory.GetJobSeekerWorkHistory().GetJobSeekerWorkHistoryById(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>
@@ -36,9 +38,9 @@ namespace SkillSmartWebAPI.Controllers
         /// <param name="jobSeekerWorkHistoryObj">WorkHistory object</param>
         public string Post(WorkHistory jobSeekerWorkHistoryObj)
         {
-            
-                ServiceFactory.GetJobSeekerWorkHistory().Create(jobSeekerWorkHistoryObj);
-                return jobSeekerWorkHistoryObj.Id.ToString();
+            jobSeekerWorkHistoryObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
+            ServiceFactory.GetJobSeekerWorkHistory().Create(jobSeekerWorkHistoryObj);
+            return jobSeekerWorkHistoryObj.Id.ToString();
         }
 
         /// <summary>
@@ -50,6 +52,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
+                jobSeekerWorkHistoryObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
                 jobSeekerWorkHistoryObj.Id = new Guid(id);
                 ServiceFactory.GetJobSeekerWorkHistory().Update(jobSeekerWorkHistoryObj);
             }

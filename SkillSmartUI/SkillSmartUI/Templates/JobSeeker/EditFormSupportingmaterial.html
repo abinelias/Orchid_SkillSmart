@@ -50,9 +50,9 @@
 
     <li class="jobseeker_additionalinformation_city_outerli">
         <ul class="jobseeker_additionalinformation_city_ul" >
-            <li  class="jobseeker_additionalinformation_innerli_save_button"><input type="button" id="submit-awards" class="savebutton" value="Save" data-bind = "click: $root.saveSupportingMaterial" /></li>
-            <li class="jobseeker_myinformation_innerli"><input type="button" id="cancel-awards" class="cancelbutton" value="Cancel" data-bind = "click: $root.cancelSupportingMaterial" /></li>
-            <!-- ko if: deleteCheck() == '1' --><li><input type="button" id="delete-awards" class="deletebutton" value="Delete" data-bind = "click: $root.deleteSupportingMaterial" /></li><!-- /ko -->
+            <li><a class="btn btn-blue first" href="" data-bind = "click: $root.saveSupportingMaterial" >Save</a></li>
+            <li><a class="btn btn-ltgray" href="" data-bind = "click: $root.cancelSupportingMaterial" >Cancel</a></li>
+            <!-- ko if: deleteCheck() == '1' --><li><a class="btn btn-red" style="margin-left:324px;" href=""  data-bind = "click: $root.deleteSupportingMaterial" >Delete</a></li><!-- /ko -->
         </ul>
     </li>
 </ul>

@@ -20,26 +20,29 @@ viewModel.addFirstReference = function (referenceObj) {
 function createReference(da) {
     var self = this;
     self.Id = ko.observable('');
-    self.JobSeekerId = ko.observable(userId);
     self.jobSeekerSkillId = ko.observable('');
     self.firstName = ko.observable('').extend({ required: { message: "FirstName required" } });
     self.lastName = ko.observable('').extend({ required: { message: "LastName required" } });
     self.position = ko.observable('').extend({ required: { message: "Position required" } });
     self.referenceDescription = ko.observable('').extend({ required: { message: "Description required" } });
-    self.contactMethod = ko.observable();
+    self.referenceContact = ko.observable('').extend({ required: { message: "Contact required." } });
+
     self.isEdit = ko.observable('0');
     self.deleteCheck = ko.observable('1');
-    self.errorReference = ko.validation.group({ p1: self.firstName, p2: self.lastName, p3: self.position, p4: self.referenceDescription });
+    self.errorReference = ko.validation.group({ p1: self.firstName, p2: self.lastName, p3: self.position, p4: self.referenceDescription, p5: self.referenceContact });
     if (da) {
+
         self.Id(da.Id);
-        self.JobSeekerId(da.JobSeekerId);
         self.jobSeekerSkillId(da.JobSeekerSkillId);
         self.firstName(da.FirstName);
         self.lastName(da.LastName);
         self.position(da.Position);
         self.referenceDescription(da.Description);
-        self.contactMethod(da.MethodOfContact);
+
+        self.referenceContact(da.Phone);
+
         self.isEdit('0');
+
     }
 }
 
@@ -67,68 +70,71 @@ viewModel.editReferenceDetails = function (referenceObj) {
 }
 
 viewModel.saveReference = function (referenceObj) {
-    if (referenceObj.firstName.isValid() && referenceObj.lastName.isValid() && referenceObj.position.isValid() && referenceObj.referenceDescription.isValid()) {
+    if (referenceObj.firstName.isValid() && referenceObj.lastName.isValid() && referenceObj.position.isValid() && referenceObj.referenceDescription.isValid() && referenceObj.referenceContact.isValid()) {
         jsonObjectReference = ko.toJS(referenceObj);
         if (jsonObjectReference.Id) {
             var dataObjReference;
             var jobSeekerReferenceObj = {}
 
-            jobSeekerReferenceObj.JobSeekerId = jsonObjectReference.JobSeekerId;
             jobSeekerReferenceObj.JobSeekerSkillId = jsonObjectReference.jobSeekerSkillId;
             jobSeekerReferenceObj.FirstName = jsonObjectReference.firstName;
             jobSeekerReferenceObj.LastName = jsonObjectReference.lastName;
             jobSeekerReferenceObj.Position = jsonObjectReference.position;
             jobSeekerReferenceObj.Description = jsonObjectReference.referenceDescription;
-            jobSeekerReferenceObj.MethodOfContact = jsonObjectReference.contactMethod;
+
+            jobSeekerReferenceObj.Phone = jsonObjectReference.referenceContact;
+            
 
             dataObjReference = JSON.stringify(jobSeekerReferenceObj);
-            var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference?Id=' + jsonObjectReference.Id;
-            //To update Scholarship details
-            $.ajax({
-                url: apiUrlSkillReference,
-                type: "PUT",
-                data: dataObjReference,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    referenceObj.isEdit('0');
-                    alert($parent.referenceCheck());
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
+        var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference?Id=' + jsonObjectReference.Id;
+        //To update Scholarship details
+        $.ajax({
+            url: apiUrlSkillReference,
+            type: "PUT",
+            data: dataObjReference,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                referenceObj.isEdit('0');
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
 
-        }
-        else {
+    }
+    else {
             var dataObjReference;
             var jobSeekerReferenceObj = {}
 
-            jobSeekerReferenceObj.JobSeekerId = jsonObjectReference.JobSeekerId;
             jobSeekerReferenceObj.JobSeekerSkillId = jsonObjectReference.jobSeekerSkillId;
             jobSeekerReferenceObj.FirstName = jsonObjectReference.firstName;
             jobSeekerReferenceObj.LastName = jsonObjectReference.lastName;
             jobSeekerReferenceObj.Position = jsonObjectReference.position;
             jobSeekerReferenceObj.Description = jsonObjectReference.referenceDescription;
-            jobSeekerReferenceObj.MethodOfContact = jsonObjectReference.contactMethod;
+
+            jobSeekerReferenceObj.Phone = jsonObjectReference.referenceContact;
+            
 
             dataObjReference = JSON.stringify(jobSeekerReferenceObj);
-            var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference';
-            //To insert data into scholarship table
-            $.ajax({
-                url: apiUrlSkillReference,
-                type: "POST",
-                data: dataObjReference,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    referenceObj.isEdit('0');
-                    referenceObj.Id(data);
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
+        var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference';
+        //To insert data into scholarship table
+        $.ajax({
+            url: apiUrlSkillReference,
+            type: "POST",
+            data: dataObjReference,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                referenceObj.isEdit('0');
+                referenceObj.Id(data);
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });
         }
     }
     else {
@@ -144,7 +150,7 @@ viewModel.cancelReference = function (referenceObj) {
         referenceObj.lastName(currentReference.lastName);
         referenceObj.position(currentReference.position);
         referenceObj.referenceDescription(currentReference.referenceDescription);
-        referenceObj.contactMethod(currentReference.contactMethod);
+        referenceObj.referenceContact(currentReference.referenceContact);
     }
     else {
         $.each(viewModel.categoryArray(), function () {
@@ -171,6 +177,7 @@ viewModel.deleteReference = function (referenceObj) {
             $.ajax({
                 url: apiUrlReference,
                 type: "DELETE",
+                headers: app.securityHeaders(),
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (data) {
@@ -194,6 +201,7 @@ viewModel.deleteReference = function (referenceObj) {
         }
     }
 }
+
 
 ko.validation.init({
     registerExtenders: true,

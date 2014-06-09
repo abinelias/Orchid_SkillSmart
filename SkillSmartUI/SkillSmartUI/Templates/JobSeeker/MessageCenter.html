@@ -1,7 +1,7 @@
-﻿<div  class='common_banner'>
-    <ul>
-        <li class='marginclass'>Message Center </li>
-    </ul>
+﻿<div >
+     <h1 class="box-header">
+         Message Center 
+     </h1>
 </div>
 <div id='Message' class='common_background' >
     <div class="jobseeker_myinformation_list_tab_sub_div" data-bind="foreach: messageList">
@@ -15,7 +15,7 @@
             </li>  
             <li><label >From: </label><label data-bind="text: employer"></label><label style="margin-left:10px;">Subject: </label><label data-bind="    text: subject"></label></li>  
             <li class="marginclass"><label  data-bind="text: jobDescription"></label></li>
-            <hr />   
+            <hr size="1"/>   
         </ul>
 
         <!-- ko if: btnrespondMessage() == '-' -->

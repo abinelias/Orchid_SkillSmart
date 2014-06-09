@@ -3,13 +3,14 @@ var viewModel = {};
 var url = window.location.href;
 var userId = url.substring(url.lastIndexOf('=') + 1);
 function getJobseekerSkillReference() {
-    var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference?jobSeekerId=' + userId;
+    var apiUrlSkillReference = GetWebAPIURL() + '/api/SkillReference/';
     var dataObjSkillReference;
     //To get Languages from Language table
     $.ajax({
         url: apiUrlSkillReference,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjSkillReference = data;
@@ -22,13 +23,14 @@ function getJobseekerSkillReference() {
 }
 
 function getJobseekerSkillSupportingMaterial() {
-    var apiUrlSkillSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial?jobSeekerId=' + userId;
+    var apiUrlSkillSupportingMaterial = GetWebAPIURL() + '/api/SkillSupportingMaterial/';
     var dataObjSkillSupportingMaterial;
     //To get Languages from Language table
     $.ajax({
         url: apiUrlSkillSupportingMaterial,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjSkillSupportingMaterial = data;
@@ -41,13 +43,14 @@ function getJobseekerSkillSupportingMaterial() {
 }
 
 function getJobseekerSkillRelatedExperience() {
-    var apiUrlRelatedExperience = GetWebAPIURL() + '/api/SkillRelatedExperience?jobSeekerId=' + userId;
+    var apiUrlRelatedExperience = GetWebAPIURL() + '/api/SkillRelatedExperience/';
     var dataObjSkillRelatedExperience;
     //To get Languages from Language table
     $.ajax({
         url: apiUrlRelatedExperience,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjSkillRelatedExperience = data;
@@ -67,10 +70,10 @@ function getJobseekerSkillDetailsById(skillId) {
         url: apiUrlSkillDetails,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjSkillDetails = data;
-
         },
         error: function (xhr, status, error) {
             alert('Eroror :' + status);
@@ -80,7 +83,7 @@ function getJobseekerSkillDetailsById(skillId) {
 }
 
 function AddSkills() {
-    $("#ManageHoldingsFrame").attr('src', "/Views/JobSeeker/PopupSkills.html?&userid=" + userId + "&acquiredId=" + '' + "&workHistoryId" + '');
+    $("#ManageHoldingsFrame").attr('src', "/Views/JobSeeker/PopupSkills.html?&acquiredId=" + '' + "&workHistoryId" + '');
     var dialog = $('#ManageHoldingsDiv').dialog(
         {
             open: function () {
@@ -109,16 +112,17 @@ function AddSkills() {
 $(document).ready(function () {
 
     var dataJobSeekerSkillListObj;
-    var apiUrlJobSeekerSkillLists = GetWebAPIURL() + '/api/ListJobSeekerSkill?jobSeekerId=' + userId;
+    var apiUrlJobSeekerSkillLists = GetWebAPIURL() + '/api/ListJobSeekerSkill/';
 
     //To get JobSeekerSkillList
     $.ajax({
         url: apiUrlJobSeekerSkillLists,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
+        contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataJobSeekerSkillListObj = data;
-
         },
         error: function (xhr, status, error) {
             alert('ErrorList :' + status);
@@ -131,6 +135,9 @@ $(document).ready(function () {
 
     viewModel.categoryArray = ko.observableArray();
     viewModel.dataCompanyName = ko.observable(createListWorkHistory());
+    var dataObjJobSeeker = getHeaderDetails();
+    viewModel.firstname = ko.observable(dataObjJobSeeker.FirstName);
+    viewModel.lastname = ko.observable(dataObjJobSeeker.LastName);
 
     var categoryId;
     var specialityId;
@@ -138,7 +145,6 @@ $(document).ready(function () {
     var currentSpecialityObj;
 
     for (da in dataJobSeekerSkillListObj) {
-
         if (dataJobSeekerSkillListObj[da].CategoryId != categoryId) {
             specialityId = 0;
             var categoryObj = new createCategory(dataJobSeekerSkillListObj[da]);
@@ -146,7 +152,6 @@ $(document).ready(function () {
             specialityId = dataJobSeekerSkillListObj[da].SpecialityId;
             viewModel.categoryArray.push(categoryObj);
             currentCategoryObj = categoryObj;
-
         }
 
         else
@@ -198,6 +203,7 @@ $(document).ready(function () {
     }
 
     function createSkil(skillCollection) {
+
         var self = this;
         var score;
         self.skillName = ko.observable('');
@@ -218,11 +224,14 @@ $(document).ready(function () {
             self.skillName(skillCollection.SkillName);
             self.SkillId(skillCollection.Id);
         }
+        
+
 
         self.referenceCheck = ko.observable('0');
         self.isEditableReference = ko.observable(true);
         self.btnReference = ko.observable("Edit");
         self.referenceArray = ko.observableArray();
+        
         if (dataObjSkillReference) {
             for (var i = 0; i < dataObjSkillReference.length; i++) {
                 if (dataObjSkillReference[i].JobSeekerSkillId == self.SkillId()) {
@@ -244,6 +253,7 @@ $(document).ready(function () {
                 if (dataObjSkillSupportingMaterial[i].JobSeekerSkillId == self.SkillId()) {
                     self.supportingMaterialCheck('1');
                     var supportingMaterial = new createSupportingMaterial(dataObjSkillSupportingMaterial[i]);
+
                     self.supportingMaterialArray.push(supportingMaterial);
                 }
             }
@@ -263,7 +273,6 @@ $(document).ready(function () {
                 }
             }
         }
-
     }
 
 
@@ -332,7 +341,6 @@ $(document).ready(function () {
         var dataObjSkill = getJobseekerSkillDetailsById(jsonObjectSkill.SkillId);
 
         var jobSeekerSkillProficiencyObj = {}
-        jobSeekerSkillProficiencyObj.JobSeekerId = dataObjSkill.JobSeekerId;
         jobSeekerSkillProficiencyObj.SkillMapId = dataObjSkill.SkillMapId;
         jobSeekerSkillProficiencyObj.ExperienceId = dataObjSkill.ExperienceId;
         jobSeekerSkillProficiencyObj.SkillAcquiredId = dataObjSkill.SkillAcquiredId;
@@ -347,6 +355,7 @@ $(document).ready(function () {
             url: apiUrlSkill,
             type: "PUT",
             data: dataObjSkill,
+            headers: app.securityHeaders(),
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function (data) {

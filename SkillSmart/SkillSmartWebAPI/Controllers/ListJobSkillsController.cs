@@ -14,7 +14,7 @@ namespace SkillSmartWebAPI.Controllers
 
         public IEnumerable<SkillSmart.Dto.ListJobSkills> GetAll()
         {
-            var alljobSkills = ServiceFactory.GetJobSkills().GetAll(); 
+            var alljobSkills = ServiceFactory.GetJobSkills().GetAll();
             var allSkillList = ServiceFactory.GetSkill().GetAll();
             var allSkillMap = ServiceFactory.GetSkillMap().GetAllSkillMap();
 
@@ -39,18 +39,19 @@ namespace SkillSmartWebAPI.Controllers
                         }
 
                         SkillSmart.Dto.ListJobSkills jobSeekerskillObj = new SkillSmart.Dto.ListJobSkills();
-                        
+
                         jobSeekerskillObj.SkillId = skillId;
                         jobSeekerskillObj.SkillName = skillName;
                         jobSeekerskillObj.JobId = jobSkill.JobId;
                         jobSeekerskillObj.SkillScore = jobSkill.SkillScore;
+                        jobSeekerskillObj.SkillImportance = jobSkill.SkillImportance;
 
                         jobSeekerskillObj.SkillMapId = jobSkill.SkillMapId;
                         jobSeekerskillObj.Id = jobSkill.Id.ToString();
 
                         jobSkillList.Add(jobSeekerskillObj);
                         break;
-                    }       
+                    }
                 }
             }
             return jobSkillList;

@@ -51,7 +51,7 @@ namespace SkillSmartWebAPI.Controllers
         {
             try
             {
-                companyObject.Id = new Guid(id);
+              companyObject.Id = new Guid(id);
                 ServiceFactory.GetCompany().Update(companyObject);
             }
             catch (Exception exp) { }

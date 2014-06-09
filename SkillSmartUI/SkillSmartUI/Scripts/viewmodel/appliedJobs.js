@@ -32,7 +32,6 @@ $(document).ready(function () {
 });
 
 var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-var userId = hashes[0].substring(7);
 var jobId = hashes[1].substring(6);
 
 function getTitleLookup() {
@@ -136,19 +135,20 @@ function getStateLookUp() {
 
 function getJobseekerInformation() {
     //To get User details
-    var apiUrlJobSeeker = GetWebAPIURL() + '/api/JobSeeker/' + userId;
+  var apiUrlJobSeeker = GetWebAPIURL() + '/api/JobSeeker/'; // + userId;
     var dataObjJobSeeker;
 
     $.ajax({
         url: apiUrlJobSeeker,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjJobSeeker = data;
         },
         error: function (xhr, status, error) {
-            alert('Error :' + status);
+            alert('Erroraaa :' + status);
         }
     });
     return dataObjJobSeeker;
@@ -156,7 +156,7 @@ function getJobseekerInformation() {
 
 function getJobseekerAdditionalInformation() {
 
-    var apiUrlAdditionalInfo = GetWebAPIURL() + '/api/AdditionalInformation/' + userId;
+  var apiUrlAdditionalInfo = GetWebAPIURL() + 'api/AdditionalInformation/'; // + userId;
     var dataObjAdditionalInfo;
 
     //TO get Jobseeker addtional information
@@ -164,12 +164,13 @@ function getJobseekerAdditionalInformation() {
         url: apiUrlAdditionalInfo,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataObjAdditionalInfo = data;
         },
         error: function (xhr, status, error) {
-            alert('Error :' + status);
+            alert('Errorddd :' + status);
         }
     });
     return dataObjAdditionalInfo;
@@ -199,17 +200,19 @@ function getAppliedJobsList() {
 
 function initAcountDetails() {
 
+    var dataObjJobSeeker = getHeaderDetails();
+    viewModel.firstname = ko.observable(dataObjJobSeeker.FirstName);
+    viewModel.lastname = ko.observable(dataObjJobSeeker.LastName);
+
+    viewModel.yrExperience = ko.observable();
     var dataObjAdditionalInfo = getJobseekerAdditionalInformation();
 
     var dataObjJobSeeker = getJobseekerInformation();
 
     var dataObjCitizenship = getCitizenlookup();
     var dataObjCountry = getCountryLookup();
-    var dataStateObj = getStateLookUp();
     var dataTitleObj = getTitleLookup();
     var dataObjSuffix = getSuffixLookup();
-
-    viewModel.yrExperience = ko.observable();
     viewModel.textTitle = ko.observable("");
     viewModel.selectedIndexTitle = ko.observable(0);
     viewModel.dataTitle = ko.observable(createListTitle());
@@ -238,7 +241,7 @@ function initAcountDetails() {
     viewModel.middlename = ko.observable("");
     viewModel.lastname = ko.observable(dataObjJobSeeker.LastName).extend({ required: { message: "LastName required" } });
     viewModel.preferredname = ko.observable("");
-    viewModel.username = ko.observable('');
+    viewModel.username = ko.observable('').extend({ required: { message: "Username required" } });
 
 
     viewModel.addressline1 = ko.observable("").extend({ required: { message: "Address required" } });
@@ -251,7 +254,7 @@ function initAcountDetails() {
 
     viewModel.contact = ko.observable("email");
 
-    viewModel.password = ko.observable(dataObjJobSeeker.Password);
+    viewModel.password = ko.observable(dataObjJobSeeker.Password).extend({ required: { message: "Password required" } });
 
     viewModel.experience = ko.observable();
     viewModel.experienceList = ko.observableArray();
@@ -270,8 +273,8 @@ function initAcountDetails() {
 
     viewModel.selectedIndexCountry.subscribe(function (newValue) {
 
-        var countryId = viewModel.dataCountry()[viewModel.selectedIndexCountry()].value;
 
+        var countryId = viewModel.dataCountry()[viewModel.selectedIndexCountry()].value;
         if (countryId != "") {
 
             var apiUrlState = GetWebAPIURL() + '/api/LookupByCriteria/?name=State&parentId=' + countryId;
@@ -282,6 +285,7 @@ function initAcountDetails() {
                 url: apiUrlState,
                 type: 'GET',
                 async: false,
+                headers: app.securityHeaders(),
                 success: function (data) {
 
                     viewModel.dataState(createListState(data));
@@ -298,7 +302,6 @@ function initAcountDetails() {
     if (dataObjAdditionalInfo) {
 
         if (dataObjAdditionalInfo.AddressLine1) {
-
             viewModel.firstname(dataObjJobSeeker.FirstName);
             viewModel.middlename(dataObjAdditionalInfo.MiddleName);
             viewModel.lastname(dataObjJobSeeker.LastName);
@@ -309,7 +312,7 @@ function initAcountDetails() {
             viewModel.addressline1(dataObjAdditionalInfo.AddressLine1);
             viewModel.addressline2(dataObjAdditionalInfo.AddressLine2);
             viewModel.city(dataObjAdditionalInfo.City);
-            viewModel.zip(dataObjAdditionalInfo.ZipCode);
+            viewModel.zip(JSON.stringify(dataObjAdditionalInfo.ZipCode));
             viewModel.phonehome(dataObjAdditionalInfo.HomePhone);
             viewModel.email(dataObjJobSeeker.Email);
             viewModel.contact(dataObjAdditionalInfo.MethodOfContact);
@@ -355,16 +358,19 @@ function initAcountDetails() {
 
     }, viewModel);
 
+
+
     viewModel.countryName = ko.computed(function () {
         return viewModel.dataCountry()[viewModel.selectedIndexCountry()].label;
     }, viewModel);
+
+
+    viewModel.errorAccountInformation = ko.validation.group({ p1: viewModel.firstname, p2: viewModel.lastname, p3: viewModel.addressline1, p4: viewModel.addressline2, p5: viewModel.city, p6: viewModel.zip, p7: viewModel.phonehome });
 
     var dataobjJobList = getAppliedJobsList();
     viewModel.jobPosition = dataobjJobList.JobPosition;
     viewModel.companyLocation = dataobjJobList.JobLocation;
     viewModel.employerName = dataobjJobList.CompanyName;
-
-    viewModel.errorAccountInformation = ko.validation.group({ p1: viewModel.firstname, p2: viewModel.lastname, p3: viewModel.addressline1, p4: viewModel.addressline2, p5: viewModel.city, p6: viewModel.zip, p7: viewModel.phonehome });
 }
 
 function createListTitle() {
@@ -444,132 +450,132 @@ viewModel.typeCoverLetter = function ()
 viewModel.submitApplication = function () {
     if (viewModel.firstname.isValid() && viewModel.lastname.isValid() && viewModel.addressline1.isValid() && viewModel.addressline2.isValid() && viewModel.city.isValid() && viewModel.zip.isValid() && viewModel.phonehome.isValid() && viewModel.selectedIndexCitizenship() > 0 && viewModel.selectedIndexCountry() > 0) {
 
-  
-        var dataObjAdditionalInfo = getJobseekerAdditionalInformation();
+    var dataObjAdditionalInfo = getJobseekerAdditionalInformation();
+    if (dataObjAdditionalInfo) {
+       
+        var jsonObject = ko.toJS(viewModel);
 
+        var jobSeekerAdditionalInfoEditObj = {}
+        jobSeekerAdditionalInfoEditObj.Title = viewModel.dataTitle()[viewModel.selectedIndexTitle()].value;
+        jobSeekerAdditionalInfoEditObj.Suffix = viewModel.dataSuffix()[viewModel.selectedIndexSuffix()].value;
+        jobSeekerAdditionalInfoEditObj.MiddleName = jsonObject.middlename;
+        jobSeekerAdditionalInfoEditObj.PreferedName = jsonObject.preferredname;
+        jobSeekerAdditionalInfoEditObj.AddressLine1 = jsonObject.addressline1;
+        jobSeekerAdditionalInfoEditObj.AddressLine2 = jsonObject.addressline2;
+        jobSeekerAdditionalInfoEditObj.City = jsonObject.city;
+        jobSeekerAdditionalInfoEditObj.StateId = viewModel.dataState()[viewModel.selectedIndexState()].value;
+        jobSeekerAdditionalInfoEditObj.CountryId = viewModel.dataCountry()[viewModel.selectedIndexCountry()].value;
+        jobSeekerAdditionalInfoEditObj.ZipCode = jsonObject.zip;
+        jobSeekerAdditionalInfoEditObj.HomePhone = jsonObject.phonehome;
+        jobSeekerAdditionalInfoEditObj.MethodOfContact = jsonObject.contact;
+        jobSeekerAdditionalInfoEditObj.Citizenship = viewModel.dataCitizenship()[viewModel.selectedIndexCitizenship()].value;
 
+        jobSeekerAdditionalInfoEditObj.Experience = jsonObject.yrExperience;
 
-        if (dataObjAdditionalInfo) {
+        if (dataObjAdditionalInfo.Notification)
+            jobSeekerAdditionalInfoEditObj.Notification = dataObjAdditionalInfo.Notification.toString();
 
-            var jsonObject = ko.toJS(viewModel);
-            
-            var jobSeekerAdditionalInfoEditObj = {}
-            
-            jobSeekerAdditionalInfoEditObj.JobSeekerId = userId;
-           
-            jobSeekerAdditionalInfoEditObj.Title = viewModel.dataTitle()[viewModel.selectedIndexTitle()].value;
+        jobSeekerAdditionalInfoEditObj.BirthDate = jsonObject.birthDate;
+        jobSeekerAdditionalInfoEditObj.Ethinicity = jsonObject.ethnicity;
+        jobSeekerAdditionalInfoEditObj.Gender = jsonObject.gender;
 
-            jobSeekerAdditionalInfoEditObj.Suffix = viewModel.dataSuffix()[viewModel.selectedIndexSuffix()].value;
+        var apiUrlAdditionalInfoEdit = GetWebAPIURL() + 'api/AdditionalInformation/' + jsonObject.additionalinfoid;
+        var dataObjAdditionalInfoEdit = JSON.stringify(jobSeekerAdditionalInfoEditObj);
 
-            jobSeekerAdditionalInfoEditObj.MiddleName = jsonObject.middlename;
-            jobSeekerAdditionalInfoEditObj.PreferedName = jsonObject.preferredname;
-            jobSeekerAdditionalInfoEditObj.AddressLine1 = jsonObject.addressline1;
-            jobSeekerAdditionalInfoEditObj.AddressLine2 = jsonObject.addressline2;
-            jobSeekerAdditionalInfoEditObj.City = jsonObject.city;
-            jobSeekerAdditionalInfoEditObj.StateId = viewModel.dataState()[viewModel.selectedIndexState()].value;
-            jobSeekerAdditionalInfoEditObj.CountryId = viewModel.dataCountry()[viewModel.selectedIndexCountry()].value;
-            jobSeekerAdditionalInfoEditObj.ZipCode = jsonObject.zip;
-            jobSeekerAdditionalInfoEditObj.HomePhone = jsonObject.phonehome;
-            jobSeekerAdditionalInfoEditObj.MethodOfContact = jsonObject.contact;
-            jobSeekerAdditionalInfoEditObj.Citizenship = viewModel.dataCitizenship()[viewModel.selectedIndexCitizenship()].value;
-
-            jobSeekerAdditionalInfoEditObj.Experience = jsonObject.yrExperience;
-
-            if (dataObjAdditionalInfo.Notification)
-                jobSeekerAdditionalInfoEditObj.Notification = dataObjAdditionalInfo.Notification.toString();
-
-            //jobSeekerAdditionalInfoEditObj.Notification = jsonObject.preference.toString();
-            jobSeekerAdditionalInfoEditObj.BirthDate = jsonObject.birthDate;
-            /*jobSeekerAdditionalInfoEditObj.BirthMonth = jsonObject.birthMonth;
-            jobSeekerAdditionalInfoEditObj.BirthYear = jsonObject.birthYear;*/
-            jobSeekerAdditionalInfoEditObj.Ethinicity = jsonObject.ethnicity;
-            jobSeekerAdditionalInfoEditObj.Gender = jsonObject.gender;
-
-            var apiUrlAdditionalInfoEdit = GetWebAPIURL() + '/api/AdditionalInformation/' + jsonObject.additionalinfoid;
-            var dataObjAdditionalInfoEdit = JSON.stringify(jobSeekerAdditionalInfoEditObj);
-            //Update additional information
-            $.ajax({
-                url: apiUrlAdditionalInfoEdit,
-                type: "PUT",
-                data: dataObjAdditionalInfoEdit,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                   
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
-
-            var jobSeekerEditObj = {}
-            jobSeekerEditObj.FirstName = jsonObject.firstname;
-            jobSeekerEditObj.LastName = jsonObject.lastname;
-            jobSeekerEditObj.Email = jsonObject.email;
-            jobSeekerEditObj.Password = jsonObject.password;
-            jobSeekerEditObj.UserName = jsonObject.username;
-            dataObjJobSeeker = JSON.stringify(jobSeekerEditObj);
-
-            var apiUrlJobSeekerEdit = GetWebAPIURL() + '/api/JobSeeker/' + userId;
-            var dataObjJobSeeker = JSON.stringify(jobSeekerEditObj);
-
-            //Updates Jobseekers
-            $.ajax({
-                url: apiUrlJobSeekerEdit,
-                type: "PUT",
-                data: dataObjJobSeeker,
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (data) {
-                    //window.location = "JobSeekerList.html"
-                    viewModel.isEditableAccountDetails(false);
-                    viewModel.accountDetailsCheck('1');
-                },
-                error: function (xhr, error) {
-                    alert('Error :' + error);
-                }
-            });
-
-
-        }
-
-
-        var textvalue = $("#wijeditor").val();
-        viewModel.coverLetter(textvalue);
-
-        var today = new Date();
-        var monthtext = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-        var jsonObjectCoverLetter = ko.toJS(viewModel);
-        var dataObjAppliedJobs;
-        var jobSeekerAppliedJobsObj = {}
-        jobSeekerAppliedJobsObj.JobId = jobId;
-        jobSeekerAppliedJobsObj.JobSeekerId = userId
-        jobSeekerAppliedJobsObj.DateApplied = monthtext[today.getMonth()] + today.getDate() + ',' + today.getFullYear();
-        jobSeekerAppliedJobsObj.CoverLetter = jsonObjectCoverLetter.coverLetter;
-
-
-        dataObjAppliedJobs = JSON.stringify(jobSeekerAppliedJobsObj);
-        var apiUrlSubmitCoverLetter = GetWebAPIURL() + '/api/JobSeekerAppliedJobs/';
-
-        //To create additional information of jobseeker
+        //Update additional information
         $.ajax({
-            url: apiUrlSubmitCoverLetter,
-            type: "POST",
-            data: dataObjAppliedJobs,
+            url: apiUrlAdditionalInfoEdit,
+            type: "PUT",
+            data: dataObjAdditionalInfoEdit,
+            headers: app.securityHeaders(),
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function (data) {
-                window.location = "MyJobsApplied.html?userId=" + userId;
+
             },
             error: function (xhr, error) {
                 alert('Error :' + error);
             }
         });
+
+        /*var jobSeekerEditObj = {}
+        jobSeekerEditObj.FirstName = jsonObject.firstname;
+        jobSeekerEditObj.LastName = jsonObject.lastname;
+        jobSeekerEditObj.Email = jsonObject.email;
+        jobSeekerEditObj.Password = jsonObject.password;
+        jobSeekerEditObj.UserName = jsonObject.username;
+        dataObjJobSeeker = JSON.stringify(jobSeekerEditObj);
+
+        var apiUrlJobSeekerEdit = GetWebAPIURL() + '/api/JobSeeker/'; // + userId;
+        var dataObjJobSeeker = JSON.stringify(jobSeekerEditObj);
+
+        //Updates Jobseekers
+        $.ajax({
+            url: apiUrlJobSeekerEdit,
+            type: "PUT",
+            data: dataObjJobSeeker,
+            headers: app.securityHeaders(),
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                //window.location = "JobSeekerList.html"
+                viewModel.isEditableAccountDetails(false);
+                viewModel.accountDetailsCheck('1');
+            },
+            error: function (xhr, error) {
+                alert('Error :' + error);
+            }
+        });*/
+
+
+    }
+
+
+    var textvalue = $("#wijeditor").val();
+    viewModel.coverLetter(textvalue);
+
+    var today = new Date();  
+    var monthtext = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+   
+    var jsonObjectCoverLetter = ko.toJS(viewModel);
+    var dataObjAppliedJobs;
+    var jobSeekerAppliedJobsObj = {}
+    jobSeekerAppliedJobsObj.JobId = jobId;
+    jobSeekerAppliedJobsObj.DateApplied = monthtext[today.getMonth()] + today.getDate() + ',' + today.getFullYear();
+    jobSeekerAppliedJobsObj.CoverLetter = jsonObjectCoverLetter.coverLetter;
+    
+
+    dataObjAppliedJobs = JSON.stringify(jobSeekerAppliedJobsObj);
+    var apiUrlSubmitCoverLetter = GetWebAPIURL() + '/api/JobSeekerAppliedJobs/';
+
+    //To create additional information of jobseeker
+    $.ajax({
+        url: apiUrlSubmitCoverLetter,
+        type: "POST",
+        data: dataObjAppliedJobs,
+        headers: app.securityHeaders(),
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        success: function (data) {
+            window.location = "MyJobsApplied.html";
+        },
+        error: function (xhr, error) {
+            alert('Error111 :' + error);
+        }
+    });
     }
     else {
         viewModel.errorAccountInformation.showAllMessages();
- 
+        if (viewModel.selectedIndexCitizenship() <= 0) {
+            viewModel.errorCheckCitizenship('1');
+        }
+        else { viewModel.errorCheckCitizenship('0'); }
+
+        if (viewModel.selectedIndexCountry() <= 0) {
+            viewModel.errorCheckCountry('1');
+        }
+        else { viewModel.errorCheckCountry('0'); }
     }
+
 }
 
