@@ -3,6 +3,8 @@ using MongoDB.Driver.Builders;
 using SkillSmart.Base.Services;
 using SkillSmart.Utilities;
 using System.Collections.Generic;
+using System.Linq;
+using MongoDB.Driver.Linq;
 namespace SkillSmartMongoDA.Services
 {
     using Entities;
@@ -17,18 +19,36 @@ namespace SkillSmartMongoDA.Services
         /// Function to get all jobseeker details
         /// </summary>
         /// <returns>List of jobseekers</returns>
-        public IEnumerable<SkillSmart.Dto.JobPrerequisite> GetAll()
+        public IEnumerable<SkillSmart.Dto.JobPrerequisite> GetAll(string jobId)
         {
-            var jobSeekerList = this.MongoCollection.FindAllAs<JobPrerequisite>(); //get all jobseekers
-
-            //Creating jobseeker object jobSeekerCursor
-            List<SkillSmart.Dto.JobPrerequisite> jobListCursor = new List<SkillSmart.Dto.JobPrerequisite>();
-            foreach (JobPrerequisite jobSeeker in jobSeekerList)
+            List<SkillSmart.Dto.JobPrerequisite> jobPrerequisiteCursor = new List<SkillSmart.Dto.JobPrerequisite>();
+            if (jobId == "")
             {
-                SkillSmart.Dto.JobPrerequisite jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.JobPrerequisite, SkillSmart.Dto.JobPrerequisite>(jobSeeker);
-                jobListCursor.Add(jobSeekerObj);
+                var jobSeekerList = this.MongoCollection.FindAllAs<JobPrerequisite>(); //get all jobseekers
+
+                //Creating jobseeker object jobSeekerCursor
+                foreach (JobPrerequisite jobSeeker in jobSeekerList)
+                {
+                    SkillSmart.Dto.JobPrerequisite jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.JobPrerequisite, SkillSmart.Dto.JobPrerequisite>(jobSeeker);
+                    jobPrerequisiteCursor.Add(jobSeekerObj);
+                }
             }
-            return jobListCursor;
+            else
+            {
+                string[] split = jobId.Split(',');
+                List<string> jobIdList = new List<string>();
+                foreach (string item in split)
+                {
+                    jobIdList.Add(item);
+                }
+                var JobSkills = this.MongoCollection.AsQueryable<JobPrerequisite>().Where(c => jobIdList.Contains(c.JobId));
+                foreach (JobPrerequisite jobSeeker in JobSkills)
+                {
+                    SkillSmart.Dto.JobPrerequisite jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.JobPrerequisite, SkillSmart.Dto.JobPrerequisite>(jobSeeker);
+                    jobPrerequisiteCursor.Add(jobSeekerObj);
+                }
+            }
+            return jobPrerequisiteCursor;
         }
 
         
@@ -40,7 +60,6 @@ namespace SkillSmartMongoDA.Services
         {
             SkillSmartMongoDA.Entities.JobPrerequisite seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.JobPrerequisite, SkillSmartMongoDA.Entities.JobPrerequisite>(entity);
             base.Create(seeker);
-            entity.Id = seeker.Id;
         }
 
 
@@ -61,7 +80,8 @@ namespace SkillSmartMongoDA.Services
 
         public void Delete(SkillSmart.Dto.JobPrerequisite entity)
         {
-           
+            JobPrerequisite seeker = MapperUtilities.MapToDomainModel<SkillSmart.Dto.JobPrerequisite, SkillSmartMongoDA.Entities.JobPrerequisite>(entity);
+            base.Delete(seeker);
         }
 
     }

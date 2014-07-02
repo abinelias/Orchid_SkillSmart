@@ -1,0 +1,35 @@
+﻿<div class="common_background">
+<ul>
+
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_additionalinformation_innerli"><label>Add a prerequisite Include type skill and Prerequisite Name</label></li>           
+        </ul>
+    </li>
+     <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_additionalinformation_innerli"><input style="width:120px;" data-bind="wijcombobox: { selectedIndex: selectedIndexPrerequisite, data: dataPrerequisite }" />
+                
+            </li>
+            <li class="jobseeker_myinformation_innerli"><input style="width:120px;" data-bind="wijcombobox: { selectedIndex: selectedIndexSecondLevelPrerequisite, data: dataSecondLevelPrerequisite }" />
+               
+            </li>
+        </ul>
+    </li>
+    
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"><input style="width:120px;" data-bind="wijcombobox: { selectedIndex: selectedIndexThirdLevelPrerequisite, data: dataThirdLevelPrerequisite }" /></li>
+        </ul>
+    </li> 
+    <li  class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'>
+                    <input type='radio'  value='required'  data-bind='checked: requiredPrerequisite'/>This Prerequisite is required
+                </li>
+            </ul>
+        </li>    
+    
+   
+</ul>
+</div>

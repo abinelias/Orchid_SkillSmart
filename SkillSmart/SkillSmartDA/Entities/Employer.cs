@@ -41,6 +41,12 @@ namespace SkillSmartMongoDA.Entities
         [BsonElement("Permission")]
         public string Permission { get; set; }
 
+        /// <summary>
+        /// Department
+        /// </summary>
+        [BsonElement("Department")]
+        public string Department { get; set; }
+
     }
 }
 

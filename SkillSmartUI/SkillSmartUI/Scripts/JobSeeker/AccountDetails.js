@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
-    
     initAcountDetails();
+
    // $('#numinput').wijinputnumber({ decimalPlaces: 2, showSpinner: true });
 });
 
@@ -113,7 +113,7 @@ function getJobseekerInformation()
 var selectedAccount;
 function getJobseekerAdditionalInformation()
 {
-   
+
   var apiUrlAdditionalInfo = GetWebAPIURL() + 'api/AdditionalInformation/'; // + userId;
     var dataObjAdditionalInfo;
 
@@ -137,7 +137,6 @@ function getJobseekerAdditionalInformation()
 
 function initAcountDetails() {
 
-
     viewModel.yrExperience = ko.observable();
     var dataObjAdditionalInfo = getJobseekerAdditionalInformation();
 
@@ -147,6 +146,7 @@ function initAcountDetails() {
     var dataObjCountry = getCountryLookup();
     var dataTitleObj = getTitleLookup();
     var dataObjSuffix = getSuffixLookup();
+    var dataObjState;
     viewModel.textTitle = ko.observable("");
     viewModel.selectedIndexTitle = ko.observable(0);
     viewModel.dataTitle = ko.observable(createListTitle());
@@ -175,7 +175,7 @@ function initAcountDetails() {
     viewModel.middlename = ko.observable("");
     viewModel.lastname = ko.observable(dataObjJobSeeker.LastName).extend({ required: { message: "LastName required" } });
     viewModel.preferredname = ko.observable("");
-    viewModel.username = ko.observable('').extend({ required: { message: "Username required" } });
+    viewModel.username = ko.observable('');
 
 
     viewModel.addressline1 = ko.observable("").extend({ required: { message: "Address required" } });
@@ -207,7 +207,6 @@ function initAcountDetails() {
 
     viewModel.selectedIndexCountry.subscribe(function (newValue) {
 
-        
         var countryId = viewModel.dataCountry()[viewModel.selectedIndexCountry()].value;
         if (countryId != "") {
 
@@ -223,7 +222,7 @@ function initAcountDetails() {
                 success: function (data) {
 
                     viewModel.dataState(createListState(data));
-
+                    dataObjState = data;
                 },
                 error: function (xhr, status, error) {
                     alert('Error :' + status);
@@ -283,6 +282,13 @@ function initAcountDetails() {
                     }
                 }
             }
+            if (dataObjAdditionalInfo.StateId) {
+                for (da in dataObjState) {
+                    if (dataObjAdditionalInfo.StateId == dataObjState[da].Id) {
+                        viewModel.selectedIndexState(da);
+                    }
+                }
+            }
         }
     }
 
@@ -301,6 +307,7 @@ function initAcountDetails() {
 
     viewModel.errorAccountInformation = ko.validation.group({ p1: viewModel.firstname, p2: viewModel.lastname, p3: viewModel.addressline1, p4: viewModel.addressline2, p5: viewModel.city, p6: viewModel.zip, p7: viewModel.phonehome });
    // viewModel.errorLoginCredential = ko.validation.group({ p1: viewModel.username, p2: viewModel.password });
+    //alert(app.loggedIn());
 
 
 }
@@ -632,7 +639,8 @@ viewModel.doneEditing = function () {
 
 viewModel.updateLoginCredential = function ()
 {
-    if (viewModel.username.isValid() && viewModel.password.isValid()) {
+    //if (viewModel.username.isValid() && viewModel.password.isValid()) {
+
         var jsonObject = ko.toJS(viewModel);
         var jobSeekerEditObj = {}
         jobSeekerEditObj.FirstName = jsonObject.firstname;
@@ -647,7 +655,7 @@ viewModel.updateLoginCredential = function ()
     var dataObjJobSeeker = JSON.stringify(jobSeekerEditObj);
 
     //Updates Jobseekers
-    $.ajax({
+    /*$.ajax({
         url: apiUrlJobSeekerEdit,
         type: "PUT",
         data: dataObjJobSeeker,
@@ -660,14 +668,14 @@ viewModel.updateLoginCredential = function ()
         error: function (xhr, error) {
             alert('Error :' + error);
         }
-    });
+    });*/
 
 
     viewModel.iseditableLoginCredential(false);
-}
+/*}
 else {
     viewModel.errorLoginCredential.showAllMessages();
-}
+}*/
 }
 
 viewModel.editLoginCredential = function () {

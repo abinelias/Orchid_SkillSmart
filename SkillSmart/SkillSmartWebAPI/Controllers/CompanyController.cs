@@ -6,11 +6,22 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web;
 
 namespace SkillSmartWebAPI.Controllers
 {
     public class CompanyController : ApiController
     {
+
+        /// <summary>
+        /// Get a company information by id
+        /// </summary>
+        /// <param name="id">jobseeker id</param>
+        /// <returns>company object</returns>
+        public Company Get(string companyId)
+        {
+            return ServiceFactory.GetCompany().GetById(companyId);
+        }
 
         /// <summary>
         /// To get all jobseekers list
@@ -19,16 +30,6 @@ namespace SkillSmartWebAPI.Controllers
         public IEnumerable<Company> GetAll()
         {
             return ServiceFactory.GetCompany().GetAll();
-        }
-
-        /// <summary>
-        /// Get a company information by id
-        /// </summary>
-        /// <param name="id">jobseeker id</param>
-        /// <returns>company object</returns>
-        public Company Get(string id)
-        {
-            return ServiceFactory.GetCompany().GetById(id);
         }
 
         /// <summary>

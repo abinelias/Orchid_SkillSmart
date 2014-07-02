@@ -1,0 +1,35 @@
+﻿
+<ul>
+       <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><label>Employer First Name<sup>*</sup></label></li>
+                    <li class='jobseeker_myinformation_innerli'><label>Employer Last Name</label></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><input type='text'  placeholder='Employer First Name'  data-bind='wijtextbox: {}, value: employerFirstName' /></li>                
+                <li class='jobseeker_myinformation_innerli'><input type='text'  placeholder='Employer Last Name'  data-bind='wijtextbox: {}, value: employerLastName' /></li>
+            </ul>
+        </li>       
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Department<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Permission<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexDepartment, data: $parent.dataDepartment }" /></li>
+                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexPermission, data: $parent.dataPermission }" /></li>
+            </ul>
+        </li>   
+             
+        <li class="jobseeker_additionalinformation_city_outerli">
+            <ul class="jobseeker_additionalinformation_city_ul" >
+                 <li><a class="btn btn-blue first" href="" data-bind='    click: $parent.addEmployer'>Save</a></li>
+                <li><a class="btn btn-ltgray" href="" data-bind='    click: $parent.cancelEmployer'>Cancel</a></li>
+            </ul>
+        </li>
+
+</ul>

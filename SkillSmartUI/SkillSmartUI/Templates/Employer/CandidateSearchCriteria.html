@@ -1,0 +1,41 @@
+﻿<div class='common_background'>
+    <label>Search By JobListing</label>
+    <ul>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul' >
+                <li  class='jobseeker_additionalinformation_innerli'><label>Job Listing<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedjob, data: dataJobs }" /></li>
+            </ul>
+        </li>
+        <li ><a class="btn btn-blue first" href="#"  data-bind="click: searchByJobs">Search</a></li>                                       
+    </ul>
+</div>
+
+<div class='common_background'>
+    <label>Search By Skill</label>
+    <ul>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Competency<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Skill<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Proficiency Size<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedCompetemcy, data: dataCompetency }" /></li>
+                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedSkill, data: dataSkill }" /></li>                
+                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedProficiency, data: dataProficiency }" /></li>
+            </ul>
+        </li>
+        <li ><a class="btn btn-blue first" href="#"  data-bind="click: searchBySkills">Search</a></li>                                       
+    </ul>
+</div>
+<div  data-bind="template: { name: 'JobSeekerList' }">               
+</div>   
+<div  data-bind="template: { name: 'JobSeekerDetailsJob' }">               
+</div>   

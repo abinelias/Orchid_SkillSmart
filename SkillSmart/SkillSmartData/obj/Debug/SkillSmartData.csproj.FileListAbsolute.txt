@@ -78,3 +78,5 @@ D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Drive
 D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.csprojResolveAssemblyReference.cache
 D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.dll
 D:\Projects\skillsmart-192bd68\SkillSmart\SkillSmartData\obj\Debug\SkillSmartData.pdb
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Bson.xml
+D:\Projects\Orchid_SkillSmart\SkillSmart\SkillSmartData\bin\Debug\MongoDB.Driver.xml

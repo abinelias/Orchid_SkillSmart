@@ -2,8 +2,7 @@
     initMessageCenter();
 });
 
-function getJobSeekerMessageList()
-{
+function getJobSeekerMessageList() {
     var apiUrlMessage = GetWebAPIURL() + '/api/ListJobSeekerMessage/';
     var dataJobSeekerMessageObj;
 
@@ -12,6 +11,7 @@ function getJobSeekerMessageList()
         url: apiUrlMessage,
         type: 'GET',
         async: false,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             dataJobSeekerMessageObj = data;
@@ -22,19 +22,21 @@ function getJobSeekerMessageList()
             alert('Error :' + status);
         }
     });
-   
+
     return dataJobSeekerMessageObj;
 }
 
-function initMessageCenter()
-{
-    viewModel.messageList = ko.observableArray();    
+function initMessageCenter() {
+    var dataObjJobSeeker = getHeaderDetails();
+    viewModel.firstname = ko.observable(dataObjJobSeeker.FirstName);
+    viewModel.lastname = ko.observable(dataObjJobSeeker.LastName);
+    viewModel.messageList = ko.observableArray();
     var dataJobSeekerMessageObj = getJobSeekerMessageList();
 
     if (dataJobSeekerMessageObj) {
 
         for (var i = 0; i < dataJobSeekerMessageObj.length; i++) {
-            
+
             var listMessage = new jobListCreate(dataJobSeekerMessageObj[i]);
             viewModel.messageList.push(listMessage);
         }
@@ -64,19 +66,17 @@ function jobListCreate(objMessage) {
     }
 }
 
-viewModel.respondMessage=function(objMessage)
-{
+viewModel.respondMessage = function (objMessage) {
     if (objMessage.btnrespondMessage() == '+') {
         objMessage.btnrespondMessage('-');
-        
+
     }
     else {
         objMessage.btnrespondMessage('-');
-        
+
     }
 }
-viewModel.saveSentMessage = function (objMessage)
-{
+viewModel.saveSentMessage = function (objMessage) {
     var jsonObjectMessage = ko.toJS(objMessage);
     var dataObjMessage;
     var jobSeekerMessageObj = {}
@@ -96,6 +96,7 @@ viewModel.saveSentMessage = function (objMessage)
         url: apiUrlMessage,
         type: "Post",
         data: dataObjMessage,
+        headers: app.securityHeaders(),
         contentType: "application/json; charset=utf-8",
         async: false,
         success: function (data) {
@@ -106,8 +107,7 @@ viewModel.saveSentMessage = function (objMessage)
         }
     });
 }
-viewModel.cancelSentMessage = function (objMessage)
-{
+viewModel.cancelSentMessage = function (objMessage) {
     objMessage.replayMessageSubject('');
     objMessage.replayMessageContent('');
     objMessage.btnrespondMessage('+');

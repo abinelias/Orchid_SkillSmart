@@ -37,6 +37,8 @@ namespace SkillSmart.Dto
         [Required(ErrorMessage = "SkillName Required")]
         public int SkillScore { get; set; }
 
+        public string JobSeekerId { get; set; }
+
         [Required(ErrorMessage = "SkillName Required")]
         public string Id { get; set; }
 

@@ -1,0 +1,64 @@
+﻿<ul>
+    <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Job Title<sup>*</sup></label></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type="text" placeholder='Job Title'   data-bind='wijtextbox: {}, value: jobPosition' /></li>                
+            </ul>
+        </li>  
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Job Description<sup>*</sup></label></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><textarea placeholder='Job Description'   data-bind='wijtextbox: {}, value: jobDescription' ></textarea></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Job Type<sup>*</sup></label></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: editselectedIndexWorkType, data: $root.editdataWorkType }" /></li>                
+            </ul>
+        </li>   
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul' >
+                <li  class='jobseeker_additionalinformation_innerli'><label>Salary<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Number Of Openings<sup>*</sup></label></li>
+               
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: editselectedIndexSalary, data: $root.editdataSalary }" /></li>
+                <li  class='jobseeker_myinformation_innerli'><input type="text" placeholder="Number of openings" data-bind="    wijinputnumber: { value: noOfOpening, showSpinner: true, decimalPlaces: 0, minValue: 0, maxValue: 100, }"  /></li>
+            </ul>
+        </li> 
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><label>Open Date<sup>*</sup></label></li>
+                <li class='jobseeker_myinformation_innerli'><label>Close Date</label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><input type="text" data-bind="    wijinputdate: { date: openDate, showTrigger: true }" /></li>
+                <li class='jobseeker_myinformation_innerli'><input type="text" data-bind="    wijinputdate: { date: closeDate, showTrigger: true }"   /></li>
+            </ul>
+        </li>
+        <li class="jobseeker_additionalinformation_city_outerli">
+            <ul class="jobseeker_additionalinformation_city_ul" >
+                <li><a class="btn btn-blue first" href="" data-bind = "click: $root.saveJobDetails" >Save</a></li>
+                <li><a class="btn btn-ltgray" href="" data-bind = "click: $root.cancelJobDetails">Cancel</a></li>
+                <li><a class="btn btn-red" style="float:right;" href="" data-bind = "click: $root.deleteJobDetails" >Delete</a></li>
+            </ul>
+        </li>
+</ul>

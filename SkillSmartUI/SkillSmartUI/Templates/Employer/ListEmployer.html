@@ -1,0 +1,134 @@
+﻿<div data-bind="visible: employerListHR().length > 0">
+    <div class="Category" style="margin-bottom:10px;border-style:solid; border-width:1px;border-color:#E0E0E0;width:859px;padding-top:10px; ">
+    <!-- ko if: employerListHR -->
+        <label class="myInformation_WorkHistory_Label"  >Human Resourse</label><!-- /ko -->
+         <!-- ko if: btnHR() == '+' -->
+            <a href="" data-bind="click: expandHR, value: btnHR"><i class="fa fa-plus-circle fa-2x" style="margin-left:670px;"></i></a>
+         <!-- /ko -->
+        <!-- ko if: btnHR() == '-' -->
+                <a href="" data-bind="click: expandHR, value: btnHR"><i class="fa fa-minus-circle fa-2x" style="margin-left:670px;"></i></a>
+            <!-- /ko -->
+          <!-- ko if: btnHR() == '-' -->
+        <div  data-bind="foreach: employerListHR">
+            <!-- ko if: isEditEmployer() == '0' -->
+            <div class="employer_userAccount_main_div">
+                <div class="employer_userAccount_sub_div">   
+                    <li><label data-bind="text: employerFirstName"></label>  <label data-bind="    text: employerLastName"></label></li>
+                    <li><label data-bind="text: DepartmentName"></label>  <label data-bind="    text: location"></label>
+                    <a class="btn btn-red" style="float:right;" href="" data-bind = "click: $parent.deleteEmployer" >Delete</a>
+                     <a class="butnLightGrey butnLightGrey-ltgray" style="padding: 18px 27px;" href="" data-bind = "click: $parent.editEmployer">Edit</a>            
+                    </li>
+                    <li><label>Permissions:</label>  <label data-bind="    text: PermissionName"></label></li>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: isEditEmployer() == '1' -->
+                <div  class='common_background'>
+                <div class="add_div">
+                    <section data-bind="template: { name: 'AddEmployer' }"></section>    
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+           <!-- /ko -->
+    </div>
+</div>
+
+<div data-bind="visible: employerListOperations().length > 0">
+    <div class="Category" style="margin-bottom:10px; border-style:solid; border-width:1px;border-color:#E0E0E0;width:859px;padding-top:10px; ">
+        <!-- ko if: employerListOperations --><label class="myInformation_WorkHistory_Label" >Operations</label><!-- /ko -->
+         <!-- ko if: btnOperations() == '+' -->
+            <a href="" data-bind="click: expandOperations, value: btnOperations"><i class="fa fa-plus-circle fa-2x" style="margin-left:721px;"></i></a>
+         <!-- /ko -->
+        <!-- ko if: btnOperations() == '-' -->
+                <a href="" data-bind="click: expandOperations, value: btnOperations"><i class="fa fa-minus-circle fa-2x" style="margin-left:721px;"></i></a>
+            <!-- /ko -->
+        <!-- ko if: btnOperations() == '-' -->
+        <div  data-bind="foreach: employerListOperations">
+            <!-- ko if: isEditEmployer() == '0' -->
+            <div class="employer_userAccount_main_div">
+                <div class="employer_userAccount_sub_div">   
+                    <li><label data-bind="text: employerFirstName"></label>  <label data-bind="    text: employerLastName"></label></li>
+                    <li><label data-bind="text: DepartmentName"></label>  <label data-bind="    text: location"></label>
+                    <a class="btn btn-red" style="float:right;" href="" data-bind = "click: $parent.deleteEmployer" >Delete</a>
+                     <a class="butnLightGrey butnLightGrey-ltgray" style="padding: 18px 27px;" href="" data-bind = "click: $parent.editEmployer">Edit</a>            
+                    </li>
+                    <li><label>Permissions:</label>  <label data-bind="    text: PermissionName"></label></li>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: isEditEmployer() == '1' -->
+                <div class="add_div">
+                    <section data-bind="template: { name: 'AddEmployer' }"></section>    
+                </div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+ 
+<div data-bind="visible: employerListIT().length > 0">
+    <div class="Category" style="margin-bottom:10px;border-style:solid; border-width:1px;border-color:#E0E0E0;width:859px;padding-top:10px; ">
+        <!-- ko if: employerListIT --><label class="myInformation_WorkHistory_Label" >Information Technology</label><!-- /ko -->
+        <!-- ko if: btnIT() == '+' -->
+            <a href="" data-bind="click: expandIT, value: btnIT"><i class="fa fa-plus-circle fa-2x" style="margin-left:721px;"></i></a>
+         <!-- /ko -->
+        <!-- ko if: btnIT() == '-' -->
+                <a href="" data-bind="click: expandIT, value: btnIT"><i class="fa fa-minus-circle fa-2x" style="margin-left:721px;"></i></a>
+            <!-- /ko -->
+        <!-- ko if: btnIT() == '-' -->
+        <div  data-bind="foreach: employerListIT">
+            <!-- ko if: isEditEmployer() == '0' -->
+            <div class="employer_userAccount_main_div">
+                <div class="employer_userAccount_sub_div">   
+                    <li><label data-bind="text: employerFirstName"></label>  <label data-bind="    text: employerLastName"></label></li>
+                    <li><label data-bind="text: DepartmentName"></label>  <label data-bind="    text: location"></label>
+                    <a class="btn btn-red" style="float:right;" href="" data-bind = "click: $parent.deleteEmployer" >Delete</a>
+                     <a class="butnLightGrey butnLightGrey-ltgray" style="padding: 18px 27px;" href="" data-bind = "click: $parent.editEmployer">Edit</a>            
+                    </li>
+                    <li><label>Permissions:</label>  <label data-bind="    text: PermissionName"></label></li>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: isEditEmployer() == '1' -->
+                <div class="add_div">
+                    <section data-bind="template: { name: 'AddEmployer' }"></section>    
+                </div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+
+<div data-bind="visible: employerListMarketting().length > 0">
+    <div class="Category" style="margin-bottom:10px;border-style:solid; border-width:1px;border-color:#E0E0E0;width:859px;padding-top:10px; ">
+        <!-- ko if: employerListOperations --><label class="myInformation_WorkHistory_Label" >Marketting</label><!-- /ko -->
+        <!-- ko if: btnMarketing() == '+' -->
+            <a href="" data-bind="click: expandMarketing, value: btnMarketing"><i class="fa fa-plus-circle fa-2x" style="margin-left:725px;"></i></a>
+         <!-- /ko -->
+        <!-- ko if: btnMarketing() == '-' -->
+                <a href="" data-bind="click: expandMarketing, value: btnMarketing"><i class="fa fa-minus-circle fa-2x" style="margin-left:725px;"></i></a>
+            <!-- /ko -->
+         <!-- ko if: btnMarketing() == '-' -->
+        <div  data-bind="foreach: employerListMarketting">
+            <!-- ko if: isEditEmployer() == '0' -->
+            <div class="employer_userAccount_main_div">
+                <div class="employer_userAccount_sub_div">   
+                    <li><label data-bind="text: employerFirstName"></label>  <label data-bind="    text: employerLastName"></label></li>
+                    <li><label data-bind="text: DepartmentName"></label>  <label data-bind="    text: location"></label>
+                    <a class="btn btn-red" style="float:right;" href="" data-bind = "click: $parent.deleteEmployer" >Delete</a>
+                     <a class="butnLightGrey butnLightGrey-ltgray" style="padding: 18px 27px;" href="" data-bind = "click: $parent.editEmployer">Edit</a>            
+                    </li>
+                    <li><label>Permissions:</label>  <label data-bind="    text: PermissionName"></label></li>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: isEditEmployer() == '1' -->
+                <div class="add_div">
+                    <section data-bind="template: { name: 'AddEmployer' }"></section>    
+                </div>
+            <!-- /ko -->
+        </div>
+         <!-- /ko -->
+    </div>
+</div>

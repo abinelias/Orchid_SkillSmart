@@ -1,5 +1,9 @@
 ﻿var viewModel = {}
+
 $(document).ready(function () {
+    if (app.loggedIn()) { alert("123"); }
+   // if (!app.loggedIn()) { window.location = "Account.html"; }
+
     (function (ko, $) {
 
         if (typeof (ko) === undefined) { throw 'Knockout is required, please ensure it is loaded before loading this plug-in'; }

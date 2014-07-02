@@ -15,9 +15,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all jobseeker work history
         /// </summary>
         /// <returns>List of all work history of jobseeker</returns>
-        public IEnumerable<JobsList> GetAllJobs()
+        public IEnumerable<JobsList> GetAllJobs(String companyId)
         {
-            return ServiceFactory.GetJobsList().GetAll();
+            return ServiceFactory.GetJobsList().GetAll(companyId);
         }
 
         /// <summary>
@@ -38,10 +38,23 @@ namespace SkillSmartWebAPI.Controllers
         {
 
             ServiceFactory.GetJobsList().Create(jobSeekerWorkHistoryObj);
-                return jobSeekerWorkHistoryObj.Id.ToString();
+            return jobSeekerWorkHistoryObj.Id.ToString();
         }
 
-
+        /// <summary>
+        /// To update work history details of the jobseeker
+        /// </summary>
+        /// <param name="id">WorkHistoryId</param>
+        /// <param name="jobSeekerWorkHistoryObj">WorkHistoryObject</param>
+        public void Put(string id, JobsList jobSeekerWorkHistoryObj)
+        {
+            try
+            {
+                jobSeekerWorkHistoryObj.Id = new Guid(id);
+                ServiceFactory.GetJobsList().Update(jobSeekerWorkHistoryObj);
+            }
+            catch (Exception exp) { }
+        }
 
         public HttpResponseMessage Options()
         {

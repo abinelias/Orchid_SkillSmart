@@ -14,29 +14,34 @@ namespace SkillSmart.Dto
         public string CompanyId { get; set; }
 
         /// <summary>
-        /// JobseekerId
+        /// FirstName
         /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
-        /// EmployerId
+        /// LastNmae
         /// </summary>
         public string LastNmae { get; set; }
 
         /// <summary>
-        /// JobId
+        /// Email
         /// </summary>
         public string Email { get; set; }
 
         /// <summary>
-        /// Subject
+        /// Password
         /// </summary>
         public string Password { get; set; }
 
         /// <summary>
-        /// Message
+        /// Permission
         /// </summary>
         public string Permission { get; set; }
+
+        /// <summary>
+        /// Department
+        /// </summary>
+        public string Department { get; set; }
 
     }
 }

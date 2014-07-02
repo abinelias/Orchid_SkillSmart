@@ -1,0 +1,92 @@
+﻿<div class="add_div">
+    <ul>
+        <li  class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_myinformation_innerli'><label>Payment Method<sup>*</sup></label></li>
+            </ul>
+        </li>
+         <li class='jobseeker_registration_outerli'>
+             <ul class='jobseeker_registration_ul'>
+                 <li class='jobseeker_additionalinformation_preferredmethod_innerli'><input type='radio' name='payment' value='creditCard' class='payment' data-bind='    checked: payment'/>Credit Card</li>
+                 <li class='jobseeker_additionalinformation_preferredmethod_innerli'><input type='radio' name='payment' value='invoice' class='payment' data-bind='    checked: payment'/>Invoice</li>
+             </ul>
+         </li>
+         <li class='jobseeker_registration_outerli'>
+             <ul class='jobseeker_registration_ul'>
+                 <li  class='jobseeker_myinformation_innerli'><label>Credit Card Details</label></li></ul></li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_liwidth'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexCredit, data: dataCredit, }" /></li>
+            </ul>
+        </li>
+       <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><label>Name on Card<sup>*</sup></label></li>
+                <li class='jobseeker_myinformation_innerli'><label>Business Name</label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><input type='text'  placeholder='Name on Card'  data-bind='wijtextbox: {}, value: cardName' /></li>
+                <li class='jobseeker_myinformation_innerli'><input type='text'  placeholder='Business Name'  data-bind='wijtextbox: {}, value: businessName' /></li>
+            </ul>
+        </li>               
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul' >
+                <li  class='jobseeker_additionalinformation_innerli'><label>Card Number<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Expire Date<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Security Code<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type='text'  placeholder='Card Number'  data-bind='wijtextbox: {}, value: cardNumber'/></li>
+                <li  class='jobseeker_myinformation_innerli'><input type="text"   data-bind="wijinputdate: { date: expireDate, showTrigger: true }" /></li>
+                <li  class='jobseeker_myinformation_innerli'><input type='text'  placeholder='Security Code'  data-bind='wijtextbox: {}, value: securityCode'/></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Street Address<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Address 2<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='address-line1' placeholder='Street Address'  data-bind='wijtextbox: {}, value: addressline1' /></li>
+                <li  class='jobseeker_myinformation_innerli'><input type='text' id='address-line2' placeholder='AddressLine2'  data-bind='wijtextbox: {}, value: addressline2' /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul' >
+                <li  class='jobseeker_additionalinformation_innerli'><label>City<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Country<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>State<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='Text1' placeholder='City'  data-bind='wijtextbox: {}, value: city'/></li>
+                <li  class='jobseeker_myinformation_innerli'><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexCountry, data: dataCountry }" />                    
+                </li>
+                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexState, data: dataState }" /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Zip<sup>*</sup></label></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='zip' placeholder='Zip'  maxlength='5' data-bind='wijtextbox: {}, value: zip' /></li>                
+            </ul>
+        </li>
+        <li class="jobseeker_additionalinformation_city_outerli">
+            <ul class="jobseeker_additionalinformation_city_ul" >
+                 <li ><a class="btn btn-blue first" href="" data-bind='    click: savePayment'>Save</a></li>
+                <li ><a class="btn btn-ltgray" href="" data-bind='    click: cancelPayment'>Cancel</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

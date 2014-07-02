@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>My Account</title>
+    <script src="/Scripts/Common.js"></script>
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+    <script src="/Scripts/Employer/AddJob.js"></script>
+      
+    <link href="/Content/skillsmart.css" rel="stylesheet" />
+    <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
+    <link href="/Content/common.css" rel="stylesheet" />
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+    <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- Wijmo CSS and script -->
+    <link type="text/css" href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" title="metro-jqueryui" />
+    
+
+    <!--Wijmo Widgets CSS-->
+    <link href="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.css" rel="stylesheet"
+        type="text/css" />
+    <!--Wijmo Widgets JavaScript-->
+    <script src="http://cdn.wijmo.com/jquery.wijmo-open.all.2.3.5.min.js" type="text/javascript"></script>
+    <script src="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.js" type="text/javascript"></script>
+
+        <!-- Multi-select widget (not Wijmo control)-->
+    <script src="/Scripts/jquery.multiselect.js"></script>
+    <link href="/Content/jquery.multiselect.css" rel="stylesheet" />
+
+    <!-- KnockoutJS for MVVM-->
+    <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout-2.0.0.js"></script>
+    <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout.wijmo.js"></script>    
+     
+</head>
+<body>
+    <ul>
+   
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Job Title</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <input type="text" id="awards-title" placeholder="Award Title"  data-bind= "value: jobPosition" />
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Job Description</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+                <input type="text" id="organization" placeholder="Organization"  data-bind= "value: jobDescription" />
+            </li>
+        </ul>
+    </li>
+   
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Job Salary</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"><select   data-bind=" options: $root.jobSalary, optionsText: 'name', optionsValue: 'id', selectedOptions: salaryId"></select>
+             </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Work Type</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"><select  data-bind=" options: $root.WorkType, optionsText: 'name', optionsValue: 'id', selectedOptions: WorkTypeId"></select></li>
+        </ul>
+    </li>
+
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Job Open Date</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+                <input type="text" id="Text2" placeholder="Organization"  data-bind="    wijinputdate: { date: jobOpenDate, showTrigger: true }" />
+            </li>
+        </ul>
+    </li>
+        <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Job Close Date</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+                <input type="text" id="Text6" placeholder="Organization"  data-bind="    wijinputdate: { date: jobCloseDate, showTrigger: true }"   />
+            </li>
+        </ul>
+    </li>
+    
+    
+
+    
+
+    <li class="jobseeker_additionalinformation_city_outerli">
+        <ul class="jobseeker_additionalinformation_city_ul" >
+            <li  ><a class="btn btn-blue first" href="" data-bind = "click: saveJob" >Save</a></li>
+        </ul>
+    </li>
+    
+</ul>
+</body>
+</html>

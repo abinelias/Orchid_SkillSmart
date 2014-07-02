@@ -1662,7 +1662,7 @@ box-shadow: 0px 0px 0px 0px rgba(255,255,255,0);
 .wijmo-wijmenu {
 	width: 150px;
 	padding: 0.3em;
-	position: relative;
+	position: absolute;
 }
 .wijmo-wijmenu .wijmo-wijsuperpanel {
 	border: none;
@@ -1708,7 +1708,7 @@ box-shadow: 0px 0px 0px 0px rgba(255,255,255,0);
 	font-weight: 400;
 	border: solid 1px transparent;
 	float: left;
-	line-height: 16px;
+	line-height: 1px;
 	padding: 0.3em;
 }
 .wijmo-wijmenu-horizontal {

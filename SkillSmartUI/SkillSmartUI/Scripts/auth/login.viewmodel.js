@@ -39,7 +39,6 @@
 
   // Operations
   self.login = function () {
-      console.log('hello world');
     self.errors.removeAll();
 
     if (self.validationErrors().length > 0) {

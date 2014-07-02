@@ -3,6 +3,7 @@ using MongoDB.Driver.Builders;
 using SkillSmart.Base.Services;
 using SkillSmart.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using MongoDB.Driver.Linq;
 namespace SkillSmartMongoDA.Services
 {
@@ -20,16 +21,13 @@ namespace SkillSmartMongoDA.Services
         /// <returns>List of work history details of the jobseeker</returns>
         public IEnumerable<SkillSmart.Dto.WorkHistory> GetJobSeekerWorkHistoryById(string id)
         {
-            var jobSeekerWorkHistoryList = this.MongoCollection.FindAllAs<WorkHistory>();
+            var jobSeekerWorkHistoryList = this.MongoCollection.AsQueryable<WorkHistory>().Where(e => e.JobSeekerId == id);
 
             List<SkillSmart.Dto.WorkHistory> jobSeekerWorkHostory = new List<SkillSmart.Dto.WorkHistory>();
             foreach (WorkHistory jobSeeker in jobSeekerWorkHistoryList)
             {
-                if (jobSeeker.JobSeekerId == id)
-                {
-                    SkillSmart.Dto.WorkHistory jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.WorkHistory, SkillSmart.Dto.WorkHistory>(jobSeeker);
-                    jobSeekerWorkHostory.Add(jobSeekerObj);
-                }
+                SkillSmart.Dto.WorkHistory jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.WorkHistory, SkillSmart.Dto.WorkHistory>(jobSeeker);
+                jobSeekerWorkHostory.Add(jobSeekerObj);
             }
             return jobSeekerWorkHostory;
         }

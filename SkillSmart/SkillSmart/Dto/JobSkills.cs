@@ -33,6 +33,9 @@ namespace SkillSmart.Dto
         /// </summary>
         public int SkillExperience { get; set; }
 
-
+        /// <summary>
+        /// Required
+        /// </summary>
+        public int Required { get; set; }
     }
 }

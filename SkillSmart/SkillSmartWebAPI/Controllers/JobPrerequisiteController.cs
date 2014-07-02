@@ -15,9 +15,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all jobseeker work history
         /// </summary>
         /// <returns>List of all work history of jobseeker</returns>
-        public IEnumerable<JobPrerequisite> GetAllJobsPrerequisite()
+        public IEnumerable<JobPrerequisite> GetAllJobsPrerequisite(String jobId)
         {
-            return ServiceFactory.GetJobPrerequisite().GetAll();
+            return ServiceFactory.GetJobPrerequisite().GetAll(jobId);
         }
 
         /// <summary>
@@ -34,11 +34,23 @@ namespace SkillSmartWebAPI.Controllers
         /// To create a new work history details
         /// </summary>
         /// <param name="jobSeekerWorkHistoryObj">WorkHistory object</param>
-        public string Post(JobPrerequisite jobSkillsyObj)
+        public void Post(JobPrerequisite jobPrerequisiteObj)
         {
+            try
+            {
+                string prerequisiteId = jobPrerequisiteObj.PrerequisiteTypeId;
+                string[] prerequisiteList = prerequisiteId.Split(',');
 
-            ServiceFactory.GetJobPrerequisite().Create(jobSkillsyObj);
-            return jobSkillsyObj.Id.ToString();
+                for (int i = 0; i < prerequisiteList.Length; i++)
+                {
+                    jobPrerequisiteObj.JobId = jobPrerequisiteObj.JobId;
+                    jobPrerequisiteObj.Required = jobPrerequisiteObj.Required;
+                    jobPrerequisiteObj.PrerequisiteTypeId = prerequisiteList[i];
+                    ServiceFactory.GetJobPrerequisite().Create(jobPrerequisiteObj);
+                }
+
+            }
+            catch (Exception ex) { }
         }
 
         public void Put(string id, JobPrerequisite jobSkillsyObj)
@@ -49,6 +61,17 @@ namespace SkillSmartWebAPI.Controllers
                 ServiceFactory.GetJobPrerequisite().Update(jobSkillsyObj);
             }
             catch (Exception exp) { }
+        }
+
+        /// <summary>
+        /// To delete a particular work history details of the jobseeker
+        /// </summary>
+        /// <param name="id">WorkHistoryId</param>
+        public void Delete(string id)
+        {
+            IJobPrerequisiteService<JobPrerequisite> JobPrerequisiteService = ServiceFactory.GetJobPrerequisite();
+            var JobPrerequisite = JobPrerequisiteService.GetById(id);
+            JobPrerequisiteService.Delete(JobPrerequisite);
         }
 
         public HttpResponseMessage Options()

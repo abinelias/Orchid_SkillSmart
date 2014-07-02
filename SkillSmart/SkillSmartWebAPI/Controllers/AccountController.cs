@@ -92,7 +92,7 @@ namespace SkillSmartWebAPI.Controllers
           // Retrieve user name from the 
           SkillsmartUser user = UserManager.FindByName(userEmail);
           fname = user.Claims.First(c => c.ClaimType == SkillsmartUser.FirstName).ClaimValue;
-          lname = "jose"; //user.Claims.First(c => c.ClaimType == SkillsmartUser.LastName).ClaimValue;
+          lname = user.Claims.First(c => c.ClaimType == SkillsmartUser.LastName).ClaimValue;
         }
       }
 

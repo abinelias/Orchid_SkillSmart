@@ -1,10 +1,13 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-
+using System;
+using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
 namespace SkillSmartMongoDA.Entities
 {
     [BsonIgnoreExtraElements]
     public class JobsList : MongoEntity
     {
+
         /// <summary>
         /// JobPosition
         /// </summary>
@@ -39,19 +42,19 @@ namespace SkillSmartMongoDA.Entities
         /// JobViews
         /// </summary>
         [BsonElement("JobViews")]
-        public string JobViews { get; set; }
+        public int JobViews { get; set; }
 
         /// <summary>
         /// ApplicantsNumber
         /// </summary>
         [BsonElement("ApplicantsNumber")]
-        public string ApplicantsNumber { get; set; }
+        public int ApplicantsNumber { get; set; }
 
         /// <summary>
         /// ApplicantAverage
         /// </summary>
         [BsonElement("ApplicantAverage")]
-        public string ApplicantAverage { get; set; }
+        public int ApplicantAverage { get; set; }
 
         /// <summary>
         /// JobSalary
@@ -70,5 +73,30 @@ namespace SkillSmartMongoDA.Entities
         /// </summary>
         [BsonElement("JobDescription")]
         public string JobDescription { get; set; }
+
+        /// <summary>
+        /// StartDate
+        /// </summary>
+        [BsonElement("StartDate")]
+        public DateTime StartDate { get; set; }
+
+        /// <summary>
+        /// EndDate
+        /// </summary>
+        [BsonElement("EndDate")]
+        public DateTime EndDate { get; set; }
+
+        /// <summary>
+        /// NoOfOpenings
+        /// </summary>
+        [BsonElement("NoOfOpenings")]
+        public int NoOfOpenings { get; set; }
+
+        /// <summary>
+        /// PublishId
+        /// </summary>
+        [BsonElement("PublishId")]
+        public int PublishId { get; set; }
+
     }
 }

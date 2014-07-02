@@ -425,5 +425,122 @@ namespace SkillSmartData.Factory
             }
             return serviceObj;
         }
+
+        public static IJobViewsService<JobViews> GetJobViews()
+        {
+            IJobViewsService<JobViews> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new JobViewsService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new JobViewsService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IJobPermissionService<JobPermission> GetJobPermission()
+        {
+            IJobPermissionService<JobPermission> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new JobPermissionService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new JobPermissionService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IGetJobSeekerSkillsListWithSkillIdService<JobSeekerSkillList> GetJobSeekerSkillsListWithSkillId()
+        {
+            IGetJobSeekerSkillsListWithSkillIdService<JobSeekerSkillList> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new GetJobSeekerSkillsWithSkillId(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new GetJobSeekerSkillsWithSkillId(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IGetJobSeekersWorkHistory<WorkHistory> GetJobSeekerWorkHistoryForId()
+        {
+            IGetJobSeekersWorkHistory<WorkHistory> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new GetJobSeekerWorkHistory(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new GetJobSeekerWorkHistory(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IGetJobSeekersOverview<Overview> GetJobSeekersOverview()
+        {
+            IGetJobSeekersOverview<Overview> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new GetJobSeekersOverviewService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new GetJobSeekersOverviewService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IGetJobSeekersTrainingCourse<TrainingCourse> GetJobSeekersTrainingCourse()
+        {
+            IGetJobSeekersTrainingCourse<TrainingCourse> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new GetJobSeekersTrainingCourse(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new GetJobSeekersTrainingCourse(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IGetJobSeekersEducation<Education> GetJobSeekersEducation()
+        {
+            IGetJobSeekersEducation<Education> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new GetJobSeekersEducation(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new GetJobSeekersEducation(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IGetJobSeekersCertification<Certification> GetJobSeekersCertification()
+        {
+            IGetJobSeekersCertification<Certification> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new GetJobSeekersCertification(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new GetJobSeekersCertification(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
+
+        public static IJobSeekerForJobService<JobSeekerAppliedJobs> GetJobSeekersListForJob()
+        {
+            IJobSeekerForJobService<JobSeekerAppliedJobs> serviceObj = null;
+            switch (sectionHandler.ConnectionStringName)
+            {
+                case DataBaseType.SKILLSMART_MONGO_DB: serviceObj = new JobSeekerForJobService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+                default: serviceObj = new JobSeekerForJobService(DatabaseFactory.CreateMongoDatabase());
+                    break;
+            }
+            return serviceObj;
+        }
     }
 }

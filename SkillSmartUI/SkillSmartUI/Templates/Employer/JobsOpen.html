@@ -1,0 +1,152 @@
+﻿<div>
+    <div class="Category" style="margin-bottom:10px;border-style:solid; border-width:1px;border-color:#E0E0E0;width:859px;padding-top:10px; ">
+   
+        <label class="myInformation_WorkHistory_Label"  >Open Jobs</label>
+         <!-- ko if: btnOpenJobs() == '+' -->
+            <a href="" data-bind="click: expandOpenJobs, value: btnOpenJobs"><i class="fa fa-plus-circle fa-2x" style="margin-left:670px;"></i></a>
+         <!-- /ko -->
+        <!-- ko if: btnOpenJobs() == '-' -->
+                <a href="" data-bind="click: expandOpenJobs, value: btnOpenJobs"><i class="fa fa-minus-circle fa-2x" style="margin-left:670px;"></i></a>
+        <!-- /ko -->
+        <!-- ko if: btnOpenJobs() == '-' -->
+        
+         <div  data-bind="foreach: openJobs">
+            
+                <div class="employer_userAccount_main_div">
+                    <div class="employer_userAccount_sub_div">   
+                        <!-- ko if: editJobsCheck() == '0' -->
+                        <li><label data-bind="text: jobPosition"></label> </li> <a class="btnGrey butn-lightGrey" style="float:right;" href="" data-bind = "    click: $root.editJobs" >Edit</a>
+                        <li><label data-bind="text: companyName"></label>, <label data-bind="    text: city"></label> </li>
+                        <li><label>Posted: </label><label data-bind="text: postedDate"></label>  <label> | Views:</label><label data-bind="    text: jobViews"></label></li>
+                        <!-- /ko -->
+                         <!-- ko if: editJobsCheck() == '1' -->        
+                         <section class="common_background"  data-bind="template: { name: 'EditFormJobs' }">
+                        </section>  
+                        <!-- /ko -->
+                        <hr size="1" />
+                        <label class="myInformation_WorkHistory_Label"  >Details</label>
+                         <!-- ko if: btnJobDetails() == '+' -->
+                            <a href="" data-bind="click: $root.expandJobDetails, value: btnJobDetails"><i class="fa fa-plus-circle fa-2x" style="margin-left:670px;"></i></a>
+                         <!-- /ko -->
+                        <!-- ko if: btnJobDetails() == '-' -->
+                                <a href="" data-bind="click: $root.expandJobDetails, value: btnJobDetails"><i class="fa fa-minus-circle fa-2x" style="margin-left:670px;"></i></a>
+                        <!-- /ko -->
+                        <!-- ko if: btnJobDetails() == '-' -->
+                           <div data-bind="foreach: prerequisiteArray">
+                               <!-- ko if: prerequisiteCheck() == '0' -->
+                               <div class="employer_userAccount_main_div" style="width:795px;">
+                                <div class="employer_userAccount_sub_div" style="padding:10px;"> 
+                                    <li class="jobseeker_myinformation_language_list_inner_li" data-bind="text: prerequisiteName"></li></br></br>
+                                        <li data-bind="text: prerequisiteTypeName"></li>
+
+                                        <li style="padding-top:10px;padding-bottom:23px;"><a class="btnGrey butn-lightGrey" href=""  data-bind="click: $root.editJobPrerequisiteDetails"><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a></li>
+                                        <hr size="1"  width="99%"/>
+                                        
+
+                                    </div>
+                               </div>
+                               <!-- /ko -->
+                               <!-- ko if: prerequisiteCheck() == '1' -->
+                                <div class="add_div" data-bind="template: { name: 'EditFormPrerequisites' }">
+                                </div>
+                               <li class="jobseeker_additionalinformation_city_outerli">
+                                    <ul class="jobseeker_additionalinformation_city_ul" >
+                                        <li><a class="btn btn-blue first" href="" data-bind = "click: $root.savePrerequisitesList" >Save</a></li>
+                                        <li><a class="btn btn-ltgray" href="" data-bind = "click: $root.cancelPrerequisitesList">Cancel</a></li>
+                                        <li><a class="btn btn-red" style="float:right;" href="" data-bind = "click: $root.deletePrerequisitesList" >Delete</a></li>
+                                    </ul>
+                                </li>
+                               <!-- /ko -->
+                           </div>  
+                        <div data-bind="foreach: skillArray">
+                            <div class="employer_userAccount_main_div" style="width:795px;">
+                                <div class="employer_userAccount_sub_div" style="padding:10px;">   
+                                    <li>Speciality <label data-bind="text: specialityName"></label></li>
+                                    <!-- ko if: btnSkillList() == '+' --> 
+                                     <ul>       
+                                        <li>
+                                            <div class="skill_Slider">                  
+                                                <label style="margin-left:10px;" data-bind="text: skillname"></label>                 
+                                                <a href  data-bind="    click: $root.expandJobSkillDetails"><i class="fa fa-chevron-down"></i></a>                  
+                                                <a href=""  data-bind=" click: $root.deleteJobSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a>                            
+                                                <a href="" data-bind=" click: $root.expandJobSkillDetails"> <i style="float:right;padding-left:7px;" class="fa fa-pencil"></i></a>
+                
+                                                <hr size="1" width="95%" /> 
+                                                <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:98%"></div>
+                                                <div style="padding-top:2%;">
+                                                <span style="padding-right:6%;padding-left:3%">0</span><span class="spanNumber">1</span><span class="spanNumber">2</span><span class="spanNumber">3</span><span class="spanNumber">4</span><span class="spanNumber">5</span><span class="spanNumber">6</span><span class="spanNumber">7</span><span class="spanNumber">8</span><span style="padding-right:3%">9</span><span>10</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                     </ul>
+                                    <!-- /ko --> 
+                                    <br /><br />
+                                    <!-- ko if: btnSkillList() == '-' -->
+                                    <br /><br />
+                                    <div class="employer_editForm_Skilldiv">
+                                   
+                                        <ul>       
+                                            <li>
+                                                <div>                  
+                                                    <label style="margin-left:10px;" data-bind="text: skillname"></label>
+                                                    <a href  data-bind="    click: $root.expandJobSkillDetails"><i class="fa fa-chevron-down"></i></a>
+                                                    <a href=""  data-bind=" click: $root.deleteJobSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a> 
+                                                    <hr size="1" width="98%" />
+                                                     <div> 
+                                                         <ul>
+                                                             <li style="float:left;"><label>Required Proficiency</label></li>
+                                                             <li style="margin-left:205px; width:150px;float:left;"><label>Experience</label></li>
+                                                             <li  width:150px;float:left;"><label>Importance</label></li>
+                                                         </ul>
+                                                     </div>
+                                                    <div  style="width:40%;float:left;">
+                                                        <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:91%"></div>
+                                                        <div style="padding-top:2%;">
+                                                            <span style="padding-right:6%;padding-left:3%">0</span><span class="spanNumber">1</span><span class="spanNumber">2</span><span class="spanNumber">3</span><span class="spanNumber">4</span><span class="spanNumber">5</span><span class="spanNumber">6</span><span class="spanNumber">7</span><span class="spanNumber">8</span><span style="padding-right:3%">9</span><span>10</span>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                    <div style="margin-left:40%;">
+                                                       <ul>                                            
+                                                             <li style=" width:150px;float:left;"><select class="jobseeker_myinformation_select" data-bind="options: $root.jobexperience, optionsText: 'name', optionsValue: 'id', value: skillExperience"></select></li>
+                                                             <li style=" width:150px;float:left;"><select class="jobseeker_myinformation_select" data-bind="options: $root.jobimportance, optionsText: 'name', optionsValue: 'id', value: skillImportance"></select></li>
+                                                         </ul>
+                                                    </div>
+                                                    <ul>
+                                                        <li  class='jobseeker_registration_outerli'>
+                                                            <ul class='jobseeker_registration_ul'>
+                                                                <li class='jobseeker_myinformation_innerli'>
+                                                                    <input type='radio'  value='required'  data-bind='checked: requiredSkill'/>This Skill is required
+                                                                </li>
+                                                            </ul>
+                                                        </li>    
+                                                        <li class="jobseeker_additionalinformation_city_outerli">
+                                                        <ul class="jobseeker_additionalinformation_city_ul" >
+                                                            <li><a class="btn btn-blue first" href="" data-bind = "click: $root.saveJobSkillDetails" >Save</a></li>
+                                                            <li><a class="btn btn-ltgray" href="" data-bind = "click: $root.cancelJobSkillDetails">Cancel</a></li>
+                                       
+                                                        </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                
+                                            </li>
+                                        </ul>
+                                    
+                                </div>
+                                    <!-- /ko --> 
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                         <hr size="1"/>
+                    </div>
+                </div>
+                
+          
+            </div>
+        <!-- /ko -->
+        
+
+    </div>
+</div>

@@ -14,7 +14,8 @@ namespace SkillSmartWebAPI.Controllers
 
         public IEnumerable<SkillSmart.Dto.ListJobSkills> GetAll()
         {
-            var alljobSkills = ServiceFactory.GetJobSkills().GetAll();
+            var jobId = "";
+            var alljobSkills = ServiceFactory.GetJobSkills().GetAll(jobId);
             var allSkillList = ServiceFactory.GetSkill().GetAll();
             var allSkillMap = ServiceFactory.GetSkillMap().GetAllSkillMap();
 

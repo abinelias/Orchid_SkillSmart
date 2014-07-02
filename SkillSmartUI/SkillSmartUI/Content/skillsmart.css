@@ -134,7 +134,7 @@ section.box a.first {
 }
 
 #nav {
-	width: 75%;
+	width: 74%;
 	display: block;
 	float: left;
 }
@@ -170,7 +170,7 @@ section.box a.first {
 
 #welcome {
 	background: none repeat scroll 0 0 #edf2f4;
-	width: 25%; 
+	width: 26%; 
 	display: block;
 	float: right;
 }
@@ -203,7 +203,7 @@ section.box a.first {
 	line-height: 18px;
 	padding: 21px 21px 21px 0;
 	vertical-align: bottom;
-	width: 45%;
+	width: 46%;
 }
 
 .welcome-text {

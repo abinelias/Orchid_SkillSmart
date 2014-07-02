@@ -1,0 +1,128 @@
+﻿<div class='common_background'>
+    <div class="add_div">
+        <label>Create Position from Scratch</label>
+    <ul>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><label>Company Name/Organization Name<sup>*</sup></label></li>
+                <li class='jobseeker_myinformation_innerli'><label>Office/Branch Name</label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><input type='text'  placeholder='Business Name'  data-bind='wijtextbox: {}, value: companyName' /></li>
+                <li class='jobseeker_myinformation_innerli'><input type='text'  placeholder='Branch'  data-bind='wijtextbox: {}, value: branch' /></li>
+            </ul>
+        </li>       
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Street Address<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Address 2<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='address-line1' placeholder='Street Address'  data-bind='wijtextbox: {}, value: streetAddress' /></li>
+                <li  class='jobseeker_myinformation_innerli'><input type='text' id='address-line2' placeholder='AddressLine2'  data-bind='wijtextbox: {}, value: location' /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul' >
+                <li  class='jobseeker_additionalinformation_innerli'><label>City<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Country<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>State<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='city' placeholder='City'  data-bind='wijtextbox: {}, value: Maincity'/></li>
+                <li  class='jobseeker_myinformation_innerli'><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexCountry, data: dataCountry }" />                    
+                </li>
+                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexState, data: dataState }" /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Zip<sup>*</sup></label></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type='text' id='zip' placeholder='Zip'  maxlength='5' data-bind='wijtextbox: {}, value: zipCode' /></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul' >
+                <li  class='jobseeker_additionalinformation_innerli'><label>Sector<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Industry<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Employer Size<sup>*</sup></label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexSector, data: dataSector }" /></li>
+                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexIndustry, data: dataIndustry }" /></li>                
+                <li  class='jobseeker_myinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexEmployerSize, data: dataEmployerSize }" /></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Job Title<sup>*</sup></label></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input type="text" placeholder='Job Title'   data-bind='wijtextbox: {}, value: jobPosition' /></li>                
+            </ul>
+        </li>  
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Job Description<sup>*</sup></label></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><textarea placeholder='Job Description'   data-bind='wijtextbox: {}, value: jobDescription' ></textarea></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><label>Job Type<sup>*</sup></label></li>                
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input style="width:80px;" data-bind="wijcombobox: { selectedIndex: selectedIndexWorkType, data: dataWorkType }" /></li>                
+            </ul>
+        </li>   
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul' >
+                <li  class='jobseeker_additionalinformation_innerli'><label>Salary<sup>*</sup></label></li>
+                <li  class='jobseeker_myinformation_innerli'><label>Number Of Openings<sup>*</sup></label></li>
+               
+            </ul>
+        </li>
+        <li class='jobseeker_additionalinformation_city_outerli'>
+            <ul class='jobseeker_additionalinformation_city_ul'>
+                <li  class='jobseeker_additionalinformation_innerli'><input  data-bind="wijcombobox: { selectedIndex: selectedIndexSalary, data: dataSalary }" /></li>
+                <li  class='jobseeker_myinformation_innerli'><input type="text" placeholder="Number of openings" data-bind="    wijinputnumber: { value: numberOfOpening, showSpinner: true, decimalPlaces: 0, minValue: 0, maxValue: 100, }"  /></li>
+            </ul>
+        </li> 
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><label>Open Date<sup>*</sup></label></li>
+                <li class='jobseeker_myinformation_innerli'><label>Close Date</label></li>
+            </ul>
+        </li>
+        <li class='jobseeker_registration_outerli'>
+            <ul class='jobseeker_registration_ul'>
+                <li class='jobseeker_additionalinformation_innerli'><input type="text" data-bind="    wijinputdate: { date: jobOpenDate, showTrigger: true }" /></li>
+                <li class='jobseeker_myinformation_innerli'><input type="text" data-bind="    wijinputdate: { date: jobCloseDate, showTrigger: true }"   /></li>
+            </ul>
+        </li>
+
+         
+                      
+    </ul>
+    </div>
+</div>

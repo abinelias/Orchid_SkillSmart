@@ -1,7 +1,7 @@
 ﻿<div>
     <div id='Message' class='jobsApplied' >
         <div class="jobseeker_myinformation_list_tab_sub_div" data-bind="foreach: savedJobs">
-            <li style="float:right"><label class="post-stat">Date Applied:</label><label  class="post-stat-value" data-bind="text: dateApplied"></label><label class="post-stat">Status:</label><label  class="post-stat-value last" data-bind="    text: jobStatus"></label><div class="skill_Score"><div class="skill_Score_title">Skill Score</div><div class="skill_Score_value">72</div></div></li>
+            <li style="float:right"><label class="post-stat">Date Applied:</label><label  class="post-stat-value" data-bind="text: dateApplied"></label><label class="post-stat">Status:</label><label  class="post-stat-value last" data-bind="    text: jobStatus"></label><div class="skill_Score"><div class="skill_Score_title">Skill Score</div><div class="skill_Score_value" data-bind="    text: totalSkillScore"></div></div></li>
             <li><label class="jobseeker_MessageEmployer" data-bind="text: jobPosition"></label></li>     
                                            
             <li><label class="jobseeker_MessagePosition" data-bind="text: employerName"></label> , <label class="jobseeker_MessagePosition" data-bind="    text: companyLocation"></label></li>

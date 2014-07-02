@@ -1,17 +1,29 @@
-﻿<div id="wrapHeader">
+﻿
+	<script id="scriptInit" type="text/javascript">
+
+	    $(document).ready(function () {
+	        $(".flyoutmenu").wijmenu();
+
+
+	    });
+
+</script>
+
+<div id="wrapHeader">
   <div id="header">
     <div id="wrapLogo">
       <div class="logo">
         <img src="/images/ss-logo.png" />
       </div>
     </div>
+      
     <div id="wrapNav">
       <div id="nav">
         <ul class="menu">
-          <li><a href="AccountInformation.html">My Account</a></li>
+          
           <li><a href="MyJobsApplied.html">My Jobs</a></li>
           <li><a href="JobSeekerSkillList.html">My Skills</a></li>
-          <li><a href="MyInformtion.html">My Info</a></li>
+          <li><a href="#">My Course</a></li>
           <li class="last"><a href="AdvancedJobSearch.html">Search Jobs</a></li>
         </ul>
       </div>
@@ -19,11 +31,22 @@
         <div id="profile-img">
           <img class="resize-fit-center" src="/images/avatar.jpg" />
         </div>
-        <div id="profile-text">
-          <span class="welcome-text">Welcome,</span>
-          <span class="user-name"><a href="Account.html" id="viewProfile" data-bind="text: firstname() + ' ' + lastname()"></a></span>
+        <div id="profile-text">           
+              
+              <ul class="flyoutmenu"><li><a href="#" ><span class="welcome-text"> Welcome</span></a>
+              <span id="menu_Name" class="user-name"><a href="Account.html" id="viewProfile" data-bind="text: firstname() + ' ' + lastname()"></a></span>             
+                   <ul style="background-color:black;" >
+                        <li><a href="MyInformtion.html">My Profile</a></li>
+                        <li><a href="AccountInformation.html">Account & Settings </a></li>
+                        <li><a href="JobSeekerMessages.html">Inbox</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#" >Sign Out</a></li>
+                    </ul>
+                </li></ul>                           
         </div>
       </div>
+
     </div>
+      
   </div>
 </div>

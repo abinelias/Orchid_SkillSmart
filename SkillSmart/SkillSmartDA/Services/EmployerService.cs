@@ -17,7 +17,7 @@ namespace SkillSmartMongoDA.Services
         /// Function to get all jobseeker details
         /// </summary>
         /// <returns>List of jobseekers</returns>
-        public IEnumerable<SkillSmart.Dto.Employer> GetAll()
+        public IEnumerable<SkillSmart.Dto.Employer> GetAll(string companyId)
         {
             var employerList = this.MongoCollection.FindAllAs<Employer>(); //get all jobseekers
 
@@ -25,8 +25,11 @@ namespace SkillSmartMongoDA.Services
             List<SkillSmart.Dto.Employer> employerCursor = new List<SkillSmart.Dto.Employer>();
             foreach (Employer employer in employerList)
             {
-                SkillSmart.Dto.Employer employerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.Employer, SkillSmart.Dto.Employer>(employer);
-                employerCursor.Add(employerObj);
+                if (employer.CompanyId == companyId)
+                {
+                    SkillSmart.Dto.Employer employerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.Employer, SkillSmart.Dto.Employer>(employer);
+                    employerCursor.Add(employerObj);
+                }
             }
             return employerCursor;
         }

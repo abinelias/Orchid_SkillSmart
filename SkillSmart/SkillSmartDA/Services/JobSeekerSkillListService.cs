@@ -3,6 +3,7 @@ using MongoDB.Driver.Builders;
 using SkillSmart.Base.Services;
 using SkillSmart.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using MongoDB.Driver.Linq;
 namespace SkillSmartMongoDA.Services
 {
@@ -20,9 +21,9 @@ namespace SkillSmartMongoDA.Services
         /// <returns>JobseekerSkill Object</returns>
         public IEnumerable<SkillSmart.Dto.JobSeekerSkillList> GetAllJobseekerListById(string id)
         {
-            var jobSeekerWorkSkillListList = this.MongoCollection.FindAllAs<JobSeekerSkillList>();
-
             List<SkillSmart.Dto.JobSeekerSkillList> jobSeekerWorkHostory = new List<SkillSmart.Dto.JobSeekerSkillList>();
+
+            var jobSeekerWorkSkillListList = this.MongoCollection.AsQueryable<JobSeekerSkillList>().Where(e => e.JobSeekerId == id);
             foreach (JobSeekerSkillList jobSeeker in jobSeekerWorkSkillListList)
             {
                 if (jobSeeker.JobSeekerId == id)
@@ -31,6 +32,7 @@ namespace SkillSmartMongoDA.Services
                     jobSeekerWorkHostory.Add(jobSeekerObj);
                 }
             }
+            
             return jobSeekerWorkHostory;
         }
 

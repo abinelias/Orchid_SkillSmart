@@ -11,6 +11,12 @@ namespace SkillSmartMongoDA.Entities
         [BsonElement("CompanyName")]
         public string CompanyName { get; set; }
 
+        /// <summary>
+        /// CompanyBranch
+        /// </summary>
+        [BsonElement("CompanyBranch")]
+        public string CompanyBranch { get; set; }
+
 
         /// <summary>
         /// StreetAddress
@@ -41,7 +47,7 @@ namespace SkillSmartMongoDA.Entities
         /// Zip
         /// </summary>
         [BsonElement("Zip")]
-        public string Zip { get; set; }
+        public int Zip { get; set; }
 
         /// <summary>
         /// Country

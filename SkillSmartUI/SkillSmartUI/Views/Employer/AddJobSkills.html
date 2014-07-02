@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>My Account</title>
+    <script src="/Scripts/Common.js"></script>
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+    <script src="/Scripts/Employer/AddJobSkills.js"></script>
+      
+    <link href="/Content/skillsmart.css" rel="stylesheet" />
+    <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
+    <link href="/Content/common.css" rel="stylesheet" />
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+
+     <!--jQuery References-->
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
+
+    <link type="text/css" href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" title="metro-jqueryui" />
+    <link href="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.css" rel="stylesheet"type="text/css" />
+    <script src="http://cdn.wijmo.com/jquery.wijmo-open.all.2.3.5.min.js" type="text/javascript"></script>
+    <script src="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.js" type="text/javascript"></script>
+
+    <!-- Multi-select widget (not Wijmo control)-->
+    <script src="/Scripts/jquery.multiselect.js"></script>
+    <link href="/Content/jquery.multiselect.css" rel="stylesheet" />
+
+    <!-- KnockoutJS for MVVM-->
+    <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout-2.0.0.js"></script>
+    <script type="text/javascript" src="http://cdn.wijmo.com/external/knockout.wijmo.js"></script>
+</head>
+<body>
+    <ul>
+   
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Select Job</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"><select   data-bind=" options: $root.Jobs, optionsText: 'name', optionsValue: 'id', value: JobId"></select></li>
+        </ul>
+    </li>
+   
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Industry</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"><select id="CategoryList"class="jobseeker_myinformation_select" data-bind="options: category, optionsText: 'name', optionsValue: 'id', value: selectedCategory"></select></li>
+        </ul>
+    </li>
+
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Competency</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"> <select id="SpecialityList" class="jobseeker_myinformation_select" data-bind="options: speciality, optionsText: 'name', optionsValue: 'id', value: selectedSpeciality"></select></li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Skills</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+                <select id="Select1" multiple="multiple" class="jobseeker_myinformation_select" data-bind="multiSelectCheck: true, options: $root.skill, optionsText: 'name', optionsValue: 'id', selectedOptions: selectedSkill"></select>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_additionalinformation_city_outerli">
+        <ul class="jobseeker_additionalinformation_city_ul" >
+            <li  ><a class="btn btn-blue first" href="" data-bind = "click: saveJobSkills" >Save</a></li>
+        </ul>
+    </li>
+    
+</ul>
+</body>
+</html>

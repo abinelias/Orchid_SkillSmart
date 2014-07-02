@@ -17,9 +17,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all jobseeker work history
         /// </summary>
         /// <returns>List of all work history of jobseeker</returns>
-        public IEnumerable<JobSkills> GetAllJobsSkills()
+        public IEnumerable<JobSkills> GetAllJobsSkills(String jobId)
         {
-            return ServiceFactory.GetJobSkills().GetAll();
+            return ServiceFactory.GetJobSkills().GetAll(jobId);
         }
 
         /// <summary>
@@ -36,13 +36,42 @@ namespace SkillSmartWebAPI.Controllers
         /// To create a new work history details
         /// </summary>
         /// <param name="jobSeekerWorkHistoryObj">WorkHistory object</param>
-        public string Post(JobSkills jobSeekerWorkHistoryObj)
+        public void Post(JobSkills jobSkillObj)
         {
+            try
+            {
+                string skillMapId = jobSkillObj.SkillMapId;
+                string[] skillMapIdList = skillMapId.Split(',');
 
-            ServiceFactory.GetJobSkills().Create(jobSeekerWorkHistoryObj);
-            return jobSeekerWorkHistoryObj.Id.ToString();
+                for (int i = 0; i < skillMapIdList.Length; i++)
+                {
+                    jobSkillObj.JobId = jobSkillObj.JobId;
+                    jobSkillObj.SkillScore = jobSkillObj.SkillScore;
+                    jobSkillObj.SkillImportance = jobSkillObj.SkillImportance;
+                    jobSkillObj.SkillExperience = jobSkillObj.SkillExperience;
+                    jobSkillObj.SkillMapId = skillMapIdList[i];
+                    ServiceFactory.GetJobSkills().Create(jobSkillObj);
+                }
+            }
+            catch (Exception ex) { }
         }
 
+        public void Put(string id, JobSkills jobSkillObj)
+        {
+            try
+            {
+                jobSkillObj.Id = new Guid(id);
+                ServiceFactory.GetJobSkills().Update(jobSkillObj);
+            }
+            catch (Exception exp) { }
+        }
+
+        public void Delete(string id)
+        {
+            IJobSkillsService<JobSkills> JobSkillsService = ServiceFactory.GetJobSkills();
+            var JobSkills = JobSkillsService.GetById(id);
+            JobSkillsService.Delete(JobSkills);
+        }
 
 
         public HttpResponseMessage Options()

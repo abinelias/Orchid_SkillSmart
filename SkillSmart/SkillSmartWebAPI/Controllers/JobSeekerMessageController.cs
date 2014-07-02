@@ -1,10 +1,12 @@
 ﻿using SkillSmart.Base.Services;
 using SkillSmart.Dto;
 using SkillSmartData.Factory;
+using SkillSmartWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 namespace SkillSmartWebAPI.Controllers
 {
@@ -15,9 +17,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all jobseeker work history
         /// </summary>
         /// <returns>List of all work history of jobseeker</returns>
-        public IEnumerable<JobSeekerMessage> GetAllJobSeekerMessages(String jobSeekerId)
+        public IEnumerable<JobSeekerMessage> GetAllJobSeekerMessages()
         {
-            return ServiceFactory.GetJobSekerMessages().GetAllJobSeekerMessages(jobSeekerId);
+            return ServiceFactory.GetJobSekerMessages().GetAllJobSeekerMessages(SkillsmartUser.GuidStr(HttpContext.Current.User));
         }
 
         /// <summary>
@@ -36,7 +38,7 @@ namespace SkillSmartWebAPI.Controllers
         /// <param name="jobSeekerWorkHistoryObj">WorkHistory object</param>
         public string Post(JobSeekerMessage jobSeekerWorkHistoryObj)
         {
-
+            jobSeekerWorkHistoryObj.JobSeekerId = SkillsmartUser.GuidStr(HttpContext.Current.User);
             ServiceFactory.GetJobSekerMessages().Create(jobSeekerWorkHistoryObj);
             return jobSeekerWorkHistoryObj.Id.ToString();
         }

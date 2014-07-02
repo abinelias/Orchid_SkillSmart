@@ -15,6 +15,12 @@ namespace SkillSmart.Dto
         public string CompanyName { get; set; }
 
         /// <summary>
+        /// CompanyBranch
+        /// </summary>
+        [Required(ErrorMessage = "CompanyBranch Required")]
+        public string CompanyBranch { get; set; }
+
+        /// <summary>
         /// StreetAddress
         /// </summary>
         [Required(ErrorMessage = "StreetAddress Required")]
@@ -42,7 +48,7 @@ namespace SkillSmart.Dto
         /// Zip
         /// </summary>
         [Required(ErrorMessage = "Zip Required")]
-        public string Zip { get; set; }
+        public int Zip { get; set; }
 
         /// <summary>
         /// Country

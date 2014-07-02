@@ -1,0 +1,159 @@
+﻿
+
+<div class="add_div">
+    <!-- ko if: skillCheck() == '0' -->
+<section class="common_background">
+    <li class="jobseeker_myinformation_descriptionli">
+            Tell us about Skills.
+    </li>
+    <li class="jobseeker_myinformation_exampleli" >
+        Years of experience
+    </li>
+    <li class="jobseeker_myinformation_buttonli">
+        <a class="bton btn-orange" href="" data-bind='click: addFirstSkill'>Add Skill</a>
+    </li>
+    </section>
+<!-- /ko -->
+   <!-- ko if: skillCheck() == '1' -->  <a class="butn butn-dkgray" href="" data-bind="click:addCompetency"   ><i class="fa fa-plus"></i>&nbsp Add Competency</a><!-- /ko -->
+
+
+
+<!-- ko if: addCompetencyCheck() == '1' -->
+<div class="common_background">
+    <ul>
+        <li class="jobseeker_registration_outerli">
+            <ul class="jobseeker_registration_ul">
+                <li class="jobseeker_additionalinformation_innerli"><label>Speciality</label></li>
+            
+            </ul>
+        </li>
+        <li class="jobseeker_registration_outerli">
+            <ul class="jobseeker_registration_ul">
+                <li class="jobseeker_additionalinformation_innerli"><input style="width:120px;" data-bind="wijcombobox: { selectedIndex: selectedIndexCompetency, data: dataCompetency }" /></li>
+            </ul>
+        </li>
+        <li ><a class="btn btn-blue first" href=""  data-bind="click: saveCompetency" >Save</a></li>                                       
+    </ul>
+</div>
+<!-- /ko -->
+
+<div class="common_background">          
+    <div  data-bind="foreach: competencyList">             
+        <div class="employer_userAccount_main_div">
+            <div class="employer_userAccount_sub_div">   
+                <label class="myInformation_WorkHistory_Label" >Competency</label>
+                <ul>
+                    <li class="jobseeker_registration_outerli">
+                        <ul class="jobseeker_registration_ul">
+                            <li class="jobseeker_additionalinformation_innerli"><label data-bind="text: CompetencyName"></label></li>
+                            <li ><a style="margin-bottom:10px;" class="butn butn-dkgray" href="#" data-bind = "click: addSkill"><i class="fa fa-plus"></i>&nbsp Add Skill</a></li>            
+                        </ul>
+                    </li>
+                </ul>
+            
+            <!-- ko if: addSkillCheck() == '1' -->
+            <div class="common_background">
+                <ul>
+                    <li class="jobseeker_registration_outerli">
+                        <ul class="jobseeker_registration_ul">
+                            <li class="jobseeker_additionalinformation_innerli"><label>Skill</label></li>
+                        </ul>
+                    </li>
+                    <li class="jobseeker_registration_outerli">
+                        <ul class="jobseeker_registration_ul">
+                            <li class="jobseeker_additionalinformation_innerli"><input style="width:120px;" data-bind="wijcombobox: { selectedIndex: selectedIndexSkill, data: dataSkill }" />
+                              <li><a class="btn btn-blue first" href=""  data-bind="click: saveSkill" >Save</a></li>  
+                            </li>
+                        </ul>
+                    </li>
+                                                               
+                </ul>
+            </div>
+            <!-- /ko -->
+                <br /><br />
+            <div  data-bind="foreach: skillArray">  
+               <!-- ko if: btnSkillList() == '+' -->  
+                <div class="container">
+                    <ul>       
+                        <li>
+                            <div class="skill_Slider">                  
+                                <label style="margin-left:10px;" data-bind="text: skillName"></label>                 
+                                <a href  data-bind="    click: $root.expandSkillDetails"><i class="fa fa-chevron-down"></i></a>                  
+                                <a href=""  data-bind=" click: $root.deleteSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a>                            
+                                <a href="" data-bind=" click: $root.expandSkillDetails"> <i style="float:right;padding-left:7px;" class="fa fa-pencil"></i></a>
+                
+                                <hr size="1" width="95%" /> 
+                                <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:98%"></div>
+                                <div style="padding-top:2%;">
+                                <span style="padding-right:6%;padding-left:3%">0</span><span class="spanNumber">1</span><span class="spanNumber">2</span><span class="spanNumber">3</span><span class="spanNumber">4</span><span class="spanNumber">5</span><span class="spanNumber">6</span><span class="spanNumber">7</span><span class="spanNumber">8</span><span style="padding-right:3%">9</span><span>10</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+               <!-- /ko --> 
+                <br /><br />
+                <!-- ko if: btnSkillList() == '-' -->
+                <br /><br />
+                <div>
+                <div class="employer_editForm_Skilldiv">
+                    <div class="container">
+                        <ul>       
+                            <li>
+                                <div>                  
+                                    <label style="margin-left:10px;" data-bind="text: skillName"></label>
+                                    <a href  data-bind="    click: $root.expandSkillDetails"><i class="fa fa-chevron-down"></i></a>
+                                    <a href=""  data-bind=" click: $root.deleteSkillDetails"><i style="float:right;padding-left:5px;padding-right:5px;" class="fa fa-trash-o"></i></a> 
+                                    <hr size="1" width="98%" />
+                                     <div> 
+                                         <ul>
+                                             <li style="float:left;"><label>Required Proficiency</label></li>
+                                             <li style="margin-left:205px; width:150px;float:left;"><label>Experience</label></li>
+                                             <li  width:150px;float:left;"><label>Importance</label></li>
+                                         </ul>
+                                     </div>
+                                    <div  style="width:40%;float:left;">
+                                        <div class="rangeslider" data-bind="wijslider: { value: val, min: min, max: max }, event: { mouseup: $root.changeProficiency }" style="width:91%"></div>
+                                        <div style="padding-top:2%;">
+                                            <span style="padding-right:6%;padding-left:3%">0</span><span class="spanNumber">1</span><span class="spanNumber">2</span><span class="spanNumber">3</span><span class="spanNumber">4</span><span class="spanNumber">5</span><span class="spanNumber">6</span><span class="spanNumber">7</span><span class="spanNumber">8</span><span style="padding-right:3%">9</span><span>10</span>
+                                        </div>
+                                        <br />
+                                    </div>
+                                    <div style="margin-left:40%;">
+                                       <ul>                                            
+                                             <li style=" width:150px;float:left;"><select class="jobseeker_myinformation_select" data-bind="options: $root.experience, optionsText: 'name', optionsValue: 'id', value: selectedIndexExperience"></select></li>
+                                             <li style=" width:150px;float:left;"><select class="jobseeker_myinformation_select" data-bind="options: $root.importance, optionsText: 'name', optionsValue: 'id', value: selectedIndexImportance"></select></li>
+                                         </ul>
+                                    </div>
+                                    <ul>
+                                        <li  class='jobseeker_registration_outerli'>
+                                            <ul class='jobseeker_registration_ul'>
+                                                <li class='jobseeker_myinformation_innerli'>
+                                                    <input type='radio'  value='required'  data-bind='checked: requiredSkill'/>This Skill is required
+                                                </li>
+                                            </ul>
+                                        </li>    
+                                        <li class="jobseeker_additionalinformation_city_outerli">
+                                        <ul class="jobseeker_additionalinformation_city_ul" >
+                                            <li><a class="btn btn-blue first" href="" data-bind = "click: $root.saveSkillDetails" >Save</a></li>
+                                            <li><a class="btn btn-ltgray" href="" data-bind = "click: $root.cancelSkillDetails">Cancel</a></li>
+                                       
+                                        </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+                <!-- /ko --> 
+        </div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+

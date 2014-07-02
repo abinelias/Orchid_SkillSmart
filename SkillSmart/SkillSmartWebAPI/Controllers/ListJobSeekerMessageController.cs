@@ -15,10 +15,11 @@ namespace SkillSmartWebAPI.Controllers
     {
         public IEnumerable<SkillSmart.Dto.ListJobSeekerMessage> GetAll()
         {
+            var jobId = "";
             var allJobSeekerMessages = ServiceFactory.GetJobSekerMessages().GetAllJobSeekerMessages(SkillsmartUser.GuidStr(HttpContext.Current.User));
             var allCompanyList = ServiceFactory.GetCompany().GetAll();
-            var allEmployerList = ServiceFactory.GetEmployers().GetAll();
-            var allJobList = ServiceFactory.GetJobsList().GetAll();
+            var allEmployerList = ServiceFactory.GetEmployers().GetAll("12");
+            var allJobList = ServiceFactory.GetJobsList().GetAll(jobId);
 
 
             List<SkillSmart.Dto.ListJobSeekerMessage> jobSeekerMessageList = new List<SkillSmart.Dto.ListJobSeekerMessage>();

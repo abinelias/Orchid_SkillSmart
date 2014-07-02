@@ -14,7 +14,7 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all categories by parentId
         /// </summary>
         /// <returns>Category Object</returns>
-        public IEnumerable<Prerequisite> GetAll(string parentId)
+        public IEnumerable<Prerequisite> GetAll(String parentId)
         {
             return ServiceFactory.GetPrerequisite().GetAllPrerequisiteById(parentId);
         }

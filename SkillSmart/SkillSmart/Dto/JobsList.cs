@@ -2,6 +2,7 @@
 using System;
 using System.Web.Script.Serialization;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 namespace SkillSmart.Dto
 {
     public class JobsList : IEntity
@@ -36,17 +37,17 @@ namespace SkillSmart.Dto
         /// <summary>
         /// JobViews
         /// </summary>
-        public string JobViews { get; set; }
+        public int JobViews { get; set; }
 
         /// <summary>
         /// ApplicantsNumber
         /// </summary>
-        public string ApplicantsNumber { get; set; }
+        public int ApplicantsNumber { get; set; }
 
         /// <summary>
         /// ApplicantAverage
         /// </summary>
-        public string ApplicantAverage { get; set; }
+        public int ApplicantAverage { get; set; }
 
         /// <summary>
         /// JobSalary
@@ -62,6 +63,26 @@ namespace SkillSmart.Dto
         /// JobDescription
         /// </summary>
         public string JobDescription { get; set; }
+
+        /// <summary>
+        /// StartDate
+        /// </summary>
+        public DateTime StartDate { get; set; }
+
+        /// <summary>
+        /// EndDate
+        /// </summary>
+        public DateTime EndDate { get; set; }
+
+        /// <summary>
+        /// NoOfOpenings
+        /// </summary>
+        public int NoOfOpenings { get; set; }
+
+        /// <summary>
+        /// PublishId
+        /// </summary>
+        public int PublishId { get; set; }
 
     }
 }

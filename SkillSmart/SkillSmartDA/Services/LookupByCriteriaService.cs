@@ -3,6 +3,8 @@ using MongoDB.Driver.Builders;
 using SkillSmart.Base.Services;
 using SkillSmart.Utilities;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace SkillSmartMongoDA.Services
 {
     using Entities;
@@ -30,7 +32,7 @@ namespace SkillSmartMongoDA.Services
                     listCursor.Add(listObj);
                 }
             }
-            return listCursor;
+            return listCursor.OrderBy(p => p.Name);
         }
 
         /// <summary>

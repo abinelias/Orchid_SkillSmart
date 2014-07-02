@@ -15,10 +15,11 @@ namespace SkillSmartWebAPI.Controllers
 
         public IEnumerable<SkillSmart.Dto.JobsList> GetAll(string filter)
         {
+            var jobId = "";
             JobFilter filterObj = new JavaScriptSerializer().Deserialize<JobFilter>(filter);
-            var alljobList = ServiceFactory.GetJobsList().GetAll();
-            var alljobPrerequisite = ServiceFactory.GetJobPrerequisite().GetAll();
-            var alljobSkills = ServiceFactory.GetJobSkills().GetAll();
+            var alljobList = ServiceFactory.GetJobsList().GetAll(jobId);
+            var alljobPrerequisite = ServiceFactory.GetJobPrerequisite().GetAll(jobId);
+            var alljobSkills = ServiceFactory.GetJobSkills().GetAll(jobId);
 
             List<SkillSmart.Dto.JobsList> jobList = new List<SkillSmart.Dto.JobsList>();
 
@@ -32,12 +33,7 @@ namespace SkillSmartWebAPI.Controllers
                         var industry = company.Industry;
                         if (filterObj.Industry.Contains(industry))
                         {
-                            foreach (JobPrerequisite jobPrerequisite in alljobPrerequisite)
-                            {
-                                if (jobPrerequisite.JobId == joblist.Id.ToString())
-                                {
-                                    if (filterObj.EducationalLevel.Contains(jobPrerequisite.PrerequisiteTypeId))
-                                    {
+                           
                                         var maxSkillExp = 0;
                                         var expId = "";
                                         foreach (JobSkills jobSkill in alljobSkills)
@@ -62,9 +58,6 @@ namespace SkillSmartWebAPI.Controllers
                                         {
                                             jobList.Add(joblist);
                                         }
-                                    }
-                                }
-                            }
                         }
                     }
                 }

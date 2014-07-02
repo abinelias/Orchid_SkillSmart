@@ -71,8 +71,9 @@ $(document).ready(function () {
             });
         });
     }
+    var dataobjJobs = getAllJobs();
     initAdvancedJobSearch();
-    initJobSkillScoreCalculation();
+    initJobSkillScoreCalculation(dataobjJobs);
 });
 
 function getIndustryTypeLookup() {
@@ -196,8 +197,6 @@ function getCarrierLevelLookup() {
 }
 
 function getSavedJobSearch() {
-
-
     var apiUrlgetSavedJobs = GetWebAPIURL() + '/api/SavedJobSearch/';
     var dataSavedJobSearchObj;
     //To get Languages from Language table
@@ -220,6 +219,81 @@ function getSavedJobSearch() {
 }
 
 function initAdvancedJobSearch() {
+
+    ko.extenders.paging = function (target, pageSize) {
+        var _pageSize = ko.observable(pageSize || 10), // default pageSize to 10
+            _currentPage = ko.observable(1); // default current page to 1
+
+        target.pageSize = ko.computed({
+            read: _pageSize,
+            write: function (newValue) {
+                if (newValue > 0) {
+                    _pageSize(newValue);
+                }
+                else {
+                    _pageSize(10);
+                }
+            }
+        });
+
+        target.currentPage = ko.computed({
+            read: _currentPage,
+            write: function (newValue) {
+                if (newValue > target.pageCount()) {
+                    _currentPage(target.pageCount());
+                }
+                else if (newValue <= 0) {
+                    _currentPage(1);
+                }
+                else {
+                    _currentPage(newValue);
+                }
+            }
+        });
+
+        target.pageCount = ko.computed(function () {
+            return Math.ceil(target().length / target.pageSize()) || 1;
+        });
+
+        target.currentPageData = ko.computed(function () {
+            var pageSize = _pageSize(),
+                pageIndex = _currentPage(),
+                startIndex = pageSize * (pageIndex - 1),
+                endIndex = pageSize * pageIndex;
+
+            return target().slice(startIndex, endIndex);
+        });
+
+        target.moveFirst = function () {
+            target.currentPage(1);
+        };
+        target.movePrevious = function () {
+            target.currentPage(target.currentPage() - 1);
+        };
+        target.moveNext = function () {
+            target.currentPage(target.currentPage() + 1);
+        };
+        target.second = function () {
+            target.currentPage(2);
+        };
+        target.third = function () {
+            target.currentPage(3);
+        };
+        target.fourth = function () {
+            target.currentPage(4);
+        };
+        target.moveLast = function () {
+            target.currentPage(target.pageCount());
+        };
+
+        return target;
+    };
+
+
+
+
+    viewModel.jobsList = ko.observableArray().extend({ paging: 5 });
+
     viewModel.savedApplyCheck = ko.observable('0');
     viewModel.saveSearchCheck = ko.observable('0');
     viewModel.applyCheck = ko.observable('0');
@@ -276,7 +350,6 @@ function initAdvancedJobSearch() {
     }
 
     var dataEmploymentObj = getEmploymentLookup();
-    viewModel.employmentType.push({ name: "All", id: "" });
     for (da in dataEmploymentObj) {
         viewModel.employmentType.push({ name: dataEmploymentObj[da].Name, id: dataEmploymentObj[da].Id });
     }
@@ -414,76 +487,7 @@ function createListEducationLevel() {
     return list;
 }
 
-function createListSearch() {
-    var dataSavedJobSearchObj = getSavedJobSearch()
-    var list = [];
 
-    for (da in dataSavedJobSearchObj) {
-        list.push({
-            label: dataSavedJobSearchObj[da].SearchName,
-            value: dataSavedJobSearchObj[da].Id
-        });
-    }
-    return list;
-}
-
-function createsearchCriteria(i) {
-    var self = this;
-    self.lookUpName = ko.observable('');
-    self.contentArray = ko.observableArray();
-
-    if (i == 0) {
-        if (viewModel.workTypeId() != "") {
-            self.lookUpName('WorkType');
-            for (var i = 0; i < viewModel.workTypeId().length; i++) {
-                var addContent = new addContentForWorkType(i);
-                self.contentArray.push(addContent);
-            }
-        }
-    }
-    else if (i == 1) {
-        if (viewModel.industryTypeId() != "") {
-            // alert(viewModel.industryTypeId());
-            self.lookUpName('IndustryType');
-            for (var i = 0; i < viewModel.industryTypeId().length; i++) {
-                var addContentIndustry = new addContentForIndustry(i);
-                self.contentArray.push(addContentIndustry);
-            }
-        }
-    }
-    else if (i == 2) {
-        if (viewModel.selectedIndexEducationLevel() != -1) {
-            self.lookUpName('DegreeType');
-            var addContentDegreeType = new addContentForDegree(i);
-            self.contentArray.push(addContentDegreeType);
-        }
-    }
-    else if (i == 3) {
-        if (viewModel.selectedIndexDistance() != -1) {
-            self.lookUpName('Distance');
-            var addContentDistance = new addContentForDistance();
-            self.contentArray.push(addContentDistance);
-        }
-
-    }
-
-    else if (i == 4) {
-        if (viewModel.salaryId() != "") {
-            self.lookUpName('Salary');
-            for (var i = 0; i < viewModel.salaryId().length; i++) {
-                var addContentSalary = new addContentForSalary(i);
-                self.contentArray.push(addContentSalary);
-            }
-        }
-    }
-    else {
-        if (viewModel.selectedIndexCarrierLevel() != " ") {
-            self.lookUpName('CareerLevel');
-            var addContentCarrierLevel = new addContentForCarrierLevel();
-            self.contentArray.push(addContentCarrierLevel);
-        }
-    }
-}
 
 function createListSearch() {
     var dataSavedJobSearchObj = getSavedJobSearch()

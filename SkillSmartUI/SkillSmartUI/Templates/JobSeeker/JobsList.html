@@ -1,6 +1,6 @@
 ﻿<div>
     
-        <div  data-bind="foreach: jobsList">
+        <div  data-bind="foreach: jobsList.currentPageData">
             <div id='Message' class='jobsApplied' >
             <div class="jobseeker_myinformation_list_tab_sub_div">
             <li style="float:right"><label  class="post-stat">Date Applied:</label><label class="post-stat-value" data-bind="text: dateApplied"></label><label  class="post-stat">Status:</label><label class="post-stat-value last" data-bind="    text: jobStatus"></label>   <div class="skill_Score"><div class="skill_Score_title">Skill Score</div><div class="skill_Score_value" data-bind="    text: totalSkillScore"></div></div></li>
@@ -34,5 +34,14 @@
             </div>
             </div>
         </div>
+    </div>
+ <div style="text-align:center;">
+        <a class="pagintionClass" href="#" data-bind="click: jobsList.movePrevious"><<</a>
+        <a class="pagintionClass" href="#" data-bind="click: jobsList.moveFirst">1</a>                    
+        <a class="pagintionClass" href="#" data-bind="click: jobsList.second">2</a>
+        <a class="pagintionClass" href="#" data-bind="click: jobsList.third">3</a>                    
+        <a class="pagintionClass" href="#" data-bind="click: jobsList.fourth">4</a>
+        <a class="pagintionClass" href="#" data-bind="click: jobsList.moveNext">>></a>
+       
     </div>
 </div>

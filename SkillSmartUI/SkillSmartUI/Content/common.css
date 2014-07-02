@@ -1015,3 +1015,12 @@ ul.prerequisites li:before {
     display: inline-block;
     padding: 0 5px 0 0;
 }
+
+ .pagintionClass {
+        color:blue;
+        text-decoration:none;padding-right:5px;
+}
+    a.pagintionClass:active {
+    background:blue;
+    color:white;
+    }

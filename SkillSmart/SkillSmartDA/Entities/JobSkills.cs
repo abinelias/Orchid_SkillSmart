@@ -34,5 +34,11 @@ namespace SkillSmartMongoDA.Entities
         /// </summary>
         [BsonElement("SkillExperience")]
         public int SkillExperience { get; set; }
+
+        /// <summary>
+        /// Required
+        /// </summary>
+        [BsonElement("Required")]
+        public int Required { get; set; }
     }
 }

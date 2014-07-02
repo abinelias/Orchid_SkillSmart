@@ -31,11 +31,11 @@
     }).done(function (data) {
       dataModel.login({
         grant_type: "password",
-        email: self.email(),
+        userName: self.email(),
         password: self.password()
       }).done(function (data) {
         self.registering(false);
-
+        window.location.reload();
         if (data && data.access_token) {
           app.navigateToLoggedIn(data, data.access_token, false /* persistent */);
         } else {

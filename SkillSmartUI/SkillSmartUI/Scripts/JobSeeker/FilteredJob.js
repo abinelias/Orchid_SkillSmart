@@ -82,7 +82,6 @@ function createsearchCriteria(i) {
             var addContentDistance = new addContentForDistance();
             self.contentArray.push(addContentDistance);
         }
-
     }
 
     else if (i == 4) {
@@ -95,7 +94,7 @@ function createsearchCriteria(i) {
         }
     }
     else {
-        if (viewModel.selectedIndexCarrierLevel() != " ") {
+        if (viewModel.selectedIndexCarrierLevel()) {
             self.lookUpName('CareerLevel');
             var addContentCarrierLevel = new addContentForCarrierLevel();
             self.contentArray.push(addContentCarrierLevel);
@@ -204,7 +203,6 @@ function getFilteredJobsList() {
     JobFilter.EmployeementType = employment;
     JobFilter.CarrierLevel = carrierLevel;
     dataObjFilter = JSON.stringify(JobFilter);
-
     var apiUrlJobFilter = GetWebAPIURL() + '/api/JobFilter?filter=' + dataObjFilter;
 
     //To get Scholarship details
@@ -214,8 +212,8 @@ function getFilteredJobsList() {
         async: false,
         contentType: "application/json; charset=utf-8",
         success: function (data) {
+            initJobSkillScoreCalculation(data);
 
-            initJobsApplied(data);
             viewModel.listJobs('1');
         },
         error: function (xhr, status, error) {

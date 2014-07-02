@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Add Skill</title>
+    <script src="/Scripts/Common.js"></script>
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+    <script src="/Scripts/Employer/AddSkill.js"></script>
+
+    <link href="/Content/skillsmart.css" rel="stylesheet" />
+    <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
+    <link href="/Content/common.css" rel="stylesheet" />
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+</head>
+<body>
+    <ul>
+   
+   
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Industry</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"><select id="CategoryList"class="jobseeker_myinformation_select" data-bind="options: category, optionsText: 'name', optionsValue: 'id', value: selectedCategory"></select></li>
+        </ul>
+    </li>
+
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Competency</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"> <select id="SpecialityList" class="jobseeker_myinformation_select" data-bind="options: speciality, optionsText: 'name', optionsValue: 'id', value: selectedSpeciality"></select></li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Skills</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"><select id="SkillList" class="jobseeker_myinformation_select" data-bind="options: $root.skill, optionsText: 'name', optionsValue: 'id', selectedOptions: selectedSkill"></select></li>
+        </ul>
+    </li>
+    <li class="jobseeker_additionalinformation_city_outerli">
+        <ul class="jobseeker_additionalinformation_city_ul" >
+            <li  ><a class="btn btn-blue first" href="" data-bind = "click: saveSkills" >Save</a></li>
+        </ul>
+    </li>
+    
+</ul>
+</body>
+</html>

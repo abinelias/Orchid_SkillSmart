@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Prerequisites Add</title>
+    <script src="/Scripts/Common.js"></script>
+    <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
+    <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
+
+    <script src="/Scripts/Employer/PrerequisiteAdd.js"></script>
+
+    <link href="/Content/skillsmart.css" rel="stylesheet" />
+    <link href="/Content/skillsmart.wijmo.css" rel="stylesheet" />
+    <link href="/Content/common.css" rel="stylesheet" />
+    <link href="/Content/jobseekerstyle.css" rel="stylesheet" />
+</head>
+<body>
+     <ul>
+     <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Prerequisite</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"><select id="CategoryList"class="jobseeker_myinformation_select" data-bind="options: prerequisite, optionsText: 'name', optionsValue: 'id', value: selectedPrerequisite"></select></li>
+        </ul>
+    </li> 
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli">
+            <label>Prerequisite Name</label>
+            </li>
+        </ul>
+    </li>
+    <li class="jobseeker_registration_outerli">
+        <ul class="jobseeker_registration_ul">
+            <li class="jobseeker_registration_innerli"><input type="text" placeholder="Prerequisite Name" data-bind="value: prerequisiteName" /></li>
+        </ul>
+    </li>
+
+    
+    <li class="jobseeker_additionalinformation_city_outerli">
+        <ul class="jobseeker_additionalinformation_city_ul" >
+            <li  ><a class="btn btn-blue first" href="" data-bind = "click: savePrerequisite" >Save</a></li>
+        </ul>
+    </li>    
+</ul>
+</body>
+</html>

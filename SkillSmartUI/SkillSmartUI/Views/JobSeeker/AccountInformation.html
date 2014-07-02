@@ -4,7 +4,6 @@
     <title>My Account</title>
     <script src="/Scripts/Common.js"></script>
     <script src="/Scripts/vendor/jquery-1.10.2.min.js"></script>
-    <script src="/Scripts/vendor/jquery.viewloader.js"></script>
     <script src="/Scripts/vendor/knockout-3.0.0.js"></script>
     
 
@@ -52,11 +51,10 @@
 
 </head>
 <body>
-     <div id="container">
-         <div id="wrapHeader">
-            <div id="header"></div>
-         </div>
-         <div id="content">
+    <div id="container">
+        <div id="hph">
+        </div>
+        <div id="content">
             <div id="main-div">        
                 <section class="sectionModified box box-white"  data-bind="template: { name: 'AccountDetail' }">
                 </section>
@@ -64,16 +62,15 @@
                 <section class="sectionModified box box-white" data-bind="template: { name: 'NotificationPreferences' }" >
                 </section>
 
-                 <section class="sectionModified box box-white" data-bind="template: { name: 'Demographic' }" >
+                <section class="sectionModified box box-white" data-bind="template: { name: 'Demographic' }" >
                 </section>
 
                 <section  class="sectionModified box box-white" data-bind="template: { name: 'accountStatus' }" >
                 </section>
             </div>
-            </div>
-            <div id="wrapFooter">
-                <div id="footer"></div> 
-            </div>
-      </div>   
+        </div>
+        <div id="fph">
+        </div>
+    </div>   
 </body>
 </html>

@@ -5,7 +5,7 @@ namespace SkillSmart.Base.Services
     public interface IEmployerService<T> : IEntityService<T> where T : IEntity
     {
 
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string companyId);
 
     }
 }

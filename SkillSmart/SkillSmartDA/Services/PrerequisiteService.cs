@@ -3,6 +3,7 @@ using MongoDB.Driver.Builders;
 using SkillSmart.Base.Services;
 using SkillSmart.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using MongoDB.Driver.Linq;
 namespace SkillSmartMongoDA.Services
 {
@@ -20,12 +21,21 @@ namespace SkillSmartMongoDA.Services
         /// <returns>Category object</returns>
         public IEnumerable<SkillSmart.Dto.Prerequisite> GetAllPrerequisiteById(string id)
         {
-            var prerequisiteList = this.MongoCollection.FindAllAs<Prerequisite>();
-
             List<SkillSmart.Dto.Prerequisite> prerequisite = new List<SkillSmart.Dto.Prerequisite>();
-            foreach (Prerequisite jobSeeker in prerequisiteList)
+            if (id == "")
             {
-                if (jobSeeker.ParentId.ToString() == id)
+                var allPrerequisiteList = this.MongoCollection.FindAllAs<Prerequisite>();
+                List<SkillSmart.Dto.Prerequisite> skillList = new List<SkillSmart.Dto.Prerequisite>();
+                foreach (Prerequisite jobSeeker in allPrerequisiteList)
+                {
+                    SkillSmart.Dto.Prerequisite jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.Prerequisite, SkillSmart.Dto.Prerequisite>(jobSeeker);
+                    skillList.Add(jobSeekerObj);
+                }
+            }
+            else
+            {
+                var prerequisiteList = this.MongoCollection.AsQueryable<Prerequisite>().Where(e => e.ParentId == id);
+                foreach (Prerequisite jobSeeker in prerequisiteList)
                 {
                     SkillSmart.Dto.Prerequisite jobSeekerObj = MapperUtilities.MapToViewModel<SkillSmartMongoDA.Entities.Prerequisite, SkillSmart.Dto.Prerequisite>(jobSeeker);
                     prerequisite.Add(jobSeekerObj);

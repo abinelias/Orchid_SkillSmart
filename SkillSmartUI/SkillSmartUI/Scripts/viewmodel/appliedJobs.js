@@ -34,6 +34,7 @@ $(document).ready(function () {
 var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 var jobId = hashes[1].substring(6);
 
+
 function getTitleLookup() {
     var apiUrlTitle = GetWebAPIURL() + '/api/Lookup/?name=Title';
     var dataTitleObj;
@@ -180,7 +181,6 @@ function getAppliedJobsList() {
     var dataobjJobList;
     var apiUrlJobList = GetWebAPIURL() + '/api/JobsList/'+jobId;
 
-
     //To get Job list 
     $.ajax({
         url: apiUrlJobList,
@@ -199,7 +199,6 @@ function getAppliedJobsList() {
 }
 
 function initAcountDetails() {
-
     var dataObjJobSeeker = getHeaderDetails();
     viewModel.firstname = ko.observable(dataObjJobSeeker.FirstName);
     viewModel.lastname = ko.observable(dataObjJobSeeker.LastName);
@@ -213,6 +212,7 @@ function initAcountDetails() {
     var dataObjCountry = getCountryLookup();
     var dataTitleObj = getTitleLookup();
     var dataObjSuffix = getSuffixLookup();
+    var dataObjState;
     viewModel.textTitle = ko.observable("");
     viewModel.selectedIndexTitle = ko.observable(0);
     viewModel.dataTitle = ko.observable(createListTitle());
@@ -289,7 +289,7 @@ function initAcountDetails() {
                 success: function (data) {
 
                     viewModel.dataState(createListState(data));
-
+                    dataObjState = data;
                 },
                 error: function (xhr, status, error) {
                     alert('Error :' + status);
@@ -349,6 +349,13 @@ function initAcountDetails() {
                     }
                 }
             }
+            if (dataObjAdditionalInfo.StateId) {
+                for (da in dataObjState) {
+                    if (dataObjAdditionalInfo.StateId == dataObjState[da].Id) {
+                        viewModel.selectedIndexState(da);
+                    }
+                }
+            }
         }
     }
 
@@ -368,9 +375,13 @@ function initAcountDetails() {
     viewModel.errorAccountInformation = ko.validation.group({ p1: viewModel.firstname, p2: viewModel.lastname, p3: viewModel.addressline1, p4: viewModel.addressline2, p5: viewModel.city, p6: viewModel.zip, p7: viewModel.phonehome });
 
     var dataobjJobList = getAppliedJobsList();
+
+    var dataObjCompanyDetails = getCompanyDetails(dataobjJobList.CompanyId);
+
     viewModel.jobPosition = dataobjJobList.JobPosition;
-    viewModel.companyLocation = dataobjJobList.JobLocation;
-    viewModel.employerName = dataobjJobList.CompanyName;
+    viewModel.companyLocation = dataObjCompanyDetails.City;
+    viewModel.employerName = dataObjCompanyDetails.CompanyName;
+
 }
 
 function createListTitle() {
@@ -579,3 +590,24 @@ viewModel.submitApplication = function () {
 
 }
 
+function getCompanyDetails(CompanyID) {
+    var dataobjJobs;
+    var apiUrlJobs = GetWebAPIURL() + 'api/Company/?companyId=' + CompanyID;
+
+
+    //To get Job list 
+    $.ajax({
+        url: apiUrlJobs,
+        type: 'GET',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            dataobjJobs = data;
+
+        },
+        error: function (xhr, status, error) {
+            alert('Erooororlang :' + status);
+        }
+    });
+    return dataobjJobs;
+}

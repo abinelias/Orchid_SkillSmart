@@ -16,7 +16,17 @@ namespace SkillSmart.Dto
 
         public int SkillScore { get; set; }
 
+        public int SkillExperience { get; set; }
+
         public int SkillImportance { get; set; }
+
+        public string CategoryName { get; set; }
+
+        public string CategoryId { get; set; }
+
+        public string SpecialityName { get; set; }
+
+        public string SpecialityId { get; set; }
 
         public string Id { get; set; }
     }

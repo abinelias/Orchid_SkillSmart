@@ -1,0 +1,21 @@
+﻿<div>
+    <div class="add_div">
+    <li> <label style="font-size:20px;"> Prerequisites</label>
+        <!-- ko if: prerequisiteCheck() == '1' -->
+            <!-- ko if: btnPrerequisite() == 'Edit' --><a class="butn butn-white" href="" data-bind='click: clickButtonPrerequisites' ><i class="fa fa-pencil-square-o"></i>&nbsp Edit</a><!-- /ko -->
+            <!-- ko if: btnPrerequisite() == 'Add More' -->
+                <!-- ko if: addMorePrerequisiteCheck() == '1' -->
+                    <a class="butn butn-white" href="" data-bind='click: clickButtonPrerequisites' ><i class="fa fa-plus"></i>&nbsp Add More</a>
+                <!-- /ko -->
+            <!-- /ko -->
+        <!-- /ko -->
+    </li>
+    <hr />
+    </div>
+</div>
+
+<div class="add_div">
+
+    <ul data-bind='template: { name: whichTemplateToUsePrerequisites }'></ul>
+
+</div>

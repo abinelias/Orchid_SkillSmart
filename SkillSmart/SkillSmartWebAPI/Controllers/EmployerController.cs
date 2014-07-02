@@ -16,9 +16,9 @@ namespace SkillSmartWebAPI.Controllers
         /// To get all jobseekers list
         /// </summary>
         /// <returns>List of jobseekers</returns>
-        public IEnumerable<Employer> GetAll()
+        public IEnumerable<Employer> GetAll(String companyId)
         {
-            return ServiceFactory.GetEmployers().GetAll();
+            return ServiceFactory.GetEmployers().GetAll(companyId);
         }
 
         /// <summary>

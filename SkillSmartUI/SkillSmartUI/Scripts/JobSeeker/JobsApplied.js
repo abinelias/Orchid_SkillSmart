@@ -2,8 +2,7 @@
     initJobSkillScoreCalculation();
 });
 
-var url = window.location.href;
-var userId = url.substring(url.lastIndexOf('=') + 1);
+
 
 function getJobsList() {
     var dataobjJobList;
@@ -89,57 +88,27 @@ function getJobSeekerSkills() {
     return dataJobSeekerSkillListObj;
 }
 
+function getSalaryLookup() {
+    var apiUrlSalary = GetWebAPIURL() + '/api/Lookup/?name=Salary';
+    var dataSalaryObj;
 
+    //To get details of DegreeType lookup
+    $.ajax({
+        url: apiUrlSalary,
+        type: 'GET',
+        async: false,
+        success: function (data) {
+            dataSalaryObj = data;
 
-function initJobsApplied() {
-    viewModel.savedApplyCheck = ko.observable('1');
-    viewModel.applyCheck = ko.observable('1');
-    viewModel.disabled = ko.observable(false);
-    viewModel.collapsible = ko.observable(false);
-    viewModel.jobs = ko.observableArray();
-
-    if (dataobjJobList) {
-        for (var i = 0; i < dataobjJobList.length; i++) {
-            var jobDetails = new getJobDetails(dataobjJobList[i].JobId);
-            var listJob = new createJobList(jobDetails);
-            viewModel.jobs.push(listJob);
+        },
+        error: function (xhr, status, error) {
+            alert('Error :' + status);
         }
-    }
-    viewModel.noOfJobs = dataobjJobList.length;
+    });
+    return dataSalaryObj;
 }
 
-function createJobList(objJobs) {
-
-    var self = this;
-    if (objJobs) {
-        self.jobId = objJobs.Id;
-
-        self.employerName = objJobs.CompanyName;
-        self.jobPosition = objJobs.JobPosition;
-        self.companyLocation = objJobs.JobLocation;
-        self.datePosted = objJobs.PostingDate;
-        self.dateApplied = 'Feb 12,2014';
-        self.jobStatus = 'Filled';
-        self.salaryRange = objJobs.JobSalary;
-        self.jobDescription = objJobs.JobDescription;
-
-        self.jobViews = objJobs.JobViews;
-        self.applicants = objJobs.ApplicantsNumber;
-        self.applicantsSkillScore = objJobs.ApplicantAverage;
-        self.prerequisites = ko.observableArray();
-        for (var k = 0; k < 3; k++) {
-            self.prerequisites.push({ designExperience: '10 years of design experience' });
-        }
-        self.requiredSkills = ko.observableArray();
-        for (var i = 0; i < dataobjSkillList.length; i++) {
-            if (dataobjSkillList[i].JobId == objJobs.Id) {
-                self.requiredSkills.push({ skillName: dataobjSkillList[i].SkillName, skillScore: dataobjSkillList[i].SkillScore });
-            }
-        }
-    }
-    self.btnJobsList = ko.observable('+');
-}
-
+var dataobjJobPrerequisiteList = getPrerequisiteList();
 function initJobSkillScoreCalculation() {
     var dataobjAppliedJobList = getJobsList();
     var dataobjJobSkillList = getSkillList();
@@ -152,10 +121,17 @@ function initJobSkillScoreCalculation() {
     viewModel.savedApplyCheck = ko.observable('1');
     viewModel.applyCheck = ko.observable('1');
     viewModel.noOfJobs = dataobjAppliedJobList.length;
+    viewModel.salary = ko.observableArray();
+    var dataSalaryObj = getSalaryLookup();
+    for (da in dataSalaryObj) {
+        viewModel.salary.push({ name: dataSalaryObj[da].Name, id: dataSalaryObj[da].Id });
+    }
     for (daJobs in dataobjAppliedJobList) {
+
         for (daJobSkill in dataobjJobSkillList) {
 
             if (dataobjAppliedJobList[daJobs].JobId == dataobjJobSkillList[daJobSkill].JobId) {
+
                 var score = new fillScoreDetails(dataobjJobSkillList[daJobSkill], dataJobSeekerSkillListObj);
                 viewModel.scoreDetails.push(score);
 
@@ -305,16 +281,23 @@ function createJobSeekerJobList(totalSkillScoreJobSeeker, objJobs, jobSkillsDeta
     var self = this;
     if (objJobs) {
         var jobDetails = getJobDetails(objJobs.JobId);
+        var dataObjCompanyDetails = getCompanyDetails(jobDetails.CompanyId);
 
         self.jobId = objJobs.Id;
         self.totalSkillScore = totalSkillScoreJobSeeker;
-        self.employerName = jobDetails.CompanyName;
+        self.employerName = dataObjCompanyDetails.CompanyName;
         self.jobPosition = jobDetails.JobPosition;
-        self.companyLocation = jobDetails.JobLocation;
+        self.companyLocation = dataObjCompanyDetails.City;
         self.datePosted = jobDetails.PostingDate;
         self.dateApplied = 'Feb 12,2014';
         self.jobStatus = 'Filled';
-        self.salaryRange = jobDetails.JobSalary;
+        self.salaryRange = ko.computed(function () {
+            for (var j = 0; j < viewModel.salary().length; j++) {
+                if (viewModel.salary()[j].id == jobDetails.JobSalary) {
+                    return viewModel.salary()[j].name;
+                }
+            }
+        }, this);
         self.jobDescription = jobDetails.JobDescription;
 
         self.jobViews = jobDetails.JobViews;
@@ -322,8 +305,10 @@ function createJobSeekerJobList(totalSkillScoreJobSeeker, objJobs, jobSkillsDeta
         self.applicantsSkillScore = jobDetails.ApplicantAverage;
         self.prerequisites = ko.observableArray();
 
-        for (var k = 0; k < 3; k++) {
-            self.prerequisites.push({ designExperience: '10 years of design experience' });
+        for (var k = 0; k < dataobjJobPrerequisiteList.length; k++) {
+            if (dataobjJobPrerequisiteList[k].JobId == objJobs.JobId) {
+                self.prerequisites.push({ designExperience: dataobjJobPrerequisiteList[k].PrerequisiteName });
+            }
         }
         self.requiredSkills = ko.observableArray();
         if (jobSkillsDetails) {
@@ -347,4 +332,47 @@ function getSkillName(jobSkillsDetails, dataobjJobSkillList) {
         }
     }
     return skillName;
+}
+
+function getCompanyDetails(CompanyID) {
+    var dataobjJobs;
+    var apiUrlJobs = GetWebAPIURL() + 'api/Company/?companyId=' + CompanyID;
+
+
+    //To get Job list 
+    $.ajax({
+        url: apiUrlJobs,
+        type: 'GET',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            dataobjJobs = data;
+
+        },
+        error: function (xhr, status, error) {
+            alert('Erooororlang :' + status);
+        }
+    });
+    return dataobjJobs;
+}
+
+function getPrerequisiteList() {
+    var dataObjJobPrerequisite;
+    var apiUrlPrerequisiteList = GetWebAPIURL() + '/api/ListJobPrerequisite';
+
+    //To get Job list 
+    $.ajax({
+        url: apiUrlPrerequisiteList,
+        type: 'GET',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            dataObjJobPrerequisite = data;
+
+        },
+        error: function (xhr, status, error) {
+            alert('Eroooror :' + status);
+        }
+    });
+    return dataObjJobPrerequisite;
 }
